@@ -6,7 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -20,8 +20,10 @@ import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import quaternary.botaniatweaks.tile.TileCustomAgglomerationPlate;
 import quaternary.botaniatweaks.tile.TileNerfedManaFluxfield;
 import quaternary.botaniatweaks.util.BlockUtil;
+import vazkii.botania.common.item.block.ItemBlockMod;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Mod(modid = BotaniaTweaks.MODID, name = BotaniaTweaks.NAME, version = BotaniaTweaks.VERSION, dependencies = BotaniaTweaks.DEPS)
 public class BotaniaTweaks {
@@ -45,13 +47,18 @@ public class BotaniaTweaks {
 	};
 	
 	static {
-		BLOCKS.add(BlockUtil.setName(new BlockNerfedManaFluxfield(), "rfGenerator"));
-		BLOCKS.add(BlockUtil.setName(new BlockCustomAgglomerationPlate(), "terraPlate"));
+		LOG.info("Creating some registry replacements for Botania. Here come the blocks:");
+		BLOCKS.add(new BlockNerfedManaFluxfield());
+		BLOCKS.add(new BlockCustomAgglomerationPlate());
 		
+		LOG.info("And the items:");
 		for(Block b : BLOCKS) {
-			b.setCreativeTab(TAB);
-			ITEMS.add(new ItemBlock(b).setRegistryName(b.getRegistryName()));
+			Item i = new ItemBlockMod(b).setRegistryName(b.getRegistryName());
+			i.setCreativeTab(BotaniaTweaks.TAB); //plS
+			ITEMS.add(i);
 		}
+		
+		LOG.info("It is safe to ignore the warnings Forge just printed!");
 	}
 	
 	@Mod.EventHandler

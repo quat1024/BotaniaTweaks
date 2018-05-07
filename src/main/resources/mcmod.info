@@ -1,0 +1,17 @@
+[
+{
+  "modid": "botania_tweaks",
+  "name": "Botania Tweaks",
+  "description": "Small tweaks to Botania for packmakers and players.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "logoFile": "",
+  "url": "",
+  "updateJSON": "",
+  "authorList": ["quaternary"],
+  "credits": "Your mom",
+  "parent": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

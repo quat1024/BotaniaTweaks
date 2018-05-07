@@ -1,63 +1,46 @@
 package quaternary.botaniatweaks.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import quaternary.botaniatweaks.BotaniaTweaks;
+import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import quaternary.botaniatweaks.tile.TileCustomAgglomerationPlate;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.ILexiconable;
-import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.mana.BlockTerraPlate;
+import vazkii.botania.common.core.BotaniaCreativeTab;
 
 import javax.annotation.Nonnull;
 
 //COPY from BlockTerraPlate.java. Changes noted.
-public class BlockCustomAgglomerationPlate extends Block implements ILexiconable {
-	private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 3.0/16, 1);
-	
+public class BlockCustomAgglomerationPlate extends BlockTerraPlate implements ILexiconable {	
 	public BlockCustomAgglomerationPlate() {
-		super(Material.IRON);
-		setHardness(3F);
-		setResistance(10F);
-		setSoundType(SoundType.METAL);
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
-	}
-	
-	@Nonnull
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return AABB;
-	}
-	
-	//BOTANIATWEAKS (temp?) - remove onBlockActivated right-click-onto-plate convenience
-	
-	@Override
-	public boolean isFullCube(IBlockState state) {
-		return false;
+		//ReflectionHelper.setPrivateValue(ModBlocks.class, null, this, "terraPlate");
 	}
 	
 	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-	
-	@Override
-	public boolean isPassable(IBlockAccess world, BlockPos pos) {
-		return false;
-	}
-	
-	@Override
-	public boolean hasTileEntity(IBlockState state) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing s, float xs, float ys, float zs) {
+		if(hand != EnumHand.MAIN_HAND) return false; //You're welcome for not clicking the shield on to the plate.
+		
+		//allow the player to place the item on the agglomeration plate with right click
+		ItemStack heldStack = player.getHeldItem(hand);
+		if(!AgglomerationRecipes.containsItem(heldStack)) return false;
+		
+		ItemStack oneHeld = heldStack.splitStack(1);
+		EntityItem ent = new EntityItem(world, pos.getX() + .5, pos.getY() + 3/16d, pos.getZ() + .5, oneHeld);
+		ent.motionX = 0; ent.motionY = 0; ent.motionZ = 0;
+		world.spawnEntity(ent);
 		return true;
 	}
 	
@@ -69,15 +52,14 @@ public class BlockCustomAgglomerationPlate extends Block implements ILexiconable
 	}
 	
 	@Override
-	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack lexicon) {
-		return LexiconData.terrasteel;
+	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
+		return 0; //for now todo
 	}
 	
-	//BOTANIATWEAKS: (temp) remove comparator override
-	
-	@Nonnull
 	@Override
-	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
-		return side == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if(tab == BotaniaTweaks.TAB || tab == BotaniaCreativeTab.INSTANCE) {
+			super.getSubBlocks(tab, items);
+		}
 	}
 }

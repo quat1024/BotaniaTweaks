@@ -83,7 +83,7 @@ public class AgglomerationRecipe {
 		//Check stack inputs
 		for(ItemStack recipeStack : recipeStacks) {
 			for(ItemStack inputStack : inputs) {
-				if(ItemStack.areItemStacksEqual(recipeStack, inputStack)) {
+				if(ItemHandlerHelper.canItemStacksStack(recipeStack, inputStack)) {
 					matches++;
 					break; //try the next input stack
 				}
@@ -126,6 +126,15 @@ public class AgglomerationRecipe {
 	}
 	
 	//// Yeet
+	
+	
+	public ImmutableList<ItemStack> getRecipeStacks() {
+		return recipeStacks;
+	}
+	
+	public ImmutableList<String> getRecipeOreKeys() {
+		return recipeOreKeys;
+	}
 	
 	public int getManaCost() {
 		return manaCost;

@@ -2,22 +2,36 @@ package quaternary.botaniatweaks.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.energy.IEnergyStorage;
+import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import vazkii.botania.api.mana.IManaReceiver;
 
+import javax.annotation.Nullable;
+
 public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver, ITickable {
-	public static final int ENERGY_BUFFER_SIZE = 1000;
-	public static final int MAX_EXTRACTION_RATE = 1600;
+	static final int ENERGY_BUFFER_SIZE = 1000;
+	static final int MAX_EXTRACTION_RATE = 1600;
 	
 	int manaBuffer = 0;
-	int energy = 0;
+	static final int MAX_MANA_BUFFER = 10000;
 	
-	public IEnergyStorage energyHandler = new IEnergyStorage() {		
+	public EnergyHandler handler = new EnergyHandler();
+	
+	class EnergyHandler implements IEnergyStorage {
+		int energy = 0;
+		
 		@Override
 		public int getEnergyStored() {
 			return energy;
+		}
+		
+		void setEnergyStored(int energy) {
+			this.energy = energy;
 		}
 		
 		@Override
@@ -43,34 +57,32 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 			return false;
 		}
 		
+		//but I can!
+		int sneakyReceiveEnergy(int maxReceive, boolean simulate) {
+			int freeSpace = getMaxEnergyStored() - energy;
+			if(maxReceive <= freeSpace) { //can it all fit?
+				if(!simulate) energy += maxReceive;
+				return 0;
+			} else {
+				//how much can fit?
+				if(!simulate) energy = ENERGY_BUFFER_SIZE;
+				return maxReceive - freeSpace;
+			}
+		}
+		
 		@Override
 		public int receiveEnergy(int maxReceive, boolean simulate) {
 			return 0;
 		}
-	};
-	
-	//...but I can!
-	//this method is more like an item handler than a power handler
-	//it returns the amount of energy that did *not* fit
-	int sneakyReceiveEnergy(int maxReceive, boolean simulate) {
-		int freeSpace = ENERGY_BUFFER_SIZE - energy;
-		if(maxReceive <= freeSpace) { //can it all fit?
-			if(!simulate) energy += maxReceive;
-			return 0;
-		} else {
-			//how much can fit?
-			if(!simulate) energy = ENERGY_BUFFER_SIZE;
-			return maxReceive - freeSpace;
-		}
 	}
 	
 	@Override
-	public void update() {
-		int manaThreshold = BotaniaTweaksConfig.MANA_SHOTS_PER_ENERGY_BURST / 160;
+	public void update() {		
+		int manaThreshold = BotaniaTweaksConfig.MANA_SHOTS_PER_ENERGY_BURST * 160;
 		while(manaBuffer >= manaThreshold) {
-			int leftover = sneakyReceiveEnergy(BotaniaTweaksConfig.FE_PER_ENERGY_BURST, true);
+			int leftover = handler.sneakyReceiveEnergy(BotaniaTweaksConfig.FE_PER_ENERGY_BURST, true);
 			if(leftover == 0) {
-				sneakyReceiveEnergy(BotaniaTweaksConfig.FE_PER_ENERGY_BURST, false);
+				handler.sneakyReceiveEnergy(BotaniaTweaksConfig.FE_PER_ENERGY_BURST, false);
 				manaBuffer -= manaThreshold;
 			} else {
 				break;
@@ -80,7 +92,7 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 	
 	@Override
 	public boolean isFull() {
-		return energy >= ENERGY_BUFFER_SIZE;
+		return handler.getEnergyStored() >= ENERGY_BUFFER_SIZE;
 	}
 	
 	@Override
@@ -90,7 +102,7 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 	
 	@Override
 	public boolean canRecieveManaFromBursts() {
-		return true;
+		return manaBuffer <= MAX_MANA_BUFFER;
 	}
 	
 	@Override
@@ -101,7 +113,7 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		nbt.setInteger("ManaBuffer", manaBuffer);
-		nbt.setInteger("EnergyBuffer", energy);
+		nbt.setInteger("EnergyBuffer", handler.getEnergyStored());
 		return super.writeToNBT(nbt);
 	}
 	
@@ -109,6 +121,24 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		manaBuffer = nbt.getInteger("ManaBuffer");
-		energy = nbt.getInteger("EnergyBuffer");
+		handler.setEnergyStored(nbt.getInteger("EnergyBuffer"));
+	}
+	
+	@CapabilityInject(IEnergyStorage.class)
+	public static final Capability<IEnergyStorage> ENERGY_CAP = null;
+	
+	@Override
+	@SuppressWarnings("ConstantConditions")
+	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+		if(capability == ENERGY_CAP) return true;
+		else return super.hasCapability(capability, facing);
+	}
+	
+	@Nullable
+	@Override
+	@SuppressWarnings("ConstantConditions")
+	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+		if(capability == ENERGY_CAP) return ENERGY_CAP.cast(handler);
+		else return super.getCapability(capability, facing);
 	}
 }

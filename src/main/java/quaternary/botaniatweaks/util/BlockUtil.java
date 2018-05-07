@@ -11,6 +11,12 @@ public class BlockUtil {
 		return in;
 	}
 	
+	public static <B extends Block> B setOverridingName(B in, String name) {
+		in.setRegistryName(new ResourceLocation("botania", name));
+		in.setUnlocalizedName(BotaniaTweaks.MODID + "." + name);
+		return in;
+	}
+	
 	public static <B extends Block> B setTab(B in) {
 		in.setCreativeTab(BotaniaTweaks.TAB);
 		return in;

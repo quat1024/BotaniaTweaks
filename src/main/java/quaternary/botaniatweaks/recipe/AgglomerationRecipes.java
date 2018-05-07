@@ -5,6 +5,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.StorageVariant;
 import vazkii.botania.common.block.ModBlocks;
@@ -24,6 +26,7 @@ public class AgglomerationRecipes {
 		));
 		
 		//example recipes
+		//TODO norelease remove these dumb recipes
 		register(new AgglomerationRecipe(
 			ImmutableList.of(new ItemStack(Items.APPLE), new ItemStack(Items.GOLDEN_APPLE)),
 			new ItemStack(ModItems.infiniteFruit),
@@ -58,6 +61,25 @@ public class AgglomerationRecipes {
 		return Optional.empty();
 	}
 	
+	public static boolean containsItem(ItemStack stack) {
+		for(AgglomerationRecipe recipe : recipes) {
+			for(ItemStack recipeStack : recipe.getRecipeStacks()) {
+				if(ItemHandlerHelper.canItemStacksStack(stack, recipeStack)) {
+					return true;
+				}
+			}
+			
+			for(String oreKey : recipe.getRecipeOreKeys()) {
+				for(ItemStack oreStack : OreDictionary.getOres(oreKey)) {
+					if(ItemHandlerHelper.canItemStacksStack(stack, oreStack)) {
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
 	
 	//METADATA GOD ITEMS: not even once
 	static int MANASTEEL = 0;

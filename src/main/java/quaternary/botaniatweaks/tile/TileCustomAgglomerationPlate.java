@@ -42,9 +42,11 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 			
 			//attract mana from nearby sporked pools
 			ISparkEntity mySpork = getAttachedSpark();
-			for(ISparkEntity otherSpork : SparkHelper.getSparksAround(world, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5)) {
-				if(mySpork != otherSpork && otherSpork.getAttachedTile() instanceof IManaPool) {
-					otherSpork.registerTransfer(mySpork);
+			if(mySpork != null) {
+				for(ISparkEntity otherSpork : SparkHelper.getSparksAround(world, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5)) {
+					if(mySpork != otherSpork && otherSpork.getAttachedTile() instanceof IManaPool) {
+						otherSpork.registerTransfer(mySpork);
+					}
 				}
 			}
 			
@@ -98,7 +100,7 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 	
 	@Override
 	public ISparkEntity getAttachedSpark() {
-		// * holds up spork *
+		// *holds up spork
 		List<Entity> sporks = world.getEntitiesWithinAABB(EntitySpark.class, new AxisAlignedBB(pos.up()));
 		return sporks.size() == 1 ? (ISparkEntity) sporks.get(0) : null;
 	}

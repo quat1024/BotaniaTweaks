@@ -52,7 +52,7 @@ public class BlockPottedTinyPotato extends Block {
 		if(clickedBlock instanceof BlockFlowerPot) {
 			ItemStack held = e.getEntityPlayer().getHeldItem(e.getHand());
 			if(held.getItem() instanceof ItemBlock && ((ItemBlock)held.getItem()).getBlock() instanceof BlockTinyPotato) {
-				held.shrink(1);
+				if(!e.getEntityPlayer().isCreative()) held.shrink(1);
 				e.getWorld().setBlockState(e.getPos(), INST.getDefaultState().withProperty(POTATO_FACING, e.getEntityPlayer().getHorizontalFacing().getOpposite()));
 				
 				//Prevent the potato from popping right back out again

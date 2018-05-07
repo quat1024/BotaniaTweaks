@@ -1,0 +1,41 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "minecraft:flower_pot"
+	},
+	"variants": {
+		"potato_facing": {
+			"north": {
+				"submodel": {
+					"potato": {
+						"model": "botania_tweaks:offset_tiny_potato"
+					}
+				}
+			},
+			"east": {
+				"submodel": {
+					"potato": {
+						"model": "botania_tweaks:offset_tiny_potato",
+						"y": 90
+					}
+				}
+			},
+			"south": {
+				"submodel": {
+					"potato": {
+						"model": "botania_tweaks:offset_tiny_potato",
+						"y": 180
+					}
+				}
+			},
+			"west": {
+				"submodel": {
+					"potato": {
+						"model": "botania_tweaks:offset_tiny_potato",
+						"y": 270
+					}
+				}
+			}
+		}
+	}
+}

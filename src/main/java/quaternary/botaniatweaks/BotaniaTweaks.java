@@ -13,8 +13,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import quaternary.botaniatweaks.block.BlockCustomAgglomerationPlate;
-import quaternary.botaniatweaks.block.BlockNerfedManaFluxfield;
+import quaternary.botaniatweaks.block.*;
 import quaternary.botaniatweaks.dispense.BehaviorEnderAirDispenser;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import quaternary.botaniatweaks.tile.TileCustomAgglomerationPlate;
@@ -59,6 +58,8 @@ public class BotaniaTweaks {
 		}
 		
 		LOG.info("It is safe to ignore the warnings Forge just printed!");
+		
+		BLOCKS.add(new BlockPottedTinyPotato());
 	}
 	
 	@Mod.EventHandler

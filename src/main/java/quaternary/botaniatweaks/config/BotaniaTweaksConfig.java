@@ -17,4 +17,8 @@ public class BotaniaTweaksConfig {
 	@Config.Name("Create Ender Air with Dispenser")
 	@Config.Comment("Can dispensers shoot glass bottles to turn them in to Ender Air in the End dimension? This allows for automation of Ender Air, which was not previously possible.")
 	public static boolean CREATE_ENDER_AIR_WITH_DISPENSER = true;
+	
+	@Config.Name("Potted Tiny Potato")
+	@Config.Comment({"Can players place tiny potatoes in flower pots?","Please do not disable this, it's very cute."})
+	public static boolean POTTED_TINY_POTATO = true;
 }

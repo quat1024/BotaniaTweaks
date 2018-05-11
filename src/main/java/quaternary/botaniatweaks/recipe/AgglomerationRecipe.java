@@ -2,7 +2,6 @@ package quaternary.botaniatweaks.recipe;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -10,7 +9,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
-import vazkii.botania.common.block.ModBlocks;
 
 import java.util.List;
 
@@ -21,8 +19,8 @@ public class AgglomerationRecipe {
 	final int manaCost;
 	final int color;
 	final IBlockState multiblockCenter;
-	final IBlockState multiblockEdges;
-	final IBlockState multiblockCorners;
+	final IBlockState multiblockEdge;
+	final IBlockState multiblockCorner;
 	
 	final int totalInputs;
 	
@@ -35,7 +33,7 @@ public class AgglomerationRecipe {
 		}
 	}
 	
-	public AgglomerationRecipe(ImmutableList<Object> recipeInputs, ItemStack recipeOutput, int manaCost, int color, IBlockState multiblockCenter, IBlockState multiblockEdges, IBlockState multiblockCorners) {
+	public AgglomerationRecipe(ImmutableList<Object> recipeInputs, ItemStack recipeOutput, int manaCost, int color, IBlockState multiblockCenter, IBlockState multiblockEdge, IBlockState multiblockCorner) {
 		verifyInputs(recipeInputs);
 		
 		ImmutableList.Builder<ItemStack> stackInputBuilder = new ImmutableList.Builder<>();
@@ -54,21 +52,8 @@ public class AgglomerationRecipe {
 		this.manaCost = manaCost;
 		this.color = color;
 		this.multiblockCenter = multiblockCenter;
-		this.multiblockEdges = multiblockEdges;
-		this.multiblockCorners = multiblockCorners;
-	}
-	
-	//defines the corners to be the same as the center (like the vanilla livingrock/lapisblock recipe)
-	public AgglomerationRecipe(ImmutableList<Object> recipeInputs, ItemStack recipeOutput, int manaCost, int color, IBlockState multiblockCenter, IBlockState multiblockEdges) {
-		this(recipeInputs, recipeOutput, manaCost, color, multiblockCenter, multiblockEdges, multiblockCenter);
-	}
-	
-	public AgglomerationRecipe(ImmutableList<Object> recipeInputs, ItemStack recipeOutput, int manaCost, int color) {
-		this(recipeInputs, recipeOutput, manaCost, color, ModBlocks.livingrock.getDefaultState(), Blocks.LAPIS_BLOCK.getDefaultState(), ModBlocks.livingrock.getDefaultState());
-	}
-	
-	public AgglomerationRecipe(ImmutableList<Object> recipeInputs, ItemStack recipeOutput, int manaCost) {
-		this(recipeInputs, recipeOutput, manaCost, 0x00FF00); //TODO determine the actual default color
+		this.multiblockEdge = multiblockEdge;
+		this.multiblockCorner = multiblockCorner;
 	}
 	
 	/////
@@ -116,10 +101,10 @@ public class AgglomerationRecipe {
 		if(!w.getBlockState(multiblockPos).equals(multiblockCenter)) return false;
 		for(EnumFacing nesw : EnumFacing.HORIZONTALS) {
 			BlockPos horizOffset = multiblockPos.offset(nesw);
-			if(!w.getBlockState(horizOffset).equals(multiblockEdges)) return false;
+			if(!w.getBlockState(horizOffset).equals(multiblockEdge)) return false;
 			
 			BlockPos cornerOffset = horizOffset.offset(nesw.rotateY());
-			if(!w.getBlockState(cornerOffset).equals(multiblockCorners)) return false;
+			if(!w.getBlockState(cornerOffset).equals(multiblockCorner)) return false;
 		}
 		
 		return true;
@@ -152,12 +137,12 @@ public class AgglomerationRecipe {
 		return multiblockCenter;
 	}
 	
-	public IBlockState getMultiblockEdges() {
-		return multiblockEdges;
+	public IBlockState getMultiblockEdge() {
+		return multiblockEdge;
 	}
 	
-	public IBlockState getMultiblockCorners() {
-		return multiblockCorners;
+	public IBlockState getMultiblockCorner() {
+		return multiblockCorner;
 	}
 	
 	////
@@ -168,6 +153,6 @@ public class AgglomerationRecipe {
 		
 		//todo i don't think itemstacks are equal() properly
 		AgglomerationRecipe other = (AgglomerationRecipe) obj;
-		return this.recipeStacks.equals(other.recipeStacks) && this.recipeOreKeys.equals(other.recipeOreKeys) && this.recipeOutput.equals(other.recipeOutput) && this.manaCost == other.manaCost && this.color == other.color && this.multiblockCenter.equals(other.multiblockCenter) && this.multiblockCorners.equals(other.multiblockCorners) && this.multiblockEdges.equals(other.multiblockEdges);
+		return this.recipeStacks.equals(other.recipeStacks) && this.recipeOreKeys.equals(other.recipeOreKeys) && this.recipeOutput.equals(other.recipeOutput) && this.manaCost == other.manaCost && this.color == other.color && this.multiblockCenter.equals(other.multiblockCenter) && this.multiblockCorner.equals(other.multiblockCorner) && this.multiblockEdge.equals(other.multiblockEdge);
 	}
 }

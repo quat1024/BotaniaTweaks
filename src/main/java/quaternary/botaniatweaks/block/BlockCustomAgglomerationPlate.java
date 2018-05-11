@@ -37,10 +37,15 @@ public class BlockCustomAgglomerationPlate extends BlockTerraPlate implements IL
 		ItemStack heldStack = player.getHeldItem(hand);
 		if(!AgglomerationRecipes.containsItem(heldStack)) return false;
 		
-		ItemStack oneHeld = heldStack.splitStack(1);
-		EntityItem ent = new EntityItem(world, pos.getX() + .5, pos.getY() + 3/16d, pos.getZ() + .5, oneHeld);
-		ent.motionX = 0; ent.motionY = 0; ent.motionZ = 0;
-		world.spawnEntity(ent);
+		if(!world.isRemote) {
+			ItemStack oneHeld = heldStack.splitStack(1);
+			EntityItem ent = new EntityItem(world, pos.getX() + .5, pos.getY() + 3 / 16d, pos.getZ() + .5, oneHeld);
+			ent.motionX = 0;
+			ent.motionY = 0;
+			ent.motionZ = 0;
+			ent.setPickupDelay(20);
+			world.spawnEntity(ent);
+		}
 		return true;
 	}
 	

@@ -8,12 +8,14 @@ import net.minecraft.item.*;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.block.*;
+import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
 import quaternary.botaniatweaks.dispense.BehaviorEnderAirDispenser;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import quaternary.botaniatweaks.tile.TileCustomAgglomerationPlate;
@@ -67,6 +69,13 @@ public class BotaniaTweaks {
 		AgglomerationRecipes.init();
 		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.GLASS_BOTTLE, new BehaviorEnderAirDispenser(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.GLASS_BOTTLE)));
+	}
+	
+	@Mod.EventHandler
+	public static void loadComplete(FMLLoadCompleteEvent e) {
+		if(Loader.isModLoaded("crafttweaker")) {
+			CTHandler.init();
+		}
 	}
 	
 	@Mod.EventBusSubscriber

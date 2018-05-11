@@ -1,6 +1,7 @@
 package quaternary.botaniatweaks.recipe;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -17,31 +18,21 @@ import java.util.*;
 public class AgglomerationRecipes {
 	public static ArrayList<AgglomerationRecipe> recipes = new ArrayList<>();
 	
+	public static AgglomerationRecipe defaultRecipe;
+	
 	public static void init() {
 		//imitate the regular agglomeration recipe
-		register(new AgglomerationRecipe(
+		defaultRecipe = new AgglomerationRecipe(
 			ImmutableList.of(manaResource(MANA_DIAMOND), manaResource(MANASTEEL), manaResource(MANA_PEARL)),
 			manaResource(TERRASTEEL),
-			500_000
-		));
+			500_000,
+			0x00FF00,
+			ModBlocks.livingrock.getDefaultState(),
+			Blocks.LAPIS_BLOCK.getDefaultState(),
+			ModBlocks.livingrock.getDefaultState()
+		);
 		
-		//example recipes
-		//TODO norelease remove these dumb recipes
-		register(new AgglomerationRecipe(
-			ImmutableList.of(new ItemStack(Items.APPLE), new ItemStack(Items.GOLDEN_APPLE)),
-			new ItemStack(ModItems.infiniteFruit),
-			50_000
-		));
-		
-		register(new AgglomerationRecipe(
-			ImmutableList.of(new ItemStack(Items.STONE_PICKAXE)),
-			new ItemStack(ModItems.manasteelPick),
-			50_000,
-			0x0088FF,
-			ModBlocks.storage.getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.MANASTEEL),
-			ModBlocks.storage.getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.MANASTEEL),
-			ModBlocks.storage.getDefaultState().withProperty(BotaniaStateProps.STORAGE_VARIANT, StorageVariant.MANASTEEL)
-		));
+		register(defaultRecipe);
 	}
 	
 	public static void register(AgglomerationRecipe recipe) {
@@ -49,6 +40,7 @@ public class AgglomerationRecipes {
 	}
 	
 	public static void unregister(AgglomerationRecipe recipe) {
+		//FIXME: identity comparison badbad. this won't actually work.
 		recipes.remove(recipe);
 	}
 	

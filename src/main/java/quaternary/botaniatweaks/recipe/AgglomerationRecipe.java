@@ -159,4 +159,15 @@ public class AgglomerationRecipe {
 	public IBlockState getMultiblockCorners() {
 		return multiblockCorners;
 	}
+	
+	////
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof AgglomerationRecipe)) return false;
+		
+		//todo i don't think itemstacks are equal() properly
+		AgglomerationRecipe other = (AgglomerationRecipe) obj;
+		return this.recipeStacks.equals(other.recipeStacks) && this.recipeOreKeys.equals(other.recipeOreKeys) && this.recipeOutput.equals(other.recipeOutput) && this.manaCost == other.manaCost && this.color == other.color && this.multiblockCenter.equals(other.multiblockCenter) && this.multiblockCorners.equals(other.multiblockCorners) && this.multiblockEdges.equals(other.multiblockEdges);
+	}
 }

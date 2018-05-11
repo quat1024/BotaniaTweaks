@@ -27,8 +27,8 @@ repositories {
 }
 
 dependencies {
-    deobfCompile "com.blamejared:MTLib:3.0.2.4"
-    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.5.+"
+    deobfCompile "com.blamejared:MTLib:3.0.4.7"
+    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.8.470"
 }
 
 minecraft {

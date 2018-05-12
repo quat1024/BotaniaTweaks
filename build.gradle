@@ -31,6 +31,14 @@ dependencies {
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.8.470"
 }
 
+minecraft.coreMod = "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin"
+
+jar {
+    manifest {
+        attributes "FMLCorePlugin": "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin", "FMLCorePluginContainsFMLMod": true
+    }
+}
+
 minecraft {
     version = "1.12.2-14.23.3.2655"
     runDir = "run"

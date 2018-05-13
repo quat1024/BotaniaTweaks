@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.ItemHandlerHelper;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.util.MathUtil;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
 
@@ -83,13 +84,20 @@ public class BlockPottedTinyPotato extends Block {
 		return BlockRenderLayer.CUTOUT;
 	}
 	
-	//change: just remove the potato
+	//changed: remove and pet the potato!!!
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if(hand != EnumHand.MAIN_HAND) return false;
 		
-		ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModBlocks.tinyPotato));
-		world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState());
+		if(player.isSneaking()) {
+			double x = pos.getX() + MathUtil.rangeRemap(world.rand.nextDouble(), 0, 1, FLOWER_POT_AABB.minX, FLOWER_POT_AABB.maxX);
+			double y = pos.getY() + FLOWER_POT_AABB.maxY + (double) 3 / 16;
+			double z = pos.getZ() + MathUtil.rangeRemap(world.rand.nextDouble(), 0, 1, FLOWER_POT_AABB.minZ, FLOWER_POT_AABB.maxZ);
+			world.spawnParticle(EnumParticleTypes.HEART, x, y, z, 0, 0, 0);
+		} else {
+			ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModBlocks.tinyPotato));
+			world.setBlockState(pos, Blocks.FLOWER_POT.getDefaultState());
+		}
 		return true;
 	}
 	

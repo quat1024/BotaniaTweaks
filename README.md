@@ -5,6 +5,7 @@ Current features:
 * mana fluxfields you can nerf to oblivion
 * use dispensers on glass bottles in the End to make Ender Air
 * crafttweakable agglomeration plate
+* put tiny potato in flower pot!!!
 
 In-progress features:
 * make any flower you want passive decay

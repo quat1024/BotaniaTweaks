@@ -16,17 +16,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.block.*;
 import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
+import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.dispense.BehaviorEnderAirDispenser;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import quaternary.botaniatweaks.tile.TileCustomAgglomerationPlate;
 import quaternary.botaniatweaks.tile.TileNerfedManaFluxfield;
-import quaternary.botaniatweaks.util.BlockUtil;
 import vazkii.botania.common.item.block.ItemBlockMod;
 
 import java.util.ArrayList;
-import java.util.List;
 
-@Mod(modid = BotaniaTweaks.MODID, name = BotaniaTweaks.NAME, version = BotaniaTweaks.VERSION, dependencies = BotaniaTweaks.DEPS)
+@Mod(modid = BotaniaTweaks.MODID, name = BotaniaTweaks.NAME, version = BotaniaTweaks.VERSION, dependencies = BotaniaTweaks.DEPS, guiFactory = "quaternary.botaniatweaks.config.BotaniaTweaksGuiFactory")
 public class BotaniaTweaks {
 	public static final String MODID = "botania_tweaks";
 	public static final String NAME = "Botania Tweaks";
@@ -67,6 +66,7 @@ public class BotaniaTweaks {
 	@Mod.EventHandler
 	public static void init(FMLInitializationEvent e) {
 		AgglomerationRecipes.init();
+		BotaniaTweaksConfig.readConfig();
 		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.GLASS_BOTTLE, new BehaviorEnderAirDispenser(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.GLASS_BOTTLE)));
 	}

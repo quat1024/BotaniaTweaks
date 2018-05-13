@@ -1,12 +1,12 @@
 package quaternary.botaniatweaks.asm;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.launchwrapper.IClassTransformer;
+import net.minecraftforge.fml.common.FMLLog;
+import org.apache.logging.log4j.LogManager;
 import org.objectweb.asm.*;
 import org.objectweb.asm.tree.*;
-import scala.actors.threadpool.Arrays;
+import quaternary.botaniatweaks.config.ActiveGeneratingFlowers;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
@@ -16,43 +16,21 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 			return patch("Botania's internal method handler", basicClass, BotaniaTweakerTransformer::patchInternalMethodHandler);
 		}
 		
-		if(isNonPassiveGeneratingFlowerClass(transformedName)) {
-			String flowerName = getFriendlyNameFromNonPassiveClass(transformedName);
+		if(isActiveGeneratingFlowerClass(transformedName)) {
+			String flowerName = getActiveGeneratingFlowerName(transformedName);
 			
-			return patch("the " + flowerName + " flower", basicClass, createNonPassivePatcher(flowerName));
+			return patch("the " + flowerName + "'s decay settings", basicClass, createActiveGeneratingPatcher(flowerName));
 		}
 		
 		return basicClass;
 	}
 	
-	//I feel like using a whitelist is the safest way
-	static List<String> nonPassiveList = ImmutableList.of(
-		"vazkii.botania.common.block.subtile.generating.SubTileArcaneRose",
-		"vazkii.botania.common.block.subtile.generating.SubTileDandelifeon",
-		"vazkii.botania.common.block.subtile.generating.SubTileEndoflame",
-		"vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum",
-		"vazkii.botania.common.block.subtile.generating.SubTileGourmaryllis",
-		"vazkii.botania.common.block.subtile.generating.SubTileKekimurus",
-		"vazkii.botania.common.block.subtile.generating.SubTileMunchdew",
-		"vazkii.botania.common.block.subtile.generating.SubTileNarslimmus",
-		"vazkii.botania.common.block.subtile.generating.SubTileRafflowsia",
-		"vazkii.botania.common.block.subtile.generating.SubTileShulkMeNot",
-		"vazkii.botania.common.block.subtile.generating.SubTileSpectrolus",
-		"vazkii.botania.common.block.subtile.generating.SubTileThermalily"
-	);
-	
-	static boolean isNonPassiveGeneratingFlowerClass(String transformedName) {
-		return nonPassiveList.contains(transformedName);
+	static boolean isActiveGeneratingFlowerClass(String transformedName) {
+		return ActiveGeneratingFlowers.allClasses.contains(transformedName);
 	}
 	
-	//this is silly.
-	static String getFriendlyNameFromNonPassiveClass(String className) {
-		if(className.startsWith("vazkii.botania")) {
-			String[] blah = className.split("\\.");
-			return blah[blah.length - 1].replace("SubTile", "");
-		}
-		
-		return "Unknown flower";
+	static String getActiveGeneratingFlowerName(String className) {
+		return ActiveGeneratingFlowers.classToNamesMap.getOrDefault(className, "Unknown flower?");
 	}
 	
 	static byte[] patch(String friendlyName, byte[] classs, Consumer<ClassNode> patcher) {
@@ -89,11 +67,11 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 	
 	/// Tweak: set more flowers to decay
 	
-	static Consumer<ClassNode> createNonPassivePatcher(String flowerName) {
-		return node -> patchNonPassiveFlower(node, flowerName);
+	static Consumer<ClassNode> createActiveGeneratingPatcher(String flowerName) {
+		return node -> patchActiveGeneratingFlower(node, flowerName);
 	}
 	
-	static void patchNonPassiveFlower(ClassNode node, String flowerName) {
+	static void patchActiveGeneratingFlower(ClassNode node, String flowerName) {
 		//remove any existing isPassiveFlower nodes, if they exist already
 		for(MethodNode method : node.methods) {
 			if(method.name.equals("isPassiveFlower")) {
@@ -102,12 +80,11 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 			}
 		}
 		
-		//todo temp for testing: just return true
 		MethodNode newPassiveMethod = new MethodNode(ACC_PUBLIC, "isPassiveFlower", "()Z", null, null);
 		InsnList ins = newPassiveMethod.instructions;
 		addRidiculousLineNumber(ins);
 		
-		//Hardcode this flower name into the method
+		//return BotaniaTweakerHooks.shouldFlowerDecay("endoflame")
 		ins.add(new LdcInsnNode(flowerName));
 		ins.add(new MethodInsnNode(INVOKESTATIC, "quaternary/botaniatweaks/asm/BotaniaTweakerHooks", "shouldFlowerDecay", "(Ljava/lang/String;)Z", false));
 		ins.add(new InsnNode(IRETURN));
@@ -118,7 +95,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 	///
 	
 	static void log(String message) {
-		System.out.println("[Botania Tweaks ASM Magic] " + message);
+		LogManager.getLogger("Botania Tweaks ASM Magic").info(message);
 	}
 	
 	/** Add a really unrealistic line number.

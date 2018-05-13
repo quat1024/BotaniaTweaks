@@ -1,11 +1,13 @@
 package quaternary.botaniatweaks.asm;
 
+import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+
 public class BotaniaTweakerHooks {
 	public static int getPassiveDecayTime() {
-		return 5; //config todo
+		return BotaniaTweaksConfig.PASSIVE_DECAY_TIMER;
 	}
 	
 	public static boolean shouldFlowerDecay(String name) {
-		return name.equals("Endoflame"); //todo
+		return BotaniaTweaksConfig.SHOULD_ALSO_BE_PASSIVE_MAP.getOrDefault(name, false);
 	}
 }

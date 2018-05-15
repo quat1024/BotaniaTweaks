@@ -32,7 +32,7 @@ repositories {
 
 dependencies {
     deobfCompile "com.blamejared:MTLib:3.0.4.7"
-    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.8.470"
+    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.8.5"
     
     deobfCompile "vazkii.botania:Botania:r1.10-355.4"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"

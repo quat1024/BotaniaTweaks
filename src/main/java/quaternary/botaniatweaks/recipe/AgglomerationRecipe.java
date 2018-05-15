@@ -21,6 +21,11 @@ public class AgglomerationRecipe {
 	final IBlockState multiblockCenter;
 	final IBlockState multiblockEdge;
 	final IBlockState multiblockCorner;
+	public final boolean consumesCenter;
+	public final boolean consumesEdge;
+	public final boolean consumesCorner;
+	
+	
 	
 	final int totalInputs;
 	
@@ -33,7 +38,7 @@ public class AgglomerationRecipe {
 		}
 	}
 	
-	public AgglomerationRecipe(ImmutableList<Object> recipeInputs, ItemStack recipeOutput, int manaCost, int color, IBlockState multiblockCenter, IBlockState multiblockEdge, IBlockState multiblockCorner) {
+	public AgglomerationRecipe(ImmutableList<Object> recipeInputs, ItemStack recipeOutput, int manaCost, int color, IBlockState multiblockCenter, IBlockState multiblockEdge, IBlockState multiblockCorner, boolean consumesCenter, boolean consumesEdge, boolean consumesCorner) {
 		verifyInputs(recipeInputs);
 		
 		ImmutableList.Builder<ItemStack> stackInputBuilder = new ImmutableList.Builder<>();
@@ -54,6 +59,9 @@ public class AgglomerationRecipe {
 		this.multiblockCenter = multiblockCenter;
 		this.multiblockEdge = multiblockEdge;
 		this.multiblockCorner = multiblockCorner;
+		this.consumesCenter = consumesCenter;
+		this.consumesEdge = consumesEdge;
+		this.consumesCorner = consumesCorner;
 	}
 	
 	/////

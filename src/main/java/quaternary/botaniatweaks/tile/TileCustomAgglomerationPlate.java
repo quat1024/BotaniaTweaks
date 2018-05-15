@@ -1,15 +1,16 @@
 package quaternary.botaniatweaks.tile;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.World;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipe;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -65,6 +66,23 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 				outputItem.setVelocity(0, 0, 0); //No!
 				world.spawnEntity(outputItem);
 				
+				//consume the blocks, if the recipe asked for it
+				if(recipe.consumesCenter) {
+					vanishBlock(world, pos.down());
+				}
+				
+				if(recipe.consumesEdge) {
+					for(EnumFacing horiz : EnumFacing.HORIZONTALS) {
+						vanishBlock(world, pos.down().offset(horiz));
+					}
+				}
+				
+				if(recipe.consumesCorner) {
+					for(EnumFacing horiz : EnumFacing.HORIZONTALS) {
+						vanishBlock(world, pos.down().offset(horiz).offset(horiz.rotateY()));
+					}
+				}
+				
 				//fanciness
 				world.playSound(null, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				
@@ -77,6 +95,11 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 		
 		//drain mana if there is no matching recipe
 		if(maxMana == 0) recieveMana(0);
+	}
+	
+	private void vanishBlock(World w, BlockPos pos) {
+		w.playEvent(2001, pos, Block.getStateId(world.getBlockState(pos)));
+		w.setBlockToAir(pos);
 	}
 	
 	private void updateComparator() {

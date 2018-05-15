@@ -29,7 +29,8 @@ public class AgglomerationRecipes {
 			0x00FF00,
 			ModBlocks.livingrock.getDefaultState(),
 			Blocks.LAPIS_BLOCK.getDefaultState(),
-			ModBlocks.livingrock.getDefaultState()
+			ModBlocks.livingrock.getDefaultState(),
+			false, false, false
 		);
 		
 		register(defaultRecipe);

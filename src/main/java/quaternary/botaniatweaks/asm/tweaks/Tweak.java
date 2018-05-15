@@ -45,6 +45,6 @@ public abstract class Tweak implements Opcodes {
 	}
 	
 	static void log(String message) {
-		LogManager.getLogger("Botania Tweaks ASM Magic").info(message);
+		LogManager.getLogger("Botania Tweaks ASM").info(message);
 	}
 }

@@ -1,7 +1,10 @@
 package quaternary.botaniatweaks.asm;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+
+import java.util.function.Predicate;
 
 @SuppressWarnings("unused") //Everything here called through ASM
 public class BotaniaTweakerHooks {

@@ -61,7 +61,7 @@ public class ManastormChargeOutputTweak extends Tweak {
 						break;
 					}
 				}
-				
+				break;
 				//TODO: maybe think about passing the entitymanaburst itself to a hook and just fixing it up w/ 1 method call
 			}
 		}

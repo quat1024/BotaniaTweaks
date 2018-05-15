@@ -31,7 +31,7 @@ public class SpectrolusOutputTweak extends Tweak {
 						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, getHooksClass(), "getSpectrolusManaPerWool", "()I", false);
 						ins.insertBefore(instruction, callInstruction);
 						ins.remove(instruction);
-						break;
+						return;
 					}
 				}
 			}

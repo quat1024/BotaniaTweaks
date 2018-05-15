@@ -30,10 +30,14 @@ public class BotaniaTweaksConfig {
 	
 	static Configuration config;
 	
-	public static void readConfig() {
+	public static void initConfig() {
 		config = new Configuration(new File(Loader.instance().getConfigDir(), "botaniatweaks.cfg"), "1");
 		config.load();
 		
+		readConfig();
+	}
+	
+	public static void readConfig() {
 		//fluxfield
 		MANA_SHOTS_PER_ENERGY_BURST = config.getInt("shotsPerBurst", "fluxfield", 1, 1, Integer.MAX_VALUE, "How many pulses from a mana spreader are needed to fire off a \"packet\" of FE?");
 		

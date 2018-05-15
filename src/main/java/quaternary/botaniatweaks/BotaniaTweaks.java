@@ -38,15 +38,6 @@ public class BotaniaTweaks {
 	public static final ArrayList<Block> BLOCKS = new ArrayList<>();
 	public static final ArrayList<Item> ITEMS = new ArrayList<>();
 	
-	@GameRegistry.ItemStackHolder("botania:rfgenerator")
-	public static final ItemStack icon = ItemStack.EMPTY;
-	public static final CreativeTabs TAB = new CreativeTabs(MODID) {
-		@Override
-		public ItemStack getTabIconItem() {
-			return icon;
-		}
-	};
-	
 	static {
 		LOG.info("Creating some registry replacements for Botania. Here come the blocks:");
 		BLOCKS.add(new BlockNerfedManaFluxfield());
@@ -55,7 +46,6 @@ public class BotaniaTweaks {
 		LOG.info("And the items:");
 		for(Block b : BLOCKS) {
 			Item i = new ItemBlockMod(b).setRegistryName(b.getRegistryName());
-			i.setCreativeTab(BotaniaTweaks.TAB); //plS
 			ITEMS.add(i);
 		}
 		
@@ -67,7 +57,7 @@ public class BotaniaTweaks {
 	@Mod.EventHandler
 	public static void init(FMLInitializationEvent e) {
 		AgglomerationRecipes.init();
-		BotaniaTweaksConfig.readConfig();
+		BotaniaTweaksConfig.initConfig();
 		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.GLASS_BOTTLE, new BehaviorEnderAirDispenser(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.GLASS_BOTTLE)));
 	}

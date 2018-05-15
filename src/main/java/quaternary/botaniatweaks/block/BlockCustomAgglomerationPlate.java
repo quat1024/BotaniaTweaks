@@ -60,11 +60,4 @@ public class BlockCustomAgglomerationPlate extends BlockTerraPlate implements IL
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
 		return 0; //for now todo
 	}
-	
-	@Override
-	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> items) {
-		if(tab == BotaniaTweaks.TAB || tab == BotaniaCreativeTab.INSTANCE) {
-			super.getSubBlocks(tab, items);
-		}
-	}
 }

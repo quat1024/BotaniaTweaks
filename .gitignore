@@ -22,3 +22,5 @@ eclipse
 run
 
 classes/
+
+*temp_at.cfg

@@ -3,6 +3,7 @@ package quaternary.botaniatweaks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraftforge.event.RegistryEvent;

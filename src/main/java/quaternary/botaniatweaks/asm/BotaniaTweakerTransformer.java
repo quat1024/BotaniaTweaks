@@ -13,18 +13,35 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 	
 	@Override
 	public byte[] transform(String name, String transformedName, byte[] basicClass) {
+		ClassNode node = null;
+		
 		if(transformedName.equals("vazkii.botania.common.core.handler.InternalMethodHandler")) {
-			return patch("Botania's internal method handler", basicClass, BotaniaTweakerTransformer::patchInternalMethodHandler);
+			node = patch("Botania's internal method handler", basicClass, BotaniaTweakerTransformer::patchInternalMethodHandler);
 		}
 		
 		if(isActiveGeneratingFlowerClass(transformedName)) {
 			String flowerName = getActiveGeneratingFlowerName(transformedName);
 			
-			return patch("the " + flowerName + "'s decay settings", basicClass, createActiveGeneratingPatcher(flowerName));
+			node = patch("the " + flowerName + "'s decay settings", basicClass, createActiveGeneratingPatcher(flowerName));
 		}
 		
 		if(transformedName.equals("vazkii.botania.common.entity.EntityManaStorm")) {
-			return patch("the Manastorm Charge", basicClass, BotaniaTweakerTransformer::patchManastormEntity);
+			node = patch("the manastorm charge", basicClass, BotaniaTweakerTransformer::patchManastormEntity);
+		}
+		
+		if(transformedName.equals("vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum")) {
+			node = patch("the entropinnyum's mana output", basicClass, BotaniaTweakerTransformer::patchEntropinnyum);
+		}
+		
+		if(transformedName.equals("vazkii.botania.common.block.subtile.generating.SubTileSpectrolus")) {
+			node = patch("the spectrolus's mana output", basicClass, BotaniaTweakerTransformer::patchSpectrolus);
+		}
+		
+		if(node != null) {
+			ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
+			node.accept(writer);
+			
+			return writer.toByteArray();
 		}
 		
 		return basicClass;
@@ -38,7 +55,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		return ActiveGeneratingFlowers.classToNamesMap.getOrDefault(className, "Unknown flower?");
 	}
 	
-	static byte[] patch(String friendlyName, byte[] classs, Consumer<ClassNode> patcher) {
+	static ClassNode patch(String friendlyName, byte[] classs, Consumer<ClassNode> patcher) {
 		log("Patching " + friendlyName + "...");
 		
 		ClassReader reader = new ClassReader(classs);
@@ -47,10 +64,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		
 		patcher.accept(node);
 		
-		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
-		node.accept(writer);
-		
-		return writer.toByteArray();
+		return node;
 	}
 	
 	/// Tweak: change passive decay time
@@ -66,6 +80,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 				
 				ins.add(new MethodInsnNode(INVOKESTATIC, HOOKS, "getPassiveDecayTime", "()I", false));
 				ins.add(new InsnNode(IRETURN));
+				break;
 			}
 		}
 	}
@@ -108,6 +123,8 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 				for(int i=0; i < ins.size(); i++) {
 					AbstractInsnNode instruction = ins.get(i);
 					if(instruction.getOpcode() == BIPUSH) {
+						addRidiculousLineNumber(ins, instruction);
+						
 						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, HOOKS, "getManastormBurstMana", "()I", false);
 						ins.insertBefore(instruction, callInstruction);
 						ins.remove(instruction);
@@ -120,6 +137,8 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 				for(int i=0; i < ins.size(); i++) {
 					AbstractInsnNode instruction = ins.get(i);
 					if(instruction.getOpcode() == SIPUSH) {
+						addRidiculousLineNumber(ins, instruction);
+						
 						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, HOOKS, "getManastormBurstStartingMana", "()I", false);
 						ins.insertBefore(instruction, callInstruction);
 						ins.remove(instruction);
@@ -131,6 +150,8 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 				for(int i=0; i < ins.size(); i++) {
 					AbstractInsnNode instruction = ins.get(i);
 					if(instruction.getOpcode() == FCONST_1) {
+						addRidiculousLineNumber(ins, instruction);
+						
 						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, HOOKS, "getManastormBurstLossjpgPerTick", "()F", false);
 						ins.insertBefore(instruction, callInstruction);
 						ins.remove(instruction);
@@ -139,6 +160,47 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 				}
 				
 				//TODO: maybe think about passing the entitymanaburst itself to a hook and just fixing it up w/ 1 method call
+			}
+		}
+	}
+	
+	/// Tweak: buff entropinnyum
+	
+	static void patchEntropinnyum(ClassNode node) {
+		for(MethodNode method : node.methods) {
+			if(method.name.equals("getMaxMana")) {
+				InsnList ins = method.instructions;
+				
+				ins.clear();
+				
+				addRidiculousLineNumber(ins);
+				
+				ins.add(new MethodInsnNode(INVOKESTATIC, HOOKS, "getEntropinnyumMaxMana", "()I", false));
+				ins.add(new InsnNode(IRETURN));
+				break;
+			}
+		}
+	}
+	
+	/// Tweak: buff spectrolus
+	
+	static void patchSpectrolus(ClassNode node) {
+		for(MethodNode method : node.methods) {
+			if(method.name.equals("onUpdate")) {
+				InsnList ins = method.instructions;
+				
+				//The first SIPUSH is the mana generating value
+				for(int i=0; i < ins.size(); i++) {
+					AbstractInsnNode instruction = ins.get(i);
+					if(instruction.getOpcode() == SIPUSH) {
+						addRidiculousLineNumber(ins, instruction);
+						
+						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, HOOKS, "getSpectrolusManaPerWool", "()I", false);
+						ins.insertBefore(instruction, callInstruction);
+						ins.remove(instruction);
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -156,5 +218,11 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		LabelNode lbl = new LabelNode(new Label());
 		ins.add(lbl);
 		ins.add(new LineNumberNode(6969, lbl));
+	}
+	
+	static void addRidiculousLineNumber(InsnList ins, AbstractInsnNode instructionAfter) {
+		LabelNode lbl = new LabelNode(new Label());
+		ins.insert(instructionAfter, lbl);
+		ins.insert(instructionAfter, new LineNumberNode(6969, lbl));
 	}
 }

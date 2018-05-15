@@ -24,11 +24,18 @@ repositories {
     maven {
         url "http://maven.blamejared.com"
     }
+    
+    maven  {
+        url "http://maven.thiakil.com"
+    }
 }
 
 dependencies {
     deobfCompile "com.blamejared:MTLib:3.0.4.7"
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.8.470"
+    
+    deobfCompile "vazkii.botania:Botania:r1.10-355.4"
+    deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
 }
 
 minecraft.coreMod = "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin"
@@ -36,6 +43,14 @@ minecraft.coreMod = "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin"
 jar {
     manifest {
         attributes "FMLCorePlugin": "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin", "FMLCorePluginContainsFMLMod": true
+        
+        //HAVING DUMB AT PROBLEMS???
+        //paste Botania's AT into a file called temp_at.cfg
+        //then uncomment this
+        //game wont crash anymore!
+        //doesn't actually fix the problem!
+        //but it won't crash!
+        attributes "FMLAT": "temp_at.cfg"
     }
 }
 
@@ -64,4 +79,7 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+    
+    //awesome AT hot fix
+    rename '(.+at\\.cfg)', 'META-INF/$1'
 }

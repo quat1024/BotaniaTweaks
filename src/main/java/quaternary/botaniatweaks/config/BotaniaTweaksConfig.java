@@ -24,6 +24,10 @@ public class BotaniaTweaksConfig {
 	
 	public static float MANASTORM_SCALE_FACTOR = 8;
 	
+	public static boolean SUPER_ENTROPINNYUM = true;
+	
+	public static boolean SUPER_SPECTROLUS = true;
+	
 	static Configuration config;
 	
 	public static void readConfig() {
@@ -49,6 +53,10 @@ public class BotaniaTweaksConfig {
 		POTTED_TINY_POTATO = config.getBoolean("pottedTinyPotato", "general", true, "Can players place tiny potatoes in flower pots? Please don't disable this, it's very cute.");
 		
 		MANASTORM_SCALE_FACTOR = config.getFloat("manastormScaleFactor", "general", 8f, 1f, 15f, "The default mana output of the Manastorm Charge is multiplied by this amount. Setting this to a value higher than around ~1.38889ish allows for the \"Manastorm Reactor\" build to be profitable.");
+		
+		SUPER_ENTROPINNYUM = config.getBoolean("superEntropinnyum", "general", true, "Should the Entropinnyum generate 8x the mana it does by default? This makes it possible to run an Entropinnyum off of, for example, a cobbleworks; by default, the flint-to-gunpowder recipe is much too expensive to make another TNT.\n\nAlso I think this flower is way underpowered in general, but that's just me.");
+		
+		SUPER_SPECTROLUS = config.getBoolean("superSpectrolus", "general", true, "Should the Spectrolus generate 10x the mana it does by default? This makes it much cheaper to run; filling a mana pool only requires a little over five stacks of wool, not over a double chest's worth.");
 		
 		if(config.hasChanged()) config.save();
 	}

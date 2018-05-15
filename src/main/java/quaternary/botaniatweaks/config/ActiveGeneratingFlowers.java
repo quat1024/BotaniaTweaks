@@ -16,6 +16,7 @@ public enum ActiveGeneratingFlowers {
 	SHULKMENOT("vazkii.botania.common.block.subtile.generating.SubTileShulkMeNot", "shulkmenot"),
 	SPECTROLUS("vazkii.botania.common.block.subtile.generating.SubTileSpectrolus", "spectrolus"),
 	THERMALILY("vazkii.botania.common.block.subtile.generating.SubTileThermalily", "thermalily");
+	//Any modded flowers here?
 	
 	public String className;
 	public String name;

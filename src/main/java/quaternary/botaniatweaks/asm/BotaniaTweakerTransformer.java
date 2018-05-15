@@ -1,7 +1,6 @@
 package quaternary.botaniatweaks.asm;
 
 import net.minecraft.launchwrapper.IClassTransformer;
-import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.LogManager;
 import org.objectweb.asm.*;
 import org.objectweb.asm.tree.*;
@@ -10,6 +9,8 @@ import quaternary.botaniatweaks.config.ActiveGeneratingFlowers;
 import java.util.function.Consumer;
 
 public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
+	static final String HOOKS =  "quaternary/botaniatweaks/asm/BotaniaTweakerHooks";
+	
 	@Override
 	public byte[] transform(String name, String transformedName, byte[] basicClass) {
 		if(transformedName.equals("vazkii.botania.common.core.handler.InternalMethodHandler")) {
@@ -20,6 +21,10 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 			String flowerName = getActiveGeneratingFlowerName(transformedName);
 			
 			return patch("the " + flowerName + "'s decay settings", basicClass, createActiveGeneratingPatcher(flowerName));
+		}
+		
+		if(transformedName.equals("vazkii.botania.common.entity.EntityManaStorm")) {
+			return patch("the Manastorm Charge", basicClass, BotaniaTweakerTransformer::patchManastormEntity);
 		}
 		
 		return basicClass;
@@ -59,7 +64,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 				
 				addRidiculousLineNumber(ins);
 				
-				ins.add(new MethodInsnNode(INVOKESTATIC, "quaternary/botaniatweaks/asm/BotaniaTweakerHooks", "getPassiveDecayTime", "()I", false));
+				ins.add(new MethodInsnNode(INVOKESTATIC, HOOKS, "getPassiveDecayTime", "()I", false));
 				ins.add(new InsnNode(IRETURN));
 			}
 		}
@@ -86,10 +91,56 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		
 		//return BotaniaTweakerHooks.shouldFlowerDecay("endoflame")
 		ins.add(new LdcInsnNode(flowerName));
-		ins.add(new MethodInsnNode(INVOKESTATIC, "quaternary/botaniatweaks/asm/BotaniaTweakerHooks", "shouldFlowerDecay", "(Ljava/lang/String;)Z", false));
+		ins.add(new MethodInsnNode(INVOKESTATIC, HOOKS, "shouldFlowerDecay", "(Ljava/lang/String;)Z", false));
 		ins.add(new InsnNode(IRETURN));
 		
 		node.methods.add(newPassiveMethod);
+	}
+	
+	/// Tweak: buff mana output of the Manastorm Charge, making the "manastorm reactor" a profitable build
+	
+	static void patchManastormEntity(ClassNode node) {
+		for(MethodNode method : node.methods) {
+			if(method.name.equals("spawnBurst")) {
+				InsnList ins = method.instructions;
+				
+				//the first BIPUSH is the setMana call.
+				for(int i=0; i < ins.size(); i++) {
+					AbstractInsnNode instruction = ins.get(i);
+					if(instruction.getOpcode() == BIPUSH) {
+						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, HOOKS, "getManastormBurstMana", "()I", false);
+						ins.insertBefore(instruction, callInstruction);
+						ins.remove(instruction);
+						break;
+					}
+				}
+				
+				//the first SIPUSH is the setStartingMana call.
+				//not super super sure what it is for. but hey!
+				for(int i=0; i < ins.size(); i++) {
+					AbstractInsnNode instruction = ins.get(i);
+					if(instruction.getOpcode() == SIPUSH) {
+						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, HOOKS, "getManastormBurstStartingMana", "()I", false);
+						ins.insertBefore(instruction, callInstruction);
+						ins.remove(instruction);
+						break;
+					}
+				}
+				
+				//and the first FCONST_1 is the setManaLossPerTick call.
+				for(int i=0; i < ins.size(); i++) {
+					AbstractInsnNode instruction = ins.get(i);
+					if(instruction.getOpcode() == FCONST_1) {
+						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, HOOKS, "getManastormBurstLossjpgPerTick", "()F", false);
+						ins.insertBefore(instruction, callInstruction);
+						ins.remove(instruction);
+						break;
+					}
+				}
+				
+				//TODO: maybe think about passing the entitymanaburst itself to a hook and just fixing it up w/ 1 method call
+			}
+		}
 	}
 	
 	///

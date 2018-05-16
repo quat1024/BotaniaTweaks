@@ -6,7 +6,7 @@ Current features:
 * use dispensers on glass bottles in the End to make Ender Air
 * crafttweakable agglomeration plate
   * with a custom multiblock
-  * option to consume the blocks in the multiblock
+  * option to consume or replace the blocks in the multiblock
 * put tiny potato in flower pot!!!
 * make any flower you want passive decay
 * reduce the passive decay timer
@@ -15,6 +15,7 @@ Current features:
 
 Planned features:
 * any other little tweaks I can think of
+* new Agglomeration JEI compat showing the custom multiblock and consumed/not
 * does that shitty corproea-spark-augment idea belong here? probably too big to asm
 * *maybe* patch entropinnyum tnt duplication
 

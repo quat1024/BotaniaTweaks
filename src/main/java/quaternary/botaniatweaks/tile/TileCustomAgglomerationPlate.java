@@ -66,20 +66,20 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 				outputItem.setVelocity(0, 0, 0); //No!
 				world.spawnEntity(outputItem);
 				
-				//consume the blocks, if the recipe asked for it
-				if(recipe.consumesCenter) {
-					vanishBlock(world, pos.down());
+				//consume/replace the blocks, if the recipe asked for it
+				if(recipe.multiblockCenterReplace != null) {
+					replaceBlock(world, pos.down(), recipe.multiblockCenterReplace);
 				}
 				
-				if(recipe.consumesEdge) {
+				if(recipe.multiblockEdgeReplace != null) {
 					for(EnumFacing horiz : EnumFacing.HORIZONTALS) {
-						vanishBlock(world, pos.down().offset(horiz));
+						replaceBlock(world, pos.down().offset(horiz), recipe.multiblockEdgeReplace);
 					}
 				}
 				
-				if(recipe.consumesCorner) {
+				if(recipe.multiblockCornerReplace != null) {
 					for(EnumFacing horiz : EnumFacing.HORIZONTALS) {
-						vanishBlock(world, pos.down().offset(horiz).offset(horiz.rotateY()));
+						replaceBlock(world, pos.down().offset(horiz).offset(horiz.rotateY()), recipe.multiblockCornerReplace);
 					}
 				}
 				
@@ -97,9 +97,9 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 		if(maxMana == 0) recieveMana(0);
 	}
 	
-	private void vanishBlock(World w, BlockPos pos) {
+	private void replaceBlock(World w, BlockPos pos, IBlockState replace) {
 		w.playEvent(2001, pos, Block.getStateId(world.getBlockState(pos)));
-		w.setBlockToAir(pos);
+		w.setBlockState(pos, replace, 3);
 	}
 	
 	private void updateComparator() {

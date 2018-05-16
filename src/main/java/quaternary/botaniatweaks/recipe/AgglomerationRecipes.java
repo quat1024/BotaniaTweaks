@@ -26,11 +26,12 @@ public class AgglomerationRecipes {
 			ImmutableList.of(manaResource(MANA_DIAMOND), manaResource(MANASTEEL), manaResource(MANA_PEARL)),
 			manaResource(TERRASTEEL),
 			500_000,
-			0x00FF00,
+			0x0000FF, //TODO
+			0x00FF00, //TODO
 			ModBlocks.livingrock.getDefaultState(),
 			Blocks.LAPIS_BLOCK.getDefaultState(),
 			ModBlocks.livingrock.getDefaultState(),
-			false, false, false
+			null, null, null
 		);
 		
 		register(defaultRecipe);

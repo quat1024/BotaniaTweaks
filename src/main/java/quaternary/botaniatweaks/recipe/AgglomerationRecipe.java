@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class AgglomerationRecipe {
@@ -17,15 +18,14 @@ public class AgglomerationRecipe {
 	final ImmutableList<String> recipeOreKeys;
 	final ItemStack recipeOutput;
 	final int manaCost;
-	final int color;
+	final int color1;
+	final int color2;
 	final IBlockState multiblockCenter;
 	final IBlockState multiblockEdge;
 	final IBlockState multiblockCorner;
-	public final boolean consumesCenter;
-	public final boolean consumesEdge;
-	public final boolean consumesCorner;
-	
-	
+	@Nullable public final IBlockState multiblockCenterReplace;
+	@Nullable public final IBlockState multiblockEdgeReplace;
+	@Nullable public final IBlockState multiblockCornerReplace;
 	
 	final int totalInputs;
 	
@@ -38,7 +38,7 @@ public class AgglomerationRecipe {
 		}
 	}
 	
-	public AgglomerationRecipe(ImmutableList<Object> recipeInputs, ItemStack recipeOutput, int manaCost, int color, IBlockState multiblockCenter, IBlockState multiblockEdge, IBlockState multiblockCorner, boolean consumesCenter, boolean consumesEdge, boolean consumesCorner) {
+	public AgglomerationRecipe(ImmutableList<Object> recipeInputs, ItemStack recipeOutput, int manaCost, int color1, int color2, IBlockState multiblockCenter, IBlockState multiblockEdge, IBlockState multiblockCorner, @Nullable IBlockState multiblockCenterReplace, @Nullable IBlockState multiblockEdgeReplace, @Nullable IBlockState multiblockCornerReplace) {
 		verifyInputs(recipeInputs);
 		
 		ImmutableList.Builder<ItemStack> stackInputBuilder = new ImmutableList.Builder<>();
@@ -55,13 +55,16 @@ public class AgglomerationRecipe {
 		
 		this.recipeOutput = recipeOutput;
 		this.manaCost = manaCost;
-		this.color = color;
+		this.color1 = color1;
+		this.color2 = color2;
+		
 		this.multiblockCenter = multiblockCenter;
 		this.multiblockEdge = multiblockEdge;
 		this.multiblockCorner = multiblockCorner;
-		this.consumesCenter = consumesCenter;
-		this.consumesEdge = consumesEdge;
-		this.consumesCorner = consumesCorner;
+		
+		this.multiblockCenterReplace = multiblockCenterReplace;
+		this.multiblockEdgeReplace = multiblockEdgeReplace;
+		this.multiblockCornerReplace = multiblockCornerReplace;
 	}
 	
 	/////
@@ -137,30 +140,12 @@ public class AgglomerationRecipe {
 		return recipeOutput.copy();
 	}
 	
-	public int getColor() {
-		return color;
-	}
-	
-	public IBlockState getMultiblockCenter() {
-		return multiblockCenter;
-	}
-	
-	public IBlockState getMultiblockEdge() {
-		return multiblockEdge;
-	}
-	
-	public IBlockState getMultiblockCorner() {
-		return multiblockCorner;
-	}
-	
 	////
 	
 	@Override
 	public boolean equals(Object obj) {
 		if(!(obj instanceof AgglomerationRecipe)) return false;
 		
-		//todo i don't think itemstacks are equal() properly
-		AgglomerationRecipe other = (AgglomerationRecipe) obj;
-		return this.recipeStacks.equals(other.recipeStacks) && this.recipeOreKeys.equals(other.recipeOreKeys) && this.recipeOutput.equals(other.recipeOutput) && this.manaCost == other.manaCost && this.color == other.color && this.multiblockCenter.equals(other.multiblockCenter) && this.multiblockCorner.equals(other.multiblockCorner) && this.multiblockEdge.equals(other.multiblockEdge);
+		return false; //TODO
 	}
 }

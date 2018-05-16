@@ -11,12 +11,16 @@ import crafttweaker.mc1120.item.MCItemStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipe;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import stanhebben.zenscript.annotations.*;
 import vazkii.botania.common.block.ModBlocks;
+
+import javax.annotation.Nullable;
 
 @ZenClass("mods.botaniatweaks.Agglomeration")
 @ZenRegister
@@ -30,13 +34,62 @@ public class CTAgglomeration {
 	
 	//The easy way
 	@ZenMethod
-	public static void addRecipe(IItemStack output, IIngredient[] inputs, @Optional Integer manaCostIn, @Optional Integer colorIn, @Optional IIngredient center, @Optional IIngredient edge, @Optional IIngredient corner, @Optional Boolean consumeCenter, @Optional Boolean consumeEdge, @Optional Boolean consumeCorner) {
-		CTHandler.ADD_ACTIONS.add(new AddAction(buildAgglomerationRecipe(output, inputs, manaCostIn, colorIn, center, edge, corner, consumeCenter, consumeEdge, consumeCorner)));
+	public static void addRecipe(
+					IItemStack output,
+					IIngredient[] inputs,
+					@Optional Integer manaCost,
+					@Optional Integer color1,
+					@Optional Integer color2,
+					@Optional IIngredient center, //Usually I hate formatting like this but uh, yeah.
+					@Optional IIngredient edge,   //Any guesses as to why I added the companion object way?
+					@Optional IIngredient corner,
+					@Optional IIngredient centerReplace,
+					@Optional IIngredient edgeReplace,
+					@Optional IIngredient cornerReplace
+	) {
+		CTHandler.ADD_ACTIONS.add(new AddAction(buildAgglomerationRecipe(output, inputs, manaCost, color1, color2, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
 	}
 	
 	@ZenMethod
-	public static void removeRecipe(IItemStack output, IIngredient[] inputs, @Optional Integer manaCostIn, @Optional Integer colorIn, @Optional IIngredient center, @Optional IIngredient edge, @Optional IIngredient corner, @Optional Boolean consumeCenter, @Optional Boolean consumeEdge, @Optional Boolean consumeCorner) {
-		CTHandler.REMOVE_ACTIONS.add(new RemoveAction(buildAgglomerationRecipe(output, inputs, manaCostIn, colorIn, center, edge, corner, consumeCenter, consumeEdge, consumeCorner)));
+	public static void removeRecipe(
+					IItemStack output,
+					IIngredient[] inputs,
+					@Optional Integer manaCost,
+					@Optional Integer color1,
+					@Optional Integer color2,
+					@Optional IIngredient center,
+					@Optional IIngredient edge,
+					@Optional IIngredient corner,
+					@Optional IIngredient centerReplace,
+					@Optional IIngredient edgeReplace,
+					@Optional IIngredient cornerReplace
+	) {
+		CTHandler.REMOVE_ACTIONS.add(new RemoveAction(buildAgglomerationRecipe(output, inputs, manaCost, color1, color2, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
+	}
+	
+	//The way that's kinda in between the two
+	@ZenMethod
+	public static void addRecipe(
+					IItemStack output,
+					IIngredient[] inputs,
+					@Optional Integer manaCost,
+					@Optional Integer color1,
+					@Optional Integer color2,
+					CTAgglomerationMultiblock multiblock
+	) {
+		addRecipe(output, inputs, manaCost, color1, color2, multiblock.center, multiblock.edge, multiblock.corner, multiblock.centerReplace, multiblock.edgeReplace, multiblock.cornerReplace);
+	}
+	
+	@ZenMethod
+	public static void removeRecipe(
+					IItemStack output,
+					IIngredient[] inputs,
+					@Optional Integer manaCost,
+					@Optional Integer color1,
+					@Optional Integer color2,
+					CTAgglomerationMultiblock multiblock
+	) {
+		removeRecipe(output, inputs, manaCost, color1, color2, multiblock.center, multiblock.edge, multiblock.corner, multiblock.centerReplace, multiblock.edgeReplace, multiblock.cornerReplace);
 	}
 	
 	//The companion object way
@@ -61,7 +114,9 @@ public class CTAgglomeration {
 		@ZenProperty
 		public int manaCost = 500_000;
 		@ZenProperty
-		public int color = 0x00FF00; //todo accurate color
+		public int color1 = 0x0000FF; //todo accurate color
+		@ZenProperty
+		public int color2 = 0x00FF00; //todo accurate color
 		@ZenProperty
 		public CTAgglomerationMultiblock multiblock = new CTAgglomerationMultiblock();
 		
@@ -78,7 +133,7 @@ public class CTAgglomeration {
 		}
 		
 		@ZenMethod
-		public CTAgglomerationRecipe input(IIngredient[] inputs) {
+		public CTAgglomerationRecipe inputs(IIngredient[] inputs) {
 			this.inputs = inputs;
 			return this;
 		}
@@ -90,8 +145,14 @@ public class CTAgglomeration {
 		}
 		
 		@ZenMethod
-		public CTAgglomerationRecipe color(int color) {
-			this.color = color;
+		public CTAgglomerationRecipe color1(int color1) {
+			this.color1 = color1;
+			return this;
+		}
+		
+		@ZenMethod
+		public CTAgglomerationRecipe colo2(int color2) {
+			this.color2 = color2;
 			return this;
 		}
 		
@@ -103,7 +164,19 @@ public class CTAgglomeration {
 		
 		//internal use !
 		private AgglomerationRecipe toAgglomerationRecipe() {
-			return buildAgglomerationRecipe(output, inputs, manaCost, color, multiblock.center, multiblock.edge, multiblock.corner, multiblock.consumeCenter, multiblock.consumeEdge, multiblock.consumeCorner);
+			return buildAgglomerationRecipe(
+							output,
+							inputs,
+							manaCost,
+							color1,
+							color2,
+							multiblock.center,
+							multiblock.edge,
+							multiblock.corner,
+							multiblock.centerReplace,
+							multiblock.edgeReplace,
+							multiblock.cornerReplace
+			);
 		}
 	}
 	
@@ -117,12 +190,11 @@ public class CTAgglomeration {
 		@ZenProperty
 		public IIngredient corner = mcStackFromBlock(ModBlocks.livingrock);
 		@ZenProperty
-		public boolean consumeCenter = false;
+		public IIngredient centerReplace = null;
 		@ZenProperty
-		public boolean consumeEdge = false;
+		public IIngredient edgeReplace = null;
 		@ZenProperty
-		public boolean consumeCorner = false;
-		
+		public IIngredient cornerReplace = null;
 		
 		@ZenMethod
 		public static CTAgglomerationMultiblock create() {
@@ -149,20 +221,65 @@ public class CTAgglomeration {
 		}
 		
 		@ZenMethod
-		public CTAgglomerationMultiblock consumeCenter(@Optional Boolean consumeCenter) {
-			this.consumeCenter = consumeCenter == null ? true : consumeCenter;
+		public CTAgglomerationMultiblock all(IIngredient all) {
+			this.center = this.corner = this.edge = all;
 			return this;
 		}
 		
 		@ZenMethod
-		public CTAgglomerationMultiblock consumeEdge(@Optional Boolean consumeEdge) {
-			this.consumeEdge = consumeEdge == null ? true : consumeEdge;
+		public CTAgglomerationMultiblock checker(IIngredient five, IIngredient four) {
+			this.center = this.corner = five;
+			this.edge = four;
 			return this;
 		}
 		
 		@ZenMethod
-		public CTAgglomerationMultiblock consumeCorner(@Optional Boolean consumeCorner) {
-			this.consumeCorner = consumeCorner == null ? true : consumeCorner;
+		public CTAgglomerationMultiblock centerReplace(IIngredient centerReplace) {
+			this.centerReplace = centerReplace;
+			return this;
+		}
+		
+		@ZenMethod
+		public CTAgglomerationMultiblock edgeReplace(IIngredient edgeReplace) {
+			this.edgeReplace = edgeReplace;
+			return this;
+		}
+		
+		@ZenMethod
+		public CTAgglomerationMultiblock cornerReplace(IIngredient cornerReplace) {
+			this.cornerReplace = cornerReplace;
+			return this;
+		}
+		
+		@ZenMethod
+		public CTAgglomerationMultiblock allReplace(IIngredient allReplace) {
+			this.centerReplace = this.cornerReplace = this.edgeReplace = allReplace;
+			return this;
+		}
+		
+		@ZenMethod
+		public CTAgglomerationMultiblock checkerReplace(IIngredient fiveReplace, IIngredient fourReplace) {
+			this.centerReplace = this.cornerReplace = fiveReplace;
+			this.edgeReplace = fourReplace;
+			return this;
+		}
+		
+		//shorthands
+		@ZenMethod
+		public CTAgglomerationMultiblock consumeCenter() {
+			this.centerReplace = MCItemStack.EMPTY;
+			return this;
+		}
+		
+		@ZenMethod
+		public CTAgglomerationMultiblock consumeEdge() {
+			this.edgeReplace = MCItemStack.EMPTY;
+			return this;
+		}
+		
+		@ZenMethod
+		public CTAgglomerationMultiblock consumeCorner() {
+			this.cornerReplace = MCItemStack.EMPTY;
 			return this;
 		}
 	} 
@@ -206,6 +323,8 @@ public class CTAgglomeration {
 	//HELPERS!
 	//because ct IBlockStates are kinda useless
 	private static IBlockState toMinecraftBlockstate(IIngredient ing) {
+		if(ing == null) return null;
+		
 		Object obj = InputHelper.toObject(ing);
 		
 		// >.>
@@ -226,37 +345,60 @@ public class CTAgglomeration {
 		return new MCItemStack(new ItemStack(Item.getItemFromBlock(b)));
 	}
 	
-	private static AgglomerationRecipe buildAgglomerationRecipe(IItemStack output, IIngredient[] inputs, Integer manaCostIn, Integer colorIn, IIngredient center, IIngredient edge, IIngredient corner, Boolean consumeCenter, Boolean consumeEdge, Boolean consumeCorner) {
-		Preconditions.checkNotNull(output, "Output must be defined!");
-		Preconditions.checkNotNull(inputs, "Inputs must be defined!");
+	private static AgglomerationRecipe buildAgglomerationRecipe(
+					IItemStack output,
+					IIngredient[] inputs,
+					@Nullable Integer manaCostIn,
+					@Nullable Integer color1In,
+					@Nullable Integer color2In,
+					@Nullable IIngredient center,
+					@Nullable IIngredient edge,
+					@Nullable IIngredient corner,
+					@Nullable IIngredient centerReplace,
+					@Nullable IIngredient edgeReplace,
+					@Nullable IIngredient cornerReplace
+	) {
+		//Validation
+		Preconditions.checkNotNull(output, "Recipe output must be defined!");
+		Preconditions.checkNotNull(inputs, "Recipe inputs must be defined!");
 		
+		int providedMultiblockStates = 0;
+		providedMultiblockStates += center == null ? 0 : 1;
+		providedMultiblockStates += edge == null ? 0 : 1;
+		providedMultiblockStates += corner == null ? 0 : 1;
+		Preconditions.checkArgument(providedMultiblockStates == 0 || providedMultiblockStates == 3, "The multiblock must be completely defined or not defined at all!");
+		
+		//actual recipe figuring
 		ImmutableList<Object> ins = ImmutableList.copyOf(InputHelper.toObjects(inputs));
 		ItemStack out = InputHelper.toStack(output);
 		
 		int manaCost = 500_000;
 		if(manaCostIn != null) manaCost = manaCostIn;
 		
-		int color = 0x00FF00; //todo sane default
-		if(colorIn != null) color = colorIn;
+		int color1 = 0x0000FF; //todo sane default color
+		if(color1In != null) color1 = color1In;
 		
-		IBlockState centerState = ModBlocks.livingrock.getDefaultState();
-		IBlockState edgeState = Blocks.LAPIS_BLOCK.getDefaultState();
-		IBlockState cornerState = ModBlocks.livingrock.getDefaultState();
-		if(edge == null && corner == null && center != null) { //only one defined
-			centerState = edgeState = cornerState = toMinecraftBlockstate(center);
-		} else if(corner == null && center != null) { //default to checkerboard
-			centerState = cornerState = toMinecraftBlockstate(center);
-			edgeState = toMinecraftBlockstate(edge);
-		} else if (edge != null && center != null){ //all 3 defined
+		int color2 = 0x00FF00; //todo sane default color
+		if(color2In != null) color2 = color2In;
+		
+		IBlockState centerState;
+		IBlockState edgeState;
+		IBlockState cornerState;
+		
+		if(providedMultiblockStates == 0) {
+			centerState = ModBlocks.livingrock.getDefaultState();
+			edgeState = Blocks.LAPIS_BLOCK.getDefaultState();
+			cornerState = ModBlocks.livingrock.getDefaultState();
+		} else { // == 3
 			centerState = toMinecraftBlockstate(center);
 			edgeState = toMinecraftBlockstate(edge);
 			cornerState = toMinecraftBlockstate(corner);
 		}
 		
-		boolean conCenter = consumeCenter == null ? false : consumeCenter;
-		boolean conEdge = consumeEdge == null ? false : consumeEdge;
-		boolean conCorner = consumeCorner == null ? false : consumeCorner;
+		IBlockState centerStateReplace = toMinecraftBlockstate(centerReplace);
+		IBlockState edgeStateReplace = toMinecraftBlockstate(edgeReplace);
+		IBlockState cornerStateReplace = toMinecraftBlockstate(cornerReplace);
 		
-		return new AgglomerationRecipe(ins, out, manaCost, color, centerState, edgeState, cornerState, conCenter, conEdge, conCorner);
+		return new AgglomerationRecipe(ins, out, manaCost, color1, color2, centerState, edgeState, cornerState, centerStateReplace, edgeStateReplace, cornerStateReplace);
 	}
 }

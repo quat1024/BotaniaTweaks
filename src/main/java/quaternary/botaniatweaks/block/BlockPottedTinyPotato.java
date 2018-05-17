@@ -5,8 +5,7 @@ import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.state.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
@@ -129,5 +128,11 @@ public class BlockPottedTinyPotato extends Block {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(POTATO_FACING).getHorizontalIndex();
+	}
+	
+	//bleh
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
+		return BlockFaceShape.UNDEFINED;
 	}
 }

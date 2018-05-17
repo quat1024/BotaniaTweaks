@@ -5,9 +5,12 @@ import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
 
 import java.util.List;
@@ -77,7 +80,7 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 			posX += ITEM_WIDTH + ITEM_BUFFER;
 		}
 		
-		posY += ITEM_HEIGHT + ITEM_BUFFER * 2;
+		posY += ITEM_HEIGHT * 2 + ITEM_BUFFER;
 		
 		//Set output item
 		List<ItemStack> outItem = outs.get(0);
@@ -85,57 +88,77 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 		stacks.set(index, outItem);
 		index++;
 		
+		posY += ITEM_HEIGHT * 4.5;
+		
 		//Set multiblock under plate
-		posY += ITEM_HEIGHT * 3 + ITEM_BUFFER;
-		index = setMultiblock(index, stacks, multiblock.get(0), multiblock.get(1), multiblock.get(2), WIDTH / 2, posY, false);
+		
+		index = setMultiblock(index, stacks, multiblock.get(0), multiblock.get(1), multiblock.get(2), WIDTH / 2 - ITEM_WIDTH * 3, posY, false, false, false);
 		
 		//Set multiblock replacements
-		posY += ITEM_HEIGHT * 3 + ITEM_BUFFER;
-		setMultiblock(index, stacks, multiblockReplacements.get(0), multiblockReplacements.get(1), multiblockReplacements.get(2), WIDTH / 2, posY, false);
+		boolean isCenterReplaced = !empty(multiblockReplacements.get(0));
+		boolean isEdgeReplaced = !empty(multiblockReplacements.get(1));
+		boolean isCornerReplaced = !empty(multiblockReplacements.get(2));
+		
+		List<ItemStack> drawCenter = isCenterReplaced ? multiblockReplacements.get(0) : multiblock.get(0);
+		List<ItemStack> drawEdge = isEdgeReplaced ? multiblockReplacements.get(1) : multiblock.get(1);
+		List<ItemStack> drawCorner = isCornerReplaced ? multiblockReplacements.get(2) : multiblock.get(2);
+		
+		setMultiblock(index, stacks, drawCenter, drawEdge, drawCorner, WIDTH / 2 + ITEM_WIDTH * 3, posY, isCenterReplaced, isEdgeReplaced, isCornerReplaced);
 	}
 	
-	int setMultiblock(int index, IGuiItemStackGroup stacks, List<ItemStack> center, List<ItemStack> edges, List<ItemStack> corners, int posX, int posY, boolean output) {
-		if(!center.isEmpty() && !center.get(0).isEmpty()) {
+	static boolean empty(List<ItemStack> list) {
+		return list.isEmpty() || list.get(0).isEmpty();
+	}
+	
+	@GameRegistry.ObjectHolder("botania:terraplate")
+	public static final Item terraplate = Items.ACACIA_BOAT;
+	
+	int setMultiblock(int index, IGuiItemStackGroup stacks, List<ItemStack> center, List<ItemStack> edges, List<ItemStack> corners, int posX, int posY, boolean centerOutput, boolean edgeOutput, boolean cornerOutput) {
+		stacks.init(index, false, posX - ITEM_WIDTH / 2, posY - MathHelper.floor(ITEM_HEIGHT * 2.5));
+		stacks.set(index, new ItemStack(terraplate));
+		index++;
+		
+		if(!empty(center)) {
 			//the middle
-			stacks.init(index, output, posX - ITEM_WIDTH / 2, posY - ITEM_HEIGHT / 2);
+			stacks.init(index, centerOutput, posX - ITEM_WIDTH / 2, posY - ITEM_HEIGHT / 2);
 			stacks.set(index, center);
 			index++;
 		}
 		
-		if(!edges.isEmpty() && !edges.get(0).isEmpty()) {
+		if(!empty(edges)) {
 			//the edges
-			stacks.init(index, output, posX - MathHelper.floor(ITEM_WIDTH * 1.5), posY - ITEM_HEIGHT);
+			stacks.init(index, edgeOutput, posX - MathHelper.floor(ITEM_WIDTH * 1.5), posY - ITEM_HEIGHT);
 			stacks.set(index, edges);
 			index++;
 			
-			stacks.init(index, output, posX + ITEM_WIDTH / 2, posY - ITEM_HEIGHT);
+			stacks.init(index, edgeOutput, posX + ITEM_WIDTH / 2, posY - ITEM_HEIGHT);
 			stacks.set(index, edges);
 			index++;
 			
-			stacks.init(index, output, posX - MathHelper.floor(ITEM_WIDTH * 1.5), posY);
+			stacks.init(index, edgeOutput, posX - MathHelper.floor(ITEM_WIDTH * 1.5), posY);
 			stacks.set(index, edges);
 			index++;
 			
-			stacks.init(index, output, posX + ITEM_WIDTH / 2, posY);
+			stacks.init(index, edgeOutput, posX + ITEM_WIDTH / 2, posY);
 			stacks.set(index, edges);
 			index++;
 		}
 		
-		if(!corners.isEmpty() && !corners.get(0).isEmpty()) {
+		if(!empty(corners)) {
 			//the corners
-			stacks.init(index, output, posX - MathHelper.floor(ITEM_WIDTH * 2.5), posY - ITEM_HEIGHT / 2);
+			stacks.init(index, cornerOutput, posX - MathHelper.floor(ITEM_WIDTH * 2.5), posY - ITEM_HEIGHT / 2);
 			stacks.set(index, corners);
 			index++;
 			
-			stacks.init(index, output, posX + MathHelper.floor(ITEM_WIDTH * 1.5), posY - ITEM_HEIGHT / 2);
+			stacks.init(index, cornerOutput, posX + MathHelper.floor(ITEM_WIDTH * 1.5), posY - ITEM_HEIGHT / 2);
 			stacks.set(index, corners);
 			index++;
 			
-			stacks.init(index, output, posX - ITEM_WIDTH / 2, posY - MathHelper.floor(ITEM_HEIGHT * 1.5));
+			stacks.init(index, cornerOutput, posX - ITEM_WIDTH / 2, posY - MathHelper.floor(ITEM_HEIGHT * 1.5));
 			stacks.set(index, corners);
 			index++;
 			
-			stacks.init(index, output, posX - ITEM_WIDTH / 2, posY + ITEM_HEIGHT / 2);
+			stacks.init(index, cornerOutput, posX - ITEM_WIDTH / 2, posY + ITEM_HEIGHT / 2);
 			stacks.set(index, corners);
 			index++;
 		}

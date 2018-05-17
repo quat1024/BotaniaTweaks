@@ -14,15 +14,15 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class AgglomerationRecipe {
-	final ImmutableList<ItemStack> recipeStacks;
-	final ImmutableList<String> recipeOreKeys;
-	final ItemStack recipeOutput;
-	final int manaCost;
-	final int color1;
-	final int color2;
-	final IBlockState multiblockCenter;
-	final IBlockState multiblockEdge;
-	final IBlockState multiblockCorner;
+	public final ImmutableList<ItemStack> recipeStacks;
+	public final ImmutableList<String> recipeOreKeys;
+	public final ItemStack recipeOutput;
+	public final int manaCost;
+	public final int color1;
+	public final int color2;
+	public final IBlockState multiblockCenter;
+	public final IBlockState multiblockEdge;
+	public final IBlockState multiblockCorner;
 	@Nullable public final IBlockState multiblockCenterReplace;
 	@Nullable public final IBlockState multiblockEdgeReplace;
 	@Nullable public final IBlockState multiblockCornerReplace;

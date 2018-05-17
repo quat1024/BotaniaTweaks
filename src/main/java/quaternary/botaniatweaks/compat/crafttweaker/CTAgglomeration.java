@@ -75,7 +75,7 @@ public class CTAgglomeration {
 					@Optional Integer manaCost,
 					@Optional Integer color1,
 					@Optional Integer color2,
-					CTAgglomerationMultiblock multiblock
+					@Optional CTAgglomerationMultiblock multiblock
 	) {
 		addRecipe(output, inputs, manaCost, color1, color2, multiblock.center, multiblock.edge, multiblock.corner, multiblock.centerReplace, multiblock.edgeReplace, multiblock.cornerReplace);
 	}
@@ -87,7 +87,7 @@ public class CTAgglomeration {
 					@Optional Integer manaCost,
 					@Optional Integer color1,
 					@Optional Integer color2,
-					CTAgglomerationMultiblock multiblock
+					@Optional CTAgglomerationMultiblock multiblock
 	) {
 		removeRecipe(output, inputs, manaCost, color1, color2, multiblock.center, multiblock.edge, multiblock.corner, multiblock.centerReplace, multiblock.edgeReplace, multiblock.cornerReplace);
 	}

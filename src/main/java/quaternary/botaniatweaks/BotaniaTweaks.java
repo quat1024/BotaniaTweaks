@@ -17,9 +17,9 @@ import quaternary.botaniatweaks.block.*;
 import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.dispense.BehaviorEnderAirDispenser;
+import quaternary.botaniatweaks.proxy.ServerProxy;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
-import quaternary.botaniatweaks.tile.TileCustomAgglomerationPlate;
-import quaternary.botaniatweaks.tile.TileNerfedManaFluxfield;
+import quaternary.botaniatweaks.tile.*;
 import vazkii.botania.common.item.block.ItemBlockMod;
 
 import java.util.ArrayList;
@@ -35,19 +35,25 @@ public class BotaniaTweaks {
 	
 	public static final ArrayList<Block> BLOCKS = new ArrayList<>();
 	public static final ArrayList<Item> ITEMS = new ArrayList<>();
+	public static final ArrayList<Block> POTATOES = new ArrayList<>();
+	
+	@SidedProxy(clientSide = "quaternary.botaniatweaks.proxy.ClientProxy", serverSide = "quaternary.botaniatweaks.proxy.ServerProxy")
+	public static ServerProxy PROXY;
 	
 	static {
-		LOG.info("Creating some registry replacements for Botania. Here come the blocks:");
 		BLOCKS.add(new BlockNerfedManaFluxfield());
 		BLOCKS.add(new BlockCustomAgglomerationPlate());
 		
-		LOG.info("And the items:");
+		for(int i = 1; i <= 8; i++) {
+			POTATOES.add(new BlockCompressedTinyPotato(i));
+		}
+		
+		BLOCKS.addAll(POTATOES);
+		
 		for(Block b : BLOCKS) {
 			Item i = new ItemBlockMod(b).setRegistryName(b.getRegistryName());
 			ITEMS.add(i);
 		}
-		
-		LOG.info("It is safe to ignore the warnings Forge just printed!");
 		
 		BLOCKS.add(new BlockPottedTinyPotato());
 	}
@@ -79,6 +85,10 @@ public class BotaniaTweaks {
 			
 			GameRegistry.registerTileEntity(TileNerfedManaFluxfield.class, MODID + ":tweaked_fluxfield");
 			GameRegistry.registerTileEntity(TileCustomAgglomerationPlate.class, MODID + ":custom_agglomeration_plate");
+			GameRegistry.registerTileEntity(TileCompressedTinyPotato.class, MODID + ":compressed_tiny_potato");
+			
+			//While we're at it
+			PROXY.registerTESR();
 		}
 		
 		@SubscribeEvent

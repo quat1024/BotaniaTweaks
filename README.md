@@ -19,7 +19,24 @@ Planned features:
 * does that shitty corproea-spark-augment idea belong here? probably too big to asm
 * *maybe* patch entropinnyum tnt duplication
 
-License
-=======
+License and Attribution
+=======================
 
-CC0 - https://creativecommons.org/publicdomain/zero/1.0/
+---
+
+> This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+---
+
+In short, this means that your modifications of Botania Tweaks must use the same license, but your modpacks that use it do not.
+
+Please also familiarize yourself with the [license of Botania](https://botaniamod.net/license.php). The Mozilla Public License was (in part) chosen to be in compliance with the Copyleft Clause. Also because I like it.
+
+Portions of this code were adapted from Botania, by Vazkii. A list of copied/modified classes is available below:
+
+* `TileCompressedTinyPotato` adapted from `TileTinyPotato`
+* `RenderTileCompressedTinyPotato` adapted from `RenderTileTinyPotato`
+
+Previous (pre-release) versions of this mod were CC0.
+
+I take this all too seriously.

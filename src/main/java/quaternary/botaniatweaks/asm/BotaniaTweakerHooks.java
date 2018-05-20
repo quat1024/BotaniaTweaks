@@ -1,13 +1,24 @@
 package quaternary.botaniatweaks.asm;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemBucket;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.etc.CatchallFlowerComponent;
+import vazkii.botania.api.recipe.IFlowerComponent;
 
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("unused") //Everything here called through ASM
 public class BotaniaTweakerHooks {
+	
+	/// decay tweak
+	
 	public static int getPassiveDecayTime() {
 		return BotaniaTweaksConfig.PASSIVE_DECAY_TIMER;
 	}
@@ -38,10 +49,33 @@ public class BotaniaTweakerHooks {
 		return 6500 * (BotaniaTweaksConfig.SUPER_ENTROPINNYUM ? 8 : 1); 
 	}
 	
-	//spectro tweak
+	/// spectro tweak
 	
 	public static int getSpectrolusManaPerWool() {
 		//300 is the default (check subtilespectrolus)
 		return 300 * (BotaniaTweaksConfig.SUPER_SPECTROLUS ? 10 : 1);
+	}
+	
+	/// apothecary tweak
+	
+	//Copy from TileAltar
+	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
+	
+	@CapabilityInject(IFluidHandler.class)
+	public static final Capability<IFluidHandler> FLUID_CAP = null;
+	
+	public static IFlowerComponent getFlowerComponent(IFlowerComponent comp, ItemStack stack) {
+		//If the tweak is disabled, or if Botania has already chosen a good flower component, just don't change anything
+		if(!BotaniaTweaksConfig.EVERYTHING_APOTHECARY || comp != null) return comp;
+		
+		//If it's a seed, don't allow it in, since yknow it has to complete the craft
+		if(SEED_PATTERN.matcher(stack.getUnlocalizedName()).find()) return null;
+		
+		//Don't allow buckets in since it's annoying when the empty bucket goes in
+		if(stack.getItem() instanceof ItemBucket) return null;
+		if(stack.hasCapability(FLUID_CAP, null)) return null;
+		
+		//K cool
+		return new CatchallFlowerComponent();
 	}
 }

@@ -28,6 +28,8 @@ public class BotaniaTweaksConfig {
 	
 	public static boolean AUTO_CORPOREA_SPARK = false;
 	
+	public static boolean EVERYTHING_APOTHECARY = true;
+	
 	static Configuration config;
 	
 	public static void initConfig() {
@@ -65,6 +67,8 @@ public class BotaniaTweaksConfig {
 		POTTED_TINY_POTATO = config.getBoolean("pottedTinyPotato", "general", true, "Can players place tiny potatoes in flower pots? Please don't disable this, it's very cute.");
 		
 		AUTO_CORPOREA_SPARK = config.getBoolean("autoCorporeaSpark", "general", false, "If true, placing a corporea-related block will automatically decorate it with corporea sparks and floral powder, unless you're sneaking.");
+		
+		EVERYTHING_APOTHECARY = config.getBoolean("unlockApothecary", "general", true, "If true, any item is allowed to enter the Petal Apothecary, not just petals, runes, and manaresources. Great for modpacks.");
 		
 		if(config.hasChanged()) config.save();
 	}

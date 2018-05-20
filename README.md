@@ -3,13 +3,11 @@ Botania Tweaks
 
 A little mod containing tweaks to Botania. Mainly focused around adding more configuration options, tiny conveniences, increasing the challenge, or just silly things. All tweaks are configurable.
 
-Some patches use an ASM coremod; these are marked with a « symbol in the below list. Please yell at me if you get VerifyErrors so I can fix it.
-
 Current features:
 * mana fluxfields you can tweak to match your modpack's FE ecosystem
 * use dispensers on glass bottles in the End to make Ender Air *(tentative mechanic)*
 * crafttweakable agglomeration plate
-  * with a custom multiblock
+  * with a custom multiblock, too!
   * option to consume or replace the blocks in the multiblock
   * jei support *(that's only KINDA broken!)*
 * POTATIC EXPANSION: 
@@ -17,20 +15,25 @@ Current features:
   * octuple compressed tiny potato w/ glorius rainbow color
   * LOVABLE and HUGGABLE, just like the original
   * spent way too much time on this
-* « passive decay hard mode
-  * « make any flower you want passive decay
-  * « reduce the passive decay timer
-* « big buffs to underutilized & cool mana sources
-  * « big entropinnyum buff
-  * « big spectrolus buff
-  * « big buff to manastorm charge mana output 
-    * ("wait, those even had mana output?" you ask? mmmhmm)
-* auto-place corporea sparks when you place funnels, crystal cubes, etc
+* auto-place corporea sparks from your hotbar when you place funnels, crystal cubes, and such
+  * also automatically place dye from your hotbar
+
+The following features also exist, using a little ASM hackery: 
+
+* passive decay hard mode
+  * make any flower you want passive decay
+  * reduce the passive decay timer
+* big buffs to underutilized & cool mana sources
+  * big entropinnyum buff
+  * big spectrolus buff
+  * big buff to manastorm charge mana output 
+    * ("wait, those even had mana output?" you ask? mmmhmm, yea)
+* unlock petal apothecary items (any items in Petal Apothecary)
+
 
 Planned features:
 * any other little tweaks I can think of
 * pre end corporea hnnnng
-* unlock petal apothecary items
 * does that shitty corproea-spark-augment idea belong here? probably too big to asm
 * *maybe* patch entropinnyum tnt duplication
 
@@ -51,6 +54,8 @@ Portions of this code were adapted from Botania, by Vazkii. A list of copied/mod
 
 * `TileCompressedTinyPotato` adapted from `TileTinyPotato`
 * `RenderTileCompressedTinyPotato` adapted from `RenderTileTinyPotato`
+* `ModelCompressedTinyPotato` adapted from `ModelTinyPotato`
+* `BotaniaTweakerHooks` contains content from `TileAltar`
 
 Previous (pre-release) versions of this mod were CC0.
 

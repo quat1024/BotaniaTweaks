@@ -8,6 +8,7 @@ import java.util.Map;
 @IFMLLoadingPlugin.Name("Botania Tweaks Core")
 @IFMLLoadingPlugin.TransformerExclusions("quaternary.botaniatweaks")
 @IFMLLoadingPlugin.MCVersion("1.12.2")
+@IFMLLoadingPlugin.SortingIndex(1337)
 public class BotaniaTweakerPlugin implements IFMLLoadingPlugin {
 	@Override
 	public String[] getASMTransformerClass() {

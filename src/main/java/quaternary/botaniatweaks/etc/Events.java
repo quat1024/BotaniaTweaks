@@ -1,6 +1,7 @@
 package quaternary.botaniatweaks.etc;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
@@ -10,12 +11,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.IItemHandler;
 import quaternary.botaniatweaks.BotaniaTweaks;
+import quaternary.botaniatweaks.ai.EntityAIEatAltGrass;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.util.ItemHandlerHelper2;
 import scala.actors.threadpool.Arrays;
@@ -96,5 +99,14 @@ public class Events {
 			}
 		}
 		return ItemStack.EMPTY;
+	}
+	
+	@SubscribeEvent
+	public static void joinWorld(EntityJoinWorldEvent e) {
+		if(e.getEntity() instanceof EntitySheep) {
+			EntitySheep sheep = (EntitySheep) e.getEntity();
+			
+			sheep.tasks.addTask(5, new EntityAIEatAltGrass(sheep));
+		}
 	}
 }

@@ -51,13 +51,7 @@ jar {
     manifest {
         attributes "FMLCorePlugin": "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin", "FMLCorePluginContainsFMLMod": true
         
-        //HAVING DUMB AT PROBLEMS???
-        //paste Botania's AT into a file called temp_at.cfg
-        //then uncomment this
-        //game wont crash anymore!
-        //doesn't actually fix the problem!
-        //but it won't crash!
-        attributes "FMLAT": "temp_at.cfg"
+        attributes "FMLAT": "botania_tweaks_at.cfg"
     }
 }
 

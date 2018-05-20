@@ -30,6 +30,8 @@ public class BotaniaTweaksConfig {
 	
 	public static boolean EVERYTHING_APOTHECARY = true;
 	
+	public static boolean SHEEP_EAT_ALT_GRASS = true;
+	
 	static Configuration config;
 	
 	public static void initConfig() {
@@ -69,6 +71,8 @@ public class BotaniaTweaksConfig {
 		AUTO_CORPOREA_SPARK = config.getBoolean("autoCorporeaSpark", "general", false, "If true, placing a corporea-related block will automatically decorate it with corporea sparks and floral powder, unless you're sneaking.");
 		
 		EVERYTHING_APOTHECARY = config.getBoolean("unlockApothecary", "general", true, "If true, any item is allowed to enter the Petal Apothecary, not just petals, runes, and manaresources. Great for modpacks.");
+		
+		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "general", true, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
 		
 		if(config.hasChanged()) config.save();
 	}

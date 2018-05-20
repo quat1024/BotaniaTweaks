@@ -1,21 +1,36 @@
 Botania Tweaks
 ==============
 
+A little mod containing tweaks to Botania. Mainly focused around adding more configuration options, tiny conveniences, increasing the challenge, or just silly things. All tweaks are configurable.
+
+Some patches use an ASM coremod; these are marked with a « symbol in the below list. Please yell at me if you get VerifyErrors so I can fix it.
+
 Current features:
-* mana fluxfields you can nerf to oblivion
-* use dispensers on glass bottles in the End to make Ender Air
+* mana fluxfields you can tweak to match your modpack's FE ecosystem
+* use dispensers on glass bottles in the End to make Ender Air *(tentative mechanic)*
 * crafttweakable agglomeration plate
   * with a custom multiblock
   * option to consume or replace the blocks in the multiblock
-* put tiny potato in flower pot!!!
-* make any flower you want passive decay
-* reduce the passive decay timer
-* make manastorm reactors profitable because hell yeah, it's a manastorm reactor dude!!! sick!!!
-* slightly nerf or buff certain generating flowers
+  * jei support *(that's only KINDA broken!)*
+* POTATIC EXPANSION: 
+  * put tiny potato in flower pot!!!
+  * octuple compressed tiny potato w/ glorius rainbow color
+  * LOVABLE and HUGGABLE, just like the original
+  * spent way too much time on this
+* « passive decay hard mode
+  * « make any flower you want passive decay
+  * « reduce the passive decay timer
+* « big buffs to underutilized & cool mana sources
+  * « big entropinnyum buff
+  * « big spectrolus buff
+  * « big buff to manastorm charge mana output 
+    * ("wait, those even had mana output?" you ask? mmmhmm)
+* auto-place corporea sparks when you place funnels, crystal cubes, etc
 
 Planned features:
 * any other little tweaks I can think of
-* new Agglomeration JEI compat showing the custom multiblock and consumed/not
+* pre end corporea hnnnng
+* unlock petal apothecary items
 * does that shitty corproea-spark-augment idea belong here? probably too big to asm
 * *maybe* patch entropinnyum tnt duplication
 

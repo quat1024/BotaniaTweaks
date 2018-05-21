@@ -11,7 +11,6 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class AgglomerationRecipe {

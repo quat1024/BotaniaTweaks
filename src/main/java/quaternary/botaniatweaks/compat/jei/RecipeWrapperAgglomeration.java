@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipe;
 
-import java.util.*;
+import java.util.List;
 
 public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 	AgglomerationRecipe recipe;

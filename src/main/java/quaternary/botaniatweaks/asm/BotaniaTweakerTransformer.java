@@ -2,7 +2,7 @@ package quaternary.botaniatweaks.asm;
 
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.*;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.ClassNode;
 import quaternary.botaniatweaks.asm.tweaks.*;
 
 import java.util.ArrayList;

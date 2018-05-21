@@ -1,6 +1,5 @@
 package quaternary.botaniatweaks.asm;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
@@ -11,7 +10,6 @@ import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.CatchallFlowerComponent;
 import vazkii.botania.api.recipe.IFlowerComponent;
 
-import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("unused") //Everything here called through ASM

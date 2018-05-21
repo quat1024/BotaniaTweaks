@@ -20,15 +20,10 @@ import net.minecraftforge.items.IItemHandler;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.ai.EntityAIEatAltGrass;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.util.ItemHandlerHelper2;
-import scala.actors.threadpool.Arrays;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.corporea.BlockCorporeaBase;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.item.ItemCorporeaSpark;
-
-import java.util.*;
-import java.util.stream.IntStream;
 
 @Mod.EventBusSubscriber(modid = BotaniaTweaks.MODID)
 public class Events {

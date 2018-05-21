@@ -1,6 +1,6 @@
 package quaternary.botaniatweaks.etc;
 
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 

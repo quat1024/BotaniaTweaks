@@ -2,10 +2,6 @@ package quaternary.botaniatweaks.compat.crafttweaker;
 
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import quaternary.botaniatweaks.BotaniaTweaks;
 
 import java.util.ArrayList;
 import java.util.List;

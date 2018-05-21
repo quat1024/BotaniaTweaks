@@ -145,6 +145,7 @@ public class BlockCompressedTinyPotato extends Block {
 	
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-		return BlockFaceShape.UNDEFINED;
+		if(compressionLevel != 8) return BlockFaceShape.UNDEFINED;
+		else return face == EnumFacing.UP ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
 	}
 }

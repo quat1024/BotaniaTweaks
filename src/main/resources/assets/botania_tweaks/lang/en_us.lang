@@ -1,11 +1,15 @@
-botaniatweaks.jei.agglomeration.category=Terrestrial Agglomeration
+botania_tweaks.jei.agglomeration.category=Terrestrial Agglomeration
 
-botaniatweaks.compressedpotato.tooltip=%s tiny potatoes
-botaniatweaks.compressedpotato.1=Little Potato
-botaniatweaks.compressedpotato.2=Small Potato
-botaniatweaks.compressedpotato.3=Medium Potato
-botaniatweaks.compressedpotato.4=Average Potato
-botaniatweaks.compressedpotato.5=Immense Potato
-botaniatweaks.compressedpotato.6=Enormous Potato
-botaniatweaks.compressedpotato.7=Colossal Potato
-botaniatweaks.compressedpotato.8=Galactic Potato
+botania_tweaks.compressedpotato.tooltip=%s tiny potatoes
+
+tile.botania_tweaks.compressedpotato.1.name=Little Potato
+tile.botania_tweaks.compressedpotato.2.name=Small Potato
+tile.botania_tweaks.compressedpotato.3.name=Medium Potato
+tile.botania_tweaks.compressedpotato.4.name=Average Potato
+tile.botania_tweaks.compressedpotato.5.name=Immense Potato
+tile.botania_tweaks.compressedpotato.6.name=Enormous Potato
+tile.botania_tweaks.compressedpotato.7.name=Colossal Potato
+tile.botania_tweaks.compressedpotato.8.name=Galactic Potato
+
+botania_tweaks.advancement.octuple_potato.name=Simply Love
+botania_tweaks.advancement.octuple_potato.desc=Place the Galactic Potato, an artifact of tremendous power

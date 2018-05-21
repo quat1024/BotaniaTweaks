@@ -1,0 +1,26 @@
+{
+	"display": {
+		"icon": {
+			"item": "botania_tweaks:compressed_tiny_potato_8"
+		},
+		"title": {
+			"translate": "botania_tweaks.advancement.octuple_potato.name"
+		},
+		"description": {
+			"translate": "botania_tweaks.advancement.octuple_potato.desc"
+		},
+		"frame": "challenge"
+	},
+	"parent": "botania:main/tiny_potato_pet",
+	"criteria": {
+		"bepis": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "botania_tweaks:compressed_tiny_potato_8"
+			}
+		}
+	},
+	"rewards": {
+		"experience": 1500
+	}
+}

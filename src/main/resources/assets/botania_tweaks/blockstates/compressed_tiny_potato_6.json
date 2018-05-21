@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"facing=north": { "model": "botania_tweaks:compressed_tiny_potato_6" },
+		"facing=east": { "model": "botania_tweaks:compressed_tiny_potato_6", "y": 90 },
+		"facing=south": { "model": "botania_tweaks:compressed_tiny_potato_6", "y": 180 },
+		"facing=west": { "model": "botania_tweaks:compressed_tiny_potato_6", "y": 270 }
+	}
+}

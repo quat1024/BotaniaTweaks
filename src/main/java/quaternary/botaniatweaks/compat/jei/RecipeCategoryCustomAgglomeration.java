@@ -25,7 +25,7 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 	final IDrawable background;
 	
 	public RecipeCategoryCustomAgglomeration(IGuiHelper guiHelper) {
-		localizedName = I18n.translateToLocal("botaniatweaks.jei.category.agglomeration");
+		localizedName = I18n.translateToLocal("botania_tweaks.jei.category.agglomeration");
 		background = guiHelper.createBlankDrawable(WIDTH, HEIGHT);
 	}
 	

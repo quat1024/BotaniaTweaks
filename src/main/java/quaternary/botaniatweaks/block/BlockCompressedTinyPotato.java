@@ -48,9 +48,9 @@ public class BlockCompressedTinyPotato extends Block {
 		aabb = new AxisAlignedBB(.5 - radius, 0, .5 - radius, .5 + radius, height, .5 + radius);
 		
 		setRegistryName(new ResourceLocation(BotaniaTweaks.MODID, "compressed_tiny_potato_" + compressionLevel));
-		setUnlocalizedName(BotaniaTweaks.MODID + "compressedpotato." + compressionLevel);
+		setUnlocalizedName(BotaniaTweaks.MODID + ".compressedpotato." + compressionLevel);
 		
-		setHardness((float) Math.pow(potatoCount, 0.25));
+		setHardness(0.25f * (1 + compressionLevel));
 		
 		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		
@@ -59,7 +59,8 @@ public class BlockCompressedTinyPotato extends Block {
 	
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add(I18n.translateToLocalFormatted("botaniatweaks.compressedpotato.tooltip", potatoCount));
+		String nicePotatoCount = String.format("%,d", potatoCount);
+		tooltip.add(I18n.translateToLocalFormatted("botania_tweaks.compressedpotato.tooltip", nicePotatoCount));
 	}
 	
 	@Override

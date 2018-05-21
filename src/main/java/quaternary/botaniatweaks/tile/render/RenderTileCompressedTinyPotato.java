@@ -50,6 +50,8 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TINY_POTATO_HALLOWEEN);
 	private static final ModelCompressedTinyPotato[] models = new ModelCompressedTinyPotato[8];
 	
+	public static final ResourceLocation textureGrayscale2 = new ResourceLocation("botania_tweaks", "textures/model/brighter_grayscale_tiny_potato.png");
+	
 	static {
 		for(int i=0; i < 8; i++) {
 			models[i] = new ModelCompressedTinyPotato(i + 1);
@@ -63,8 +65,6 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 	private static String removeFromFront(String name, String match) {
 		return name.substring(match.length()).trim();
 	}
-	
-	float accumPartialTicks = 0;
 	
 	@Override
 	public void render(TileCompressedTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {		
@@ -109,11 +109,11 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 		
 		//WOOOOOOOO
 		if(compressionLevel == 8) {
-			mc.renderEngine.bindTexture(textureGrayscale);
+			mc.renderEngine.bindTexture(textureGrayscale2);
 			
 			float t = Minecraft.getSystemTime() / 2000f;
 			
-			int rgb = MathHelper.hsvToRGB(t % 1f, .8f, 1f);
+			int rgb = MathHelper.hsvToRGB(t % 1f, 1f, 1f);
 			float r = ((rgb & 0xFF0000) >> 16) / 255f;
 			float g = ((rgb & 0x00FF00) >> 8) / 255f;
 			float b = (rgb & 0x0000FF) / 255f;

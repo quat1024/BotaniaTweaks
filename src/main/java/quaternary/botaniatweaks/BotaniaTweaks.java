@@ -1,9 +1,20 @@
 package quaternary.botaniatweaks;
 
+import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -20,9 +31,10 @@ import quaternary.botaniatweaks.dispense.BehaviorEnderAirDispenser;
 import quaternary.botaniatweaks.proxy.ServerProxy;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import quaternary.botaniatweaks.tile.*;
+import quaternary.botaniatweaks.tile.render.RenderTileCompressedTinyPotato;
 import vazkii.botania.common.item.block.ItemBlockMod;
 
-import java.util.ArrayList;
+import java.util.*;
 
 @Mod(modid = BotaniaTweaks.MODID, name = BotaniaTweaks.NAME, version = BotaniaTweaks.VERSION, dependencies = BotaniaTweaks.DEPS, guiFactory = "quaternary.botaniatweaks.config.BotaniaTweaksGuiFactory")
 public class BotaniaTweaks {
@@ -41,17 +53,23 @@ public class BotaniaTweaks {
 	public static ServerProxy PROXY;
 	
 	static {
+		//Overrides
 		BLOCKS.add(new BlockNerfedManaFluxfield());
 		BLOCKS.add(new BlockCustomAgglomerationPlate());
 		
+		for(Block b : BLOCKS) {
+			Item i = new ItemBlockMod(b).setRegistryName(b.getRegistryName());
+			ITEMS.add(i);
+		}
+		
+		//Other blocks and items
 		for(int i = 1; i <= 8; i++) {
 			POTATOES.add(new BlockCompressedTinyPotato(i));
 		}
 		
-		BLOCKS.addAll(POTATOES);
-		
-		for(Block b : BLOCKS) {
-			Item i = new ItemBlockMod(b).setRegistryName(b.getRegistryName());
+		for(Block b : POTATOES) {
+			BLOCKS.add(b);
+			Item i = new ItemBlock(b).setRegistryName(b.getRegistryName());
 			ITEMS.add(i);
 		}
 		
@@ -97,6 +115,17 @@ public class BotaniaTweaks {
 			
 			for(Item i : ITEMS) {
 				reg.register(i);
+			}
+		}
+	}
+	
+	@Mod.EventBusSubscriber
+	public static class ClientEvents {
+		@SubscribeEvent
+		public static void model(ModelRegistryEvent e) {
+			for(Item i : ITEMS) {
+				if(i instanceof ItemBlockMod) continue;
+				ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(i.getRegistryName(), "inventory"));
 			}
 		}
 	}

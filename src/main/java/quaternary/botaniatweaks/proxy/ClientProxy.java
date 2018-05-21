@@ -9,4 +9,9 @@ public class ClientProxy extends ServerProxy {
 	public void registerTESR() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileCompressedTinyPotato.class, new RenderTileCompressedTinyPotato());
 	}
+	
+	@Override
+	public void registerStatemapper() {
+		
+	}
 }

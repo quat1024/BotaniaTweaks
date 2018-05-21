@@ -11,7 +11,8 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nullable;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class AgglomerationRecipe {
 	public final ImmutableList<ItemStack> recipeStacks;
@@ -73,38 +74,57 @@ public class AgglomerationRecipe {
 		return multiblockMatches(w, platePos) && itemsMatch(inputs);
 	}
 	
-	public boolean itemsMatch(List<ItemStack> inputs) {
-		int matches = 0;
+	public boolean itemsMatch(List<ItemStack> userInputs) {
+		//Early-exit if the input count is wrong anyways
+		if(userInputs.size() != totalInputs) return false;
+		
+		List<ItemStack> userInputsCopy = new ArrayList<>(userInputs);
+		List<ItemStack> recipeStacksCopy = new ArrayList<>(recipeStacks);
+		List<String> recipeKeysCopy = new ArrayList<>(recipeOreKeys);
 		
 		//Check stack inputs
-		for(ItemStack recipeStack : recipeStacks) {
-			for(ItemStack inputStack : inputs) {
-				if(ItemHandlerHelper.canItemStacksStack(recipeStack, inputStack)) {
-					matches++;
-					break; //try the next input stack
+		Iterator<ItemStack> recipeStackIterator = recipeStacksCopy.iterator();
+		while(recipeStackIterator.hasNext()) {
+			ItemStack recipeStack = recipeStackIterator.next();
+			
+			Iterator<ItemStack> userInputStackIterator = userInputsCopy.iterator();
+			while(userInputStackIterator.hasNext()) {
+				ItemStack userInputStack = userInputStackIterator.next();
+				
+				if(ItemHandlerHelper.canItemStacksStack(recipeStack, userInputStack) && recipeStack.getCount() == userInputStack.getCount()) {
+					recipeStackIterator.remove();
+					userInputStackIterator.remove();
 				}
 			}
 		}
 		
-		if(matches == totalInputs) return true;
+		//Are all of the recipe item stacks present?
+		if(!recipeStacksCopy.isEmpty()) return false;
 		
-		//Check recipe inputs that are ore dictionary keys
-		for(String oreKey : recipeOreKeys) {
-			NonNullList<ItemStack> ores = OreDictionary.getOres(oreKey);
+		//Check ore dictionary key inputs
+		Iterator<String> recipeKeyIterator = recipeKeysCopy.iterator();
+		while(recipeKeyIterator.hasNext()) {
+			NonNullList<ItemStack> ores = OreDictionary.getOres(recipeKeyIterator.next());
 			
-			for(ItemStack inputStack : inputs) {
-				if(inputStack.getCount() != 1) continue;
+			nextOre:
+			for(ItemStack ore : ores) {
+				Iterator<ItemStack> userInputStackIterator = userInputsCopy.iterator();
 				
-				for(ItemStack ore : ores) {
-					if(ItemHandlerHelper.canItemStacksStack(ore, inputStack)) {
-						matches++;
-						break; //try the next input stack
+				while(userInputStackIterator.hasNext()) {
+					ItemStack userInputStack = userInputStackIterator.next();
+					if(userInputStack.getCount() != 1) continue;
+					
+					if(ItemHandlerHelper.canItemStacksStack(ore, userInputStack)) {
+						recipeKeyIterator.remove();
+						userInputStackIterator.remove();
+						break nextOre;
 					}
 				}
 			}
 		}
 		
-		return matches == totalInputs;
+		//Have all of the itemstacks and orekeys been used?
+		return recipeKeysCopy.isEmpty() && userInputsCopy.isEmpty();
 	}
 	
 	public boolean multiblockMatches(World w, BlockPos platePos) {

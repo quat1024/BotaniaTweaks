@@ -1,5 +1,7 @@
 botania_tweaks.jei.agglomeration.category=Terrestrial Agglomeration
 
+item.botania_tweaks.spork.name=Spork
+botania_tweaks.spork.tooltip=*holds up spork*
 botania_tweaks.compressedpotato.tooltip=%s tiny potatoes
 
 tile.botania_tweaks.compressedpotato.1.name=Little Potato

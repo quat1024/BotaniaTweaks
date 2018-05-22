@@ -20,8 +20,7 @@ import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.block.*;
 import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.etc.BehaviorEnderAirDispenser;
-import quaternary.botaniatweaks.etc.ItemBlockRainbowBarf;
+import quaternary.botaniatweaks.etc.*;
 import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.proxy.ServerProxy;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
@@ -66,6 +65,7 @@ public class BotaniaTweaks {
 		}
 		
 		BLOCKS.add(new BlockPottedTinyPotato());
+		ITEMS.add(new ItemSpork());
 	}
 	
 	@Mod.EventHandler

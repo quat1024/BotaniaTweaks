@@ -35,12 +35,12 @@ The following features also exist, using a little ASM hackery:
 * unlocked petal apothecary items (put any items in Petal Apothecary)
   * except seeds and buckets, duh
 * use Garden of Glass's much cheaper prices to run the Orechid, even if GoG is not enabled
+* make the Entropinnyum ignore TNT from a TNT duplicator device
+* make the Entropinnuim only accept vanilla TNT
 
 Planned features:
 * any other little tweaks I can think of
 * pre end corporea hnnnng
-* does that shitty corproea-spark-augment idea belong here? probably too big to asm
-* *maybe* patch entropinnyum tnt duplication
 
 License and Attribution
 =======================

@@ -1,7 +1,7 @@
 Botania Tweaks
 ==============
 
-A little mod containing tweaks to Botania. Mainly focused around adding more configuration options, tiny conveniences, increasing the challenge, or just silly things. All tweaks are configurable.
+A little mod containing tweaks to Botania. Mainly focused around adding more configuration options, tiny conveniences, increasing the challenge, or just silly things. All the gameplay-affecting tweaks are configurable.
 
 Current features:
 * mana fluxfields that you can tweak to match your modpack's FE ecosystem
@@ -34,7 +34,7 @@ The following features also exist, using a little ASM hackery:
     * mmmhmm, yea, they did
 * unlocked petal apothecary items (put any items in Petal Apothecary)
   * except seeds and buckets, duh
-
+* use Garden of Glass's much cheaper prices to run the Orechid, even if GoG is not enabled
 
 Planned features:
 * any other little tweaks I can think of

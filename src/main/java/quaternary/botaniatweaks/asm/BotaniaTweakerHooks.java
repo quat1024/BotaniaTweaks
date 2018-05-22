@@ -9,6 +9,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.CatchallFlowerComponent;
 import vazkii.botania.api.recipe.IFlowerComponent;
+import vazkii.botania.common.Botania;
 
 import java.util.regex.Pattern;
 
@@ -75,5 +76,17 @@ public class BotaniaTweakerHooks {
 		
 		//K cool
 		return new CatchallFlowerComponent();
+	}
+	
+	/// orechid tweak
+	
+	public static boolean orechidGog = Botania.gardenOfGlassLoaded;
+	
+	public static void onConfigChanged() {
+		switch(BotaniaTweaksConfig.ORECHID_MODE) {
+			case DEFAULT: orechidGog = Botania.gardenOfGlassLoaded; break;
+			case FORCE_GOG: orechidGog = true; break;
+			case FORCE_NO_GOG: orechidGog = false; break;
+		}
 	}
 }

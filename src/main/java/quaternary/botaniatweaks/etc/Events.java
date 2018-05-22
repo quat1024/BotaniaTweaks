@@ -98,7 +98,7 @@ public class Events {
 	
 	@SubscribeEvent
 	public static void joinWorld(EntityJoinWorldEvent e) {
-		if(e.getEntity() instanceof EntitySheep) {
+		if(BotaniaTweaksConfig.SHEEP_EAT_ALT_GRASS && e.getEntity() instanceof EntitySheep) {
 			EntitySheep sheep = (EntitySheep) e.getEntity();
 			
 			sheep.tasks.addTask(5, new EntityAIEatAltGrass(sheep));

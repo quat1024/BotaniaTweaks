@@ -35,6 +35,10 @@ public class BotaniaTweaksConfig {
 	
 	public static EnumOrechidMode ORECHID_MODE = EnumOrechidMode.DEFAULT;
 	
+	public static boolean FORCE_VANILLA_TNT = false;
+	public static boolean ALLOW_DUPLICATED_TNT = false;
+	public static int TNT_DUPE_HEURISTIC = 8;
+	
 	static Configuration config;
 	
 	public static void initConfig() {
@@ -87,6 +91,12 @@ public class BotaniaTweaksConfig {
 		EVERYTHING_APOTHECARY = config.getBoolean("unlockApothecary", "general", true, "If true, any item is allowed to enter the Petal Apothecary, not just petals, runes, and manaresources. Great for modpacks.");
 		
 		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "general", true, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
+		
+		ALLOW_DUPLICATED_TNT = config.getBoolean("allowEntropinnyumDuplicatedTNT", "balance", false, "Should the Entropinnyum accept TNT that came from a vanilla-style TNT duplicator device?");
+		
+		TNT_DUPE_HEURISTIC = config.getInt("tntDupeDetectionHeuristic", "balance", 10, 1, Integer.MAX_VALUE, "The TNT duplicator detection uses a score/heuristic system to detect duplicated TNT. Set this number higher if you get false positives.");
+		
+		FORCE_VANILLA_TNT = config.getBoolean("forceVanillaTNT", "balance", false, "Should the Entropinnyum only accept vanilla TNT entities?");
 		
 		if(config.hasChanged()) config.save();
 		

@@ -19,6 +19,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		tweaks.add(new EverythingCanDecayTweak());
 		tweaks.add(new ManastormChargeOutputTweak());
 		tweaks.add(new EntropinnyumOutputTweak());
+		tweaks.add(new EntropinnyumAntiTNTDuplicationTweak());
 		tweaks.add(new SpectrolusOutputTweak());
 		tweaks.add(new EverythingApothecaryTweak());
 		tweaks.add(new OrechidPriceTweak());

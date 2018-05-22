@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "botania_tweaks:compressed_tiny_potato_7"
+	},
+	"pattern": [
+		"ppp",
+		"ppp",
+		"ppp"
+	],
+	"key": {
+		"p": {
+			"item": "botania_tweaks:compressed_tiny_potato_6"
+		}
+	}
+}

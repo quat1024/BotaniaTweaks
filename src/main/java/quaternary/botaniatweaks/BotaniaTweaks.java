@@ -22,6 +22,7 @@ import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.BehaviorEnderAirDispenser;
 import quaternary.botaniatweaks.etc.ItemBlockRainbowBarf;
+import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.proxy.ServerProxy;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import quaternary.botaniatweaks.tile.*;
@@ -71,6 +72,7 @@ public class BotaniaTweaks {
 	public static void init(FMLInitializationEvent e) {
 		AgglomerationRecipes.init();
 		BotaniaTweaksConfig.initConfig();
+		BotaniaTweaksPacketHandler.init();
 		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.GLASS_BOTTLE, new BehaviorEnderAirDispenser(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.GLASS_BOTTLE)));
 	}

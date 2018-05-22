@@ -10,6 +10,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import quaternary.botaniatweaks.BotaniaTweaks;
+import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
+import quaternary.botaniatweaks.net.PacketCustomTerraPlate;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipe;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -17,6 +23,7 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.*;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntitySpark;
+import vazkii.botania.common.network.PacketHandler;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,8 +60,9 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 			//display Fanciness
 			if(currentMana > 0) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-				//TODO: packet (regular one only works for regular tiles)
-				//PacketHandler.sendToNearby(world, getPos(), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.TERRA_PLATE, pos.getX(), pos.getY(), pos.getZ(), new int[0]));
+				
+				IMessage packet = new PacketCustomTerraPlate(pos, recipe.color1, recipe.color2, (float) currentMana / maxMana);
+				BotaniaTweaksPacketHandler.sendToAllAround(packet, world, pos);
 			}
 			
 			if(currentMana >= maxMana) {

@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.ItemHandlerHelper;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.util.MathUtil;
+import quaternary.botaniatweaks.etc.MathUtil;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
 

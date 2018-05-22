@@ -33,7 +33,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.common.MinecraftForge;
 import quaternary.botaniatweaks.block.BlockCompressedTinyPotato;
 import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
-import quaternary.botaniatweaks.util.MathUtil;
+import quaternary.botaniatweaks.etc.MathUtil;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;

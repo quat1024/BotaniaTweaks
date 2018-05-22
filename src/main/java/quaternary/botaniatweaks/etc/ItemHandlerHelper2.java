@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.util;
+package quaternary.botaniatweaks.etc;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;

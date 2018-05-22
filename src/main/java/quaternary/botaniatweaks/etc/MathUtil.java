@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.util;
+package quaternary.botaniatweaks.etc;
 
 public class MathUtil {
 	//The most useful function ever.

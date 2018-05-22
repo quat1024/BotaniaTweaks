@@ -1,19 +1,12 @@
 package quaternary.botaniatweaks;
 
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.*;
@@ -27,11 +20,11 @@ import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.block.*;
 import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.dispense.BehaviorEnderAirDispenser;
+import quaternary.botaniatweaks.etc.BehaviorEnderAirDispenser;
+import quaternary.botaniatweaks.etc.ItemBlockRainbowBarf;
 import quaternary.botaniatweaks.proxy.ServerProxy;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import quaternary.botaniatweaks.tile.*;
-import quaternary.botaniatweaks.tile.render.RenderTileCompressedTinyPotato;
 import vazkii.botania.common.item.block.ItemBlockMod;
 
 import java.util.*;
@@ -47,7 +40,6 @@ public class BotaniaTweaks {
 	
 	public static final ArrayList<Block> BLOCKS = new ArrayList<>();
 	public static final ArrayList<Item> ITEMS = new ArrayList<>();
-	public static final ArrayList<Block> POTATOES = new ArrayList<>();
 	
 	@SidedProxy(clientSide = "quaternary.botaniatweaks.proxy.ClientProxy", serverSide = "quaternary.botaniatweaks.proxy.ServerProxy")
 	public static ServerProxy PROXY;
@@ -63,13 +55,12 @@ public class BotaniaTweaks {
 		}
 		
 		//Other blocks and items
-		for(int i = 1; i <= 8; i++) {
-			POTATOES.add(new BlockCompressedTinyPotato(i));
-		}
-		
-		for(Block b : POTATOES) {
-			BLOCKS.add(b);
-			Item i = new ItemBlock(b).setRegistryName(b.getRegistryName());
+		for(int compressionLevel = 1; compressionLevel <= 8; compressionLevel++) {
+			Block potat = new BlockCompressedTinyPotato(compressionLevel);
+			BLOCKS.add(potat);
+			
+			Item i = compressionLevel == 8 ? new ItemBlockRainbowBarf(potat) : new ItemBlock(potat);
+			i.setRegistryName(potat.getRegistryName());
 			ITEMS.add(i);
 		}
 		
@@ -124,7 +115,7 @@ public class BotaniaTweaks {
 		@SubscribeEvent
 		public static void model(ModelRegistryEvent e) {
 			for(Item i : ITEMS) {
-				if(i instanceof ItemBlockMod) continue;
+				if(i instanceof ItemBlockMod) continue; //let botania take care of this
 				ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(i.getRegistryName(), "inventory"));
 			}
 		}

@@ -12,12 +12,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
-import quaternary.botaniatweaks.util.MathUtil;
+import quaternary.botaniatweaks.etc.MathUtil;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 
 import javax.annotation.Nullable;
@@ -56,6 +57,17 @@ public class BlockCompressedTinyPotato extends Block {
 		
 		setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.NORTH));
 	}
+	
+	static final TextFormatting[] RAINBOW_BARF = new TextFormatting[] {
+					TextFormatting.RED,
+					TextFormatting.YELLOW,
+					TextFormatting.GREEN,
+					TextFormatting.AQUA,
+					TextFormatting.BLUE,
+					TextFormatting.DARK_PURPLE,
+					TextFormatting.LIGHT_PURPLE,
+					TextFormatting.DARK_RED
+	};
 	
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {

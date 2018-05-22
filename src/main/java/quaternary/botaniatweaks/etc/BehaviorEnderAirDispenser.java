@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.dispense;
+package quaternary.botaniatweaks.etc;
 
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;

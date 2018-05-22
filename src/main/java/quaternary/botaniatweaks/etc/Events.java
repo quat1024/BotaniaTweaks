@@ -18,7 +18,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.IItemHandler;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.ai.EntityAIEatAltGrass;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.corporea.BlockCorporeaBase;

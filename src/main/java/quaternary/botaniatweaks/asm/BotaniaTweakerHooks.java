@@ -45,7 +45,7 @@ public class BotaniaTweakerHooks {
 	
 	public static int getEntropinnyumMaxMana() {
 		//6500 is the default (check subtileentropinnyum)
-		return 6500 * (BotaniaTweaksConfig.SUPER_ENTROPINNYUM ? 8 : 1); 
+		return 6500 * (BotaniaTweaksConfig.SUPER_ENTROPINNYUM ? 8 : 1);
 	}
 	
 	/// spectro tweak
@@ -84,9 +84,15 @@ public class BotaniaTweakerHooks {
 	
 	public static void onConfigChanged() {
 		switch(BotaniaTweaksConfig.ORECHID_MODE) {
-			case DEFAULT: orechidGog = Botania.gardenOfGlassLoaded; break;
-			case FORCE_GOG: orechidGog = true; break;
-			case FORCE_NO_GOG: orechidGog = false; break;
+			case DEFAULT:
+				orechidGog = Botania.gardenOfGlassLoaded;
+				break;
+			case FORCE_GOG:
+				orechidGog = true;
+				break;
+			case FORCE_NO_GOG:
+				orechidGog = false;
+				break;
 		}
 	}
 }

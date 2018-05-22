@@ -18,7 +18,7 @@ import vazkii.botania.common.block.mana.BlockTerraPlate;
 import javax.annotation.Nonnull;
 
 //COPY from BlockTerraPlate.java. Changes noted.
-public class BlockCustomAgglomerationPlate extends BlockTerraPlate implements ILexiconable {	
+public class BlockCustomAgglomerationPlate extends BlockTerraPlate implements ILexiconable {
 	public BlockCustomAgglomerationPlate() {
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 		//ReflectionHelper.setPrivateValue(ModBlocks.class, null, this, "terraPlate");

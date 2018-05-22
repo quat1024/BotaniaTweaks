@@ -50,7 +50,7 @@ public class BlockPottedTinyPotato extends Block {
 		Block clickedBlock = e.getWorld().getBlockState(e.getPos()).getBlock();
 		if(clickedBlock instanceof BlockFlowerPot) {
 			ItemStack held = e.getEntityPlayer().getHeldItem(e.getHand());
-			if(held.getItem() instanceof ItemBlock && ((ItemBlock)held.getItem()).getBlock() instanceof BlockTinyPotato) {
+			if(held.getItem() instanceof ItemBlock && ((ItemBlock) held.getItem()).getBlock() instanceof BlockTinyPotato) {
 				if(!e.getEntityPlayer().isCreative()) held.shrink(1);
 				e.getWorld().setBlockState(e.getPos(), INST.getDefaultState().withProperty(POTATO_FACING, e.getEntityPlayer().getHorizontalFacing().getOpposite()));
 				

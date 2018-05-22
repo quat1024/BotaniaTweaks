@@ -5,7 +5,7 @@ import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.recipe.IFlowerComponent;
 
 /** Created through ASM patchery in TileAltar#getFlowerComponent. */
-public class CatchallFlowerComponent implements IFlowerComponent {	
+public class CatchallFlowerComponent implements IFlowerComponent {
 	@Override
 	public boolean canFit(ItemStack stack, IPetalApothecary apothecary) {
 		return true;

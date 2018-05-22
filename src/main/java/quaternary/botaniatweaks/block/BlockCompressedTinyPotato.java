@@ -12,13 +12,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
 import quaternary.botaniatweaks.etc.MathUtil;
+import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 
 import javax.annotation.Nullable;
@@ -32,13 +31,14 @@ public class BlockCompressedTinyPotato extends Block {
 	public static final PropertyEnum<EnumFacing> FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.HORIZONTALS);
 	
 	public static double compressionLevelToRadius(int compressionLevel) {
-		return MathUtil.rangeRemap(compressionLevel, 0, 8, 2/16d, .5d);
+		return MathUtil.rangeRemap(compressionLevel, 0, 8, 2 / 16d, .5d);
 	}
 	
 	public BlockCompressedTinyPotato(int compressionLevel) {
 		super(Material.CLOTH);
 		
-		if(compressionLevel <= 0 || compressionLevel >= 9) throw new IllegalArgumentException("Only 8 potato compression levels are allowed");
+		if(compressionLevel <= 0 || compressionLevel >= 9)
+			throw new IllegalArgumentException("Only 8 potato compression levels are allowed");
 		
 		this.compressionLevel = compressionLevel;
 		potatoCount = (int) Math.pow(9, compressionLevel);
@@ -58,17 +58,6 @@ public class BlockCompressedTinyPotato extends Block {
 		setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.NORTH));
 	}
 	
-	static final TextFormatting[] RAINBOW_BARF = new TextFormatting[] {
-					TextFormatting.RED,
-					TextFormatting.YELLOW,
-					TextFormatting.GREEN,
-					TextFormatting.AQUA,
-					TextFormatting.BLUE,
-					TextFormatting.DARK_PURPLE,
-					TextFormatting.LIGHT_PURPLE,
-					TextFormatting.DARK_RED
-	};
-	
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		String nicePotatoCount = String.format("%,d", potatoCount);
@@ -80,7 +69,7 @@ public class BlockCompressedTinyPotato extends Block {
 		TileEntity tile = world.getTileEntity(pos);
 		
 		if(tile instanceof TileCompressedTinyPotato) {
-			((TileCompressedTinyPotato)tile).interact(player, hand, player.getHeldItem(hand), side);
+			((TileCompressedTinyPotato) tile).interact(player, hand, player.getHeldItem(hand), side);
 			
 			double x = pos.getX() + MathUtil.rangeRemap(world.rand.nextDouble(), 0, 1, aabb.minX, aabb.maxX);
 			double y = pos.getY() + aabb.maxY + (double) 3 / 16;

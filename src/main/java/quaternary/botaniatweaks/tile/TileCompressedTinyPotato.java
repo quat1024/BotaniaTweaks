@@ -67,7 +67,7 @@ public class TileCompressedTinyPotato extends TileSimpleInventory implements ITi
 		jump();
 		
 		if(!world.isRemote) {
-			if(name.toLowerCase().trim().endsWith("shia labeouf")  && nextDoIt == 0) {
+			if(name.toLowerCase().trim().endsWith("shia labeouf") && nextDoIt == 0) {
 				nextDoIt = 40;
 				world.playSound(null, pos, ModSounds.doit, SoundCategory.BLOCKS, 1F, 1F);
 			}

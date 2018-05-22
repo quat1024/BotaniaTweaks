@@ -23,7 +23,7 @@ public class ManastormChargeOutputTweak extends Tweak {
 				InsnList ins = method.instructions;
 				
 				//the first BIPUSH is the setMana call.
-				for(int i=0; i < ins.size(); i++) {
+				for(int i = 0; i < ins.size(); i++) {
 					AbstractInsnNode instruction = ins.get(i);
 					if(instruction.getOpcode() == BIPUSH) {
 						addRidiculousLineNumber(ins, instruction);
@@ -37,7 +37,7 @@ public class ManastormChargeOutputTweak extends Tweak {
 				
 				//the first SIPUSH is the setStartingMana call.
 				//not super super sure what it is for. but hey!
-				for(int i=0; i < ins.size(); i++) {
+				for(int i = 0; i < ins.size(); i++) {
 					AbstractInsnNode instruction = ins.get(i);
 					if(instruction.getOpcode() == SIPUSH) {
 						addRidiculousLineNumber(ins, instruction);
@@ -50,7 +50,7 @@ public class ManastormChargeOutputTweak extends Tweak {
 				}
 				
 				//and the first FCONST_1 is the setManaLossPerTick call.
-				for(int i=0; i < ins.size(); i++) {
+				for(int i = 0; i < ins.size(); i++) {
 					AbstractInsnNode instruction = ins.get(i);
 					if(instruction.getOpcode() == FCONST_1) {
 						addRidiculousLineNumber(ins, instruction);

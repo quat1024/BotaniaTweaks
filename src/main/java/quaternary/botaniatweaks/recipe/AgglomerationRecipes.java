@@ -20,15 +20,15 @@ public class AgglomerationRecipes {
 	public static void init() {
 		//imitate the regular agglomeration recipe
 		defaultRecipe = new AgglomerationRecipe(
-			ImmutableList.of(manaResource(MANA_DIAMOND), manaResource(MANASTEEL), manaResource(MANA_PEARL)),
-			manaResource(TERRASTEEL),
-			500_000,
-			0x0000FF, //TODO
-			0x00FF00, //TODO
-			ModBlocks.livingrock.getDefaultState(),
-			Blocks.LAPIS_BLOCK.getDefaultState(),
-			ModBlocks.livingrock.getDefaultState(),
-			null, null, null
+						ImmutableList.of(manaResource(MANA_DIAMOND), manaResource(MANASTEEL), manaResource(MANA_PEARL)),
+						manaResource(TERRASTEEL),
+						500_000,
+						0x0000FF, //TODO
+						0x00FF00, //TODO
+						ModBlocks.livingrock.getDefaultState(),
+						Blocks.LAPIS_BLOCK.getDefaultState(),
+						ModBlocks.livingrock.getDefaultState(),
+						null, null, null
 		);
 		
 		register(defaultRecipe);
@@ -77,6 +77,7 @@ public class AgglomerationRecipes {
 	static int MANA_PEARL = 1;
 	static int MANA_DIAMOND = 2;
 	static int TERRASTEEL = 4;
+	
 	private static ItemStack manaResource(int meta) {
 		return new ItemStack(ModItems.manaResource, 1, meta);
 	}

@@ -23,7 +23,7 @@ public class ModelCompressedTinyPotato extends ModelBase {
 		this.potato.setTextureSize(64, 32);
 		
 		//I DONT KNOW WHY THIS WORKS
-		modelScale = (float) MathUtil.rangeRemap(compressionLevel, 0, 8, 1/16d, 4/16d);
+		modelScale = (float) MathUtil.rangeRemap(compressionLevel, 0, 8, 1 / 16d, 4 / 16d);
 		requiredYOffset = (float) MathUtil.rangeRemap(compressionLevel, 0, 8, 0, -4.5);
 	}
 	

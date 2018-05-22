@@ -76,7 +76,7 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 	}
 	
 	@Override
-	public void update() {		
+	public void update() {
 		int manaThreshold = BotaniaTweaksConfig.MANA_SHOTS_PER_ENERGY_BURST * 160;
 		while(manaBuffer >= manaThreshold) {
 			int leftover = handler.sneakyReceiveEnergy(BotaniaTweaksConfig.FE_PER_ENERGY_BURST, true);

@@ -57,11 +57,16 @@ public class BotaniaTweaksConfig {
 		
 		SUPER_SPECTROLUS = config.getBoolean("superSpectrolus", "balance", true, "Should the Spectrolus generate 10x the mana it does by default? This makes it much cheaper to run; filling a mana pool only requires a little over five stacks of wool, not over a double chest's worth.");
 		
-		String orechidString = config.getString("cheapOrechid", "balance", "default", "How does the Orechid determine its cost and speed to run?\n\"Default\": The Orechid will be cheap if Garden of Glass is loaded.\n\"Forge GoG\": The Orechid will always be cheap to run, regardless of if Garden of Glass is loaded.\n\"Force No GoG\": The Orechid will be expensive to run, even in Garden of Glass.", new String[]{"Default", "Force GoG", "Force No GoG"});
-		switch (orechidString.toLowerCase()) {
-			case "force gog": ORECHID_MODE = EnumOrechidMode.FORCE_GOG; break;
-			case "force no gog": ORECHID_MODE = EnumOrechidMode.FORCE_NO_GOG; break;
-			default: ORECHID_MODE = EnumOrechidMode.DEFAULT;
+		String orechidString = config.getString("cheapOrechid", "balance", "default", "How does the Orechid determine its cost and speed to run?\n\"Default\": The Orechid will be cheap if Garden of Glass is loaded.\n\"Forge GoG\": The Orechid will always be cheap to run, regardless of if Garden of Glass is loaded.\n\"Force No GoG\": The Orechid will be expensive to run, even in Garden of Glass.", new String[] {"Default", "Force GoG", "Force No GoG"});
+		switch(orechidString.toLowerCase()) {
+			case "force gog":
+				ORECHID_MODE = EnumOrechidMode.FORCE_GOG;
+				break;
+			case "force no gog":
+				ORECHID_MODE = EnumOrechidMode.FORCE_NO_GOG;
+				break;
+			default:
+				ORECHID_MODE = EnumOrechidMode.DEFAULT;
 		}
 		
 		//decay

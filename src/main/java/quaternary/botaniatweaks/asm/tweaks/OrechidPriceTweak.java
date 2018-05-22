@@ -3,7 +3,8 @@ package quaternary.botaniatweaks.asm.tweaks;
 import com.google.common.collect.ImmutableList;
 import org.objectweb.asm.tree.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.ListIterator;
 
 public class OrechidPriceTweak extends Tweak {
 	@Override

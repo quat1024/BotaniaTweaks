@@ -12,7 +12,7 @@ import java.util.Map;
 public class BotaniaTweakerPlugin implements IFMLLoadingPlugin {
 	@Override
 	public String[] getASMTransformerClass() {
-		return new String[]{"quaternary.botaniatweaks.asm.BotaniaTweakerTransformer"};
+		return new String[] {"quaternary.botaniatweaks.asm.BotaniaTweakerTransformer"};
 	}
 	
 	@Override

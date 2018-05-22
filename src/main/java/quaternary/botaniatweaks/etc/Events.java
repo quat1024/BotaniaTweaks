@@ -73,8 +73,8 @@ public class Events {
 		}
 	}
 	
-	static ItemStack findSpork(InventoryPlayer inv) {		
-		for(int i=0; i < 9; i++) {
+	static ItemStack findSpork(InventoryPlayer inv) {
+		for(int i = 0; i < 9; i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack.getItem() instanceof ItemCorporeaSpark && stack.getItemDamage() == 0) {
 				return stack;
@@ -84,7 +84,7 @@ public class Events {
 	}
 	
 	static ItemStack findDye(InventoryPlayer inv) {
-		for(int i=0; i < 9; i++) {
+		for(int i = 0; i < 9; i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			//Vazgoo why did you make it the same name as vanilla dye
 			//Left fully qualified for clarity

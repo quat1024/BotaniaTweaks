@@ -8,7 +8,8 @@ import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.*;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RainbowBarfFontRenderer extends FontRenderer {
@@ -26,7 +27,7 @@ public class RainbowBarfFontRenderer extends FontRenderer {
 		ResourceLocation ascii = new ResourceLocation("minecraft:textures/font/ascii.png");
 		INST = new RainbowBarfFontRenderer(mc.gameSettings, ascii, mc.renderEngine, false);
 		
-		((IReloadableResourceManager)mc.getResourceManager()).registerReloadListener(INST);
+		((IReloadableResourceManager) mc.getResourceManager()).registerReloadListener(INST);
 	}
 	
 	private RainbowBarfFontRenderer(GameSettings gameSettingsIn, ResourceLocation location, TextureManager textureManagerIn, boolean unicode) {
@@ -34,7 +35,7 @@ public class RainbowBarfFontRenderer extends FontRenderer {
 	}
 	
 	@Override
-	public int drawString(String text, float x, float y, int color, boolean dropShadow) {		
+	public int drawString(String text, float x, float y, int color, boolean dropShadow) {
 		if(!first) return super.drawString(text, x, y, color, dropShadow);
 		first = false;
 		
@@ -44,7 +45,7 @@ public class RainbowBarfFontRenderer extends FontRenderer {
 		
 		String textRender = ChatFormatting.stripFormatting(text);
 		
-		for(int i=0; i < textRender.length(); i++) {			
+		for(int i = 0; i < textRender.length(); i++) {
 			int c = (color & 0xFF000000) | MathHelper.hsvToRGB(huehuehue, .8f, 1);
 			
 			float yOffset = MathHelper.sin(i + (Minecraft.getSystemTime() / 300f));

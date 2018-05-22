@@ -23,9 +23,12 @@ public class AgglomerationRecipe {
 	public final IBlockState multiblockCenter;
 	public final IBlockState multiblockEdge;
 	public final IBlockState multiblockCorner;
-	@Nullable public final IBlockState multiblockCenterReplace;
-	@Nullable public final IBlockState multiblockEdgeReplace;
-	@Nullable public final IBlockState multiblockCornerReplace;
+	@Nullable
+	public final IBlockState multiblockCenterReplace;
+	@Nullable
+	public final IBlockState multiblockEdgeReplace;
+	@Nullable
+	public final IBlockState multiblockCornerReplace;
 	
 	final int totalInputs;
 	
@@ -45,7 +48,7 @@ public class AgglomerationRecipe {
 		ImmutableList.Builder<String> keyInputBuilder = new ImmutableList.Builder<>();
 		
 		for(Object o : recipeInputs) {
-			if(o instanceof ItemStack) stackInputBuilder.add((ItemStack)o);
+			if(o instanceof ItemStack) stackInputBuilder.add((ItemStack) o);
 			else keyInputBuilder.add((String) o);
 		}
 		
@@ -104,8 +107,8 @@ public class AgglomerationRecipe {
 		Iterator<String> recipeKeyIterator = recipeKeysCopy.iterator();
 		while(recipeKeyIterator.hasNext()) {
 			NonNullList<ItemStack> ores = OreDictionary.getOres(recipeKeyIterator.next());
-			
-			nextOre:
+				
+				nextOre:
 			for(ItemStack ore : ores) {
 				Iterator<ItemStack> userInputStackIterator = userInputsCopy.iterator();
 				

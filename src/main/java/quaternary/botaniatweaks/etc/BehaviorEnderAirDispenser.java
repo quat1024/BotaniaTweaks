@@ -8,12 +8,13 @@ import vazkii.botania.common.item.ModItems;
 
 public class BehaviorEnderAirDispenser implements IBehaviorDispenseItem {
 	IBehaviorDispenseItem vanillaBehavior;
+	
 	public BehaviorEnderAirDispenser(IBehaviorDispenseItem vanillaBehavior) {
 		this.vanillaBehavior = vanillaBehavior;
 	}
 	
 	@Override
-	public ItemStack dispense(IBlockSource source, ItemStack dispensedStack) {	
+	public ItemStack dispense(IBlockSource source, ItemStack dispensedStack) {
 		if(!BotaniaTweaksConfig.CREATE_ENDER_AIR_WITH_DISPENSER) return vanillaBehavior.dispense(source, dispensedStack);
 		
 		boolean end = source.getWorld().provider.getDimension() == 1;

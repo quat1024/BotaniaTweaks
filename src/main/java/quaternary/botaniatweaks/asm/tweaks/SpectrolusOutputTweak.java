@@ -23,7 +23,7 @@ public class SpectrolusOutputTweak extends Tweak {
 				InsnList ins = method.instructions;
 				
 				//The first SIPUSH is the mana generating value
-				for(int i=0; i < ins.size(); i++) {
+				for(int i = 0; i < ins.size(); i++) {
 					AbstractInsnNode instruction = ins.get(i);
 					if(instruction.getOpcode() == SIPUSH) {
 						addRidiculousLineNumber(ins, instruction);

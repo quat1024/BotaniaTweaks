@@ -6,7 +6,7 @@
  *
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
- * 
+ *
  * This class has been modified by <quaternary>, for
  * the purpose of adapting it to Botania Tweaks.
  *
@@ -32,8 +32,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.common.MinecraftForge;
 import quaternary.botaniatweaks.block.BlockCompressedTinyPotato;
-import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
 import quaternary.botaniatweaks.etc.MathUtil;
+import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -53,10 +53,10 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 	public static final ResourceLocation textureGrayscale2 = new ResourceLocation("botania_tweaks", "textures/model/brighter_grayscale_tiny_potato.png");
 	
 	static {
-		for(int i=0; i < 8; i++) {
+		for(int i = 0; i < 8; i++) {
 			models[i] = new ModelCompressedTinyPotato(i + 1);
 		}
-	}	
+	}
 	
 	private static boolean matches(String name, String match) {
 		return name.equals(match) || name.startsWith(match + " ");
@@ -67,7 +67,7 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 	}
 	
 	@Override
-	public void render(TileCompressedTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {		
+	public void render(TileCompressedTinyPotato potato, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		if(!potato.getWorld().isBlockLoaded(potato.getPos(), false)
 						|| !(potato.getWorld().getBlockState(potato.getPos()).getBlock() instanceof BlockCompressedTinyPotato))
 			return;
@@ -85,23 +85,23 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 		String name = potato.name.toLowerCase().trim();
 		
 		boolean usedShader = false;
-		if (matches(name, "gaia")) {
+		if(matches(name, "gaia")) {
 			ShaderHelper.useShader(ShaderHelper.doppleganger);
 			name = removeFromFront(name, "gaia");
 			usedShader = true;
-		} else if (matches(name, "hot")) {
+		} else if(matches(name, "hot")) {
 			ShaderHelper.useShader(ShaderHelper.halo);
 			name = removeFromFront(name, "hot");
 			usedShader = true;
-		} else if (matches(name, "magic")) {
+		} else if(matches(name, "magic")) {
 			ShaderHelper.useShader(ShaderHelper.enchanterRune);
 			name = removeFromFront(name, "magic");
 			usedShader = true;
-		} else if (matches(name, "gold")) {
+		} else if(matches(name, "gold")) {
 			ShaderHelper.useShader(ShaderHelper.gold);
 			name = removeFromFront(name, "gold");
 			usedShader = true;
-		} else if (matches(name, "snoop")) {
+		} else if(matches(name, "snoop")) {
 			ShaderHelper.useShader(ShaderHelper.terraPlateRune);
 			name = removeFromFront(name, "snoop");
 			usedShader = true;
@@ -128,7 +128,7 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 		GlStateManager.rotate(rotY, 0F, 1F, 0F);
 		
 		float jump = potato.jumpTicks;
-		if (jump > 0)
+		if(jump > 0)
 			jump -= partialTicks;
 		
 		float up = (float) -Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
@@ -138,7 +138,7 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 		GlStateManager.rotate(rotZ, 0F, 0F, 1F);
 		
 		GlStateManager.pushMatrix();
-		switch (name) {
+		switch(name) {
 			case "pahimar":
 				GlStateManager.scale(1F, 0.3F, 1F);
 				GlStateManager.translate(0F, 3.5F, 0F);
@@ -157,14 +157,14 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 		}
 		
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);
-		if (render)
+		if(render)
 			model.render();
-		if (name.equals("kingdaddydmac")) {
+		if(name.equals("kingdaddydmac")) {
 			GlStateManager.translate(0.5F, 0F, 0F);
 			model.render();
 		}
 		
-		if (usedShader)
+		if(usedShader)
 			ShaderHelper.releaseShader();
 		
 		GlStateManager.popMatrix();
@@ -242,45 +242,45 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 		}
 		GlStateManager.popMatrix();
 		
-		if (!name.isEmpty()) {
+		if(!name.isEmpty()) {
 			ContributorFancinessHandler.firstStart();
 			
 			float scale = 1F / 4F;
 			GlStateManager.translate(0F, 1F, 0F);
 			GlStateManager.scale(scale, scale, scale);
-			if (name.equals("phi") || name.equals("vazkii")) {
+			if(name.equals("phi") || name.equals("vazkii")) {
 				GlStateManager.translate(0.45F, 0F, 0.4F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.rotate(20F, 1F, 0F, 1F);
 				renderIcon(MiscellaneousIcons.INSTANCE.phiFlowerIcon);
 				
-				if (name.equals("vazkii")) {
+				if(name.equals("vazkii")) {
 					GlStateManager.rotate(-20F, 1F, 0F, 1F);
 					GlStateManager.scale(1.25F, 1.25F, 1.25F);
 					GlStateManager.rotate(180F, 0F, 0F, 1F);
 					GlStateManager.translate(-1.5F, -1.3F, -0.75F);
 					renderIcon(MiscellaneousIcons.INSTANCE.nerfBatIcon);
 				}
-			} else if (name.equals("haighyorkie")) {
+			} else if(name.equals("haighyorkie")) {
 				GlStateManager.scale(1.25F, 1.25F, 1.25F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				GlStateManager.translate(-0.5F, -1.2F, -0.4F);
 				renderIcon(MiscellaneousIcons.INSTANCE.goldfishIcon);
-			} else if (name.equals("martysgames") || name.equals("marty")) {
+			} else if(name.equals("martysgames") || name.equals("marty")) {
 				GlStateManager.scale(0.7F, 0.7F, 0.7F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.translate(-0.3F, -2.7F, -1.2F);
 				GlStateManager.rotate(15F, 0F, 0F, 1F);
 				renderItem(new ItemStack(ModItems.infiniteFruit, 1).setStackDisplayName("das boot"));
-			} else if (name.equals("jibril")) {
+			} else if(name.equals("jibril")) {
 				GlStateManager.scale(1.5F, 1.5F, 1.5F);
 				GlStateManager.translate(0F, -0.8F, 0F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
 				ItemFlightTiara.renderHalo(null, partialTicks);
 				GlStateManager.disableBlend();
 				GlStateManager.disableLighting();
-			} else if (name.equals("kingdaddydmac")) {
+			} else if(name.equals("kingdaddydmac")) {
 				GlStateManager.scale(0.5F, 0.5F, 0.5F);
 				GlStateManager.rotate(180F, 0F, 0F, 1F);
 				GlStateManager.rotate(90F, 0F, 1F, 0F);
@@ -293,9 +293,9 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 				GlStateManager.translate(1.25F, -1.25F, 2.25F);
 				mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 				renderBlock(Blocks.CAKE);
-			} else if (ContributorFancinessHandler.flowerMap != null && ContributorFancinessHandler.flowerMap.containsKey(name)) {
+			} else if(ContributorFancinessHandler.flowerMap != null && ContributorFancinessHandler.flowerMap.containsKey(name)) {
 				ItemStack icon = ContributorFancinessHandler.flowerMap.getOrDefault(name, ItemStack.EMPTY);
-				if (!icon.isEmpty()) {
+				if(!icon.isEmpty()) {
 					mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 					GlStateManager.rotate(180F, 1F, 0F, 0F);
 					GlStateManager.rotate(180F, 0F, 1F, 0F);
@@ -316,7 +316,7 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 		GlStateManager.scale(1F, -1F, -1F);
 		
 		RayTraceResult pos = mc.objectMouseOver;
-		if (!name.isEmpty() && pos != null && pos.getBlockPos() != null && potato.getPos().equals(pos.getBlockPos())) {
+		if(!name.isEmpty() && pos != null && pos.getBlockPos() != null && potato.getPos().equals(pos.getBlockPos())) {
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(0F, -0.6F, 0F);
 			
@@ -349,7 +349,7 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 			GlStateManager.enableTexture2D();
 			GlStateManager.depthMask(true);
 			mc.fontRenderer.drawString(potato.name, -mc.fontRenderer.getStringWidth(potato.name) / 2, 0, 0xFFFFFF);
-			if (name.equals("pahimar") || name.equals("soaryn")) {
+			if(name.equals("pahimar") || name.equals("soaryn")) {
 				GlStateManager.translate(0F, 14F, 0F);
 				String str = name.equals("pahimar") ? "[WIP]" : "(soon)";
 				GlStateManager.depthMask(false);

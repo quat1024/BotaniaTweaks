@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
-	public static final String HOOKS =  "quaternary/botaniatweaks/asm/BotaniaTweakerHooks";
+	public static final String HOOKS = "quaternary/botaniatweaks/asm/BotaniaTweakerHooks";
 	
 	static List<Tweak> tweaks = new ArrayList<>();
 	static List<String> allPatchedClasses = new ArrayList<>();
@@ -46,7 +46,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		
 		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
 		node.accept(writer);
-			
+		
 		return writer.toByteArray();
 	}
 }

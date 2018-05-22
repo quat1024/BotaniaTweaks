@@ -27,7 +27,7 @@ import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import quaternary.botaniatweaks.tile.*;
 import vazkii.botania.common.item.block.ItemBlockMod;
 
-import java.util.*;
+import java.util.ArrayList;
 
 @Mod(modid = BotaniaTweaks.MODID, name = BotaniaTweaks.NAME, version = BotaniaTweaks.VERSION, dependencies = BotaniaTweaks.DEPS, guiFactory = "quaternary.botaniatweaks.config.BotaniaTweaksGuiFactory")
 public class BotaniaTweaks {

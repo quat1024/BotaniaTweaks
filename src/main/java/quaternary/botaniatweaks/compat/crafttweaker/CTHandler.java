@@ -14,7 +14,7 @@ public class CTHandler {
 		try {
 			REMOVE_ACTIONS.forEach(CraftTweakerAPI::apply);
 			ADD_ACTIONS.forEach(CraftTweakerAPI::apply);
-		} catch (Exception err) {
+		} catch(Exception err) {
 			CraftTweakerAPI.logError("There was a problem applying a Botania Tweaks action");
 			err.printStackTrace();
 		}

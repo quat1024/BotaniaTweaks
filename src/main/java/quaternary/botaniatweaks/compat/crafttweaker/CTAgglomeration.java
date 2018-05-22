@@ -281,7 +281,7 @@ public class CTAgglomeration {
 			this.cornerReplace = MCItemStack.EMPTY;
 			return this;
 		}
-	} 
+	}
 	
 	public static class AddAction implements IAction {
 		AgglomerationRecipe recipe;

@@ -12,7 +12,9 @@ public abstract class Tweak implements Opcodes {
 	List<String> affectedClasses;
 	
 	abstract List<String> getAffectedClassesImpl();
+	
 	abstract void patchImpl(String transformedName, ClassNode node);
+	
 	abstract String getName(String transformedName);
 	
 	public List<String> getAffectedClasses() {
@@ -25,9 +27,11 @@ public abstract class Tweak implements Opcodes {
 		patchImpl(transformedName, node);
 	}
 	
-	/** Add a really unrealistic line number.
-	 * The purpose of this is to make any crash reports caused by Botania 
-	 * Tweaker immediately recognizable as something caused by faulty ASM. */
+	/**
+	 * Add a really unrealistic line number.
+	 * The purpose of this is to make any crash reports caused by Botania
+	 * Tweaker immediately recognizable as something caused by faulty ASM.
+	 */
 	static void addRidiculousLineNumber(InsnList ins) {
 		LabelNode lbl = new LabelNode(new Label());
 		ins.add(lbl);

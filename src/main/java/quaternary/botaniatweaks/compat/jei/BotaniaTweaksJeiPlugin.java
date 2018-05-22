@@ -10,7 +10,8 @@ import quaternary.botaniatweaks.recipe.AgglomerationRecipe;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 
 @JEIPlugin
-public class BotaniaTweaksJeiPlugin implements IModPlugin {
+public class 
+BotaniaTweaksJeiPlugin implements IModPlugin {
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		registry.addRecipeCategories(new RecipeCategoryCustomAgglomeration(registry.getJeiHelpers().getGuiHelper()));

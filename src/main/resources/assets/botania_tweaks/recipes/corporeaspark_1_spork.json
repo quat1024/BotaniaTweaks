@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "botania:corporeaspark",
+		"data": 1
+	},
+	"pattern": [
+		"dpd",
+		" s ",
+		"dpd"
+	],
+	"key": {
+		"p": {
+			"item": "botania:corporeaspark",
+			"data": 0
+		},
+		"d": {
+			"type": "forge:ore_dict",
+			"ore": "gemDiamond"
+		},
+		"s": {
+			"item": "botania_tweaks:spork"
+		}
+	}
+}

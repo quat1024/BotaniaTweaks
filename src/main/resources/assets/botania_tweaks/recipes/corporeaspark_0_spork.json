@@ -1,0 +1,24 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "botania:corporeaspark",
+		"data": 0
+	},
+	"pattern": [
+		"gpg",
+		" s ",
+		"gpg"
+	],
+	"key": {
+		"p": {
+			"item": "botania:spark"
+		},
+		"g": {
+			"type": "forge:ore_dict",
+			"ore": "ingotGold"
+		},
+		"s": {
+			"item": "botania_tweaks:spork"
+		}
+	}
+}

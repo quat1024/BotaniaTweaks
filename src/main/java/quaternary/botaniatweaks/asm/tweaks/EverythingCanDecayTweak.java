@@ -1,8 +1,10 @@
 package quaternary.botaniatweaks.asm.tweaks;
 
+import com.google.common.collect.ImmutableList;
 import org.objectweb.asm.tree.*;
 import quaternary.botaniatweaks.config.ActiveGeneratingFlowers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -10,7 +12,7 @@ import java.util.stream.Stream;
 public class EverythingCanDecayTweak extends Tweak {
 	@Override
 	public List<String> getAffectedClassesImpl() {
-		return Stream.of(ActiveGeneratingFlowers.values()).map(a -> a.className).collect(Collectors.toList());
+		return ImmutableList.copyOf(ActiveGeneratingFlowers.classToNamesMap.keySet());
 	}
 	
 	@Override
@@ -30,7 +32,6 @@ public class EverythingCanDecayTweak extends Tweak {
 		
 		MethodNode newPassiveMethod = new MethodNode(ACC_PUBLIC, "isPassiveFlower", "()Z", null, null);
 		InsnList ins = newPassiveMethod.instructions;
-		addRidiculousLineNumber(ins);
 		
 		//return BotaniaTweakerHooks.shouldFlowerDecay("endoflame")
 		ins.add(new LdcInsnNode(getFlowerFromClassName(transformedName)));

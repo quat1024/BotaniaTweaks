@@ -24,8 +24,6 @@ public class EntropinnyumOutputTweak extends Tweak {
 				
 				ins.clear();
 				
-				addRidiculousLineNumber(ins);
-				
 				ins.add(new MethodInsnNode(INVOKESTATIC, getHooksClass(), "getEntropinnyumMaxMana", "()I", false));
 				ins.add(new InsnNode(IRETURN));
 				break;

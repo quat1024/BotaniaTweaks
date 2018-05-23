@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
@@ -12,6 +14,7 @@ public class ItemBlockRainbowBarf extends ItemBlock {
 		super(block);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	@Nullable
 	@Override
 	public FontRenderer getFontRenderer(ItemStack stack) {

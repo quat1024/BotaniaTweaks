@@ -25,9 +25,7 @@ public class SpectrolusOutputTweak extends Tweak {
 				//The first SIPUSH is the mana generating value
 				for(int i = 0; i < ins.size(); i++) {
 					AbstractInsnNode instruction = ins.get(i);
-					if(instruction.getOpcode() == SIPUSH) {
-						addRidiculousLineNumber(ins, instruction);
-						
+					if(instruction.getOpcode() == SIPUSH) {						
 						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, getHooksClass(), "getSpectrolusManaPerWool", "()I", false);
 						ins.insertBefore(instruction, callInstruction);
 						ins.remove(instruction);

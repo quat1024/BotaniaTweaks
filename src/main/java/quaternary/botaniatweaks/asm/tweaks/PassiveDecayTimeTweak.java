@@ -24,8 +24,6 @@ public class PassiveDecayTimeTweak extends Tweak {
 				
 				ins.clear();
 				
-				addRidiculousLineNumber(ins);
-				
 				ins.add(new MethodInsnNode(INVOKESTATIC, getHooksClass(), "getPassiveDecayTime", "()I", false));
 				ins.add(new InsnNode(IRETURN));
 				break;

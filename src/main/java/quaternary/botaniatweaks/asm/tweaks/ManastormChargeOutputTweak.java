@@ -25,9 +25,7 @@ public class ManastormChargeOutputTweak extends Tweak {
 				//the first BIPUSH is the setMana call.
 				for(int i = 0; i < ins.size(); i++) {
 					AbstractInsnNode instruction = ins.get(i);
-					if(instruction.getOpcode() == BIPUSH) {
-						addRidiculousLineNumber(ins, instruction);
-						
+					if(instruction.getOpcode() == BIPUSH) {						
 						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, getHooksClass(), "getManastormBurstMana", "()I", false);
 						ins.insertBefore(instruction, callInstruction);
 						ins.remove(instruction);
@@ -39,9 +37,7 @@ public class ManastormChargeOutputTweak extends Tweak {
 				//not super super sure what it is for. but hey!
 				for(int i = 0; i < ins.size(); i++) {
 					AbstractInsnNode instruction = ins.get(i);
-					if(instruction.getOpcode() == SIPUSH) {
-						addRidiculousLineNumber(ins, instruction);
-						
+					if(instruction.getOpcode() == SIPUSH) {						
 						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, getHooksClass(), "getManastormBurstStartingMana", "()I", false);
 						ins.insertBefore(instruction, callInstruction);
 						ins.remove(instruction);
@@ -52,9 +48,7 @@ public class ManastormChargeOutputTweak extends Tweak {
 				//and the first FCONST_1 is the setManaLossPerTick call.
 				for(int i = 0; i < ins.size(); i++) {
 					AbstractInsnNode instruction = ins.get(i);
-					if(instruction.getOpcode() == FCONST_1) {
-						addRidiculousLineNumber(ins, instruction);
-						
+					if(instruction.getOpcode() == FCONST_1) {						
 						MethodInsnNode callInstruction = new MethodInsnNode(INVOKESTATIC, getHooksClass(), "getManastormBurstLossjpgPerTick", "()F", false);
 						ins.insertBefore(instruction, callInstruction);
 						ins.remove(instruction);

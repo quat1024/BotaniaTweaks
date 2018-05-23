@@ -27,23 +27,6 @@ public abstract class Tweak implements Opcodes {
 		patchImpl(transformedName, node);
 	}
 	
-	/**
-	 * Add a really unrealistic line number.
-	 * The purpose of this is to make any crash reports caused by Botania
-	 * Tweaker immediately recognizable as something caused by faulty ASM.
-	 */
-	static void addRidiculousLineNumber(InsnList ins) {
-		LabelNode lbl = new LabelNode(new Label());
-		ins.add(lbl);
-		ins.add(new LineNumberNode(6969, lbl));
-	}
-	
-	static void addRidiculousLineNumber(InsnList ins, AbstractInsnNode instructionAfter) {
-		LabelNode lbl = new LabelNode(new Label());
-		ins.insert(instructionAfter, lbl);
-		ins.insert(instructionAfter, new LineNumberNode(6969, lbl));
-	}
-	
 	static String getHooksClass() {
 		return BotaniaTweakerTransformer.HOOKS;
 	}

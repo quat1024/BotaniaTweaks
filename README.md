@@ -18,6 +18,7 @@ Current features:
 * auto-place corporea sparks (from your hotbar) when you place funnels, crystal cubes, and such
   * also: automatically place floral powder on the spark
 * sheep can eat the custom Botania grass blocks, as well as the vanilla grass, to regrow wool
+* the Spork - crafting ingredient to get in to corporea much, much earlier
 
 The following features also exist, using a little ASM hackery: 
 
@@ -38,10 +39,6 @@ The following features also exist, using a little ASM hackery:
 * make the Entropinnyum ignore TNT from a TNT duplicator device
 * make the Entropinnuim only accept vanilla TNT
 
-Planned features:
-* any other little tweaks I can think of
-* pre end corporea hnnnng
-
 License and Attribution
 =======================
 
@@ -57,10 +54,14 @@ Please also familiarize yourself with the [license of Botania](https://botaniamo
 
 Portions of this code were adapted from Botania, by Vazkii. A list of copied/modified classes is available below:
 
+* `BlockCompressedTinyPotato` adapted from `BlockTinyPotato`
 * `TileCompressedTinyPotato` adapted from `TileTinyPotato`
 * `RenderTileCompressedTinyPotato` adapted from `RenderTileTinyPotato`
 * `ModelCompressedTinyPotato` adapted from `ModelTinyPotato`
 * `BotaniaTweakerHooks` contains content from `TileAltar`
+* `brighter_grayscale_tiny_potato` and `rainbowtato` adapted from `tiny_potato.png`
+* `terrasteeloverlay.png` adapted from `terrasteeloverlay.png`
+* `PacketCustomTerraPlate` adapted from `PacketBotaniaEffect`
 
 Previous (pre-release) versions of this mod were CC0.
 

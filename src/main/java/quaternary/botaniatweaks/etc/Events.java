@@ -12,6 +12,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityPiston;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -29,12 +30,17 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.items.IItemHandler;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.lexicon.*;
 import vazkii.botania.common.block.corporea.BlockCorporeaBase;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.item.ItemCorporeaSpark;
+import vazkii.botania.common.lexicon.LexiconData;
+import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -168,6 +174,4 @@ public class Events {
 		}
 		else return world.getBlockState(pos).getBlock();
 	}
-	
-	
 }

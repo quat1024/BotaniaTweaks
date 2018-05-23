@@ -7,6 +7,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
+import quaternary.botaniatweaks.etc.Events;
+import quaternary.botaniatweaks.etc.LexiconHandler;
 
 import java.io.File;
 import java.util.HashMap;
@@ -39,6 +41,8 @@ public class BotaniaTweaksConfig {
 	public static boolean ALLOW_DUPLICATED_TNT = false;
 	public static int TNT_DUPE_HEURISTIC = 8;
 	
+	public static boolean SPORK = true;
+	
 	static Configuration config;
 	
 	public static void initConfig() {
@@ -48,12 +52,7 @@ public class BotaniaTweaksConfig {
 		readConfig();
 	}
 	
-	public static void readConfig() {
-		//fluxfield
-		MANA_SHOTS_PER_ENERGY_BURST = config.getInt("shotsPerBurst", "fluxfield", 1, 1, Integer.MAX_VALUE, "How many pulses from a mana spreader are needed to fire off a \"packet\" of FE?");
-		
-		FE_PER_ENERGY_BURST = config.getInt("fePerBurst", "fluxfield", 30, 1, Integer.MAX_VALUE, "How much FE is contained within a \"packet\"?");
-		
+	public static void readConfig() {		
 		//balance
 		MANASTORM_SCALE_FACTOR = config.getFloat("manastormScaleFactor", "balance", 8f, 1f, 15f, "The default mana output of the Manastorm Charge is multiplied by this amount. Setting this to a value higher than around ~1.38889ish allows for the \"Manastorm Reactor\" build to be profitable.");
 		
@@ -73,6 +72,15 @@ public class BotaniaTweaksConfig {
 				ORECHID_MODE = EnumOrechidMode.DEFAULT;
 		}
 		
+		SPORK = config.get("balance", "corporeaSpork", true, "Should crafting recipes with the Spork be enabled? These recipes provide more expensive paths to corporea sparks, but are available earlier in the game (they don't require going to the End or elven technology).").setRequiresMcRestart(true).getBoolean();
+		
+		//tnt
+		ALLOW_DUPLICATED_TNT = config.getBoolean("allowEntropinnyumDuplicatedTNT", "balance.tnt", false, "Should the Entropinnyum accept TNT that came from a vanilla-style TNT duplicator device?");
+		
+		TNT_DUPE_HEURISTIC = config.getInt("tntDupeDetectionHeuristic", "balance.tnt", 10, 1, Integer.MAX_VALUE, "The TNT duplicator detection uses a score/heuristic system to detect duplicated TNT. Set this number higher if you get false positives.");
+		
+		FORCE_VANILLA_TNT = config.getBoolean("forceVanillaTNT", "balance.tnt", false, "Should the Entropinnyum only accept vanilla TNT entities?");
+		
 		//decay
 		PASSIVE_DECAY_TIMER = config.getInt("passiveDecayTimer", "balance.decay", 72000, 1, 72000, "How many ticks until passive flowers decay? Can only be set *lower* than the default value. Muahaha.");
 		
@@ -81,22 +89,21 @@ public class BotaniaTweaksConfig {
 			SHOULD_ALSO_BE_PASSIVE_MAP.put(activeFlower.name, should);
 		}
 		
+		//fluxfield
+		MANA_SHOTS_PER_ENERGY_BURST = config.getInt("shotsPerBurst", "balance.fluxfield", 1, 1, Integer.MAX_VALUE, "How many pulses from a mana spreader are needed to fire off a \"packet\" of FE?");
+		
+		FE_PER_ENERGY_BURST = config.getInt("fePerBurst", "balance.fluxfield", 30, 1, Integer.MAX_VALUE, "How much FE is contained within a \"packet\"?");
+		
 		//and the rest
-		CREATE_ENDER_AIR_WITH_DISPENSER = config.getBoolean("enderAirDispenser", "general", true, "Can dispensers shoot glass bottles to turn them in to Ender Air in the End dimension? This allows for automation of Ender Air, which was not previously possible.");
+		CREATE_ENDER_AIR_WITH_DISPENSER = config.getBoolean("enderAirDispenser", "etc", true, "Can dispensers shoot glass bottles to turn them in to Ender Air in the End dimension? This allows for automation of Ender Air, which was not previously possible.");
 		
-		POTTED_TINY_POTATO = config.getBoolean("pottedTinyPotato", "general", true, "Can players place tiny potatoes in flower pots? Please don't disable this, it's very cute.");
+		POTTED_TINY_POTATO = config.getBoolean("pottedTinyPotato", "etc", true, "Can players place tiny potatoes in flower pots? Please don't disable this, it's very cute.");
 		
-		AUTO_CORPOREA_SPARK = config.getBoolean("autoCorporeaSpark", "general", false, "If true, placing a corporea-related block will automatically decorate it with corporea sparks and floral powder, unless you're sneaking.");
+		AUTO_CORPOREA_SPARK = config.getBoolean("autoCorporeaSpark", "etc", false, "If true, placing a corporea-related block will automatically decorate it with corporea sparks and floral powder, unless you're sneaking.");
 		
-		EVERYTHING_APOTHECARY = config.getBoolean("unlockApothecary", "general", true, "If true, any item is allowed to enter the Petal Apothecary, not just petals, runes, and manaresources. Great for modpacks.");
+		EVERYTHING_APOTHECARY = config.getBoolean("unlockApothecary", "etc", true, "If true, any item is allowed to enter the Petal Apothecary, not just petals, runes, and manaresources. Great for modpacks.");
 		
-		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "general", true, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
-		
-		ALLOW_DUPLICATED_TNT = config.getBoolean("allowEntropinnyumDuplicatedTNT", "balance", false, "Should the Entropinnyum accept TNT that came from a vanilla-style TNT duplicator device?");
-		
-		TNT_DUPE_HEURISTIC = config.getInt("tntDupeDetectionHeuristic", "balance", 10, 1, Integer.MAX_VALUE, "The TNT duplicator detection uses a score/heuristic system to detect duplicated TNT. Set this number higher if you get false positives.");
-		
-		FORCE_VANILLA_TNT = config.getBoolean("forceVanillaTNT", "balance", false, "Should the Entropinnyum only accept vanilla TNT entities?");
+		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", true, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
 		
 		if(config.hasChanged()) config.save();
 		

@@ -1,4 +1,10 @@
 {
+	"conditions": [
+		{
+			"type": "botania_tweaks:spork_enabled",
+			"value": true
+		}
+	],
 	"type": "minecraft:crafting_shaped",
 	"result": {
 		"item": "botania:corporeaspark",

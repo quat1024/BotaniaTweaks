@@ -5,7 +5,7 @@ public class ServerProxy {
 		//No-op
 	}
 	
-	public void registerStatemapper() {
-		//No-op
+	public boolean shouldAddLexiconPages() {
+		return false;
 	}
 }

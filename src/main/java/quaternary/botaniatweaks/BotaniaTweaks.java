@@ -10,8 +10,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -69,10 +68,15 @@ public class BotaniaTweaks {
 	}
 	
 	@Mod.EventHandler
+	public static void preinit(FMLPreInitializationEvent e) {
+		BotaniaTweaksConfig.initConfig();
+	}
+	
+	@Mod.EventHandler
 	public static void init(FMLInitializationEvent e) {
 		AgglomerationRecipes.init();
-		BotaniaTweaksConfig.initConfig();
 		BotaniaTweaksPacketHandler.init();
+		LexiconHandler.fixKnowledgeTypes();
 		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.GLASS_BOTTLE, new BehaviorEnderAirDispenser(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.GLASS_BOTTLE)));
 	}

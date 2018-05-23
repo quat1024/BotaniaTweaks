@@ -11,7 +11,7 @@ public class ClientProxy extends ServerProxy {
 	}
 	
 	@Override
-	public void registerStatemapper() {
-		
+	public boolean shouldAddLexiconPages() {
+		return true;
 	}
 }

@@ -10,6 +10,7 @@ import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = BotaniaTweaks.MODID)
 public class BotaniaTweaksConfig {
@@ -82,9 +83,9 @@ public class BotaniaTweaksConfig {
 		//decay
 		PASSIVE_DECAY_TIMER = config.getInt("passiveDecayTimer", "balance.decay", 72000, 1, 72000, "How many ticks until passive flowers decay? Can only be set *lower* than the default value. Muahaha.");
 		
-		for(ActiveGeneratingFlowers activeFlower : ActiveGeneratingFlowers.values()) {
-			boolean should = config.getBoolean(activeFlower.name + "Decay", "balance.decay.flowers", false, "Does the " + activeFlower.name + " experience passive decay?");
-			SHOULD_ALSO_BE_PASSIVE_MAP.put(activeFlower.name, should);
+		for(String flower : ActiveGeneratingFlowers.classToNamesMap.values()) {
+			boolean should = config.getBoolean(flower + "Decay", "balance.decay.flowers", false, "Does the " + flower + " experience passive decay?");
+			SHOULD_ALSO_BE_PASSIVE_MAP.put(flower, should);
 		}
 		
 		//fluxfield

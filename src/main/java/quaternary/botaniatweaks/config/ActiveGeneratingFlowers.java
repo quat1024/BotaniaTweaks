@@ -2,7 +2,6 @@ package quaternary.botaniatweaks.config;
 
 import java.util.*;
 
-//Be careful about classloading here.
 public class ActiveGeneratingFlowers {
 	
 	public static Map<String, String> classToNamesMap;

@@ -7,8 +7,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
-import quaternary.botaniatweaks.etc.Events;
-import quaternary.botaniatweaks.etc.LexiconHandler;
 
 import java.io.File;
 import java.util.HashMap;
@@ -52,7 +50,7 @@ public class BotaniaTweaksConfig {
 		readConfig();
 	}
 	
-	public static void readConfig() {		
+	public static void readConfig() {
 		//balance
 		MANASTORM_SCALE_FACTOR = config.getFloat("manastormScaleFactor", "balance", 8f, 1f, 15f, "The default mana output of the Manastorm Charge is multiplied by this amount. Setting this to a value higher than around ~1.38889ish allows for the \"Manastorm Reactor\" build to be profitable.");
 		

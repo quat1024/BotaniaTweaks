@@ -1,22 +1,18 @@
 package quaternary.botaniatweaks.etc;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.item.*;
+import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
-import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityPiston;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -26,23 +22,15 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.items.IItemHandler;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.lexicon.*;
 import vazkii.botania.common.block.corporea.BlockCorporeaBase;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.item.ItemCorporeaSpark;
-import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = BotaniaTweaks.MODID)
 public class Events {
@@ -164,14 +152,13 @@ public class Events {
 			}
 		}
 		
-		if(score >= BotaniaTweaksConfig.TNT_DUPE_HEURISTIC)	tnt.getTags().add("CheatyDupe");
+		if(score >= BotaniaTweaksConfig.TNT_DUPE_HEURISTIC) tnt.getTags().add("CheatyDupe");
 	}
 	
 	static Block getBlockOrMovingBlock(World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TileEntityPiston) {
-			return ((TileEntityPiston)tile).getPistonState().getBlock();
-		}
-		else return world.getBlockState(pos).getBlock();
+			return ((TileEntityPiston) tile).getPistonState().getBlock();
+		} else return world.getBlockState(pos).getBlock();
 	}
 }

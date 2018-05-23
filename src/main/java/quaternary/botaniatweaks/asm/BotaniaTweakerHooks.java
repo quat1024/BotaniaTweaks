@@ -12,10 +12,8 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.CatchallFlowerComponent;
-import quaternary.botaniatweaks.etc.Events;
 import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.common.Botania;
 
@@ -147,7 +145,7 @@ public class BotaniaTweakerHooks {
 			}
 			
 			tnt.setDead(); //No EXPLOSION!!
-		} catch (NBTException bleh) {
+		} catch(NBTException bleh) {
 			// :D
 		}
 	}

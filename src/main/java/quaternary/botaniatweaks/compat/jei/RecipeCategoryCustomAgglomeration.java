@@ -6,8 +6,6 @@ import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -61,7 +59,7 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 	public void setRecipe(IRecipeLayout layout, IRecipeWrapper wrap, IIngredients ings) {
 		if(!(wrap instanceof RecipeWrapperAgglomeration)) return;
 		
-		RecipeWrapperAgglomeration wrapper = (RecipeWrapperAgglomeration) wrap; 
+		RecipeWrapperAgglomeration wrapper = (RecipeWrapperAgglomeration) wrap;
 		
 		IGuiItemStackGroup stacks = layout.getItemStacks();
 		List<List<ItemStack>> ins = ings.getInputs(ItemStack.class);

@@ -1,8 +1,6 @@
 package quaternary.botaniatweaks.etc;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import vazkii.botania.api.BotaniaAPI;

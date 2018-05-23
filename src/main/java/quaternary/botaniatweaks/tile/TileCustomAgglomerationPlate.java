@@ -10,10 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.net.PacketCustomTerraPlate;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipe;
@@ -23,7 +20,6 @@ import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.*;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntitySpark;
-import vazkii.botania.common.network.PacketHandler;
 
 import java.util.List;
 import java.util.Optional;

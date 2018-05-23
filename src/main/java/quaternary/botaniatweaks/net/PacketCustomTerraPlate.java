@@ -5,7 +5,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
-import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.etc.MathUtil;
 import vazkii.botania.common.Botania;
 
@@ -13,7 +12,8 @@ public class PacketCustomTerraPlate implements IMessage {
 	int x, y, z, color1, color2;
 	float progress;
 	
-	public PacketCustomTerraPlate() {}
+	public PacketCustomTerraPlate() {
+	}
 	
 	public PacketCustomTerraPlate(BlockPos pos, int color1, int color2, float progress) {
 		this.x = pos.getX();

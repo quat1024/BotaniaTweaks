@@ -92,7 +92,7 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 		
 		try {
 			return state.getBlock().getItem(null, null, state); //Ugh
-		} catch (Exception e) {
+		} catch(Exception e) {
 			return ItemStack.EMPTY;
 		}
 	}

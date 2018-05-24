@@ -7,10 +7,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
+import vazkii.botania.common.Botania;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = BotaniaTweaks.MODID)
 public class BotaniaTweaksConfig {
@@ -71,6 +71,18 @@ public class BotaniaTweaksConfig {
 				ORECHID_MODE = EnumOrechidMode.DEFAULT;
 		}
 		
+		switch(BotaniaTweaksConfig.ORECHID_MODE) {
+			case DEFAULT:
+				BotaniaTweakerHooks.orechidGog = Botania.gardenOfGlassLoaded;
+				break;
+			case FORCE_GOG:
+				BotaniaTweakerHooks.orechidGog = true;
+				break;
+			case FORCE_NO_GOG:
+				BotaniaTweakerHooks.orechidGog = false;
+				break;
+		}
+		
 		SPORK = config.get("balance", "corporeaSpork", true, "Should crafting recipes with the Spork be enabled? These recipes provide more expensive paths to corporea sparks, but are available earlier in the game (they don't require going to the End or elven technology).").setRequiresMcRestart(true).getBoolean();
 		
 		//tnt
@@ -106,7 +118,7 @@ public class BotaniaTweaksConfig {
 		
 		if(config.hasChanged()) config.save();
 		
-		BotaniaTweakerHooks.onConfigChanged();
+		//BotaniaTweakerHooks.onConfigChanged();
 	}
 	
 	@SubscribeEvent

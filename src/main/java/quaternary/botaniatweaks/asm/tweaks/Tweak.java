@@ -1,9 +1,8 @@
 package quaternary.botaniatweaks.asm.tweaks;
 
 import org.apache.logging.log4j.LogManager;
-import org.objectweb.asm.Label;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.ClassNode;
 import quaternary.botaniatweaks.asm.BotaniaTweakerTransformer;
 
 import java.util.List;

@@ -48,7 +48,7 @@ public class RainbowBarfFontRenderer extends FontRenderer {
 		for(int i = 0; i < textRender.length(); i++) {
 			int c = (color & 0xFF000000) | MathHelper.hsvToRGB(huehuehue, .8f, 1);
 			
-			float yOffset = MathHelper.sin(i + (Minecraft.getSystemTime() / 300f));
+			float yOffset = (float) Math.sin(i + (Minecraft.getSystemTime() / 300f));
 			
 			posX = super.drawString(String.valueOf(textRender.charAt(i)), posX, y + yOffset, c, true) - 1;
 			

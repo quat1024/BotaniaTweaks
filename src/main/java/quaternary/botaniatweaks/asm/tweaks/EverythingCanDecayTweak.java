@@ -4,10 +4,7 @@ import com.google.common.collect.ImmutableList;
 import org.objectweb.asm.tree.*;
 import quaternary.botaniatweaks.config.ActiveGeneratingFlowers;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class EverythingCanDecayTweak extends Tweak {
 	@Override

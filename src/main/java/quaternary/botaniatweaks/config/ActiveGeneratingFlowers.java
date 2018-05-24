@@ -1,6 +1,7 @@
 package quaternary.botaniatweaks.config;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActiveGeneratingFlowers {
 	

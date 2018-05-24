@@ -91,19 +91,7 @@ public class BotaniaTweakerHooks {
 	
 	public static boolean orechidGog = Botania.gardenOfGlassLoaded;
 	
-	public static void onConfigChanged() { //not actually called through asm
-		switch(BotaniaTweaksConfig.ORECHID_MODE) {
-			case DEFAULT:
-				orechidGog = Botania.gardenOfGlassLoaded;
-				break;
-			case FORCE_GOG:
-				orechidGog = true;
-				break;
-			case FORCE_NO_GOG:
-				orechidGog = false;
-				break;
-		}
-	}
+	
 	
 	/// entro tnt duplication tweak
 	

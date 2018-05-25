@@ -2,8 +2,10 @@ package quaternary.botaniatweaks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.*;
@@ -34,10 +36,19 @@ public class BotaniaTweaks {
 	@SidedProxy(clientSide = "quaternary.botaniatweaks.proxy.ClientProxy", serverSide = "quaternary.botaniatweaks.proxy.ServerProxy")
 	public static ServerProxy PROXY;
 	
+	@GameRegistry.ItemStackHolder(MODID + ":compressed_potato_8")
+	public static final ItemStack ICON = ItemStack.EMPTY;
+	
+	public static CreativeTabs TAB = new CreativeTabs(MODID) {
+		@Override
+		public ItemStack getTabIconItem() {
+			return ICON;
+		}
+	};
+	
 	@Mod.EventHandler
 	public static void preinit(FMLPreInitializationEvent e) {
 		BotaniaTweaksConfig.initConfig();
-		
 	}
 	
 	@Mod.EventHandler

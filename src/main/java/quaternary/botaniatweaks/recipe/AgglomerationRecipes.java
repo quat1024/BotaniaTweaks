@@ -23,8 +23,8 @@ public class AgglomerationRecipes {
 						ImmutableList.of(manaResource(MANA_DIAMOND), manaResource(MANASTEEL), manaResource(MANA_PEARL)),
 						manaResource(TERRASTEEL),
 						500_000,
-						0x0000FF, //TODO
-						0x00FF00, //TODO
+						0x0000FF,
+						0x00FF00,
 						ModBlocks.livingrock.getDefaultState(),
 						Blocks.LAPIS_BLOCK.getDefaultState(),
 						ModBlocks.livingrock.getDefaultState(),
@@ -39,7 +39,6 @@ public class AgglomerationRecipes {
 	}
 	
 	public static void unregister(AgglomerationRecipe recipe) {
-		//FIXME: identity comparison badbad. this won't actually work.
 		recipes.remove(recipe);
 	}
 	

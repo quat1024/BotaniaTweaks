@@ -5,13 +5,17 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.*;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.block.*;
 import quaternary.botaniatweaks.etc.ItemSpork;
+import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 public class BotaniaTweaksRegistry {
@@ -28,6 +32,7 @@ public class BotaniaTweaksRegistry {
 		
 		for(Block b : OVERRIDE_BLOCKS) {
 			Item i = new ItemBlockMod(b).setRegistryName(b.getRegistryName());
+			i.setCreativeTab(BotaniaCreativeTab.INSTANCE);
 			OVERRIDE_ITEMS.add(i);
 		}
 		
@@ -43,6 +48,10 @@ public class BotaniaTweaksRegistry {
 		
 		BLOCKS.add(new BlockPottedTinyPotato());
 		ITEMS.add(new ItemSpork());
+		
+		for(Item i : ITEMS) {
+			i.setCreativeTab(BotaniaTweaks.TAB);
+		}
 	}
 	
 	static void registerBlocks(IForgeRegistry<Block> reg) {

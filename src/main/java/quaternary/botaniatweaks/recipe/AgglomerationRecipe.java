@@ -166,8 +166,50 @@ public class AgglomerationRecipe {
 	
 	@Override
 	public boolean equals(Object obj) {
+		if(this == obj) return true;
 		if(!(obj instanceof AgglomerationRecipe)) return false;
+		AgglomerationRecipe other = (AgglomerationRecipe) obj;
 		
-		return false; //TODO
+		//the easy ones
+		if(other.manaCost != manaCost) return false;
+		//if(other.color1 != color1) return false; //Don't check color
+		//if(other.color2 != color2) return false;
+		if(other.multiblockCenter != multiblockCenter) return false;
+		if(other.multiblockEdge != multiblockEdge) return false;
+		if(other.multiblockCorner != multiblockCorner) return false;
+		if(other.multiblockCenterReplace != multiblockCenterReplace) return false;
+		if(other.multiblockEdgeReplace != multiblockEdgeReplace) return false;
+		if(other.multiblockCornerReplace != multiblockCornerReplace) return false;
+		
+		if(!ItemStack.areItemStacksEqual(other.recipeOutput, recipeOutput)) return false;
+		
+		if(!new HashSet<>(other.recipeOreKeys).equals(new HashSet<>(recipeOreKeys))) return false;
+		
+		//the tricky one - deep compare these two lists
+		List<ItemStack> myStackCopy = new ArrayList<>(recipeStacks);
+		for(ItemStack otherStack : other.recipeStacks) {
+			myStackCopy.removeIf(stack -> ItemStack.areItemStacksEqual(stack, otherStack));
+		}
+		
+		return myStackCopy.size() == 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "AgglomerationRecipe{" +
+						"recipeStacks=" + recipeStacks +
+						", recipeOreKeys=" + recipeOreKeys +
+						", recipeOutput=" + recipeOutput +
+						", manaCost=" + manaCost +
+						", color1=" + color1 +
+						", color2=" + color2 +
+						", multiblockCenter=" + multiblockCenter +
+						", multiblockEdge=" + multiblockEdge +
+						", multiblockCorner=" + multiblockCorner +
+						", multiblockCenterReplace=" + multiblockCenterReplace +
+						", multiblockEdgeReplace=" + multiblockEdgeReplace +
+						", multiblockCornerReplace=" + multiblockCornerReplace +
+						", totalInputs=" + totalInputs +
+						'}';
 	}
 }

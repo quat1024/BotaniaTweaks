@@ -100,6 +100,15 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 		if(maxMana == 0) recieveMana(0);
 	}
 	
+	public boolean isCrafting() {
+		return maxMana != 0;
+	}
+	
+	public double getCraftingPercentage() {
+		if(!isCrafting()) return 0;
+		else return Math.min(1, (double) currentMana / maxMana);
+	}
+	
 	private void replaceBlock(World w, BlockPos pos, IBlockState replace) {
 		w.playEvent(2001, pos, Block.getStateId(world.getBlockState(pos)));
 		w.setBlockState(pos, replace, 3);

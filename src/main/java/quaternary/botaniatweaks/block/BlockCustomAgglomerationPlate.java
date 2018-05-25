@@ -53,6 +53,15 @@ public class BlockCustomAgglomerationPlate extends BlockTerraPlate implements IL
 	
 	@Override
 	public int getComparatorInputOverride(IBlockState state, World world, BlockPos pos) {
-		return 0; //for now todo
+		TileEntity tile = world.getTileEntity(pos);
+		if(tile instanceof TileCustomAgglomerationPlate) {
+			TileCustomAgglomerationPlate agglo = (TileCustomAgglomerationPlate) tile;
+			
+			if(agglo.isCrafting()) {
+				return (int) (agglo.getCraftingPercentage() * 15);
+			}
+		}
+		
+		return 0;
 	}
 }

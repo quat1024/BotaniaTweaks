@@ -113,9 +113,9 @@ public class CTAgglomeration {
 		@ZenProperty
 		public int manaCost = 500_000;
 		@ZenProperty
-		public int color1 = 0x0000FF; //todo accurate color
+		public int color1 = 0x0000FF;
 		@ZenProperty
-		public int color2 = 0x00FF00; //todo accurate color
+		public int color2 = 0x00FF00;
 		@ZenProperty
 		public CTAgglomerationMultiblock multiblock = new CTAgglomerationMultiblock();
 		
@@ -297,7 +297,7 @@ public class CTAgglomeration {
 		
 		@Override
 		public String describe() {
-			return "adding agglomeration recipe todo fill this out";
+			return "Adding an agglomeration recipe: " + recipe.toString();
 		}
 	}
 	
@@ -315,7 +315,7 @@ public class CTAgglomeration {
 		
 		@Override
 		public String describe() {
-			return "removing an agglomeration recipe i guess";
+			return "Removing an agglomeration recipe: " + recipe.toString();
 		}
 	}
 	
@@ -374,10 +374,10 @@ public class CTAgglomeration {
 		int manaCost = 500_000;
 		if(manaCostIn != null) manaCost = manaCostIn;
 		
-		int color1 = 0x0000FF; //todo sane default color
+		int color1 = 0x0000FF;
 		if(color1In != null) color1 = color1In;
 		
-		int color2 = 0x00FF00; //todo sane default color
+		int color2 = 0x00FF00;
 		if(color2In != null) color2 = color2In;
 		
 		IBlockState centerState;

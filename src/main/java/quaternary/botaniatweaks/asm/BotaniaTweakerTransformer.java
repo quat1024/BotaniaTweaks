@@ -45,7 +45,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 			}
 		}
 		
-		ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
+		ClassWriter writer = new WorkaroundClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
 		node.accept(writer);
 		
 		return writer.toByteArray();

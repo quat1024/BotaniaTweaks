@@ -48,7 +48,7 @@ License and Attribution
 
 ---
 
-In short, this means that your modifications of Botania Tweaks must use the same license, but your modpacks that use it do not.
+In short, this means that your modifications of Botania Tweaks must use the same license, but your modpacks that use it do not; however, modpacks that distribute a custom modified build of this mod must make their changes available under the same license. Read LICENSE.md for more details.
 
 Please also familiarize yourself with the [license of Botania](https://botaniamod.net/license.php). The Mozilla Public License was (in part) chosen to be in compliance with the Copyleft Clause. Also because I like it.
 
@@ -62,6 +62,10 @@ Portions of this code were adapted from Botania, by Vazkii. A list of copied/mod
 * `brighter_grayscale_tiny_potato` and `rainbowtato` adapted from `tiny_potato.png`
 * `terrasteeloverlay.png` adapted from `terrasteeloverlay.png`
 * `PacketCustomTerraPlate` adapted from `PacketBotaniaEffect`
+
+Portions of this code were adapted from Gotta Go Fast, by Thiakil. That mod is distributed under the terms of the MIT license. The license is available in CLASSWRITER_LICENSE.md.
+
+* `WorkaroundClassWriter` copied from `MCClassWriter`.
 
 Previous (pre-release) versions of this mod were CC0.
 

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import org.objectweb.asm.tree.*;
 
 import java.util.List;
+import java.util.ListIterator;
 
 public class EverythingApothecaryTweak extends Tweak {
 	@Override
@@ -22,23 +23,16 @@ public class EverythingApothecaryTweak extends Tweak {
 			if(method.name.equals("getFlowerComponent")) {
 				InsnList ins = method.instructions;
 				
-				for(int i = 0; i < ins.size(); i++) {
-					AbstractInsnNode in = ins.get(i);
+				ListIterator<AbstractInsnNode> inserator = ins.iterator();
+				while(inserator.hasNext()) {
+					AbstractInsnNode in = inserator.next();
 					if(in.getOpcode() == ARETURN) {
-						AbstractInsnNode prev = in.getPrevious();
+						inserator.remove();
 						
-						//the local variables are:
-						//* 0: this
-						//* 1: ItemStack
-						//* 2: IFlowerComponent
+						inserator.add(new VarInsnNode(ALOAD, 1));
+						inserator.add(new MethodInsnNode(INVOKESTATIC, getHooksClass(), "getFlowerComponent", "(Lvazkii/botania/api/recipe/IFlowerComponent;Lnet/minecraft/item/ItemStack;)Lvazkii/botania/api/recipe/IFlowerComponent;", false));
+						inserator.add(new InsnNode(ARETURN));
 						
-						//copy the passed-in ItemStack argument onto the stack
-						VarInsnNode copyInsn = new VarInsnNode(ALOAD, 1);
-						ins.insert(prev, copyInsn);
-						
-						//call the hook
-						MethodInsnNode hook = new MethodInsnNode(INVOKESTATIC, getHooksClass(), "getFlowerComponent", "(Lvazkii/botania/api/recipe/IFlowerComponent;Lnet/minecraft/item/ItemStack;)Lvazkii/botania/api/recipe/IFlowerComponent;", false);
-						ins.insert(copyInsn, hook);
 						return;
 					}
 				}

@@ -4,6 +4,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -11,6 +13,7 @@ import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import vazkii.botania.api.mana.IManaReceiver;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 
 public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver, ITickable {
 	static final int ENERGY_BUFFER_SIZE = 1000;
@@ -20,6 +23,9 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 	static final int MAX_MANA_BUFFER = 10000;
 	
 	public EnergyHandler handler = new EnergyHandler();
+	
+	@CapabilityInject(IEnergyStorage.class)
+	public static final Capability<IEnergyStorage> ENERGY_CAP = null;
 	
 	class EnergyHandler implements IEnergyStorage {
 		int energy = 0;
@@ -87,6 +93,32 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 				break;
 			}
 		}
+		
+		//try to empty into nearby FE receivers
+		//first, count how many are nearby
+		ArrayList<IEnergyStorage> nearbyCaps = new ArrayList<>();
+		for(EnumFacing whichWay : EnumFacing.values()) {
+			BlockPos checkPos = pos.offset(whichWay);
+			TileEntity tile = world.getTileEntity(checkPos);
+			if(tile != null) {
+				IEnergyStorage cap = null;
+				if(tile.hasCapability(ENERGY_CAP, null)) cap = tile.getCapability(ENERGY_CAP, null);
+				if(tile.hasCapability(ENERGY_CAP, whichWay.getOpposite())) cap = tile.getCapability(ENERGY_CAP, whichWay.getOpposite());
+				if(cap != null) nearbyCaps.add(cap);
+			}
+		}
+		
+		//next, distribute power evenly among them, if possible
+		if(nearbyCaps.size() == 0) return;
+		
+		int powerToDistribute = handler.getEnergyStored() / nearbyCaps.size();
+		for(IEnergyStorage cap : nearbyCaps) {
+			int wouldReceivedPower = cap.receiveEnergy(powerToDistribute, true);
+			if(wouldReceivedPower != 0) {
+				cap.receiveEnergy(wouldReceivedPower, false);
+				handler.extractEnergy(wouldReceivedPower, false);
+			}
+		}
 	}
 	
 	@Override
@@ -122,9 +154,6 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 		manaBuffer = nbt.getInteger("ManaBuffer");
 		handler.setEnergyStored(nbt.getInteger("EnergyBuffer"));
 	}
-	
-	@CapabilityInject(IEnergyStorage.class)
-	public static final Capability<IEnergyStorage> ENERGY_CAP = null;
 	
 	@Override
 	@SuppressWarnings("ConstantConditions")

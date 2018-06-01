@@ -103,7 +103,7 @@ public class BotaniaTweaksConfig {
 		//fluxfield
 		MANA_SHOTS_PER_ENERGY_BURST = config.getInt("shotsPerBurst", "balance.fluxfield", 1, 1, Integer.MAX_VALUE, "How many pulses from a mana spreader are needed to fire off a \"packet\" of FE?");
 		
-		FE_PER_ENERGY_BURST = config.getInt("fePerBurst", "balance.fluxfield", 30, 1, Integer.MAX_VALUE, "How much FE is contained within a \"packet\"?");
+		FE_PER_ENERGY_BURST = config.getInt("fePerBurst", "balance.fluxfield", 1600, 1, Integer.MAX_VALUE, "How much FE is contained within a \"packet\"?");
 		
 		//and the rest
 		CREATE_ENDER_AIR_WITH_DISPENSER = config.getBoolean("enderAirDispenser", "etc", true, "Can dispensers shoot glass bottles to turn them in to Ender Air in the End dimension? This allows for automation of Ender Air, which was not previously possible.");

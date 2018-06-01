@@ -18,12 +18,15 @@ import net.minecraft.world.World;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.etc.MathUtil;
 import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BlockCompressedTinyPotato extends Block {
+public class BlockCompressedTinyPotato extends Block implements ILexiconable {
 	public final int compressionLevel;
 	final int potatoCount;
 	final AxisAlignedBB aabb;
@@ -149,5 +152,10 @@ public class BlockCompressedTinyPotato extends Block {
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
 		if(compressionLevel != 8) return BlockFaceShape.UNDEFINED;
 		else return face == EnumFacing.UP ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
+	}
+	
+	@Override
+	public LexiconEntry getEntry(World world, BlockPos blockPos, EntityPlayer entityPlayer, ItemStack itemStack) {
+		return LexiconData.tinyPotato;
 	}
 }

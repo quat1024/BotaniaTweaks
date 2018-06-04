@@ -31,7 +31,7 @@ import vazkii.botania.common.lib.LibMisc;
 public class BotaniaTweaks {
 	public static final String MODID = "botania_tweaks";
 	public static final String NAME = "Botania Tweaks";
-	public static final String VERSION = "1.0.0";
+	public static final String VERSION = "1.1.0";
 	public static final String DEPS = "required-after:botania";
 	
 	public static final int MAX_TESTED_BOTANIA_VERSION = 355;

@@ -3,11 +3,11 @@ package quaternary.botaniatweaks.compat.jei;
 import com.google.common.collect.ImmutableList;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+import quaternary.botaniatweaks.etc.Util;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -51,9 +51,9 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 		}
 		
 		//The three multiblock pieces
-		multiblockCenterStack = stackFromState(recipe.multiblockCenter);
-		multiblockEdgeStack = stackFromState(recipe.multiblockEdge);
-		multiblockCornerStack = stackFromState(recipe.multiblockCorner);
+		multiblockCenterStack = Util.stackFromState(recipe.multiblockCenter);
+		multiblockEdgeStack = Util.stackFromState(recipe.multiblockEdge);
+		multiblockCornerStack = Util.stackFromState(recipe.multiblockCorner);
 		
 		bob.add(ImmutableList.of(multiblockCenterStack));
 		bob.add(ImmutableList.of(multiblockEdgeStack));
@@ -65,9 +65,9 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 		joe.add(recipe.getRecipeOutputCopy());
 		
 		//The multiblock replacements
-		multiblockReplaceCenterStack = stackFromState(recipe.multiblockCenterReplace);
-		multiblockReplaceEdgeStack = stackFromState(recipe.multiblockEdgeReplace);
-		multiblockReplaceCornerStack = stackFromState(recipe.multiblockCornerReplace);
+		multiblockReplaceCenterStack = Util.stackFromState(recipe.multiblockCenterReplace);
+		multiblockReplaceEdgeStack = Util.stackFromState(recipe.multiblockEdgeReplace);
+		multiblockReplaceCornerStack = Util.stackFromState(recipe.multiblockCornerReplace);
 		
 		if(multiblockReplaceCenterStack != null) {
 			joe.add(multiblockCenterStack);
@@ -87,15 +87,7 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 		manaCost = recipe.manaCost;
 	}
 	
-	ItemStack stackFromState(IBlockState state) {
-		if(state == null) return null;
-		
-		try {
-			return state.getBlock().getItem(null, null, state); //Ugh
-		} catch(Exception e) {
-			return ItemStack.EMPTY;
-		}
-	}
+	
 	
 	@Override
 	public void getIngredients(IIngredients ing) {

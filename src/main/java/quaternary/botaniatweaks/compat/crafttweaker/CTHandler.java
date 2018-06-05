@@ -2,7 +2,9 @@ package quaternary.botaniatweaks.compat.crafttweaker;
 
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
+import crafttweaker.runtime.ILogger;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,12 @@ public class CTHandler {
 		try {
 			ADD_ACTIONS.forEach(CraftTweakerAPI::apply);
 			REMOVE_ACTIONS.forEach(CraftTweakerAPI::apply);
-		} catch(Exception err) {
+		} catch(Exception e) {
 			CraftTweakerAPI.logError("There was a problem applying a Botania Tweaks action");
-			err.printStackTrace();
+			//print the error to the log
+			StringWriter out = new StringWriter();
+			e.printStackTrace(new PrintWriter(out));
+			CraftTweakerAPI.logError(out.toString());
 		}
 	}
 }

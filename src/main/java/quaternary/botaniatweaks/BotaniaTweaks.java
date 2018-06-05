@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.*;
+import quaternary.botaniatweaks.lexi.LexiconHandler;
 import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.proxy.ServerProxy;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;

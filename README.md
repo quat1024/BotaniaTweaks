@@ -62,6 +62,7 @@ Portions of this code were adapted from Botania, by Vazkii. A list of copied/mod
 * `brighter_grayscale_tiny_potato` and `rainbowtato` adapted from `tiny_potato.png`
 * `terrasteeloverlay.png` adapted from `terrasteeloverlay.png`
 * `PacketCustomTerraPlate` adapted from `PacketBotaniaEffect`
+* `PageCustomTerrasteel` adapted from `PageTerrasteel`
 
 Portions of this code were adapted from Gotta Go Fast, by Thiakil. That mod is distributed under the terms of the MIT license. The license is available in CLASSWRITER_LICENSE.md.
 

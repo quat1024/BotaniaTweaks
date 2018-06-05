@@ -1,10 +1,16 @@
 package quaternary.botaniatweaks.etc;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Util {
 	private static ModContainer botaniaModContainer = null;
@@ -32,5 +38,33 @@ public class Util {
 		} catch (Exception e) {
 			throw new RuntimeException("java machine broke", e);
 		}
+	}
+	
+	//This is DUMB
+	public static ItemStack stackFromState(IBlockState state) {
+		if(state == null) return null;
+		
+		try {
+			return state.getBlock().getItem(null, null, state); //Ugh
+		} catch(Exception e) {
+			return ItemStack.EMPTY;
+		}
+	}
+	
+	public static List<ItemStack> getAllSubtypes(Iterable<ItemStack> stacks) {
+		ArrayList<ItemStack> ret = new ArrayList<>();
+		
+		for(ItemStack stack : stacks) {
+			for(CreativeTabs tab : stack.getItem().getCreativeTabs()) {
+				NonNullList<ItemStack> subs = NonNullList.create();
+				try {
+					stack.getItem().getSubItems(tab, subs);
+				} catch (Exception ignore) {}
+				
+				ret.addAll(subs);
+			}
+		}
+		
+		return ret;
 	}
 }

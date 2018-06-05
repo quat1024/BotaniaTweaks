@@ -161,8 +161,7 @@ public class CTAgglomeration {
 			return this;
 		}
 		
-		//internal use !
-		private AgglomerationRecipe toAgglomerationRecipe() {
+		AgglomerationRecipe toAgglomerationRecipe() {
 			return buildAgglomerationRecipe(
 							output,
 							inputs,
@@ -344,7 +343,7 @@ public class CTAgglomeration {
 		return new MCItemStack(new ItemStack(Item.getItemFromBlock(b)));
 	}
 	
-	private static AgglomerationRecipe buildAgglomerationRecipe(
+	static AgglomerationRecipe buildAgglomerationRecipe(
 					IItemStack output,
 					IIngredient[] inputs,
 					@Nullable Integer manaCostIn,

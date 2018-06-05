@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -24,7 +23,6 @@ import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.proxy.ServerProxy;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import quaternary.botaniatweaks.tile.*;
-import vazkii.botania.common.lib.LibMisc;
 
 @Mod(modid = BotaniaTweaks.MODID, name = BotaniaTweaks.NAME, version = BotaniaTweaks.VERSION, dependencies = BotaniaTweaks.DEPS, guiFactory = "quaternary.botaniatweaks.config.BotaniaTweaksGuiFactory")
 public class BotaniaTweaks {
@@ -33,7 +31,7 @@ public class BotaniaTweaks {
 	public static final String VERSION = "1.1.0";
 	public static final String DEPS = "required-before:botania";
 	
-	public static final int MAX_TESTED_BOTANIA_VERSION = 355;
+	public static final int TESTED_BOTANIA_VERSION = 355;
 	
 	public static final Logger LOG = LogManager.getLogger(NAME);
 	
@@ -52,11 +50,6 @@ public class BotaniaTweaks {
 	
 	@Mod.EventHandler
 	public static void preinit(FMLPreInitializationEvent e) {
-		BotaniaTweaksConfig.initConfig();
-		
-		BotaniaTweaksRegistry.populate();
-		BotaniaTweaksRegistry.fixBlockReferences();
-		
 		//Warn if the Botania version is wrong because btweaks is so fkin fragile lmao
 		ModContainer botania = Util.getBotaniaModContainer();
 		
@@ -65,10 +58,10 @@ public class BotaniaTweaks {
 			double versionNumber = Double.parseDouble(minorVersionString);
 			int flooredVersion = MathHelper.floor(versionNumber);
 			
-			if(flooredVersion != MAX_TESTED_BOTANIA_VERSION) {
+			if(flooredVersion != TESTED_BOTANIA_VERSION) {
 				LOG.warn("********************************");
 				LOG.warn("Detected a Botania version mismatch!");
-				LOG.warn("Expected version {}, found version {}.", MAX_TESTED_BOTANIA_VERSION, flooredVersion);
+				LOG.warn("Expected version {}, found version {}.", TESTED_BOTANIA_VERSION, flooredVersion);
 				LOG.warn("This may cause issues and crashes! Please report any");
 				LOG.warn("errors and crashes to Botania Tweaks first. Thanks!");
 				LOG.warn("********************************");
@@ -80,6 +73,11 @@ public class BotaniaTweaks {
 			LOG.warn("This is BAD!!! Serious incompatibilities and crashes may happen!!!");
 			LOG.warn("********************************");
 		}
+		
+		BotaniaTweaksConfig.initConfig();
+		
+		BotaniaTweaksRegistry.populate();
+		BotaniaTweaksRegistry.fixBlockReferences();
 	}
 	
 	@Mod.EventHandler

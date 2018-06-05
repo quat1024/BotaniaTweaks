@@ -5,11 +5,14 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.block.*;
 import quaternary.botaniatweaks.etc.ItemSpork;
-import vazkii.botania.common.block.BlockMod;
+import quaternary.botaniatweaks.etc.Util;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
@@ -25,10 +28,16 @@ public class BotaniaTweaksRegistry {
 	static ArrayList<Block> BLOCKS = new ArrayList<>();
 	static ArrayList<Item> ITEMS = new ArrayList<>();
 	
+	static BlockNerfedManaFluxfield fluxfield;
+	static BlockCustomAgglomerationPlate agglo;
+	
 	static void populate() {
 		//Overrides
-		OVERRIDE_BLOCKS.add(new BlockNerfedManaFluxfield());
-		OVERRIDE_BLOCKS.add(new BlockCustomAgglomerationPlate());
+		fluxfield = new BlockNerfedManaFluxfield();
+		agglo = new BlockCustomAgglomerationPlate();
+		
+		OVERRIDE_BLOCKS.add(fluxfield);
+		OVERRIDE_BLOCKS.add(agglo);
 		
 		for(Block b : OVERRIDE_BLOCKS) {
 			Item i = new ItemBlockMod(b).setRegistryName(b.getRegistryName());
@@ -55,9 +64,12 @@ public class BotaniaTweaksRegistry {
 	}
 	
 	static void registerBlocks(IForgeRegistry<Block> reg) {
+		/*
+		//The field references in ModBlocks are patched, so Botania will take care of these.
 		for(Block b : OVERRIDE_BLOCKS) {
 			reg.register(b);
 		}
+		*/
 		
 		for(Block b : BLOCKS) {
 			reg.register(b);
@@ -72,6 +84,60 @@ public class BotaniaTweaksRegistry {
 		for(Item i : ITEMS) {
 			reg.register(i);
 		}
+	}
+	
+	/**
+	 * Botania Tweaks uses registry replacements to change certain Botania blocks.
+	 * However, Botania internally (in ModBlocks) keeps a giant list of references
+	 * to blocks, as opposed to using things such as ObjectHolder to inject block references.
+	 * This is a problem for me, as registry replacing won't magically update the field,
+	 * and Botania references these fields a few times, notably when creating multiblock
+	 * structure previews.
+	 * 
+	 * However, those multiblock structure previews are also created during preinit.
+	 * I must run very early, before Botania's preinit, to swoop in and fix those
+	 * field references before the multiblock preview can grab them. Naturally
+	 * this means that Botania Tweaks is now the mod classloading ModBlocks, and
+	 * Botania does setRegistryNaming in the static initializer, so that takes
+	 * some hacks to work around too. It's harmless since Botania doesn't rely on the
+	 * active mod container for registry names, but it prints a lot of scary console
+	 * warnings (as it should). Easily fixable with scary setActiveModContainer stuff.
+	 */
+	static void fixBlockReferences() {
+		classloadModBlocks();
+		
+		fixBlockReference(fluxfield, "rfGenerator");
+		fixBlockReference(agglo, "terraPlate");
+	}
+	
+	private static void fixBlockReference(Block b, String fieldName) {
+		try {
+			//find the ModBlocks field
+			Field f = ReflectionHelper.findField(ModBlocks.class, fieldName);
+			//remove the final modifier
+			Util.makeNonFinal(f);
+			//set the field to the new block instance
+			f.set(null, b);
+		} catch (Exception e) {
+			throw new RuntimeException("There was an error tweaking ModBlocks field " + fieldName, e);
+		}
+	}
+	
+	/**
+	 * Classload ModBlocks.class while Botania is the active mod container.
+	 * Classloading ModBlocks triggers a bunch of setRegistryNames, and if I'm the
+	 * active mod container during that time, this dumps a lot of scary warnings
+	 * into the console. But I need to load ModBlocks, to fix up the references.
+	 */
+	@SuppressWarnings("unused")
+	static void classloadModBlocks() {
+		Loader l = Loader.instance();
+		ModContainer me = l.activeModContainer();
+		ModContainer botania = Util.getBotaniaModContainer();
+		
+		l.setActiveModContainer(botania);
+		Block classloadTrigger = ModBlocks.cacophonium;
+		l.setActiveModContainer(me);
 	}
 	
 	@SideOnly(Side.CLIENT)

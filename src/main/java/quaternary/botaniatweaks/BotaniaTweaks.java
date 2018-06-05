@@ -19,8 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.etc.BehaviorEnderAirDispenser;
-import quaternary.botaniatweaks.etc.LexiconHandler;
+import quaternary.botaniatweaks.etc.*;
 import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.proxy.ServerProxy;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
@@ -32,7 +31,7 @@ public class BotaniaTweaks {
 	public static final String MODID = "botania_tweaks";
 	public static final String NAME = "Botania Tweaks";
 	public static final String VERSION = "1.1.0";
-	public static final String DEPS = "required-after:botania";
+	public static final String DEPS = "required-before:botania";
 	
 	public static final int MAX_TESTED_BOTANIA_VERSION = 355;
 	
@@ -55,32 +54,31 @@ public class BotaniaTweaks {
 	public static void preinit(FMLPreInitializationEvent e) {
 		BotaniaTweaksConfig.initConfig();
 		
-		//Warn if Botania is from the future
-		for(ModContainer container : Loader.instance().getActiveModList()) {
-			if(container.getModId().equals("botania")) {
-				try {
-					String minorVersionString = container.getDisplayVersion().split("-")[1];
-					double versionNumber = Double.parseDouble(minorVersionString);
-					int flooredVersion = MathHelper.floor(versionNumber);
-					
-					if(flooredVersion > MAX_TESTED_BOTANIA_VERSION) {
-						LOG.warn("********************************");
-						LOG.warn("Detected a Botania version from the future!");
-						LOG.warn("Expected version {}, found version {}.", MAX_TESTED_BOTANIA_VERSION, flooredVersion);
-						LOG.warn("This may cause issues and crashes! Please report any");
-						LOG.warn("errors and crashes to Botania Tweaks first. Thanks!");
-						LOG.warn("********************************");
-					}
-					
-				} catch (Exception asdf) {
-					LOG.warn("********************************");
-					LOG.warn("Unable to detect or parse Botania's version!!!");
-					LOG.warn("This is BAD!!! Serious incompatibilities and crashes may happen!!!");
-					LOG.warn("********************************");
-				}
-				
-				break;
+		BotaniaTweaksRegistry.populate();
+		BotaniaTweaksRegistry.fixBlockReferences();
+		
+		//Warn if the Botania version is wrong because btweaks is so fkin fragile lmao
+		ModContainer botania = Util.getBotaniaModContainer();
+		
+		try {
+			String minorVersionString = botania.getDisplayVersion().split("-")[1];
+			double versionNumber = Double.parseDouble(minorVersionString);
+			int flooredVersion = MathHelper.floor(versionNumber);
+			
+			if(flooredVersion != MAX_TESTED_BOTANIA_VERSION) {
+				LOG.warn("********************************");
+				LOG.warn("Detected a Botania version mismatch!");
+				LOG.warn("Expected version {}, found version {}.", MAX_TESTED_BOTANIA_VERSION, flooredVersion);
+				LOG.warn("This may cause issues and crashes! Please report any");
+				LOG.warn("errors and crashes to Botania Tweaks first. Thanks!");
+				LOG.warn("********************************");
 			}
+			
+		} catch (Exception asdf) {
+			LOG.warn("********************************");
+			LOG.warn("Unable to detect or parse Botania's version!!!");
+			LOG.warn("This is BAD!!! Serious incompatibilities and crashes may happen!!!");
+			LOG.warn("********************************");
 		}
 	}
 	
@@ -88,9 +86,18 @@ public class BotaniaTweaks {
 	public static void init(FMLInitializationEvent e) {
 		AgglomerationRecipes.init();
 		BotaniaTweaksPacketHandler.init();
-		LexiconHandler.fixKnowledgeTypes();
 		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.GLASS_BOTTLE, new BehaviorEnderAirDispenser(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.GLASS_BOTTLE)));
+	}
+	
+	@Mod.EventHandler
+	public static void postinit(FMLPostInitializationEvent e) {
+		//Run this in postinit.
+		//BTweaks has to load before Botania to fix up references to TileTerraPlate etc
+		//in ModBlocks, so things like the multiblock preview can work properly (the multiblock
+		//preview is created in preinit, and I have to catch and fix the reference first)
+		//So normally I would put this in init, since botania lexicon data is created in init
+		LexiconHandler.fixKnowledgeTypes();
 	}
 	
 	@Mod.EventHandler
@@ -105,7 +112,7 @@ public class BotaniaTweaks {
 		@SubscribeEvent
 		public static void blocks(RegistryEvent.Register<Block> e) {
 			IForgeRegistry<Block> reg = e.getRegistry();
-			BotaniaTweaksRegistry.populate();
+			
 			BotaniaTweaksRegistry.registerBlocks(reg);
 			
 			GameRegistry.registerTileEntity(TileNerfedManaFluxfield.class, MODID + ":tweaked_fluxfield");

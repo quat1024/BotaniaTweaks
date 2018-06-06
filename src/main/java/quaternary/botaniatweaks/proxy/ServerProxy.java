@@ -20,4 +20,8 @@ public class ServerProxy {
 	public Item makeRainbowItem(Block b) {
 		return new ItemBlock(b);
 	}
+	
+	public void registerEvents() {
+		//No-op
+	}
 }

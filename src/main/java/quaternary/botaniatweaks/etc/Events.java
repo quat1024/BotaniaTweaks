@@ -1,6 +1,7 @@
 package quaternary.botaniatweaks.etc;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.passive.EntitySheep;
@@ -17,16 +18,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.IItemHandler;
 import quaternary.botaniatweaks.BotaniaTweaks;
+import quaternary.botaniatweaks.block.BlockCompressedTinyPotato;
+import quaternary.botaniatweaks.block.BlockPottedTinyPotato;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.corporea.BlockCorporeaBase;
+import vazkii.botania.common.block.decor.BlockTinyPotato;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.item.ItemCorporeaSpark;
 
@@ -160,5 +166,36 @@ public class Events {
 		if(tile instanceof TileEntityPiston) {
 			return ((TileEntityPiston) tile).getPistonState().getBlock();
 		} else return world.getBlockState(pos).getBlock();
+	}
+	
+	@GameRegistry.ObjectHolder(BotaniaTweaks.MODID + ":potted_tiny_potato")
+	public static final Block POTTED_TATER = Blocks.AIR;
+	
+	@SubscribeEvent
+	public static void rightClick(PlayerInteractEvent.RightClickBlock e) {
+		if(e.getWorld().isRemote) return;
+		
+		Block clickedBlock = e.getWorld().getBlockState(e.getPos()).getBlock();
+		ItemStack held = e.getEntityPlayer().getHeldItem(e.getHand());
+		Block heldBlock = Block.getBlockFromItem(held.getItem());
+		
+		if(BotaniaTweaksConfig.POTTED_TINY_POTATO && heldBlock instanceof BlockTinyPotato && clickedBlock instanceof BlockFlowerPot) {
+			handlePottedPotato(held, e);
+		}
+		
+		if(heldBlock instanceof BlockCompressedTinyPotato && clickedBlock instanceof BlockTinyPotato) {
+			Util.sendMeOrMySonChat(e.getEntityPlayer(), Util.getPotatoCompressionLevel(heldBlock), Util.getPotatoCompressionLevel(clickedBlock));
+		}
+	}
+	
+	private static void handlePottedPotato(ItemStack held, PlayerInteractEvent.RightClickBlock e) {
+		if(!e.getEntityPlayer().isCreative()) held.shrink(1);
+		
+		e.getWorld().setBlockState(e.getPos(), POTTED_TATER.getDefaultState().withProperty(BlockPottedTinyPotato.POTATO_FACING, e.getEntityPlayer().getHorizontalFacing().getOpposite()));
+		
+		//Prevent the potato from popping right back out again
+		e.setUseBlock(Event.Result.DENY);
+		//Prevent the player from placing another potato if they hold more than one
+		e.setUseItem(Event.Result.DENY);
 	}
 }

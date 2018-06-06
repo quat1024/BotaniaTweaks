@@ -15,7 +15,6 @@ import quaternary.botaniatweaks.block.BlockCustomAgglomerationPlate;
 import quaternary.botaniatweaks.block.BlockNerfedManaFluxfield;
 
 @SideOnly(Side.CLIENT)
-@Mod.EventBusSubscriber(modid = BotaniaTweaks.MODID)
 public class ClientEvents {
 	@SubscribeEvent
 	public static void tooltip(ItemTooltipEvent e) {

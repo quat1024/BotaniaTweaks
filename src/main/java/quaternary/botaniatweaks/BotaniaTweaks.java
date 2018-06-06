@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -85,6 +86,7 @@ public class BotaniaTweaks {
 	public static void init(FMLInitializationEvent e) {
 		AgglomerationRecipes.init();
 		BotaniaTweaksPacketHandler.init();
+		PROXY.registerEvents();
 		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.GLASS_BOTTLE, new BehaviorEnderAirDispenser(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.GLASS_BOTTLE)));
 	}
@@ -130,7 +132,7 @@ public class BotaniaTweaks {
 		}
 	}
 	
-	@Mod.EventBusSubscriber
+	@Mod.EventBusSubscriber(value = Side.CLIENT)
 	public static class ClientEvents {
 		@SubscribeEvent
 		public static void model(ModelRegistryEvent e) {

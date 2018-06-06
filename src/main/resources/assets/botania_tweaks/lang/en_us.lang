@@ -15,15 +15,6 @@ tile.botania_tweaks.compressedpotato.6.name=Enormous Potato
 tile.botania_tweaks.compressedpotato.7.name=Colossal Potato
 tile.botania_tweaks.compressedpotato.8.name=Galactic Potato
 
-botania_tweaks.advancement.octuple_potato.name=Simply Love
-botania_tweaks.advancement.octuple_potato.desc=Place the Galactic Potato, an artifact of tremendous power
-
-botania_tweaks.entrodupe.nicetry=Nice try!
-
-botania_tweaks.lexicon.spork=hi every1
-botania_tweaks.lexicon.sporkspark=im new!!!!!!!
-botania_tweaks.lexicon.masterspork=holds up spork
-
 botania_tweaks.lexicon.potato.1=Really believes in you
 botania_tweaks.lexicon.potato.2=Really really believes in you
 botania_tweaks.lexicon.potato.3=Really really REALLY believes in you
@@ -32,3 +23,31 @@ botania_tweaks.lexicon.potato.5=Incredible amounts of believing in you
 botania_tweaks.lexicon.potato.6=Unfathomable amounts of believing in you
 botania_tweaks.lexicon.potato.7=Impossible amounts of believing in you
 botania_tweaks.lexicon.potato.8=Octuple Compressed Believing in You
+
+botania_tweaks.donttalktome=Don't talk to me or my %s ever again.
+botania_tweaks.son.-8=great-great-great-great-great-grandfather
+botania_tweaks.son.-7=great-great-great-great-grandfather
+botania_tweaks.son.-6=great-great-great-grandfather
+botania_tweaks.son.-5=great-great-grandfather
+botania_tweaks.son.-4=great-grandfather
+botania_tweaks.son.-3=grandfather
+botania_tweaks.son.-2=father
+botania_tweaks.son.-1=myself
+botania_tweaks.son.0=son
+botania_tweaks.son.1=grandson
+botania_tweaks.son.2=great-grandson
+botania_tweaks.son.3=great-great-grandson
+botania_tweaks.son.4=great-great-great-grandson
+botania_tweaks.son.5=great-great-great-great-grandson
+botania_tweaks.son.6=great-great-great-great-great-grandson
+botania_tweaks.son.7=great-great-great-great-great-great-grandson
+botania_tweaks.son.8=great-great-great-great-great-great-great-grandson
+
+botania_tweaks.advancement.octuple_potato.name=Simply Love
+botania_tweaks.advancement.octuple_potato.desc=Place the Galactic Potato, an artifact of tremendous power
+
+botania_tweaks.entrodupe.nicetry=Nice try!
+
+botania_tweaks.lexicon.spork=hi every1
+botania_tweaks.lexicon.sporkspark=im new!!!!!!!
+botania_tweaks.lexicon.masterspork=holds up spork

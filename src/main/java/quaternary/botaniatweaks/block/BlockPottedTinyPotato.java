@@ -40,28 +40,6 @@ public class BlockPottedTinyPotato extends Block {
 		setDefaultState(getDefaultState().withProperty(POTATO_FACING, EnumFacing.NORTH));
 	}
 	
-	@GameRegistry.ObjectHolder(BotaniaTweaks.MODID + ":potted_tiny_potato")
-	public static final Block INST = Blocks.AIR;
-	
-	@SubscribeEvent
-	public static void rightClick(PlayerInteractEvent.RightClickBlock e) {
-		if(!BotaniaTweaksConfig.POTTED_TINY_POTATO) return; // :(
-		
-		Block clickedBlock = e.getWorld().getBlockState(e.getPos()).getBlock();
-		if(clickedBlock instanceof BlockFlowerPot) {
-			ItemStack held = e.getEntityPlayer().getHeldItem(e.getHand());
-			if(held.getItem() instanceof ItemBlock && ((ItemBlock) held.getItem()).getBlock() instanceof BlockTinyPotato) {
-				if(!e.getEntityPlayer().isCreative()) held.shrink(1);
-				e.getWorld().setBlockState(e.getPos(), INST.getDefaultState().withProperty(POTATO_FACING, e.getEntityPlayer().getHorizontalFacing().getOpposite()));
-				
-				//Prevent the potato from popping right back out again
-				e.setUseBlock(Event.Result.DENY);
-				//Prevent the player from placing another potato if they hold more than one
-				e.setUseItem(Event.Result.DENY);
-			}
-		}
-	}
-	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return FLOWER_POT_AABB;

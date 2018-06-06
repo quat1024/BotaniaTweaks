@@ -1,11 +1,18 @@
 package quaternary.botaniatweaks.etc;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
+import quaternary.botaniatweaks.block.BlockCompressedTinyPotato;
+import vazkii.botania.common.block.decor.BlockTinyPotato;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -66,5 +73,22 @@ public class Util {
 		}
 		
 		return ret;
+	}
+	
+	public static int getPotatoCompressionLevel(Block b) {
+		if(b instanceof BlockCompressedTinyPotato) {
+			return ((BlockCompressedTinyPotato)b).compressionLevel;
+		}
+		
+		if(b instanceof BlockTinyPotato) {
+			return 0;
+		}
+		return -1;
+	}
+	
+	public static void sendMeOrMySonChat(EntityPlayer p, int clickedCompression, int heldCompression) {		
+		TextComponentTranslation son = new TextComponentTranslation("botania_tweaks.son." + (heldCompression - clickedCompression));
+		TextComponentTranslation meormy = new TextComponentTranslation("botania_tweaks.donttalktome", son);
+		p.sendMessage(meormy);
 	}
 }

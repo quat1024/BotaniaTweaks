@@ -15,6 +15,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.etc.MathUtil;
 import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
@@ -62,6 +64,7 @@ public class BlockCompressedTinyPotato extends Block implements ILexiconable {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		String nicePotatoCount = String.format("%,d", potatoCount);
 		tooltip.add(I18n.translateToLocalFormatted("botania_tweaks.compressedpotato.tooltip", nicePotatoCount));
@@ -74,10 +77,12 @@ public class BlockCompressedTinyPotato extends Block implements ILexiconable {
 		if(tile instanceof TileCompressedTinyPotato) {
 			((TileCompressedTinyPotato) tile).interact(player, hand, player.getHeldItem(hand), side);
 			
-			double x = pos.getX() + MathUtil.rangeRemap(world.rand.nextDouble(), 0, 1, aabb.minX, aabb.maxX);
-			double y = pos.getY() + aabb.maxY + (double) 3 / 16;
-			double z = pos.getZ() + MathUtil.rangeRemap(world.rand.nextDouble(), 0, 1, aabb.minZ, aabb.maxZ);
-			world.spawnParticle(EnumParticleTypes.HEART, x, y, z, 0, 0, 0);
+			for(int i = 0; i < compressionLevel + 1; i++) {
+				double x = pos.getX() + MathUtil.rangeRemap(world.rand.nextDouble(), 0, 1, aabb.minX, aabb.maxX);
+				double y = pos.getY() + aabb.maxY + (3 / 16d);
+				double z = pos.getZ() + MathUtil.rangeRemap(world.rand.nextDouble(), 0, 1, aabb.minZ, aabb.maxZ);
+				world.spawnParticle(EnumParticleTypes.HEART, x, y, z, 0, 0, 0);
+			}
 		}
 		
 		return true;

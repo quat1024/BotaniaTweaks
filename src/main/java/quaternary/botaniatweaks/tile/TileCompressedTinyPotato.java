@@ -14,6 +14,7 @@
  */
 package quaternary.botaniatweaks.tile;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -22,7 +23,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.items.ItemHandlerHelper;
-import vazkii.botania.common.block.ModBlocks;
+import quaternary.botaniatweaks.block.BlockCompressedTinyPotato;
+import quaternary.botaniatweaks.etc.Util;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -34,17 +36,17 @@ public class TileCompressedTinyPotato extends TileSimpleInventory implements ITi
 	public int nextDoIt = 0;
 	private static final String TAG_NAME = "name";
 	
-	public final int compressionLevel;
+	public int compressionLevel;
 	
 	public TileCompressedTinyPotato() {
-		this(1);
+		this(-1);
 	}
 	
 	public TileCompressedTinyPotato(int compressionLevel) {
 		this.compressionLevel = compressionLevel;
 	}
 	
-	public void interact(EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side) {
+	public void interact(EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side) {		
 		int index = side.getIndex();
 		if(index >= 0) {
 			ItemStack stackAt = getItemHandler().getStackInSlot(index);
@@ -74,10 +76,10 @@ public class TileCompressedTinyPotato extends TileSimpleInventory implements ITi
 			
 			for(int i = 0; i < getSizeInventory(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
-				if(!stackAt.isEmpty() && stackAt.getItem() == Item.getItemFromBlock(ModBlocks.tinyPotato)) {
-					player.sendMessage(new TextComponentString("Don't talk to me or my son ever again."));
-					return;
-				}
+				if(stackAt.isEmpty()) continue;
+				Block blockAt = Block.getBlockFromItem(stackAt.getItem());
+				int compressionAt = Util.getPotatoCompressionLevel(blockAt);
+				Util.sendMeOrMySonChat(player, compressionAt, this.compressionLevel);
 			}
 			
 			PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/tiny_potato_pet"), "code_triggered");
@@ -91,6 +93,12 @@ public class TileCompressedTinyPotato extends TileSimpleInventory implements ITi
 	
 	@Override
 	public void update() {
+		if(compressionLevel == -1) {
+			Block b = world.getBlockState(pos).getBlock();
+			if(b instanceof BlockCompressedTinyPotato) {
+				compressionLevel = ((BlockCompressedTinyPotato) b).compressionLevel;
+			}
+		}
 		if(world.rand.nextInt(100) == 0)
 			jump();
 		

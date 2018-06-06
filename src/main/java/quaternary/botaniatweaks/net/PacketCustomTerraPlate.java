@@ -66,9 +66,9 @@ public class PacketCustomTerraPlate implements IMessage {
 					wticks += tickIncrement;
 					
 					int color = MathUtil.lerpColor(message.color1, message.color2, message.progress);
-					int red = (color & 0xFF0000) >> 16;
-					int green = (color & 0x00FF00) >> 8;
-					int blue = color & 0x0000FF;
+					float red = ((color & 0xFF0000) >> 16) / 255f;
+					float green = ((color & 0x00FF00) >> 8) / 255f;
+					float blue = (color & 0x0000FF) / 255f;
 					
 					Botania.proxy.wispFX(x, y, zx, red, green, blue, 0.85F, (float) g * 0.05F, 0.25F);
 					Botania.proxy.wispFX(x, y, zx, red, green, blue, (float) Math.random() * 0.1F + 0.1F, (float) (Math.random() - 0.5D) * 0.05F, (float) (Math.random() - 0.5D) * 0.05F, (float) (Math.random() - 0.5D) * 0.05F, 0.9F);

@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver, ITickable {
-	static final int ENERGY_BUFFER_SIZE = 1000;
+	static int ENERGY_BUFFER_SIZE = 10000;
 	static final int MAX_EXTRACTION_RATE = 1600;
 	
 	int manaBuffer = 0;
@@ -84,6 +84,8 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 	@Override
 	public void update() {
 		int manaThreshold = BotaniaTweaksConfig.MANA_SHOTS_PER_ENERGY_BURST * 160;
+		ENERGY_BUFFER_SIZE = BotaniaTweaksConfig.FE_PER_ENERGY_BURST * 10;
+		
 		while(manaBuffer >= manaThreshold) {
 			int leftover = handler.sneakyReceiveEnergy(BotaniaTweaksConfig.FE_PER_ENERGY_BURST, true);
 			if(leftover == 0) {

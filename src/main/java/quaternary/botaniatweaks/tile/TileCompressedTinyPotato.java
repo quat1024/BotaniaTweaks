@@ -49,7 +49,7 @@ public class TileCompressedTinyPotato extends TileSimpleInventory implements ITi
 	public void interact(EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side) {		
 		int index = side.getIndex();
 		if(index >= 0) {
-			ItemStack stackAt = getItemHandler().getStackInSlot(index);
+			ItemStack stackAt = getItemHandler().getStackInSlot(index).copy();
 			if(!stackAt.isEmpty() && stack.isEmpty()) {
 				player.setHeldItem(hand, stackAt);
 				getItemHandler().setStackInSlot(index, ItemStack.EMPTY);

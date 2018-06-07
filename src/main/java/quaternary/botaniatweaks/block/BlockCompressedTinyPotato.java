@@ -22,7 +22,9 @@ import quaternary.botaniatweaks.etc.MathUtil;
 import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.BotaniaCreativeTab;
+import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 
 import javax.annotation.Nullable;
@@ -68,6 +70,15 @@ public class BlockCompressedTinyPotato extends Block implements ILexiconable {
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		String nicePotatoCount = String.format("%,d", potatoCount);
 		tooltip.add(I18n.translateToLocalFormatted("botania_tweaks.compressedpotato.tooltip", nicePotatoCount));
+	}
+	
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		TileEntity tile = world.getTileEntity(pos);
+		if(tile instanceof TileSimpleInventory) {
+			InventoryHelper.dropInventory((TileSimpleInventory) tile, world, state, pos);
+			super.breakBlock(world, pos, state);
+		}
 	}
 	
 	@Override

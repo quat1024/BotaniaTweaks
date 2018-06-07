@@ -79,7 +79,9 @@ public class TileCompressedTinyPotato extends TileSimpleInventory implements ITi
 				if(stackAt.isEmpty()) continue;
 				Block blockAt = Block.getBlockFromItem(stackAt.getItem());
 				int compressionAt = Util.getPotatoCompressionLevel(blockAt);
-				Util.sendMeOrMySonChat(player, compressionAt, this.compressionLevel);
+				if(compressionAt != -1) {
+					Util.sendMeOrMySonChat(player, compressionAt, this.compressionLevel);
+				}
 			}
 			
 			PlayerHelper.grantCriterion((EntityPlayerMP) player, new ResourceLocation(LibMisc.MOD_ID, "main/tiny_potato_pet"), "code_triggered");

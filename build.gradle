@@ -41,7 +41,7 @@ dependencies {
     deobfProvided "mezz.jei:jei_1.12.2:4.9.1.187:api"
     runtime "mezz.jei:jei_1.12.2:4.9.1.179"
     
-    deobfCompile "vazkii.botania:Botania:r1.10-355.4"
+    deobfCompile "vazkii.botania:Botania:r1.10-355.2"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
 }
 

@@ -3,6 +3,8 @@ package quaternary.botaniatweaks.proxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.common.MinecraftForge;
+import quaternary.botaniatweaks.etc.Events;
 
 public class ServerProxy {
 	public void registerTESR() {
@@ -22,6 +24,6 @@ public class ServerProxy {
 	}
 	
 	public void registerEvents() {
-		//No-op
+		MinecraftForge.EVENT_BUS.register(Events.class);
 	}
 }

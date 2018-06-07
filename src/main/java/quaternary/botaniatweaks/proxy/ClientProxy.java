@@ -4,8 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import quaternary.botaniatweaks.etc.ClientEvents;
-import quaternary.botaniatweaks.etc.ItemBlockRainbowBarf;
+import quaternary.botaniatweaks.etc.*;
 import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
 import quaternary.botaniatweaks.tile.render.RenderTileCompressedTinyPotato;
 
@@ -28,5 +27,6 @@ public class ClientProxy extends ServerProxy {
 	@Override
 	public void registerEvents() {
 		MinecraftForge.EVENT_BUS.register(ClientEvents.class);
+		MinecraftForge.EVENT_BUS.register(Events.class);
 	}
 }

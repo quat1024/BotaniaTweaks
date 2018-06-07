@@ -33,7 +33,7 @@ public class BotaniaTweaks {
 	public static final String VERSION = "1.1.0";
 	public static final String DEPS = "required-before:botania";
 	
-	public static final int TESTED_BOTANIA_VERSION = 355;
+	public static final int TESTED_BOTANIA_VERSION = 354;
 	
 	public static final Logger LOG = LogManager.getLogger(NAME);
 	

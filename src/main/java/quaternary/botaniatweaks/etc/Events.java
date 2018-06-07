@@ -38,14 +38,9 @@ import vazkii.botania.common.item.ItemCorporeaSpark;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = BotaniaTweaks.MODID)
 public class Events {
-	
 	@CapabilityInject(IItemHandler.class)
 	public static final Capability<IItemHandler> ITEM_HANDLER_CAP = null;
-	
-	@GameRegistry.ObjectHolder("botania:corporeaspark")
-	public static final Item SPORK = Items.AIR;
 	
 	@SubscribeEvent
 	public static void place(BlockEvent.PlaceEvent e) {

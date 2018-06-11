@@ -30,6 +30,10 @@ public abstract class Tweak implements Opcodes {
 		return BotaniaTweakerTransformer.HOOKS;
 	}
 	
+	static String getHooksClass(String plugin) {
+		return BotaniaTweakerTransformer.HOOKS + plugin;
+	}
+	
 	static void log(String message) {
 		LogManager.getLogger("Botania Tweaks ASM").info(message);
 	}

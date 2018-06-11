@@ -3,7 +3,21 @@ Botania Tweaks
 
 A little mod containing tweaks to Botania. Mainly focused around adding more configuration options, tiny conveniences, increasing the challenge, or just silly things. All the gameplay-affecting tweaks are configurable.
 
-Current features:
+Build Instructions
+==================
+
+Yeah so I couldn't find a working maven for Agricraft, and Jitpack seemed to choke on it too, so here's what you do:
+
+* Clone this repo
+* Populate `libs/` with mods from CurseForge:
+* * Agricraft: agricraft-2.12.2-1.12.0-a4.jar
+* * InfinityLib: infinitylib-1.12.0.jar
+* Run those through a tool like BON2 so you have deobfuscated versions (make sure to use the same mappings version)
+* Build and run as usual
+
+Featureset
+==========
+
 * mana fluxfields that you can tweak to match your modpack's FE ecosystem
 * use dispensers on glass bottles in the End to make Ender Air *(tentative mechanic)*
 * crafttweakable agglomeration plate

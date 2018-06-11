@@ -5,7 +5,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -16,7 +15,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver, ITickable {
-	static int ENERGY_BUFFER_SIZE = 10000;
+	static int energyBufferSize = 10000;
 	static final int MAX_EXTRACTION_RATE = 1600;
 	
 	int manaBuffer = 0;
@@ -41,7 +40,7 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 		
 		@Override
 		public int getMaxEnergyStored() {
-			return ENERGY_BUFFER_SIZE;
+			return energyBufferSize;
 		}
 		
 		@Override
@@ -70,7 +69,7 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 				return 0;
 			} else {
 				//how much can fit?
-				if(!simulate) energy = ENERGY_BUFFER_SIZE;
+				if(!simulate) energy = energyBufferSize;
 				return maxReceive - freeSpace;
 			}
 		}
@@ -84,7 +83,8 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 	@Override
 	public void update() {
 		int manaThreshold = BotaniaTweaksConfig.MANA_SHOTS_PER_ENERGY_BURST * 160;
-		ENERGY_BUFFER_SIZE = BotaniaTweaksConfig.FE_PER_ENERGY_BURST * 10;
+		
+		energyBufferSize = BotaniaTweaksConfig.FE_PER_ENERGY_BURST * 10;
 		
 		while(manaBuffer >= manaThreshold) {
 			int leftover = handler.sneakyReceiveEnergy(BotaniaTweaksConfig.FE_PER_ENERGY_BURST, true);
@@ -125,7 +125,7 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 	
 	@Override
 	public boolean isFull() {
-		return handler.getEnergyStored() >= ENERGY_BUFFER_SIZE;
+		return handler.getEnergyStored() >= energyBufferSize;
 	}
 	
 	@Override

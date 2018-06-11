@@ -8,19 +8,21 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import vazkii.botania.api.item.IHornHarvestable;
 
 public class BotaniaTweakerHooksAgricraft {
 	public static boolean canHornHarvestAgriCrop(IHornHarvestable.EnumHornType dooter) {
-		return dooter == IHornHarvestable.EnumHornType.WILD;
+		return dooter == IHornHarvestable.EnumHornType.WILD && BotaniaTweaksConfig.AGRICRAFT_DOOT;
 	}
 	
 	public static boolean hasSpecialHornHarvestAgriCrop(IHornHarvestable.EnumHornType dooter) {
-		return dooter == IHornHarvestable.EnumHornType.WILD;
+		return dooter == IHornHarvestable.EnumHornType.WILD && BotaniaTweaksConfig.AGRICRAFT_DOOT;
 	}
 	
 	public static void harvestByHornAgriCrop(BlockCrop crop, World world, BlockPos pos, IHornHarvestable.EnumHornType dooter) {
 		if(dooter != IHornHarvestable.EnumHornType.WILD) return;
+		if(!BotaniaTweaksConfig.AGRICRAFT_DOOT) return;
 		
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TileEntityCrop) {

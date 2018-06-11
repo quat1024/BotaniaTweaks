@@ -42,6 +42,8 @@ public class BotaniaTweaksConfig {
 	
 	public static boolean SPORK = true;
 	
+	public static boolean AGRICRAFT_DOOT = true;
+	
 	static Configuration config;
 	
 	public static void initConfig() {
@@ -112,7 +114,7 @@ public class BotaniaTweaksConfig {
 		
 		FE_PER_ENERGY_BURST = config.getInt("fePerBurst", "balance.fluxfield", 1600, 1, Integer.MAX_VALUE, "How much FE is contained within a \"packet\"?");
 		
-		//and the rest
+		//etc
 		CREATE_ENDER_AIR_WITH_DISPENSER = config.getBoolean("enderAirDispenser", "etc", true, "Can dispensers shoot glass bottles to turn them in to Ender Air in the End dimension? This allows for automation of Ender Air, which was not previously possible.");
 		
 		POTTED_TINY_POTATO = config.getBoolean("pottedTinyPotato", "etc", true, "Can players place tiny potatoes in flower pots? Please don't disable this, it's very cute.");
@@ -122,6 +124,9 @@ public class BotaniaTweaksConfig {
 		EVERYTHING_APOTHECARY = config.getBoolean("unlockApothecary", "etc", true, "If true, any item is allowed to enter the Petal Apothecary, not just petals, runes, and manaresources. Great for modpacks.");
 		
 		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", true, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
+		
+		//compat
+		AGRICRAFT_DOOT = config.getBoolean("dootableAgricraft", "compat", true, "Can the Horn of the Wild harvest crops from Agricraft?");
 		
 		if(config.hasChanged()) config.save();
 		

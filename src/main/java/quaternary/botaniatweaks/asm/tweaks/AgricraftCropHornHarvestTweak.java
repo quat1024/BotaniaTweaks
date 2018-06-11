@@ -25,6 +25,8 @@ public class AgricraftCropHornHarvestTweak extends Tweak {
 			return;
 		}
 		
+		if(true) return; //TODO
+		
 		//Add the interface
 		node.interfaces.add(hornHarvestable);
 		

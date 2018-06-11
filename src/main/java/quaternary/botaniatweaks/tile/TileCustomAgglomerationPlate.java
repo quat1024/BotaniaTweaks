@@ -66,7 +66,12 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 				itemEntities.forEach(Entity::setDead);
 				ItemStack output = recipe.getRecipeOutputCopy();
 				EntityItem outputItem = new EntityItem(world, pos.getX() + .5, pos.getY() + .3, pos.getZ() + .5, output);
-				outputItem.setVelocity(0, 0, 0); //No!
+				
+				//Make it not literally jump off the plate
+				outputItem.motionX = 0;
+				outputItem.motionY = 0;
+				outputItem.motionZ = 0;
+				
 				world.spawnEntity(outputItem);
 				
 				//consume/replace the blocks, if the recipe asked for it

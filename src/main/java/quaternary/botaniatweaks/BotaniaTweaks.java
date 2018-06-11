@@ -30,7 +30,7 @@ import quaternary.botaniatweaks.tile.*;
 public class BotaniaTweaks {
 	public static final String MODID = "botania_tweaks";
 	public static final String NAME = "Botania Tweaks";
-	public static final String VERSION = "1.1.0";
+	public static final String VERSION = "1.1.1";
 	public static final String DEPS = "required-before:botania";
 	
 	public static final int TESTED_BOTANIA_VERSION = 354;

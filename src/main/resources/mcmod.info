@@ -3,7 +3,7 @@
   "modid": "botania_tweaks",
   "name": "Botania Tweaks",
   "description": "Small tweaks to Botania for packmakers and players.",
-  "version": "1.1.1",
+  "version": "${gradleversion}",
   "mcversion": "1.12.2",
   "logoFile": "",
   "url": "",

@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.1.1"
+version = "1.2"
 group = "quaternary.botaniatweaks" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "botaniatweaks"
 
@@ -43,6 +43,8 @@ dependencies {
     
     deobfCompile "vazkii.botania:Botania:r1.10-355.2"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
+    
+    //more dependencies too, check README
 }
 
 minecraft.coreMod = "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin"
@@ -61,6 +63,8 @@ minecraft {
     
     mappings = "snapshot_20180407"
     useDepAts = true
+    
+    replace "GRADLE:VERSION", project.version
 }
 
 processResources {
@@ -71,9 +75,8 @@ processResources {
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        
+        expand 'gradleversion':project.version
     }
         
     // copy everything else except the mcmod.info

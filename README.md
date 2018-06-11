@@ -52,6 +52,10 @@ The following features also exist, using a little ASM hackery:
 * use Garden of Glass's much cheaper prices to run the Orechid, even if GoG is not enabled
 * make the Entropinnyum ignore TNT from a TNT duplicator device
 * make the Entropinnuim only accept vanilla TNT
+* readd Horn of the Wild compat with Agricraft crops (which got lost somewhere in an update)
+  * dooting a crop with a horn harvests and replants it while keeping the crop sticks, like in 1.7
+  * I patch Agricraft for this instead of Botania (smh scope creep)
+  * Patch shouldn't crash if the Agricraft developers implement it themselves
 
 License and Attribution
 =======================

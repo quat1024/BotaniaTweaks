@@ -10,7 +10,10 @@ import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
 import vazkii.botania.common.Botania;
 
 import java.io.File;
-import java.util.HashMap;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Mod.EventBusSubscriber(modid = BotaniaTweaks.MODID)
 public class BotaniaTweaksConfig {
@@ -61,35 +64,19 @@ public class BotaniaTweaksConfig {
 		
 		SUPER_SPECTROLUS = config.getBoolean("superSpectrolus", "balance", true, "Should the Spectrolus generate 10x the mana it does by default? This makes it much cheaper to run; filling a mana pool only requires a little over five stacks of wool, not over a double chest's worth.");
 		
-		final String forceGogString = "force_gog";
-		final String forceNoGogString = "force_no_gog";
-		final String defaultString = "default";
+		ORECHID_MODE = getEnum(config, "cheapOrechid", "balance", EnumOrechidMode.DEFAULT, "How does the Orechid determine its cost and speed to run?", mode -> {
+			switch (mode) {
+				case DEFAULT: return "The Orechid will be cheap if Garden of Glass is loaded.";
+				case FORCE_GOG: return "The Orechid will always be cheap to run, even if Garden of Glass is not present.";
+				case FORCE_NO_GOG: return "The Orechid will be expensive to run, even in Garden of Glass mode.";
+				default: return "h"; //h
+			}
+		}, EnumOrechidMode.class);
 		
-		String gogFormat = String.format("How does the Orechid determine its cost and speed to run?\n\"%s\": The Orechid will be cheap if Garden of Glass is loaded.\n\"%s\": The Orechid will always be cheap to run, regardless of if Garden of Glass is loaded.\n\"%s\": The Orechid will be expensive to run, even in Garden of Glass.", defaultString, forceGogString, forceNoGogString);
-		
-		String orechidString = config.getString("cheapOrechid", "balance", defaultString, gogFormat, new String[] {defaultString, forceGogString, forceNoGogString});
-		
-		switch(orechidString.toLowerCase()) {
-			case forceGogString:
-				ORECHID_MODE = EnumOrechidMode.FORCE_GOG;
-				break;
-			case forceNoGogString:
-				ORECHID_MODE = EnumOrechidMode.FORCE_NO_GOG;
-				break;
-			default:
-				ORECHID_MODE = EnumOrechidMode.DEFAULT;
-		}
-		
-		switch(BotaniaTweaksConfig.ORECHID_MODE) {
-			case DEFAULT:
-				BotaniaTweakerHooks.orechidGog = Botania.gardenOfGlassLoaded;
-				break;
-			case FORCE_GOG:
-				BotaniaTweakerHooks.orechidGog = true;
-				break;
-			case FORCE_NO_GOG:
-				BotaniaTweakerHooks.orechidGog = false;
-				break;
+		switch(ORECHID_MODE) {
+			case DEFAULT: BotaniaTweakerHooks.orechidGog = Botania.gardenOfGlassLoaded; break;
+			case FORCE_GOG: BotaniaTweakerHooks.orechidGog = true;
+			case FORCE_NO_GOG: BotaniaTweakerHooks.orechidGog = false;
 		}
 		
 		SPORK = config.get("balance", "corporeaSpork", true, "Should crafting recipes with the Spork be enabled? These recipes provide more expensive paths to corporea sparks, but are available earlier in the game (they don't require going to the End or elven technology).").setRequiresMcRestart(true).getBoolean();
@@ -129,8 +116,24 @@ public class BotaniaTweaksConfig {
 		AGRICRAFT_DOOT = config.getBoolean("dootableAgricraft", "compat", true, "Can the Horn of the Wild harvest crops from Agricraft?");
 		
 		if(config.hasChanged()) config.save();
+	}
+	
+	private static <T extends Enum> T getEnum(Configuration config, String configName, String configCategory, T defaultValue, String configDescription, Function<T, String> describerFunction, Class<T> enumClass) {
+		//FEAR MY TERRIBLE FUNCTIONAL BULLSHIT, HAHAHAAA
+		//just pretend the inside of this method doesn't exist, because it's otherwise a great utility function
 		
-		//BotaniaTweakerHooks.onConfigChanged();
+		T[] enumConstants = enumClass.getEnumConstants();
+		
+		String[] enumNames = Arrays.stream(enumConstants).map(T::toString).toArray(String[]::new);
+		
+		String configAndValueDescription = configDescription + "\n" + Arrays.stream(enumConstants).map(t -> "\"" + t.toString() + "\": " + describerFunction.apply(t)).reduce((one, two) -> one + '\n' + two).get();
+		
+		String userProvidedString = config.getString(configName, configCategory, defaultValue.toString(), configAndValueDescription, enumNames);
+		
+		Optional<T> userEnum = Arrays.stream(enumConstants).filter(t -> t.toString().equals(userProvidedString)).findAny();
+		
+		if(userEnum.isPresent()) return userEnum.get();
+		else throw new IllegalArgumentException("\"" + userProvidedString + "\" is not a valid value for config option " + configName + "! See the config file for details");
 	}
 	
 	@SubscribeEvent
@@ -143,6 +146,11 @@ public class BotaniaTweaksConfig {
 	public enum EnumOrechidMode {
 		DEFAULT,
 		FORCE_GOG,
-		FORCE_NO_GOG
+		FORCE_NO_GOG;
+		
+		@Override
+		public String toString() {
+			return super.toString().toLowerCase();
+		}
 	}
 }

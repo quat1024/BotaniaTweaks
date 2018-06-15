@@ -19,11 +19,19 @@ public class ClientEvents {
 	@SubscribeEvent
 	public static void tooltip(ItemTooltipEvent e) {
 		Item i = e.getItemStack().getItem();
-		if(i instanceof ItemBlock) {
+		boolean addTooltip = false;
+		
+		if(i instanceof IBotaniaReplaced) {
+			addTooltip = true;
+		} else	if(i instanceof ItemBlock) {
 			Block b = ((ItemBlock)i).getBlock();
-			if(b instanceof BlockNerfedManaFluxfield || b instanceof BlockCustomAgglomerationPlate) {
-				e.getToolTip().add(TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + I18n.translateToLocal("botania_tweaks.tweaked") + TextFormatting.RESET);
+			if(b instanceof IBotaniaReplaced) {
+				addTooltip = true;
 			}
+		}
+		
+		if(addTooltip) {
+			e.getToolTip().add(TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + I18n.translateToLocal("botania_tweaks.tweaked") + TextFormatting.RESET);
 		}
 	}
 }

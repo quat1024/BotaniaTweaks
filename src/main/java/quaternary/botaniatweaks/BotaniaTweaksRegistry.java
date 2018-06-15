@@ -28,22 +28,32 @@ public class BotaniaTweaksRegistry {
 	static ArrayList<Block> BLOCKS = new ArrayList<>();
 	static ArrayList<Item> ITEMS = new ArrayList<>();
 	
-	static BlockNerfedManaFluxfield fluxfield;
-	static BlockCustomAgglomerationPlate agglo;
+	//need to keep references to these for fixBlockReferences
+	//TODO: don't do that in 1.13 if willie decides to go through with the objectholderification
+	private static BlockNerfedManaFluxfield fluxfield;
+	private static BlockCustomAgglomerationPlate agglo;
+	private static BlockCustomOpenCrate crate;
 	
 	static void populate() {
 		//Overrides
+		BotaniaTweaks.LOG.info("Creating Botania registry replacements. Forge will print some warnings - it is safe to ignore these, since these overrides are very much intended. Here come the blocks:");
+		
 		fluxfield = new BlockNerfedManaFluxfield();
 		agglo = new BlockCustomAgglomerationPlate();
+		crate = new BlockCustomOpenCrate();
 		
 		OVERRIDE_BLOCKS.add(fluxfield);
 		OVERRIDE_BLOCKS.add(agglo);
+		OVERRIDE_BLOCKS.add(crate);
+		
+		BotaniaTweaks.LOG.info("And the items:");
 		
 		for(Block b : OVERRIDE_BLOCKS) {
 			Item i = new ItemBlockMod(b).setRegistryName(b.getRegistryName());
 			i.setCreativeTab(BotaniaCreativeTab.INSTANCE);
 			OVERRIDE_ITEMS.add(i);
 		}
+		BotaniaTweaks.LOG.info("All done, have a nice day!");
 		
 		//Other blocks and items
 		for(int compressionLevel = 1; compressionLevel <= 8; compressionLevel++) {
@@ -108,6 +118,7 @@ public class BotaniaTweaksRegistry {
 		
 		fixBlockReference(fluxfield, "rfGenerator");
 		fixBlockReference(agglo, "terraPlate");
+		fixBlockReference(crate, "openCrate");
 	}
 	
 	private static void fixBlockReference(Block b, String fieldName) {

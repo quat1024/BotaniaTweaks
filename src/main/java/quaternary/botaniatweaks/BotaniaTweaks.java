@@ -119,6 +119,7 @@ public class BotaniaTweaks {
 			GameRegistry.registerTileEntity(TileNerfedManaFluxfield.class, MODID + ":tweaked_fluxfield");
 			GameRegistry.registerTileEntity(TileCustomAgglomerationPlate.class, MODID + ":custom_agglomeration_plate");
 			GameRegistry.registerTileEntity(TileCompressedTinyPotato.class, MODID + ":compressed_tiny_potato");
+			GameRegistry.registerTileEntity(TileCustomCraftyCrate.class, MODID + ":custom_crafty_crate");
 			
 			//While we're at it
 			PROXY.registerTESR();

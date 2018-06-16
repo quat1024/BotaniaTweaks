@@ -10,17 +10,11 @@ import java.util.Random;
 
 public class PacketAdvancedCrateFX implements IMessage {
 	BlockPos pos;
-	float idealMana;
-	float usedMana;
-	int itemCount;
 	
 	public PacketAdvancedCrateFX() {}
 	
-	public PacketAdvancedCrateFX(BlockPos pos, float idealMana, float usedMana, int itemCount) {
+	public PacketAdvancedCrateFX(BlockPos pos) {
 		this.pos = pos;
-		this.idealMana = idealMana;
-		this.usedMana = usedMana;
-		this.itemCount = itemCount;
 	}
 	
 	@Override
@@ -29,19 +23,11 @@ public class PacketAdvancedCrateFX implements IMessage {
 		buf.writeInt(pos.getX());
 		buf.writeInt(pos.getY());
 		buf.writeInt(pos.getZ());
-		
-		buf.writeFloat(idealMana);
-		buf.writeFloat(usedMana);
-		buf.writeInt(itemCount);
 	}
 	
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
-		
-		idealMana = buf.readFloat();
-		usedMana = buf.readFloat();
-		itemCount = buf.readInt();
 	}
 	
 	public static class Response implements IMessageHandler<PacketAdvancedCrateFX, IMessage> {
@@ -49,18 +35,25 @@ public class PacketAdvancedCrateFX implements IMessage {
 		
 		@Override
 		public IMessage onMessage(PacketAdvancedCrateFX p, MessageContext messageContext) {
-			Minecraft.getMinecraft().addScheduledTask(() -> {
-				float redThreshold = p.usedMana == 0 ? 0 : (p.idealMana / p.usedMana) * p.itemCount;
-				
-				for(int i=0; i < Math.max(1, p.itemCount); i++) {
+			Minecraft.getMinecraft().addScheduledTask(() -> {				
+				for(int i=0; i < 8; i++) {
+					double posx = p.pos.getX() + blah.nextDouble();
+					double posy = p.pos.getY() + 1;
+					double posz = p.pos.getZ() + blah.nextDouble();
+					
+					float r = 86 / 255f;
+					float g = 216 / 255f;
+					float b = 162 / 255f;
+					
+					float radius = blah.nextFloat() * 0.7f;
+					
 					float spx = (blah.nextFloat() - .5f) / 10f;
+					float spy = 0.01f + blah.nextFloat() * 0.1f;
 					float spz = (blah.nextFloat() - .5f) / 10f;
 					
-					float r = (i >= redThreshold ? 1 : 86 / 255f);
-					float g = (i >= redThreshold ? 0 : 216 / 255f);
-					float b = (i >= redThreshold ? 0 : 162 / 255f);
+					float weirdness = blah.nextFloat() + .01f;
 					
-					Botania.proxy.wispFX(p.pos.getX() + blah.nextDouble(), p.pos.getY() + 1, p.pos.getZ() + blah.nextDouble(), r, g, b, blah.nextFloat() * 0.7f, spx, 0.01f + blah.nextFloat() * 0.1f, spz, blah.nextFloat());
+					Botania.proxy.wispFX(posx, posy, posz, r, g, b, radius, spx, spy, spz, weirdness);
 				}
 			});
 			

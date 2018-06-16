@@ -123,8 +123,6 @@ public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiv
 			return false;
 		}
 		
-		lastItemCount = recipeItems; //hacky 2am coding yeet
-		
 		for(IRecipe recipe : ForgeRegistries.RECIPES)
 			if(recipe.matches(craft, world)) {
 				//Cont. tweak: test mana
@@ -150,19 +148,13 @@ public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiv
 		return false;
 	}
 	
-	int lastItemCount = 0;
-	
 	//Override-but-it's-private private method "ejectAll()V"
 	protected void doEjectAll() {
 		//Tweak: use mana
-		if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE) {
-			int itemCount = lastItemCount;
-			float idealManaUsage = itemCount * getManaPerItem();
-			
+		if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE) {			
 			if(world instanceof WorldServer) {
-				BotaniaTweaksPacketHandler.sendToAllAround(new PacketAdvancedCrateFX(pos, idealManaUsage, mana, itemCount), world, pos);
+				BotaniaTweaksPacketHandler.sendToAllAround(new PacketAdvancedCrateFX(pos), world, pos);
 			}
-			lastItemCount = 0;
 			
 			mana = 0;
 		}

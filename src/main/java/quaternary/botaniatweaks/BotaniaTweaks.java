@@ -18,6 +18,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import quaternary.botaniatweaks.compat.avaritia.AvaritiaCompat;
 import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.*;
@@ -81,6 +82,10 @@ public class BotaniaTweaks {
 		
 		BotaniaTweaksRegistry.populate();
 		BotaniaTweaksRegistry.fixBlockReferences();
+		
+		if(Loader.isModLoaded("avaritia")) {
+			AvaritiaCompat.preinit();
+		}
 	}
 	
 	@Mod.EventHandler

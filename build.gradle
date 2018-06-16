@@ -32,6 +32,14 @@ repositories {
     maven {
         url = "http://dvs1.progwml6.com/files/maven"
     }
+    
+    maven {
+        url = "http://maven.covers1624.net"
+    }
+    
+    maven {
+        url = "http://chickenbones.net/maven"
+    }
 }
 
 dependencies {
@@ -39,10 +47,15 @@ dependencies {
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.8.5"
     
     deobfProvided "mezz.jei:jei_1.12.2:4.9.1.187:api"
-    runtime "mezz.jei:jei_1.12.2:4.9.1.179"
+    //Comment out for now because I think avaritia/whatever is pulling in another JEI
+    //runtime "mezz.jei:jei_1.12.2:4.9.1.179"
     
     deobfCompile "vazkii.botania:Botania:r1.10-355.2"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
+    
+    //I feel dirty already
+    deobfCompile "codechicken:CodeChickenLib:1.12.2-3.1.9.344:universal"
+    deobfCompile "morph.avaritia:Avaritia:1.12-3.2.0.20:universal"
     
     //more dependencies too, check README
 }

@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -69,7 +70,7 @@ public class BotaniaTweaks {
 				LOG.warn("********************************");
 			}
 			
-		} catch (Exception asdf) {
+		} catch(Exception asdf) {
 			LOG.warn("********************************");
 			LOG.warn("Unable to detect or parse Botania's version!!!");
 			LOG.warn("This is BAD!!! Serious incompatibilities and crashes may happen!!!");
@@ -84,7 +85,6 @@ public class BotaniaTweaks {
 	
 	@Mod.EventHandler
 	public static void init(FMLInitializationEvent e) {
-		AgglomerationRecipes.init();
 		BotaniaTweaksPacketHandler.init();
 		PROXY.registerEvents();
 		
@@ -130,6 +130,12 @@ public class BotaniaTweaks {
 			IForgeRegistry<Item> reg = e.getRegistry();
 			
 			BotaniaTweaksRegistry.registerItems(reg);
+		}
+		
+		//CT runs its scripts on this event with EventPriority.LOWEST; as long as this somehow runs first we're good
+		@SubscribeEvent
+		public static void recipes(RegistryEvent.Register<IRecipe> e) {
+			AgglomerationRecipes.init();
 		}
 	}
 	

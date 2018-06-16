@@ -24,6 +24,7 @@ Featureset
   * with a custom multiblock, too!
   * option to consume or replace the blocks in the multiblock
   * jei support *(that's only KINDA broken!)*
+  * create your own Lexica Botania pages for your cool recipes, too!
 * POTATIC EXPANSION: 
   * put tiny potato in flower pot!!!
   * octuple compressed tiny potato w/ glorius rainbow color

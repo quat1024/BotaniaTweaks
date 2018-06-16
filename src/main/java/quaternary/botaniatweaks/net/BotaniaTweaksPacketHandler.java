@@ -13,6 +13,7 @@ public class BotaniaTweaksPacketHandler {
 	
 	public static void init() {
 		NET.registerMessage(PacketCustomTerraPlate.Response.class, PacketCustomTerraPlate.class, 0, Side.CLIENT);
+		NET.registerMessage(PacketAdvancedCrateFX.Response.class, PacketAdvancedCrateFX.class, 1, Side.CLIENT);
 	}
 	
 	public static void sendToAllAround(IMessage message, World w, BlockPos point) {

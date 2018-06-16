@@ -7,23 +7,28 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
+import quaternary.botaniatweaks.net.PacketAdvancedCrateFX;
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.network.PacketBotaniaEffect;
+import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 
 public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiver {
 	/////// mana stuff
 	int mana = 0;
-	int MANA_PER_ITEM = 100;
-	int MAX_MANA = MANA_PER_ITEM * 20;
 	
 	//Watch out for the name clash, TileCraftCrate and IManaReceiver both have an isFull(V)Z
 	@Override
 	public boolean isFull() {
-		return mana >= MAX_MANA;
+		return mana >= getMaxMana();
 	}
 	
 	@Override
@@ -33,7 +38,7 @@ public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiv
 	
 	@Override
 	public boolean canRecieveManaFromBursts() {
-		return !isFull();
+		return !isFull() && BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE;
 	}
 	
 	@Override
@@ -41,8 +46,31 @@ public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiv
 		return mana;
 	}
 	
+	public int getMaxMana() {
+		return getManaPerItem() * 20;
+	}
+	
+	public int getManaPerItem() {
+		return BotaniaTweaksConfig.ADVANCED_CRATE_MANA_PER_ITEM;
+	}
+	
+	public int getItemCount() {
+		int items = 0;
+		for(int i = 0; i < 9; i++) {
+			ItemStack stack = itemHandler.getStackInSlot(i);
+			
+			if(stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.manaResource && stack.getItemDamage() == 11)
+				continue;
+			
+			items++;
+		}
+		
+		return items;
+	}
+	
 	////////////////////////// crate stuff
-	//Basically there's 2 tweaks and then 1000 lines of copypasted class since stuff was either private or referred
+	//Basically there's 2 tweaks and then 1000 lines of copypasted class
+	//since stuff was either private or referred to private things
 	
 	int mySignal = 0; //Copypaste of private field "signal"
 	
@@ -66,7 +94,7 @@ public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiv
 		}
 	}
 	
-	//Override-but-it's-private method "craft(Z)Z", changes noted
+	//Override-but-it's-private private method "craft(Z)Z", changes noted
 	protected boolean doCraft(boolean fullCheck) {
 		if(fullCheck && !isCrateFull())
 			return false;
@@ -91,13 +119,21 @@ public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiv
 			craft.setInventorySlotContents(i, stack.copy());
 		}
 		
-		//Cont. tweak: test mana
-		if(recipeItems * MANA_PER_ITEM > mana) {
+		if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE && !BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE_HARDMODE && recipeItems * getManaPerItem() > mana) {
 			return false;
 		}
 		
+		lastItemCount = recipeItems; //hacky 2am coding yeet
+		
 		for(IRecipe recipe : ForgeRegistries.RECIPES)
 			if(recipe.matches(craft, world)) {
+				//Cont. tweak: test mana
+				if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE && BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE_HARDMODE && recipeItems * getManaPerItem() > mana) {
+					//April fools, you don't have enough mana to craft it, time to dump it on the ground
+					doEjectAll();
+					return false;
+				}
+				
 				itemHandler.setStackInSlot(9, recipe.getCraftingResult(craft));
 				
 				for(int i = 0; i < 9; i++) {
@@ -114,10 +150,22 @@ public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiv
 		return false;
 	}
 	
+	int lastItemCount = 0;
+	
 	//Override-but-it's-private private method "ejectAll()V"
 	protected void doEjectAll() {
 		//Tweak: use mana
-		mana = 0;
+		if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE) {
+			int itemCount = lastItemCount;
+			float idealManaUsage = itemCount * getManaPerItem();
+			
+			if(world instanceof WorldServer) {
+				BotaniaTweaksPacketHandler.sendToAllAround(new PacketAdvancedCrateFX(pos, idealManaUsage, mana, itemCount), world, pos);
+			}
+			lastItemCount = 0;
+			
+			mana = 0;
+		}
 		
 		//"super.ejectAll();"
 		for(int i = 0; i < getSizeInventory(); ++i) {

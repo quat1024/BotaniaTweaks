@@ -47,6 +47,10 @@ public class BotaniaTweaksConfig {
 	
 	public static boolean AGRICRAFT_DOOT = true;
 	
+	public static boolean ADVANCED_CRAFTY_CRATE = false;
+	public static boolean ADVANCED_CRAFTY_CRATE_HARDMODE = false;
+	public static int ADVANCED_CRATE_MANA_PER_ITEM = 160;
+	
 	static Configuration config;
 	
 	public static void initConfig() {
@@ -80,6 +84,12 @@ public class BotaniaTweaksConfig {
 		}
 		
 		SPORK = config.get("balance", "corporeaSpork", true, "Should crafting recipes with the Spork be enabled? These recipes provide more expensive paths to corporea sparks, but are available earlier in the game (they don't require going to the End or elven technology).").setRequiresMcRestart(true).getBoolean();
+		
+		ADVANCED_CRAFTY_CRATE = config.getBoolean("advancedCraftyCrate", "balance.craftyCrate", false, "Should the Crafty Crate require mana to craft items?");
+		
+		ADVANCED_CRAFTY_CRATE_HARDMODE = config.getBoolean("advancedCraftyCrateHardMode", "balance.craftyCrate", false, "If true, the crate will immediately empty itself if it tries to perform a craft and does not have enough mana; if false, the craft will simply wait until it does. Makes it really hard to automate, good luck!");
+		
+		ADVANCED_CRATE_MANA_PER_ITEM = config.getInt("crateManaPerItem", "balance.craftyCrate", 160, 1, Integer.MAX_VALUE, "How much mana does the crafty crate use per-item in the recipe (empty slots and Crafting Placeholders don't count?) Default value is one burst from a redstone spreader.");
 		
 		//tnt
 		ALLOW_DUPLICATED_TNT = config.getBoolean("allowEntropinnyumDuplicatedTNT", "balance.tnt", false, "Should the Entropinnyum accept TNT that came from a vanilla-style TNT duplicator device?");

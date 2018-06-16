@@ -34,6 +34,10 @@ Featureset
   * also: automatically place floral powder on the spark
 * sheep can eat the custom Botania grass blocks, as well as the vanilla grass, to regrow wool
 * the Spork - crafting ingredient to get in to corporea much, much earlier
+* crafty crate "advanced mode"
+  * now uses mana? more mana for recipes with more items. configurable amount, too.
+  * made upon request for a modpack where the crafty crate was actually *too easy*
+  * I am also in disbelief
 
 The following features also exist, using a little ASM hackery: 
 

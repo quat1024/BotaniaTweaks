@@ -9,8 +9,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
-import vazkii.botania.common.lexicon.page.PageText;
+import vazkii.botania.common.lexicon.page.*;
 
 public class LexiconHandler {
 	public static void fixKnowledgeTypes() {
@@ -36,8 +35,13 @@ public class LexiconHandler {
 			LexiconData.tinyPotato.addPage(potat);
 		}
 		
-		if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE) {
-			LexiconPage advCrate = new PageText("botania_tweaks.lexicon.advCrate");
+		if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE) {			
+			LexiconData.craftCrate.addPage(new PageTextCompat("botania_tweaks.lexicon.advCrate.0", "Botania Tweaks"));
+			LexiconData.craftCrate.addPage(new PageTextCompat("botania_tweaks.lexicon.advCrate.1", "Botania Tweaks"));
+			
+			if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE_HARDMODE) {
+				LexiconData.craftCrate.addPage(new PageTextCompat("botania_tweaks.lexicon.advCrateHard", "Botania Tweaks"));
+			}
 		}
 		
 		if(Loader.isModLoaded("avaritia")) {

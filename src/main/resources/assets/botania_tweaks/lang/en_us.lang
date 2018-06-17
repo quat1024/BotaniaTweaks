@@ -7,8 +7,15 @@ botania_tweaks.spork.tooltip=*holds up spork*
 
 tile.botania_tweaks.dire_crafty_crate.name=Dire Crafty Crate
 botania.entry.botania_tweaks.lexicon.category.direCrate=Dire Crafty Crate
+botania.tagline.botania_tweaks.lexicon.category.direCrate=A Crafty Crate for Avaritia Extreme Crafting
 botania_tweaks.lexicon.direCrate.0=It's exactly what it sounds like - a &1Crafty Crate&0 with 81 slots, able to meticulously assemble all of your favorite &1Extreme Recipes&0 from &1Avaritia&0. Works exactly like the &1Crafty Crate&0, just... bigger.<br>Note that all existing &1Crafting Patterns&0 are too small to be applied, and the superdense core of the &1Extreme Crafting Table&0 seems to interfere with &1Comparators&0. 
 botania_tweaks.lexicon.direCrate.subtitle=An Avariticist's Worst Nightmare
+
+botania_tweaks.lexicon.advCrate.0=Note that the &1Crafty Crate&0 will not be able to craft if it does not have a supply of &4Mana&0. The amount of mana required depends on the amount of items placed in the &1Crate&0, however, slots blocked by &1Crafting Placeholders&0 or &1Crafting Patterns&0 do not count. Hover over it with a &1Wand of the Forest&0 for more information.
+
+botania_tweaks.lexicon.advCrate.1=The &4Mana&0 buffer of the &1Crafty Crate&0 is surprisingly large, and the &1Crate&0 appears to consume all of it, wasting any excess. It would be wise to not simply mindlessly dump in &4Mana&0, and instead, look into constructs such as the &1Pulse Mana Spreader&0.<br>&oThis is the "Advanced Crate" feature of Botania Tweaks.&0
+
+botania_tweaks.lexicon.advCrateHard=Note, as well, that if the &1Crafty Crate&0 becomes completely full and still does not have enough &4Mana&0, the items will instantly fall out of the bottom. Care must  be taken to always fill the &1Crafty Crate&0 with enough &4Mana&0 before attempting to use it.<br>&oThis is the "Advanced Crate Hard Mode" feature of Botania Tweaks.&0 
 
 botania_tweaks.compressedpotato.tooltip=%s tiny potatoes
 

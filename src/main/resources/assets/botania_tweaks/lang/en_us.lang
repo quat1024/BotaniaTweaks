@@ -4,6 +4,12 @@ botania_tweaks.jei.agglomeration.category=Terrestrial Agglomeration
 
 item.botania_tweaks.spork.name=Spork
 botania_tweaks.spork.tooltip=*holds up spork*
+
+tile.botania_tweaks.dire_crafty_crate.name=Dire Crafty Crate
+botania.entry.botania_tweaks.lexicon.category.direCrate=Dire Crafty Crate
+botania_tweaks.lexicon.direCrate.0=It's exactly what it sounds like - a &1Crafty Crate&0 with 81 slots, able to meticulously assemble all of your favorite &1Extreme Recipes&0 from &1Avaritia&0. Works exactly like the &1Crafty Crate&0, just... bigger.<br>Note that all existing &1Crafting Patterns&0 are too small to be applied, and the superdense core of the &1Extreme Crafting Table&0 seems to interfere with &1Comparators&0. 
+botania_tweaks.lexicon.direCrate.subtitle=An Avariticist's Worst Nightmare
+
 botania_tweaks.compressedpotato.tooltip=%s tiny potatoes
 
 tile.botania_tweaks.compressedpotato.1.name=Little Potato

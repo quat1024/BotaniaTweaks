@@ -18,13 +18,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.botaniatweaks.BotaniaTweaks;
+import vazkii.botania.api.lexicon.ILexiconable;
+import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
-import vazkii.botania.common.block.tile.TileCraftCrate;
 
 import javax.annotation.Nullable;
 
-public class BlockDireCraftyCrate extends Block implements IWandHUD, IWandable {
+public class BlockDireCraftyCrate extends Block implements IWandHUD, IWandable, ILexiconable {
 	public BlockDireCraftyCrate() {
 		super(Material.WOOD);
 		
@@ -56,6 +57,8 @@ public class BlockDireCraftyCrate extends Block implements IWandHUD, IWandable {
 		return false;
 	}
 	
+	//TODO Comparator signal?
+	
 	//Modified from BlockOpenCrate#renderHUD
 	@SideOnly(Side.CLIENT)
 	@Override
@@ -72,7 +75,7 @@ public class BlockDireCraftyCrate extends Block implements IWandHUD, IWandable {
 			Gui.drawRect(xc - 6, yc - 6, xc + width + 6, yc + height + 6, 0x22000000);
 			Gui.drawRect(xc - 4, yc - 4, xc + width + 4, yc + height + 4, 0x22000000);
 			
-			for(int i = 0; i < 9; i++)
+			for(int i = 0; i < 9; i++) {
 				for(int j = 0; j < 9; j++) {
 					int index = i * 9 + j;
 					int xp = xc + j * 18;
@@ -86,6 +89,12 @@ public class BlockDireCraftyCrate extends Block implements IWandHUD, IWandable {
 					mc.getRenderItem().renderItemAndEffectIntoGUI(item, xp, yp);
 					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
 				}
+			}
 		}
+	}
+	
+	@Override
+	public LexiconEntry getEntry(World world, BlockPos blockPos, EntityPlayer entityPlayer, ItemStack itemStack) {
+		return AvaritiaCompat.direCrateEntry;
 	}
 }

@@ -1,29 +1,21 @@
 package quaternary.botaniatweaks.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.ItemHandlerHelper;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.MathUtil;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.decor.BlockTinyPotato;
 
 //Much of this class is retyped from BlockFlowerPot.class
 //Didn't want to bring along all the BlockContainer crap though

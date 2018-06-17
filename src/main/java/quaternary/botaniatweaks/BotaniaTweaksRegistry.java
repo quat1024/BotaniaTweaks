@@ -7,7 +7,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.block.*;
@@ -18,7 +17,6 @@ import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.item.block.ItemBlockMod;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 public class BotaniaTweaksRegistry {

@@ -12,8 +12,6 @@ import vazkii.botania.common.Botania;
 import java.io.File;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Mod.EventBusSubscriber(modid = BotaniaTweaks.MODID)
 public class BotaniaTweaksConfig {

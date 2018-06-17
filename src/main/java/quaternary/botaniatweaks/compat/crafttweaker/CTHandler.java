@@ -2,9 +2,9 @@ package quaternary.botaniatweaks.compat.crafttweaker;
 
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
-import crafttweaker.runtime.ILogger;
 
-import java.io.*;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 

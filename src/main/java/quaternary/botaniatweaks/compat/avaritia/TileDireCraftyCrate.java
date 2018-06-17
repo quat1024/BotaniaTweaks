@@ -7,7 +7,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.item.ModItems;

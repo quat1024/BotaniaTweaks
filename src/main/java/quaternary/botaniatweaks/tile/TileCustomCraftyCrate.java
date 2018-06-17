@@ -13,11 +13,8 @@ import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.net.PacketAdvancedCrateFX;
 import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 

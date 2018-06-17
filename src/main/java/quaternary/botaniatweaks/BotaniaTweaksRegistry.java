@@ -152,7 +152,7 @@ public class BotaniaTweaksRegistry {
 	@SideOnly(Side.CLIENT)
 	static void registerItemModels() {
 		for(Item i : ITEMS) {
-			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(i.getRegistryName(), "inventory"));
+			BotaniaTweaks.PROXY.registerModel(i);
 		}
 	}
 }

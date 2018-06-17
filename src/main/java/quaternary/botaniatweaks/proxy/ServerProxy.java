@@ -26,4 +26,8 @@ public class ServerProxy {
 	public void registerEvents() {
 		MinecraftForge.EVENT_BUS.register(Events.class);
 	}
+	
+	public void registerModel(Item i) {
+		//No-op
+	}
 }

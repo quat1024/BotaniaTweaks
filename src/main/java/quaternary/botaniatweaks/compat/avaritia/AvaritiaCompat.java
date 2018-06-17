@@ -2,6 +2,7 @@ package quaternary.botaniatweaks.compat.avaritia;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -44,6 +45,7 @@ public class AvaritiaCompat {
 	}
 	
 	private static Block direCrate;
+	private static Item direCrateItem;
 	
 	@SubscribeEvent
 	public static void blocks(RegistryEvent.Register<Block> b) {
@@ -54,8 +56,13 @@ public class AvaritiaCompat {
 	
 	@SubscribeEvent
 	public static void items(RegistryEvent.Register<Item> e) {
-		Item crateItem = new ItemBlock(direCrate);
-		crateItem.setRegistryName(direCrate.getRegistryName());
-		e.getRegistry().register(crateItem);
+		direCrateItem = new ItemBlock(direCrate);
+		direCrateItem.setRegistryName(direCrate.getRegistryName());
+		e.getRegistry().register(direCrateItem);
+	}
+	
+	@SubscribeEvent
+	public static void models(ModelRegistryEvent e) {
+		BotaniaTweaks.PROXY.registerModel(direCrateItem);
 	}
 }

@@ -5,7 +5,9 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -18,6 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.common.block.tile.TileCraftCrate;
 
 import javax.annotation.Nullable;
 
@@ -53,9 +56,36 @@ public class BlockDireCraftyCrate extends Block implements IWandHUD, IWandable {
 		return false;
 	}
 	
+	//Modified from BlockOpenCrate#renderHUD
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void renderHUD(Minecraft minecraft, ScaledResolution scaledResolution, World world, BlockPos blockPos) {
-		//TODO
+	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
+		TileEntity tile = world.getTileEntity(pos);
+		if(tile instanceof TileDireCraftyCrate) {
+			TileDireCraftyCrate craft = (TileDireCraftyCrate) tile;
+			
+			int width = 160;
+			int height = 160;
+			int xc = res.getScaledWidth() / 2 + 20;
+			int yc = res.getScaledHeight() / 2 - height / 2;
+			
+			Gui.drawRect(xc - 6, yc - 6, xc + width + 6, yc + height + 6, 0x22000000);
+			Gui.drawRect(xc - 4, yc - 4, xc + width + 4, yc + height + 4, 0x22000000);
+			
+			for(int i = 0; i < 9; i++)
+				for(int j = 0; j < 9; j++) {
+					int index = i * 9 + j;
+					int xp = xc + j * 18;
+					int yp = yc + i * 18;
+					
+					Gui.drawRect(xp, yp, xp + 16, yp + 16, 0x22FFFFFF);
+					
+					ItemStack item = craft.getItemHandler().getStackInSlot(index);
+					net.minecraft.client.renderer.RenderHelper.enableGUIStandardItemLighting();
+					GlStateManager.enableRescaleNormal();
+					mc.getRenderItem().renderItemAndEffectIntoGUI(item, xp, yp);
+					net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
+				}
+		}
 	}
 }

@@ -8,6 +8,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.item.ModItems;
 
@@ -35,12 +36,21 @@ public class TileDireCraftyCrate extends TileOpenCrate {
 		};
 	}
 	
+	int oldItemCount = 0;
+	
 	@Override
 	public void update() {
 		if(world.isRemote) return;
 		
 		if(canEject() && isCrateFull() && craft(true)) {
 			ejectAll();
+		}
+		
+		int newItemCount = countItems();
+		if(oldItemCount != newItemCount) {
+			oldItemCount = newItemCount;
+			world.updateComparatorOutputLevel(pos, world.getBlockState(pos).getBlock());
+			markDirty();
 		}
 	}
 	
@@ -91,12 +101,22 @@ public class TileDireCraftyCrate extends TileOpenCrate {
 		return true;
 	}
 	
+	int countItems() {
+		int count = 0;
+		for(int i=0; i < getSizeInventory(); i++) {
+			count += itemHandler.getStackInSlot(i).isEmpty() ? 0 : 1;
+		}
+		return count;
+	}
+	
 	void ejectAll() {
 		for(int i=0; i < getSizeInventory(); i++) {
 			ItemStack stack = itemHandler.getStackInSlot(i);
 			if(!stack.isEmpty()) eject(stack, false);
 			itemHandler.setStackInSlot(i, ItemStack.EMPTY);
 		}
+		
+		markDirty();
 	}
 	
 	@Override
@@ -107,5 +127,11 @@ public class TileDireCraftyCrate extends TileOpenCrate {
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 }

@@ -34,6 +34,8 @@ public class BlockDireCraftyCrate extends Block implements IWandHUD, IWandable, 
 		
 		setRegistryName(new ResourceLocation(BotaniaTweaks.MODID, "dire_crafty_crate"));
 		setUnlocalizedName(BotaniaTweaks.MODID + ".dire_crafty_crate");
+		
+		setCreativeTab(BotaniaTweaks.TAB);
 	}
 	
 	@Override

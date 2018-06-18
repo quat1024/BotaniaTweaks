@@ -43,7 +43,7 @@ public class BotaniaTweaks {
 	@SidedProxy(clientSide = "quaternary.botaniatweaks.proxy.ClientProxy", serverSide = "quaternary.botaniatweaks.proxy.ServerProxy")
 	public static ServerProxy PROXY;
 	
-	@GameRegistry.ItemStackHolder(MODID + ":compressed_potato_8")
+	@GameRegistry.ItemStackHolder(MODID + ":compressed_tiny_potato_8")
 	public static final ItemStack ICON = ItemStack.EMPTY;
 	
 	public static CreativeTabs TAB = new CreativeTabs(MODID) {

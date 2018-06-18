@@ -36,8 +36,13 @@ Featureset
 * the Spork - crafting ingredient to get in to corporea much, much earlier
 * crafty crate "advanced mode"
   * now uses mana? more mana for recipes with more items. configurable amount, too.
+  * also a "hard mode" in case that's not enough: very strict mana input requirements, very challenging to automate
   * made upon request for a modpack where the crafty crate was actually *too easy*
   * I am also in disbelief
+* if Avaritia is present: the Dire Crafty Crate will be added
+  * yeah it's a 9x9 crafty crate that crafts Extreme Recipes
+  * ridiculously challenging to automate
+  * what are you going to do about it
 
 The following features also exist, using a little ASM hackery: 
 

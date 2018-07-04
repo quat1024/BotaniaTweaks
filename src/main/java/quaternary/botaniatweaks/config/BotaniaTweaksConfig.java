@@ -75,11 +75,7 @@ public class BotaniaTweaksConfig {
 			}
 		}, EnumOrechidMode.class);
 		
-		switch(ORECHID_MODE) {
-			case DEFAULT: BotaniaTweakerHooks.orechidGog = Botania.gardenOfGlassLoaded; break;
-			case FORCE_GOG: BotaniaTweakerHooks.orechidGog = true;
-			case FORCE_NO_GOG: BotaniaTweakerHooks.orechidGog = false;
-		}
+		BotaniaTweakerHooks.orechidGog = ORECHID_MODE.isGog();
 		
 		SPORK = config.get("balance", "corporeaSpork", true, "Should crafting recipes with the Spork be enabled? These recipes provide more expensive paths to corporea sparks, but are available earlier in the game (they don't require going to the End or elven technology).").setRequiresMcRestart(true).getBoolean();
 		
@@ -159,6 +155,16 @@ public class BotaniaTweaksConfig {
 		@Override
 		public String toString() {
 			return super.toString().toLowerCase();
+		}
+		
+		public boolean isGog() {
+			switch (this) {
+				case DEFAULT: return Loader.isModLoaded("gardenofglass"); //Can't use Botania.gardenOfGlassLoaded since I run before Botania's preinit populates that field
+				case FORCE_GOG: return true;
+				case FORCE_NO_GOG: return false;
+			}
+			
+			return false; //Hhhh
 		}
 	}
 }

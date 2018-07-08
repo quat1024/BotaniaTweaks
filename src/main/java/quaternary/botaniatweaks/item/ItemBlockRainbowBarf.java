@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.etc;
+package quaternary.botaniatweaks.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
@@ -6,6 +6,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import quaternary.botaniatweaks.etc.RainbowBarfFontRenderer;
 
 import javax.annotation.Nullable;
 

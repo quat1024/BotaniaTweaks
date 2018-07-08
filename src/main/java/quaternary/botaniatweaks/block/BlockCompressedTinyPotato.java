@@ -55,12 +55,7 @@ public class BlockCompressedTinyPotato extends Block implements ILexiconable {
 		
 		aabb = new AxisAlignedBB(.5 - radius, 0, .5 - radius, .5 + radius, height, .5 + radius);
 		
-		setRegistryName(new ResourceLocation(BotaniaTweaks.MODID, "compressed_tiny_potato_" + compressionLevel));
-		setUnlocalizedName(BotaniaTweaks.MODID + ".compressedpotato." + compressionLevel);
-		
 		setHardness(0.25f * (1 + compressionLevel));
-		
-		setCreativeTab(BotaniaCreativeTab.INSTANCE);
 		
 		setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.NORTH));
 	}

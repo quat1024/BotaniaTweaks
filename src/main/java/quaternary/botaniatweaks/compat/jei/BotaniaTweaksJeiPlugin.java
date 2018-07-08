@@ -5,20 +5,18 @@ import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipe;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 
 @JEIPlugin
-public class
-BotaniaTweaksJeiPlugin implements IModPlugin {
+public class BotaniaTweaksJeiPlugin implements IModPlugin {
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		registry.addRecipeCategories(new RecipeCategoryCustomAgglomeration(registry.getJeiHelpers().getGuiHelper()));
 	}
-	
-	@GameRegistry.ObjectHolder("botania:terraplate")
-	public static final Item terraplate = Items.ACACIA_BOAT;
 	
 	@Override
 	public void register(IModRegistry registry) {
@@ -26,6 +24,7 @@ BotaniaTweaksJeiPlugin implements IModPlugin {
 		
 		registry.addRecipes(AgglomerationRecipes.recipes, RecipeCategoryCustomAgglomeration.UID);
 		
-		registry.addRecipeCatalyst(new ItemStack(terraplate), RecipeCategoryCustomAgglomeration.UID);
+		Item terraPlate = ForgeRegistries.ITEMS.getValue(new ResourceLocation("botania", "terraplate"));
+		registry.addRecipeCatalyst(new ItemStack(terraPlate), RecipeCategoryCustomAgglomeration.UID);
 	}
 }

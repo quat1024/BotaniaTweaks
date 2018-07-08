@@ -15,14 +15,15 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import quaternary.botaniatweaks.block.BotaniaTweaksBlocks;
 import quaternary.botaniatweaks.compat.avaritia.AvaritiaCompat;
 import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.BehaviorEnderAirDispenser;
 import quaternary.botaniatweaks.etc.Util;
+import quaternary.botaniatweaks.item.BotaniaTweaksItems;
 import quaternary.botaniatweaks.lexi.LexiconHandler;
 import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.proxy.ServerProxy;
@@ -81,8 +82,7 @@ public class BotaniaTweaks {
 		
 		BotaniaTweaksConfig.initConfig();
 		
-		BotaniaTweaksRegistry.populate();
-		BotaniaTweaksRegistry.fixBlockReferences();
+		BotaniaTweaksBlocks.registerOverrides();
 		
 		if(Loader.isModLoaded("avaritia")) {
 			AvaritiaCompat.preinit();
@@ -99,12 +99,9 @@ public class BotaniaTweaks {
 	
 	@Mod.EventHandler
 	public static void postinit(FMLPostInitializationEvent e) {
-		//Run this in postinit.
-		//BTweaks has to load before Botania to fix up references to TileTerraPlate etc
-		//in ModBlocks, so things like the multiblock preview can work properly (the multiblock
-		//preview is created in preinit, and I have to catch and fix the reference first)
-		//So normally I would put this in init, since botania lexicon data is created in init
-		LexiconHandler.fixKnowledgeTypes();
+		//Botania adds knowledge types in init but I run *before* botania
+		//Let's do this in postinit then so knowledge types are available
+		LexiconHandler.registerLexicon();
 	}
 	
 	@Mod.EventHandler
@@ -117,10 +114,8 @@ public class BotaniaTweaks {
 	@Mod.EventBusSubscriber
 	public static class CommonEvents {
 		@SubscribeEvent
-		public static void blocks(RegistryEvent.Register<Block> e) {
-			IForgeRegistry<Block> reg = e.getRegistry();
-			
-			BotaniaTweaksRegistry.registerBlocks(reg);
+		public static void blocks(RegistryEvent.Register<Block> e) {			
+			BotaniaTweaksBlocks.registerBlocks(e.getRegistry());
 			
 			GameRegistry.registerTileEntity(TileNerfedManaFluxfield.class, MODID + ":tweaked_fluxfield");
 			GameRegistry.registerTileEntity(TileCustomAgglomerationPlate.class, MODID + ":custom_agglomeration_plate");
@@ -132,10 +127,8 @@ public class BotaniaTweaks {
 		}
 		
 		@SubscribeEvent
-		public static void items(RegistryEvent.Register<Item> e) {
-			IForgeRegistry<Item> reg = e.getRegistry();
-			
-			BotaniaTweaksRegistry.registerItems(reg);
+		public static void items(RegistryEvent.Register<Item> e) {			
+			BotaniaTweaksItems.registerItems(e.getRegistry());
 		}
 		
 		//CT runs its scripts on this event with EventPriority.LOWEST; as long as this somehow runs first we're good
@@ -149,7 +142,7 @@ public class BotaniaTweaks {
 	public static class ClientEvents {
 		@SubscribeEvent
 		public static void model(ModelRegistryEvent e) {
-			BotaniaTweaksRegistry.registerItemModels();
+			BotaniaTweaksItems.Client.registerItemModels();
 		}
 	}
 }

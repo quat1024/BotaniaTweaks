@@ -19,15 +19,11 @@ public class ServerProxy {
 	//But there's a SideOnly bug(...?) where the FontRenderer
 	//information is not fully stripped from ItemBlockRainbowBarf.
 	//So it crashes on servers.
-	public Item makeRainbowItem(Block b) {
+	public ItemBlock makeRainbowItem(Block b) {
 		return new ItemBlock(b);
 	}
 	
 	public void registerEvents() {
 		MinecraftForge.EVENT_BUS.register(Events.class);
-	}
-	
-	public void registerModel(Item i) {
-		//No-op
 	}
 }

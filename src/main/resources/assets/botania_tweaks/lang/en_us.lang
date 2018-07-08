@@ -21,14 +21,14 @@ botania_tweaks.lexicon.advCrateHard=Note, as well, that if the &1Crafty Crate&0 
 
 botania_tweaks.compressedpotato.tooltip=%s tiny potatoes
 
-tile.botania_tweaks.compressedpotato.1.name=Little Potato
-tile.botania_tweaks.compressedpotato.2.name=Small Potato
-tile.botania_tweaks.compressedpotato.3.name=Medium Potato
-tile.botania_tweaks.compressedpotato.4.name=Jumbo Potato
-tile.botania_tweaks.compressedpotato.5.name=Immense Potato
-tile.botania_tweaks.compressedpotato.6.name=Enormous Potato
-tile.botania_tweaks.compressedpotato.7.name=Colossal Potato
-tile.botania_tweaks.compressedpotato.8.name=Galactic Potato
+tile.botania_tweaks.compressed_tiny_potato_1.name=Little Potato
+tile.botania_tweaks.compressed_tiny_potato_2.name=Small Potato
+tile.botania_tweaks.compressed_tiny_potato_3.name=Medium Potato
+tile.botania_tweaks.compressed_tiny_potato_4.name=Jumbo Potato
+tile.botania_tweaks.compressed_tiny_potato_5.name=Immense Potato
+tile.botania_tweaks.compressed_tiny_potato_6.name=Enormous Potato
+tile.botania_tweaks.compressed_tiny_potato_7.name=Colossal Potato
+tile.botania_tweaks.compressed_tiny_potato_8.name=Galactic Potato
 
 botania_tweaks.lexicon.potato.1=Really believes in you
 botania_tweaks.lexicon.potato.2=Really really believes in you

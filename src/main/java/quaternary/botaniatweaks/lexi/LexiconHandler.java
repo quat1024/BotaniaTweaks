@@ -4,6 +4,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.compat.avaritia.AvaritiaCompat;
+import quaternary.botaniatweaks.compat.shared.OptionalExtensions;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -12,7 +13,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.*;
 
 public class LexiconHandler {
-	public static void fixKnowledgeTypes() {
+	public static void registerLexicon() {
 		setBasicOrElvenKnowledge(BotaniaTweaksConfig.SPORK, LexiconData.corporea);
 		setBasicOrElvenKnowledge(BotaniaTweaksConfig.SPORK, LexiconData.corporeaFunnel);
 		setBasicOrElvenKnowledge(BotaniaTweaksConfig.SPORK, LexiconData.corporeaInterceptor);
@@ -44,9 +45,7 @@ public class LexiconHandler {
 			}
 		}
 		
-		if(Loader.isModLoaded("avaritia")) {
-			AvaritiaCompat.lexicon();
-		}
+		OptionalExtensions.callLexicon();
 	}
 	
 	static void setBasicOrElvenKnowledge(boolean flag, LexiconEntry toFix) {

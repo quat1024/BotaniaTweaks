@@ -32,9 +32,6 @@ public class BlockDireCraftyCrate extends Block implements IWandHUD, IWandable, 
 		setHardness(2f);
 		setSoundType(SoundType.WOOD);
 		
-		setRegistryName(new ResourceLocation(BotaniaTweaks.MODID, "dire_crafty_crate"));
-		setUnlocalizedName(BotaniaTweaks.MODID + ".dire_crafty_crate");
-		
 		setCreativeTab(BotaniaTweaks.TAB);
 	}
 	

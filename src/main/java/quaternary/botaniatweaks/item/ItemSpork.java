@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.etc;
+package quaternary.botaniatweaks.item;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -12,13 +12,7 @@ import quaternary.botaniatweaks.BotaniaTweaks;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemSpork extends Item {
-	public ItemSpork() {
-		super();
-		setRegistryName(BotaniaTweaks.MODID, "spork");
-		setUnlocalizedName(BotaniaTweaks.MODID + ".spork");
-	}
-	
+public class ItemSpork extends Item {	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {

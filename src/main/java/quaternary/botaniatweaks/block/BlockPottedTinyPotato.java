@@ -27,7 +27,6 @@ public class BlockPottedTinyPotato extends Block {
 	
 	public BlockPottedTinyPotato() {
 		super(Material.CIRCUITS);
-		setRegistryName(new ResourceLocation(BotaniaTweaks.MODID, "potted_tiny_potato"));
 		
 		setDefaultState(getDefaultState().withProperty(POTATO_FACING, EnumFacing.NORTH));
 	}

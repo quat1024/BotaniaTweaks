@@ -14,6 +14,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
+import quaternary.botaniatweaks.compat.shared.ModCompatUtil;
+import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
 
@@ -130,12 +132,9 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 		return list.isEmpty();
 	}
 	
-	@GameRegistry.ObjectHolder("botania:terraplate")
-	public static final Item terraplate = Items.ACACIA_BOAT;
-	
 	int setMultiblock(int index, IGuiItemStackGroup stacks, List<ItemStack> center, List<ItemStack> edges, List<ItemStack> corners, int posX, int posY, boolean centerOutput, boolean edgeOutput, boolean cornerOutput) {
 		stacks.init(index, false, posX - ITEM_WIDTH / 2, posY - MathHelper.floor(ITEM_HEIGHT * 2.5));
-		stacks.set(index, new ItemStack(terraplate));
+		stacks.set(index, ModCompatUtil.getStackFor(new ResourceLocation("botania", "terraplate")));
 		index++;
 		
 		if(!empty(center)) {

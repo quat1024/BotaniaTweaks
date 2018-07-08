@@ -8,6 +8,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
+import quaternary.botaniatweaks.compat.shared.ModCompatUtil;
 import quaternary.botaniatweaks.compat.shared.OptionalExtensions;
 import quaternary.botaniatweaks.lexi.DoubleCompatLexiconEntry;
 import vazkii.botania.api.BotaniaAPI;
@@ -40,9 +41,9 @@ public class AvaritiaCompat {
 		});
 		
 		OptionalExtensions.LEXICON_CALLBACKS.add(() -> {
-			ItemStack direCrateStack = getStackFor(direCrate.getRegistryName());
-			ItemStack extremeTableStack = getStackFor(new ResourceLocation("avaritia", "extreme_crafting_table"));
-			ItemStack craftyCrateStack = getStackFor(new ResourceLocation("botania", "opencrate"), 1);
+			ItemStack direCrateStack = ModCompatUtil.getStackFor(direCrate.getRegistryName());
+			ItemStack extremeTableStack = ModCompatUtil.getStackFor(new ResourceLocation("avaritia", "extreme_crafting_table"));
+			ItemStack craftyCrateStack = ModCompatUtil.getStackFor(new ResourceLocation("botania", "opencrate"), 1);
 			
 			RecipeElvenTrade direCrateRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack[]{direCrateStack}, extremeTableStack, craftyCrateStack);
 			
@@ -52,15 +53,6 @@ public class AvaritiaCompat {
 			direCrateEntry.addPage(new PageText("botania_tweaks.lexicon.direCrate.0"));
 			direCrateEntry.addPage(new PageElvenRecipe("botania_tweaks.lexicon.direCrate.subtitle", direCrateRecipe));
 		});
-	}
-	
-	private static ItemStack getStackFor(ResourceLocation res) {
-		return getStackFor(res, 0);
-	}
-	
-	private static ItemStack getStackFor(ResourceLocation res, int meta) {
-		Item i = ForgeRegistries.ITEMS.getValue(res);
-		return new ItemStack(i, 1, meta);
 	}
 	
 	private static <T extends Block> T createBlock(T block, String name) {

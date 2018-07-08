@@ -87,8 +87,6 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 		manaCost = recipe.manaCost;
 	}
 	
-	
-	
 	@Override
 	public void getIngredients(IIngredients ing) {
 		ing.setInputLists(ItemStack.class, inputs);

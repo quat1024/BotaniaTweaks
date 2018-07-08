@@ -13,8 +13,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.compat.shared.OptionalExtensions;
 
-import java.util.Map;
-
 public class BotaniaTweaksItems {
 	public static void registerItems(IForgeRegistry<Item> reg) {
 		registerItemBlocks(reg);

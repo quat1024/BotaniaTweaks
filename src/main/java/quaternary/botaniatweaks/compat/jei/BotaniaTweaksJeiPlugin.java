@@ -2,12 +2,10 @@ package quaternary.botaniatweaks.compat.jei;
 
 import mezz.jei.api.*;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipe;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 

@@ -1,13 +1,11 @@
 package quaternary.botaniatweaks.proxy;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import quaternary.botaniatweaks.etc.*;
+import quaternary.botaniatweaks.etc.ClientEvents;
+import quaternary.botaniatweaks.etc.Events;
 import quaternary.botaniatweaks.item.ItemBlockRainbowBarf;
 import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
 import quaternary.botaniatweaks.tile.render.RenderTileCompressedTinyPotato;

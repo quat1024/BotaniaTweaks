@@ -1,16 +1,14 @@
 package quaternary.botaniatweaks.lexi;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Loader;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.compat.avaritia.AvaritiaCompat;
 import quaternary.botaniatweaks.compat.shared.OptionalExtensions;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;
 import vazkii.botania.common.lexicon.LexiconData;
-import vazkii.botania.common.lexicon.page.*;
+import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 
 public class LexiconHandler {
 	public static void registerLexicon() {

@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
-import vazkii.botania.common.Botania;
 
 import java.io.File;
 import java.util.*;

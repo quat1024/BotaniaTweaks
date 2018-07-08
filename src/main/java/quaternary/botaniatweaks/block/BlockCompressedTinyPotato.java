@@ -17,13 +17,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.etc.MathUtil;
 import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.lexicon.LexiconData;
 

@@ -25,6 +25,11 @@ public abstract class AbstractTileCompatCrate<T> extends TileOpenCrate {
 	}
 	
 	@Override
+	public int getSizeInventory() {
+		return getCrateSize() + 1;
+	}
+	
+	@Override
 	protected SimpleItemStackHandler createItemHandler() {
 		return new SimpleItemStackHandler(this, true){
 			@Override

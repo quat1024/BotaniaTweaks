@@ -20,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.block.BotaniaTweaksBlocks;
 import quaternary.botaniatweaks.compat.avaritia.AvaritiaCompat;
 import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
+import quaternary.botaniatweaks.compat.extendedcrafting.ExtendedCraftingCompat;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.BehaviorEnderAirDispenser;
 import quaternary.botaniatweaks.etc.Util;
@@ -86,6 +87,10 @@ public class BotaniaTweaks {
 		
 		if(Loader.isModLoaded("avaritia")) {
 			AvaritiaCompat.preinit();
+		}
+		
+		if(Loader.isModLoaded("extendedcrafting")) {
+			ExtendedCraftingCompat.preinit();
 		}
 	}
 	

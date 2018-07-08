@@ -62,8 +62,10 @@ public abstract class AbstractBlockCompatCrate extends Block implements IWandHUD
 			
 			//TODO this magic number is an artifact of hardcoding it back when there was just 1 crate
 			//Do the math to figure out the real width and height please.
-			int width = 160;
-			int height = 160;
+			final int STACK_SPACING = 18;
+			
+			int width = crate.getCrateWidth() * STACK_SPACING - 2;
+			int height = crate.getCrateHeight() * STACK_SPACING - 2;
 			int xc = res.getScaledWidth() / 2 + 20;
 			int yc = res.getScaledHeight() / 2 - height / 2;
 			
@@ -73,8 +75,8 @@ public abstract class AbstractBlockCompatCrate extends Block implements IWandHUD
 			for(int i = 0; i < crate.getCrateWidth(); i++) {
 				for(int j = 0; j < crate.getCrateHeight(); j++) {
 					int index = i * crate.getCrateWidth() + j; //TODO width, or height? Most crates are square anyways so it won't matter
-					int xp = xc + j * 18;
-					int yp = yc + i * 18;
+					int xp = xc + j * STACK_SPACING;
+					int yp = yc + i * STACK_SPACING;
 					
 					Gui.drawRect(xp, yp, xp + 16, yp + 16, 0x22FFFFFF);
 					

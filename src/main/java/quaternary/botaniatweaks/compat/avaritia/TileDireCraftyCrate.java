@@ -10,12 +10,12 @@ import java.util.function.BiFunction;
 
 public class TileDireCraftyCrate extends AbstractTileCompatCrate<IExtremeRecipe> {
 	@Override
-	protected int getCrateWidth() {
+	public int getCrateWidth() {
 		return 9;
 	}
 	
 	@Override
-	protected int getCrateHeight() {
+	public int getCrateHeight() {
 		return 9;
 	}
 	

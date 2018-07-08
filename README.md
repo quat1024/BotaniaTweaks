@@ -6,12 +6,14 @@ A little mod containing tweaks to Botania. Mainly focused around adding more con
 Build Instructions
 ==================
 
-Yeah so I couldn't find a working maven for Agricraft, and Jitpack seemed to choke on it too, so here's what you do:
+This mod has (soft) dependencies on a bunch of other mods, some of which I couldn't find on Mavens. SO, here you go.
 
 * Clone this repo
 * Populate `libs/` with mods from CurseForge:
-* * Agricraft: agricraft-2.12.2-1.12.0-a4.jar
-* * InfinityLib: infinitylib-1.12.0.jar
+  * Agricraft: agricraft-2.12.2-1.12.0-a4.jar
+  * Extended Crafting: extendedcrafting-1.12-1.3.7.jar
+  * InfinityLib: infinitylib-1.12.0.jar
+  * Cucumber Library: cucumber-1.12-1.1.0.jar
 * Run those through a tool like BON2 so you have deobfuscated versions (make sure to use the same mappings version)
 * Build and run as usual
 

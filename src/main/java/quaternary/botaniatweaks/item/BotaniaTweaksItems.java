@@ -19,13 +19,13 @@ public class BotaniaTweaksItems {
 		registerOtherItems(reg);
 	}
 	
-	private static <T extends ItemBlock> T createItemBlock(T itemBlock) {
+	public static <T extends ItemBlock> T createItemBlock(T itemBlock) {
 		itemBlock.setRegistryName(itemBlock.getBlock().getRegistryName());
 		itemBlock.setCreativeTab(BotaniaTweaks.TAB);
 		return itemBlock;
 	}
 	
-	private static <T extends Item> T createItem(T item, String name) {
+	public static <T extends Item> T createItem(T item, String name) {
 		item.setRegistryName(new ResourceLocation(BotaniaTweaks.MODID, name));
 		item.setUnlocalizedName(BotaniaTweaks.MODID + "." + name);
 		item.setCreativeTab(BotaniaTweaks.TAB);
@@ -60,7 +60,7 @@ public class BotaniaTweaksItems {
 			OptionalExtensions.callModels();
 		}
 		
-		private static void setModel(String name) {
+		public static void setModel(String name) {
 			Item i = ForgeRegistries.ITEMS.getValue(new ResourceLocation(BotaniaTweaks.MODID, name));
 			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(i.getRegistryName(), "inventory"));
 		}

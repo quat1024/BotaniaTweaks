@@ -20,7 +20,7 @@ public class BotaniaTweaksBlocks {
 		registerNonOverrides(reg);
 	}
 	
-	private static <T extends Block> T createBlock(T block, String name) {
+	public static <T extends Block> T createBlock(T block, String name) {
 		block.setRegistryName(new ResourceLocation(BotaniaTweaks.MODID, name));
 		block.setUnlocalizedName(BotaniaTweaks.MODID + "." + name);
 		block.setCreativeTab(BotaniaTweaks.TAB);

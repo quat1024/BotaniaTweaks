@@ -13,8 +13,8 @@ import javax.annotation.Nonnull;
 import java.util.function.BiFunction;
 
 public abstract class AbstractTileCompatCrate<T> extends TileOpenCrate {
-	protected abstract int getCrateWidth();
-	protected abstract int getCrateHeight();
+	public abstract int getCrateWidth();
+	public abstract int getCrateHeight();
 	
 	protected abstract Iterable<T> getAllRecipes();
 	protected abstract BiFunction<T, InventoryCrafting, Boolean> doesRecipeMatchFunc();

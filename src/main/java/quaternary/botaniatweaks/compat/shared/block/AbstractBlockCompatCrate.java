@@ -60,8 +60,6 @@ public abstract class AbstractBlockCompatCrate extends Block implements IWandHUD
 		if(tile instanceof AbstractTileCompatCrate) {
 			AbstractTileCompatCrate crate = (AbstractTileCompatCrate) tile;
 			
-			//TODO this magic number is an artifact of hardcoding it back when there was just 1 crate
-			//Do the math to figure out the real width and height please.
 			final int STACK_SPACING = 18;
 			
 			int width = crate.getCrateWidth() * STACK_SPACING - 2;

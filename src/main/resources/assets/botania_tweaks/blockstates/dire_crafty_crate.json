@@ -3,9 +3,9 @@
 	"defaults": {
 		"model": "botania:crate",
 		"textures": {
-			"bottom": "botania_tweaks:dire/bottom",
-			"side": "botania_tweaks:dire/side",
-			"particle": "botania_tweaks:dire/side"
+			"bottom": "botania_tweaks:crate/avaritia/dire/bottom",
+			"side": "botania_tweaks:crate/avaritia/dire/side",
+			"particle": "botania_tweaks:crate/avaritia/dire/side"
 		}
 	},
 	"variants": {

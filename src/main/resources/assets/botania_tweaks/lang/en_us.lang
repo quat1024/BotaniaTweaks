@@ -13,6 +13,18 @@ botania.tagline.botania_tweaks.lexicon.category.direCrate=A Crafty Crate for Ava
 botania_tweaks.lexicon.direCrate.0=It's exactly what it sounds like - a &1Crafty Crate&0 with 81 slots, able to meticulously assemble all of your favorite &1Extreme Recipes&0 from &1Avaritia&0. Works exactly like the &1Crafty Crate&0, just... bigger.<br>Note that all existing &1Crafting Patterns&0 are too small to be applied, and the superdense core of the &1Extreme Crafting Table&0 seems to interfere with &1Comparators&0. 
 botania_tweaks.lexicon.direCrate.subtitle=An Avariticist's Worst Nightmare
 
+tile.botania_tweaks.basic_extended_crafty_crate.name=Basic Extended Crafty Crate
+tile.botania_tweaks.advanced_extended_crafty_crate.name=Advanced Extended Crafty Crate
+tile.botania_tweaks.elite_extended_crafty_crate.name=Elite Extended Crafty Crate
+tile.botania_tweaks.ultimate_extended_crafty_crate.name=Ultimate Extended Crafty Crate
+botania.entry.botania_tweaks.lexicon.category.extCrates=Extended Crafty Crates
+botania.tagline.botania_tweaks.lexicon.category.extCrates=Crafty Crates for Extended Crafting
+botania_tweaks.lexicon.extCrates.0=They're exactly what they sound like - &1Crafty Crate&0s able to meticulously assemble all of your favorite &1Table Recipes&0 from &1Extended Crafting&0. They otherwise work exactly like the &1Crafty Crate&0.<br>Note that &1Crafting Patterns&0 don't seem to be compatible, and their superdense core seems to interfere with &1Comparators&0. 
+botania_tweaks.lexicon.extCrates.subtitle.0=Three by three
+botania_tweaks.lexicon.extCrates.subtitle.1=Five by five
+botania_tweaks.lexicon.extCrates.subtitle.2=Seven by seven
+botania_tweaks.lexicon.extCrates.subtitle.3=Ok Direwolf20 calm down
+
 botania_tweaks.lexicon.advCrate.0=Note that the &1Crafty Crate&0 will not be able to craft if it does not have a supply of &4Mana&0. The amount of mana required depends on the amount of items placed in the &1Crate&0, however, slots blocked by &1Crafting Placeholders&0 or &1Crafting Patterns&0 do not count. Hover over it with a &1Wand of the Forest&0 for more information.
 
 botania_tweaks.lexicon.advCrate.1=The &4Mana&0 buffer of the &1Crafty Crate&0 is surprisingly large, and the &1Crate&0 appears to consume all of it, wasting any excess. It would be wise to not simply mindlessly dump in &4Mana&0, and instead, look into constructs such as the &1Pulse Mana Spreader&0.<br>&oThis is the "Advanced Crate" feature of Botania Tweaks.&0

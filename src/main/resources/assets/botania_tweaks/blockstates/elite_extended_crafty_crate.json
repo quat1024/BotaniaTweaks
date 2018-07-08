@@ -1,0 +1,15 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "botania:crate",
+		"textures": {
+			"bottom": "botania_tweaks:crate/extended/elite/bottom",
+			"side": "botania_tweaks:crate/extended/elite/side",
+			"particle": "botania_tweaks:crate/extended/elite/side"
+		}
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}

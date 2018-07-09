@@ -8,14 +8,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.energy.IEnergyStorage;
-import quaternary.botaniatweaks.etc.IBotaniaReplaced;
+import quaternary.botaniatweaks.etc.IBotaniaTweaked;
 import quaternary.botaniatweaks.tile.TileNerfedManaFluxfield;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.common.block.mana.BlockRFGenerator;
 
 import javax.annotation.Nullable;
 
-public class BlockNerfedManaFluxfield extends BlockRFGenerator implements ILexiconable, IBotaniaReplaced {
+public class BlockNerfedManaFluxfield extends BlockRFGenerator implements ILexiconable, IBotaniaTweaked {
 	public BlockNerfedManaFluxfield() {
 		
 	}
@@ -45,5 +45,10 @@ public class BlockNerfedManaFluxfield extends BlockRFGenerator implements ILexic
 		}
 		
 		return 0; //oops
+	}
+	
+	@Override
+	public boolean isTweaked() {
+		return true;
 	}
 }

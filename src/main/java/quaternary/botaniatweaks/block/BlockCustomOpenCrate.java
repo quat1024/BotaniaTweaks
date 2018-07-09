@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.etc.IBotaniaReplaced;
+import quaternary.botaniatweaks.etc.IBotaniaTweaked;
 import quaternary.botaniatweaks.tile.TileCustomCraftyCrate;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CrateVariant;
@@ -22,7 +22,7 @@ import vazkii.botania.common.block.tile.TileOpenCrate;
 
 import javax.annotation.Nonnull;
 
-public class BlockCustomOpenCrate extends BlockOpenCrate implements IBotaniaReplaced {
+public class BlockCustomOpenCrate extends BlockOpenCrate implements IBotaniaTweaked {
 	@Nonnull
 	@Override
 	public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
@@ -76,5 +76,10 @@ public class BlockCustomOpenCrate extends BlockOpenCrate implements IBotaniaRepl
 		//If I do this after drawing the mana bar it doesn't state leak and fuck up the transparency
 		//It's 2am I don't want to find the stateleak.
 		super.renderHUD(mc, res, world, pos);
+	}
+	
+	@Override
+	public boolean isTweaked() {
+		return true;
 	}
 }

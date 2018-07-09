@@ -1,28 +1,36 @@
 package quaternary.botaniatweaks.etc;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.*;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 @SideOnly(Side.CLIENT)
 public class ClientEvents {
 	@SubscribeEvent
 	public static void tooltip(ItemTooltipEvent e) {
-		Item i = e.getItemStack().getItem();
+		ItemStack stack = e.getItemStack();
+		Item item = stack.getItem();
+		
 		boolean addTooltip = false;
 		
-		if(i instanceof IBotaniaReplaced) {
-			addTooltip = true;
-		} else	if(i instanceof ItemBlock) {
-			Block b = ((ItemBlock)i).getBlock();
-			if(b instanceof IBotaniaReplaced) {
-				addTooltip = true;
+		if(item instanceof IBotaniaTweaked) {
+			addTooltip = ((IBotaniaTweaked) item).isTweaked();
+		} else if(item instanceof ItemBlock) {
+			if(item instanceof ItemBlockSpecialFlower) {
+				String type = ItemBlockSpecialFlower.getType(stack);
+				addTooltip = BotaniaTweakerHooks.shouldFlowerDecay(type);
+			} else {
+				Block block = ((ItemBlock) item).getBlock();
+				if(block instanceof IBotaniaTweaked) {
+					addTooltip = ((IBotaniaTweaked) block).isTweaked();
+				}
 			}
 		}
 		

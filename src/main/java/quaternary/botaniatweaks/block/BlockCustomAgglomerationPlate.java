@@ -9,7 +9,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import quaternary.botaniatweaks.etc.IBotaniaReplaced;
+import quaternary.botaniatweaks.etc.IBotaniaTweaked;
 import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
 import quaternary.botaniatweaks.tile.TileCustomAgglomerationPlate;
 import vazkii.botania.api.BotaniaAPI;
@@ -19,7 +19,7 @@ import vazkii.botania.common.block.mana.BlockTerraPlate;
 import javax.annotation.Nonnull;
 
 //COPY from BlockTerraPlate.java. Changes noted.
-public class BlockCustomAgglomerationPlate extends BlockTerraPlate implements ILexiconable, IBotaniaReplaced {
+public class BlockCustomAgglomerationPlate extends BlockTerraPlate implements ILexiconable, IBotaniaTweaked {
 	public BlockCustomAgglomerationPlate() {
 		BotaniaAPI.blacklistBlockFromMagnet(this, Short.MAX_VALUE);
 		//ReflectionHelper.setPrivateValue(ModBlocks.class, null, this, "terraPlate");
@@ -64,5 +64,10 @@ public class BlockCustomAgglomerationPlate extends BlockTerraPlate implements IL
 		}
 		
 		return 0;
+	}
+	
+	@Override
+	public boolean isTweaked() {
+		return true;
 	}
 }

@@ -8,31 +8,9 @@ import quaternary.botaniatweaks.compat.shared.tile.AbstractTileCompatCrate;
 
 import java.util.function.BiFunction;
 
-public class TileEliteExtCraftCrate extends AbstractTileCompatCrate<IRecipe> {
+public class TileEliteExtCraftCrate extends AbstractTileExtCraftCrate {
 	@Override
-	public int getCrateWidth() {
+	int getSize() {
 		return 7;
-	}
-	
-	@Override
-	public int getCrateHeight() {
-		return 7;
-	}
-	
-	@Override
-	@SuppressWarnings("unchecked") //Blake!!!!!!!!! where are your generics!!!!!11
-	protected Iterable<IRecipe> getAllRecipes() {
-		//TODO: does this handle tier-locked recipes properly
-		return TableRecipeManager.getInstance().getRecipes();
-	}
-	
-	@Override
-	protected BiFunction<IRecipe, InventoryCrafting, Boolean> doesRecipeMatchFunc() {
-		return (recipe, inv) -> recipe.matches(inv, world);
-	}
-	
-	@Override
-	protected BiFunction<IRecipe, InventoryCrafting, ItemStack> craftingResultFunc() {
-		return (recipe, inv) -> recipe.getCraftingResult(inv);
 	}
 }

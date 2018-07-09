@@ -10,15 +10,14 @@ import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
-import java.util.function.BiFunction;
 
 public abstract class AbstractTileCompatCrate<T> extends TileOpenCrate {
 	public abstract int getCrateWidth();
 	public abstract int getCrateHeight();
 	
 	protected abstract Iterable<T> getAllRecipes();
-	protected abstract BiFunction<T, InventoryCrafting, Boolean> doesRecipeMatchFunc();
-	protected abstract BiFunction<T, InventoryCrafting, ItemStack> craftingResultFunc();
+	protected abstract boolean doesRecipeMatch(T recipe, InventoryCrafting inv);
+	protected abstract ItemStack getCraftingResult(T recipe, InventoryCrafting inv);
 	
 	protected int getCrateSize() {
 		return getCrateWidth() * getCrateHeight();
@@ -85,8 +84,8 @@ public abstract class AbstractTileCompatCrate<T> extends TileOpenCrate {
 		}
 		
 		for(T recipe : getAllRecipes()) {
-			if(doesRecipeMatchFunc().apply(recipe, inv)) {
-				ItemStack output = craftingResultFunc().apply(recipe, inv);
+			if(doesRecipeMatch(recipe, inv)) {
+				ItemStack output = getCraftingResult(recipe, inv);
 				
 				itemHandler.setStackInSlot(getCrateSize(), output);
 				

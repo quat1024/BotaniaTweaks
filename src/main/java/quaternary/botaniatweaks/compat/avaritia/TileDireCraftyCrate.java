@@ -6,8 +6,6 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import quaternary.botaniatweaks.compat.shared.tile.AbstractTileCompatCrate;
 
-import java.util.function.BiFunction;
-
 public class TileDireCraftyCrate extends AbstractTileCompatCrate<IExtremeRecipe> {
 	@Override
 	public int getCrateWidth() {
@@ -25,12 +23,12 @@ public class TileDireCraftyCrate extends AbstractTileCompatCrate<IExtremeRecipe>
 	}
 	
 	@Override
-	protected BiFunction<IExtremeRecipe, InventoryCrafting, Boolean> doesRecipeMatchFunc() {
-		return (recipe, inv) -> recipe.matches(inv, world);
+	protected boolean doesRecipeMatch(IExtremeRecipe recipe, InventoryCrafting inv) {
+		return recipe.matches(inv, world);
 	}
 	
 	@Override
-	protected BiFunction<IExtremeRecipe, InventoryCrafting, ItemStack> craftingResultFunc() {
-		return (recipe, inv) -> recipe.getCraftingResult(inv);
+	protected ItemStack getCraftingResult(IExtremeRecipe recipe, InventoryCrafting inv) {
+		return recipe.getCraftingResult(inv);
 	}
 }

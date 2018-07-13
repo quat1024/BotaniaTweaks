@@ -2,23 +2,23 @@ package quaternary.botaniatweaks.asm.tweaks;
 
 import com.google.common.collect.ImmutableList;
 import org.objectweb.asm.tree.*;
-import quaternary.botaniatweaks.config.ActiveGeneratingFlowers;
+import quaternary.botaniatweaks.etc.lib.GeneratingFlowers;
 
-import java.util.List;
+import java.util.Collection;
 
 public class EverythingCanDecayTweak extends Tweak {
 	@Override
-	public List<String> getAffectedClassesImpl() {
-		return ImmutableList.copyOf(ActiveGeneratingFlowers.classToNamesMap.keySet());
+	public Collection<String> computeAffectedClasses() {
+		return ImmutableList.copyOf(GeneratingFlowers.activeFlowerClasses);
 	}
 	
 	@Override
-	String getName(String transformedName) {
-		return "the " + getFlowerFromClassName(transformedName) + "'s decayability";
+	String getLogMessage(String transformedName) {
+		return "Patching the " + getFlowerFromClassName(transformedName) + "'s decayability...";
 	}
 	
 	@Override
-	public void patchImpl(String transformedName, ClassNode node) {
+	public void doPatch(String transformedName, ClassNode node) {
 		//remove any existing isPassiveFlower nodes, if they exist already
 		for(MethodNode method : node.methods) {
 			if(method.name.equals("isPassiveFlower")) {
@@ -39,6 +39,6 @@ public class EverythingCanDecayTweak extends Tweak {
 	}
 	
 	static String getFlowerFromClassName(String className) {
-		return ActiveGeneratingFlowers.classToNamesMap.getOrDefault(className, "Unknown flower?");
+		return GeneratingFlowers.getFlowerName(className);
 	}
 }

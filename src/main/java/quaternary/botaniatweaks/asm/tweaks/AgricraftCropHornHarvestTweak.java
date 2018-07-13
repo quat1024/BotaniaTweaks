@@ -3,21 +3,21 @@ package quaternary.botaniatweaks.asm.tweaks;
 import com.google.common.collect.ImmutableList;
 import org.objectweb.asm.tree.*;
 
-import java.util.List;
+import java.util.Collection;
 
 public class AgricraftCropHornHarvestTweak extends Tweak {
 	@Override
-	List<String> getAffectedClassesImpl() {
+	protected Collection<String> computeAffectedClasses() {
 		return ImmutableList.of("com.infinityraider.agricraft.blocks.BlockCrop");
 	}
 	
 	@Override
-	String getName(String transformedName) {
-		return "Agricraft crop blocks";
+	String getLogMessage(String transformedName) {
+		return "Patching Agricraft crop blocks...";
 	}
 	
 	@Override
-	void patchImpl(String transformedName, ClassNode node) {
+	void doPatch(String transformedName, ClassNode node) {
 		String hornHarvestable = "vazkii/botania/api/item/IHornHarvestable";
 		if(node.interfaces.contains(hornHarvestable)) {
 			log("Looks like AgriCraft already implements IHornHarvestable now!");

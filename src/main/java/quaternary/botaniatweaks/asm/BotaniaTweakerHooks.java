@@ -14,11 +14,12 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.CatchallFlowerComponent;
+import quaternary.botaniatweaks.wsd.ManaStatisticsWsd;
 import vazkii.botania.api.recipe.IFlowerComponent;
+import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -136,5 +137,51 @@ public class BotaniaTweakerHooks {
 		} catch(NBTException bleh) {
 			// :D
 		}
+	}
+	
+	//Mana statistics
+	
+	private static String lastFlowerName = null;
+	private static int oldMana = 0;
+	
+	public static void beginManaStatSection(String flowerName, SubTileGenerating flower, int oldMana_) {
+		if(flower.getWorld().isRemote) return;
+		flowerName = fixThermalilyFlowerName(flowerName, flower);
+		
+		lastFlowerName = flowerName;
+		oldMana = oldMana_;
+	}
+	
+	public static void endManaStatSection(String flowerName, SubTileGenerating flower, int newMana) {
+		if(flower.getWorld().isRemote) return;
+		flowerName = fixThermalilyFlowerName(flowerName, flower);
+		
+		int manaDifference = newMana - oldMana;
+		
+		//Try to figure out how much mana the flower has generated
+		if(flower.canGeneratePassively()) {
+			manaDifference += (flower.getWorld().getTotalWorldTime() % flower.getDelayBetweenPassiveGeneration()) == 0 ? flower.getValueForPassiveGeneration() : 0;
+		}
+		
+		if(manaDifference != 0) {
+			ManaStatisticsWsd wsd = ManaStatisticsWsd.get(flower.getWorld());
+			wsd.trackMana(flowerName, manaDifference);
+		}
+		
+		lastFlowerName = null;
+		oldMana = 0;
+	}
+	
+	private static String fixThermalilyFlowerName(String flowerName, SubTileGenerating flower) {
+		//Thermalilies extend Hydroangei but don't override onUpdate.
+		//When I insert the string "hydroangeas" into that flower's onUpdate with asm
+		//any mana from thermalilies gets mistakenly attributed to hydroangei.
+		
+		//I don't think any other flowers extend each other
+		if(flowerName.equals("hydroangeas")) {
+			String className = flower.getClass().getName();
+			if(className.endsWith("Thermalily")) return "thermalily";
+			else return "hydroangeas";
+		} else return flowerName;
 	}
 }

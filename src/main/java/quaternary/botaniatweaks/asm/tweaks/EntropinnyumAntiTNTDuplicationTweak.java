@@ -3,22 +3,22 @@ package quaternary.botaniatweaks.asm.tweaks;
 import com.google.common.collect.ImmutableList;
 import org.objectweb.asm.tree.*;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.ListIterator;
 
 public class EntropinnyumAntiTNTDuplicationTweak extends Tweak {
 	@Override
-	List<String> getAffectedClassesImpl() {
+	protected Collection<String> computeAffectedClasses() {
 		return ImmutableList.of("vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum");
 	}
 	
 	@Override
-	String getName(String transformedName) {
-		return "the entropinnyum's TNT preferences";
+	String getLogMessage(String transformedName) {
+		return "Patching the entropinnyum's TNT preferences...";
 	}
 	
 	@Override
-	void patchImpl(String transformedName, ClassNode node) {
+	void doPatch(String transformedName, ClassNode node) {
 		for(MethodNode method : node.methods) {
 			if(method.name.equals("onUpdate")) {
 				InsnList ins = method.instructions;

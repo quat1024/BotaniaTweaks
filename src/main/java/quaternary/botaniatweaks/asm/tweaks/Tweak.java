@@ -5,25 +5,25 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
 import quaternary.botaniatweaks.asm.BotaniaTweakerTransformer;
 
-import java.util.List;
+import java.util.Collection;
 
 public abstract class Tweak implements Opcodes {
-	List<String> affectedClasses;
+	protected abstract Collection<String> computeAffectedClasses();
+	abstract void doPatch(String transformedName, ClassNode node);
+	abstract String getLogMessage(String transformedName);
 	
-	abstract List<String> getAffectedClassesImpl();
+	Collection<String> affectedClasses;
 	
-	abstract void patchImpl(String transformedName, ClassNode node);
-	
-	abstract String getName(String transformedName);
-	
-	public List<String> getAffectedClasses() {
-		if(affectedClasses == null) affectedClasses = getAffectedClassesImpl();
+	public Collection<String> getAffectedClasses() {
+		if(affectedClasses == null) affectedClasses = computeAffectedClasses();
 		return affectedClasses;
 	}
 	
 	public void patch(String transformedName, ClassNode node) {
-		log("Patching " + getName(transformedName) + "...");
-		patchImpl(transformedName, node);
+		if(affectedClasses.contains(transformedName)) {
+			log(getLogMessage(transformedName));
+			doPatch(transformedName, node);
+		}
 	}
 	
 	static String getHooksClass() {

@@ -3,22 +3,22 @@ package quaternary.botaniatweaks.asm.tweaks;
 import com.google.common.collect.ImmutableList;
 import org.objectweb.asm.tree.*;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.ListIterator;
 
 public class EverythingApothecaryTweak extends Tweak {
 	@Override
-	List<String> getAffectedClassesImpl() {
+	protected Collection<String> computeAffectedClasses() {
 		return ImmutableList.of("vazkii.botania.common.block.tile.TileAltar");
 	}
 	
 	@Override
-	String getName(String transformedName) {
-		return "the petal apothecary";
+	String getLogMessage(String transformedName) {
+		return "Patching the petal apothecary's item preferences...";
 	}
 	
 	@Override
-	void patchImpl(String transformedName, ClassNode node) {
+	void doPatch(String transformedName, ClassNode node) {
 		for(MethodNode method : node.methods) {
 			if(method.name.equals("getFlowerComponent")) {
 				InsnList ins = method.instructions;

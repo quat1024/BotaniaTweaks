@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
+import quaternary.botaniatweaks.etc.lib.GeneratingFlowers;
 
 import java.io.File;
 import java.util.*;
@@ -94,7 +95,7 @@ public class BotaniaTweaksConfig {
 		//decay
 		PASSIVE_DECAY_TIMER = config.getInt("passiveDecayTimer", "balance.decay", 72000, 1, 72000, "How many ticks until passive flowers decay? Can only be set *lower* than the default value. Muahaha.");
 		
-		for(String flower : ActiveGeneratingFlowers.classToNamesMap.values()) {
+		for(String flower : GeneratingFlowers.activeFlowerClassesToNames.values()) {
 			boolean should = config.getBoolean(flower + "Decay", "balance.decay.flowers", false, "Does the " + flower + " experience passive decay?");
 			SHOULD_ALSO_BE_PASSIVE_MAP.put(flower, should);
 		}

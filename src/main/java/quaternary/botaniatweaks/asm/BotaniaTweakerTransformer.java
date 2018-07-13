@@ -24,6 +24,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		tweaks.add(new EverythingApothecaryTweak());
 		tweaks.add(new OrechidPriceTweak());
 		tweaks.add(new AgricraftCropHornHarvestTweak());
+		tweaks.add(new ManaStatisticsTweak());
 		
 		for(Tweak t : tweaks) {
 			allPatchedClasses.addAll(t.getAffectedClasses());
@@ -41,9 +42,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		reader.accept(node, 0);
 		
 		for(Tweak t : tweaks) {
-			if(t.getAffectedClasses().contains(transformedName)) {
-				t.patch(transformedName, node);
-			}
+			t.patch(transformedName, node);
 		}
 		
 		ClassWriter writer = new WorkaroundClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);

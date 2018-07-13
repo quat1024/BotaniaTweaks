@@ -3,21 +3,21 @@ package quaternary.botaniatweaks.asm.tweaks;
 import com.google.common.collect.ImmutableList;
 import org.objectweb.asm.tree.*;
 
-import java.util.List;
+import java.util.Collection;
 
 public class SpectrolusOutputTweak extends Tweak {
 	@Override
-	public List<String> getAffectedClassesImpl() {
+	public Collection<String> computeAffectedClasses() {
 		return ImmutableList.of("vazkii.botania.common.block.subtile.generating.SubTileSpectrolus");
 	}
 	
 	@Override
-	String getName(String transformedName) {
-		return "the spectrolus's mana output";
+	String getLogMessage(String transformedName) {
+		return "Patching the spectrolus's mana output...";
 	}
 	
 	@Override
-	public void patchImpl(String transformedName, ClassNode node) {
+	public void doPatch(String transformedName, ClassNode node) {
 		for(MethodNode method : node.methods) {
 			if(method.name.equals("onUpdate")) {
 				InsnList ins = method.instructions;

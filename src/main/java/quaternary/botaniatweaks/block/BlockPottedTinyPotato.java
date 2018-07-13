@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.*;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -68,19 +69,14 @@ public class BlockPottedTinyPotato extends Block {
 		return true;
 	}
 	
-	//change: override getpickblock to the potato instead of getItem stuff
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(ModBlocks.tinyPotato);
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+		return getDefaultState().withProperty(POTATO_FACING, placer.getHorizontalFacing().getOpposite());
 	}
 	
 	//no need for canplaceblockat since there's no block
 	
-	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		drops.add(new ItemStack(Blocks.FLOWER_POT));
-		drops.add(new ItemStack(ModBlocks.tinyPotato));
-	}
+	//removed getDrops since there's an actual item for this
 	
 	//and the blockstate boiler plate
 	@Override

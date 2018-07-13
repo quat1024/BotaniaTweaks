@@ -39,6 +39,8 @@ public class BotaniaTweaksItems {
 			
 			reg.register(createItemBlock(compressionLevel == 8 ? BotaniaTweaks.PROXY.makeRainbowItem(tater) : new ItemBlock(tater)));
 		}
+		
+		reg.register(createItemBlock(new ItemBlock(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(BotaniaTweaks.MODID, "potted_tiny_potato")))));
 	}
 	
 	private static void registerOtherItems(IForgeRegistry<Item> reg) {
@@ -56,6 +58,7 @@ public class BotaniaTweaksItems {
 			}
 			
 			setModel("spork");
+			setModel("potted_tiny_potato");
 			
 			OptionalExtensions.callModels();
 		}

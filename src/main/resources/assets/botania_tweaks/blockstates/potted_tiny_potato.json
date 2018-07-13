@@ -36,6 +36,14 @@
 					}
 				}
 			}
-		}
+		},
+		"inventory": [{
+			"transform": "forge:default-block",
+			"submodel": {
+				"potato": {
+					"model": "botania_tweaks:offset_tiny_potato"
+				}
+			}
+		}]
 	}
 }

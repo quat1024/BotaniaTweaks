@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
+import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 @SideOnly(Side.CLIENT)
@@ -26,6 +27,9 @@ public class ClientEvents {
 			if(item instanceof ItemBlockSpecialFlower) {
 				String type = ItemBlockSpecialFlower.getType(stack);
 				addTooltip = BotaniaTweakerHooks.shouldFlowerDecay(type);
+				
+				if(BotaniaTweaksConfig.SUPER_SPECTROLUS && type.equals("spectrolus")) addTooltip = true;
+				if(BotaniaTweaksConfig.SUPER_ENTROPINNYUM && type.equals("entropinnyum")) addTooltip = true;
 			} else {
 				Block block = ((ItemBlock) item).getBlock();
 				if(block instanceof IBotaniaTweaked) {

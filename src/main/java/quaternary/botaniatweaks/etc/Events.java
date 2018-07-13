@@ -1,5 +1,6 @@
 package quaternary.botaniatweaks.etc;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.entity.item.EntityMinecart;
@@ -29,6 +30,7 @@ import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.block.BlockCompressedTinyPotato;
 import quaternary.botaniatweaks.block.BlockPottedTinyPotato;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.etc.advancement.AdvancementHandler;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.corporea.BlockCorporeaBase;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
@@ -120,6 +122,10 @@ public class Events {
 	public static void update(TickEvent.WorldTickEvent e) {
 		if(e.world.isRemote || e.phase == TickEvent.Phase.START) return;
 		e.world.getEntities(EntityTNTPrimed.class, (ent) -> true).forEach(Events::processTNTDupe);
+		
+		if(BotaniaTweaksConfig.MANA_GENERATION_STATISTICS && e.world.getTotalWorldTime() % 200 == 0) {
+			AdvancementHandler.handle(e.world);
+		}
 	}
 	
 	static void processTNTDupe(EntityTNTPrimed tnt) {

@@ -145,7 +145,7 @@ public class BotaniaTweakerHooks {
 	private static int oldMana = 0;
 	
 	public static void beginManaStatSection(String flowerName, SubTileGenerating flower, int oldMana_) {
-		if(flower.getWorld().isRemote) return;
+		if(!BotaniaTweaksConfig.MANA_GENERATION_STATISTICS || flower.getWorld().isRemote) return;
 		flowerName = fixThermalilyFlowerName(flowerName, flower);
 		
 		lastFlowerName = flowerName;
@@ -153,7 +153,7 @@ public class BotaniaTweakerHooks {
 	}
 	
 	public static void endManaStatSection(String flowerName, SubTileGenerating flower, int newMana) {
-		if(flower.getWorld().isRemote) return;
+		if(!BotaniaTweaksConfig.MANA_GENERATION_STATISTICS ||flower.getWorld().isRemote) return;
 		flowerName = fixThermalilyFlowerName(flowerName, flower);
 		
 		int manaDifference = newMana - oldMana;

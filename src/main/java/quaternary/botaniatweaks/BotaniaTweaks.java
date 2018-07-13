@@ -24,6 +24,7 @@ import quaternary.botaniatweaks.compat.extendedcrafting.ExtendedCraftingCompat;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.BehaviorEnderAirDispenser;
 import quaternary.botaniatweaks.etc.Util;
+import quaternary.botaniatweaks.etc.advancement.AdvancementHandler;
 import quaternary.botaniatweaks.item.BotaniaTweaksItems;
 import quaternary.botaniatweaks.lexi.LexiconHandler;
 import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
@@ -98,6 +99,8 @@ public class BotaniaTweaks {
 	public static void init(FMLInitializationEvent e) {
 		BotaniaTweaksPacketHandler.init();
 		PROXY.registerEvents();
+		
+		AdvancementHandler.init();
 		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.GLASS_BOTTLE, new BehaviorEnderAirDispenser(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.GLASS_BOTTLE)));
 	}

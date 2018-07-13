@@ -46,6 +46,14 @@ public class ManaStatisticsWsd extends WorldSavedData {
 		markDirty();
 	}
 	
+	public long getTotalFlowerMana(String flowerName) {
+		return totalFlowerManaMap.getOrDefault(flowerName, 0L);
+	}
+	
+	public long getTotalMana() {
+		return totalManaEver;
+	}
+	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		nbt.setLong("TotalManaEver", totalManaEver);

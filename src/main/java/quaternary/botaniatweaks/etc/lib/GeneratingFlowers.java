@@ -13,6 +13,8 @@ public class GeneratingFlowers {
 	public static final Set<String> flowerClasses;
 	public static final Map<String, String> flowerClassesToNames;
 	
+	public static final List<String> flowerNames = new ArrayList<>();
+	
 	static {
 		ImmutableMap.Builder<String, String> all = ImmutableMap.builder();
 		ImmutableMap.Builder<String, String> activeOnly = ImmutableMap.builder();
@@ -40,6 +42,7 @@ public class GeneratingFlowers {
 	
 	private static void putBotaniaFlower(boolean passive, String name, ImmutableMap.Builder<String, String> all, ImmutableMap.Builder<String, String> activeOnly) {
 		String flowerName = name.toLowerCase(Locale.ROOT);
+		flowerNames.add(flowerName);
 		
 		all.put("vazkii.botania.common.block.subtile.generating.SubTile" + name, flowerName);
 		
@@ -50,5 +53,9 @@ public class GeneratingFlowers {
 	
 	public static String getFlowerName(String className) {
 		return flowerClassesToNames.getOrDefault(className, "Unknown flower??");
+	}
+	
+	public static boolean flowerExists(String flowerName) {
+		return flowerNames.contains(flowerName);
 	}
 }

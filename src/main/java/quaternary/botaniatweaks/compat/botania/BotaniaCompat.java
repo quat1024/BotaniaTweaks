@@ -51,8 +51,8 @@ public class BotaniaCompat {
 		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.GLASS_BOTTLE, new BehaviorEnderAirDispenser(BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.getObject(Items.GLASS_BOTTLE)));
 		
-		BotaniaTweaksPacketHandler.NET.registerMessage(PacketCustomTerraPlate.Response.class, PacketCustomTerraPlate.class, 0, Side.CLIENT);
-		BotaniaTweaksPacketHandler.NET.registerMessage(PacketAdvancedCrateFX.Response.class, PacketAdvancedCrateFX.class, 1, Side.CLIENT);
+		BotaniaTweaksPacketHandler.registerMessage(PacketCustomTerraPlate.Response.class, PacketCustomTerraPlate.class, Side.CLIENT);
+		BotaniaTweaksPacketHandler.registerMessage(PacketAdvancedCrateFX.Response.class, PacketAdvancedCrateFX.class, Side.CLIENT);
 	}
 	
 	private static List<BlockCompressedTinyPotato> taters = new ArrayList<>(8);

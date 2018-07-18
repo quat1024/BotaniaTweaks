@@ -10,11 +10,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.block.BotaniaTweaksBlocks;
 import quaternary.botaniatweaks.compat.shared.ModCompatUtil;
-import quaternary.botaniatweaks.event.LexiconHandlerEvent;
-import quaternary.botaniatweaks.item.BotaniaTweaksItems;
-import quaternary.botaniatweaks.lexi.DoubleCompatLexiconEntry;
+import quaternary.botaniatweaks.etc.helper.ClientHelpers;
+import quaternary.botaniatweaks.etc.helper.RegHelpers;
+import quaternary.botaniatweaks.etc.event.LexiconHandlerEvent;
+import quaternary.botaniatweaks.etc.lexi.DoubleCompatLexiconEntry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -36,7 +36,7 @@ public class AvaritiaCompat {
 			IForgeRegistry<Block> reg = e.getRegistry();
 			
 			direCrate = new BlockDireCraftyCrate();
-			reg.register(BotaniaTweaksBlocks.createBlock(direCrate, "dire_crafty_crate"));
+			reg.register(RegHelpers.createBlock(direCrate, "dire_crafty_crate"));
 			
 			GameRegistry.registerTileEntity(TileDireCraftyCrate.class, BotaniaTweaks.MODID + ":dire_crafty_crate");
 		}
@@ -45,7 +45,7 @@ public class AvaritiaCompat {
 		public static void items(RegistryEvent.Register<Item> e) {
 			IForgeRegistry<Item> reg = e.getRegistry();
 			
-			reg.register(BotaniaTweaksItems.createItemBlock(new ItemBlock(direCrate)));
+			reg.register(RegHelpers.createItemBlock(new ItemBlock(direCrate)));
 		}
 		
 		@SubscribeEvent
@@ -67,7 +67,7 @@ public class AvaritiaCompat {
 	public static class ClientEvents {
 		@SubscribeEvent
 		public static void models(ModelRegistryEvent e) {
-			BotaniaTweaksItems.Client.setModel(direCrate.getRegistryName().getResourcePath());
+			ClientHelpers.setModel(direCrate.getRegistryName().getResourcePath());
 		}
 	}
 }

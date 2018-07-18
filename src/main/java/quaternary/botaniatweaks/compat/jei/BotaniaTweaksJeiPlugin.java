@@ -6,8 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import quaternary.botaniatweaks.recipe.AgglomerationRecipe;
-import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
+import quaternary.botaniatweaks.compat.botania.recipe.AgglomerationRecipe;
+import quaternary.botaniatweaks.compat.botania.recipe.AgglomerationRecipes;
 
 @JEIPlugin
 public class BotaniaTweaksJeiPlugin implements IModPlugin {

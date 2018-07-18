@@ -7,10 +7,6 @@ import net.minecraftforge.common.MinecraftForge;
 import java.util.function.Supplier;
 
 public class ServerProxy {
-	public void registerTESR() {
-		//No-op
-	}
-	
 	public boolean shouldAddLexiconPages() {
 		return false;
 	}
@@ -24,6 +20,6 @@ public class ServerProxy {
 	}
 	
 	public void registerSidedEventClasses(Supplier<Class> serverClass, Supplier<Class> clientClass) {
-		MinecraftForge.EVENT_BUS.register(serverClass.get());
+		if(serverClass != null) MinecraftForge.EVENT_BUS.register(serverClass.get());
 	}
 }

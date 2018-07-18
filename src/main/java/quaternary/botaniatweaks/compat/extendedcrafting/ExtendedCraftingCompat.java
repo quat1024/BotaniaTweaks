@@ -11,11 +11,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.block.BotaniaTweaksBlocks;
 import quaternary.botaniatweaks.compat.shared.ModCompatUtil;
-import quaternary.botaniatweaks.event.LexiconHandlerEvent;
-import quaternary.botaniatweaks.item.BotaniaTweaksItems;
-import quaternary.botaniatweaks.lexi.DoubleCompatLexiconEntry;
+import quaternary.botaniatweaks.etc.helper.ClientHelpers;
+import quaternary.botaniatweaks.etc.helper.RegHelpers;
+import quaternary.botaniatweaks.etc.event.LexiconHandlerEvent;
+import quaternary.botaniatweaks.etc.lexi.DoubleCompatLexiconEntry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
@@ -48,10 +48,10 @@ public class ExtendedCraftingCompat {
 			eliteExtCrate = new BlockExtCraftCrate(TileEliteExtCraftCrate::new);
 			ultExtCrate = new BlockExtCraftCrate(TileUltExtCraftCrate::new);
 			
-			reg.register(BotaniaTweaksBlocks.createBlock(basicExtCrate, "basic_extended_crafty_crate"));
-			reg.register(BotaniaTweaksBlocks.createBlock(advExtCrate, "advanced_extended_crafty_crate"));
-			reg.register(BotaniaTweaksBlocks.createBlock(eliteExtCrate, "elite_extended_crafty_crate"));
-			reg.register(BotaniaTweaksBlocks.createBlock(ultExtCrate, "ultimate_extended_crafty_crate"));
+			reg.register(RegHelpers.createBlock(basicExtCrate, "basic_extended_crafty_crate"));
+			reg.register(RegHelpers.createBlock(advExtCrate, "advanced_extended_crafty_crate"));
+			reg.register(RegHelpers.createBlock(eliteExtCrate, "elite_extended_crafty_crate"));
+			reg.register(RegHelpers.createBlock(ultExtCrate, "ultimate_extended_crafty_crate"));
 			
 			GameRegistry.registerTileEntity(TileBasicExtCraftCrate.class, BotaniaTweaks.MODID + ":basic_ext_crafty_crate");
 			GameRegistry.registerTileEntity(TileAdvExtCraftCrate.class, BotaniaTweaks.MODID + ":adv_ext_crafty_crate");
@@ -63,10 +63,10 @@ public class ExtendedCraftingCompat {
 		public static void items(RegistryEvent.Register<Item> e) {
 			IForgeRegistry<Item> reg = e.getRegistry();
 			
-			reg.register(BotaniaTweaksItems.createItemBlock(new ItemBlock(basicExtCrate)));
-			reg.register(BotaniaTweaksItems.createItemBlock(new ItemBlock(advExtCrate)));
-			reg.register(BotaniaTweaksItems.createItemBlock(new ItemBlock(eliteExtCrate)));
-			reg.register(BotaniaTweaksItems.createItemBlock(new ItemBlock(ultExtCrate)));
+			reg.register(RegHelpers.createItemBlock(new ItemBlock(basicExtCrate)));
+			reg.register(RegHelpers.createItemBlock(new ItemBlock(advExtCrate)));
+			reg.register(RegHelpers.createItemBlock(new ItemBlock(eliteExtCrate)));
+			reg.register(RegHelpers.createItemBlock(new ItemBlock(ultExtCrate)));
 		}
 		
 		@SubscribeEvent
@@ -99,10 +99,10 @@ public class ExtendedCraftingCompat {
 	public static class ClientEvents {
 		@SubscribeEvent
 		public static void models(ModelRegistryEvent e) {
-			BotaniaTweaksItems.Client.setModel(basicExtCrate.getRegistryName().getResourcePath());
-			BotaniaTweaksItems.Client.setModel(advExtCrate.getRegistryName().getResourcePath());
-			BotaniaTweaksItems.Client.setModel(eliteExtCrate.getRegistryName().getResourcePath());
-			BotaniaTweaksItems.Client.setModel(ultExtCrate.getRegistryName().getResourcePath());
+			ClientHelpers.setModel(basicExtCrate.getRegistryName().getResourcePath());
+			ClientHelpers.setModel(advExtCrate.getRegistryName().getResourcePath());
+			ClientHelpers.setModel(eliteExtCrate.getRegistryName().getResourcePath());
+			ClientHelpers.setModel(ultExtCrate.getRegistryName().getResourcePath());
 		}
 	}
 }

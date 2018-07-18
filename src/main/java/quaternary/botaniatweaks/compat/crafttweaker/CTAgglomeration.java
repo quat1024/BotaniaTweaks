@@ -14,8 +14,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import quaternary.botaniatweaks.recipe.AgglomerationRecipe;
-import quaternary.botaniatweaks.recipe.AgglomerationRecipes;
+import quaternary.botaniatweaks.compat.botania.recipe.AgglomerationRecipe;
+import quaternary.botaniatweaks.compat.botania.recipe.AgglomerationRecipes;
 import stanhebben.zenscript.annotations.*;
 import vazkii.botania.common.block.ModBlocks;
 

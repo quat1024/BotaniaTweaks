@@ -23,24 +23,30 @@ import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 
 import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
-public abstract class AbstractBlockCompatCrate extends Block implements IWandHUD, IWandable, ILexiconable {
-	@Override
-	public abstract LexiconEntry getEntry(World world, BlockPos blockPos, EntityPlayer entityPlayer, ItemStack itemStack);
-	
-	@Nullable
-	@Override
-	public abstract TileEntity createTileEntity(World world, IBlockState state);
-	
-	public AbstractBlockCompatCrate() {
+public class BlockCompatCrate extends Block implements IWandHUD, IWandable, ILexiconable {
+	public BlockCompatCrate(LexiconEntry entry, Supplier<AbstractTileCompatCrate> tileFactory) {
 		super(Material.WOOD);
 		setHardness(2);
 		setSoundType(SoundType.WOOD);
+		
+		this.entry = entry;
+		this.tileFactory = tileFactory;
 	}
+	
+	private final LexiconEntry entry;
+	private final Supplier<AbstractTileCompatCrate> tileFactory;
 	
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
 		return true;
+	}
+	
+	@Nullable
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
+		return tileFactory.get();
 	}
 	
 	@Override
@@ -86,5 +92,10 @@ public abstract class AbstractBlockCompatCrate extends Block implements IWandHUD
 				}
 			}
 		}
+	}
+	
+	@Override
+	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack stack) {
+		return entry;
 	}
 }

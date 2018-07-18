@@ -12,6 +12,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.modules.IModule;
+import quaternary.botaniatweaks.modules.extendedcrafting.tile.*;
+import quaternary.botaniatweaks.modules.shared.block.BlockCompatCrate;
 import quaternary.botaniatweaks.modules.shared.helper.ModCompatUtil;
 import quaternary.botaniatweaks.modules.shared.helper.ClientHelpers;
 import quaternary.botaniatweaks.modules.shared.helper.RegHelpers;
@@ -70,20 +72,20 @@ public class ModuleExtendedCrafting implements IModule {
 		public static void blocks(RegistryEvent.Register<Block> e) {
 			IForgeRegistry<Block> reg = e.getRegistry();
 			
-			basicExtCrate = new BlockExtCraftCrate(TileBasicExtCraftCrate::new);
-			advExtCrate = new BlockExtCraftCrate(TileAdvExtCraftCrate::new);
-			eliteExtCrate = new BlockExtCraftCrate(TileEliteExtCraftCrate::new);
-			ultExtCrate = new BlockExtCraftCrate(TileUltExtCraftCrate::new);
+			basicExtCrate = new BlockCompatCrate(extCrateEntry, AbstractTileExtCraftCrate.Basic::new);
+			advExtCrate = new BlockCompatCrate(extCrateEntry, AbstractTileExtCraftCrate.Advanced::new);
+			eliteExtCrate = new BlockCompatCrate(extCrateEntry, AbstractTileExtCraftCrate.Elite::new);
+			ultExtCrate = new BlockCompatCrate(extCrateEntry, AbstractTileExtCraftCrate.Ultimate::new);
 			
 			reg.register(RegHelpers.createBlock(basicExtCrate, "basic_extended_crafty_crate"));
 			reg.register(RegHelpers.createBlock(advExtCrate, "advanced_extended_crafty_crate"));
 			reg.register(RegHelpers.createBlock(eliteExtCrate, "elite_extended_crafty_crate"));
 			reg.register(RegHelpers.createBlock(ultExtCrate, "ultimate_extended_crafty_crate"));
 			
-			GameRegistry.registerTileEntity(TileBasicExtCraftCrate.class, BotaniaTweaks.MODID + ":basic_ext_crafty_crate");
-			GameRegistry.registerTileEntity(TileAdvExtCraftCrate.class, BotaniaTweaks.MODID + ":adv_ext_crafty_crate");
-			GameRegistry.registerTileEntity(TileEliteExtCraftCrate.class, BotaniaTweaks.MODID + ":elite_ext_crafty_crate");
-			GameRegistry.registerTileEntity(TileUltExtCraftCrate.class, BotaniaTweaks.MODID + ":ult_ext_crafty_crate");
+			GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Basic.class, BotaniaTweaks.MODID + ":basic_ext_crafty_crate");
+			GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Advanced.class, BotaniaTweaks.MODID + ":adv_ext_crafty_crate");
+			GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Elite.class, BotaniaTweaks.MODID + ":elite_ext_crafty_crate");
+			GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Ultimate.class, BotaniaTweaks.MODID + ":ult_ext_crafty_crate");
 		}
 		
 		@SubscribeEvent

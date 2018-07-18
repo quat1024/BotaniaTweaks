@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.modules.avaritia;
+package quaternary.botaniatweaks.modules.avaritia.tile;
 
 import morph.avaritia.recipe.AvaritiaRecipeManager;
 import morph.avaritia.recipe.extreme.IExtremeRecipe;

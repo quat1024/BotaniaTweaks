@@ -11,6 +11,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.modules.IModule;
+import quaternary.botaniatweaks.modules.avaritia.tile.TileDireCraftyCrate;
+import quaternary.botaniatweaks.modules.shared.block.BlockCompatCrate;
 import quaternary.botaniatweaks.modules.shared.helper.ModCompatUtil;
 import quaternary.botaniatweaks.modules.shared.helper.ClientHelpers;
 import quaternary.botaniatweaks.modules.shared.helper.RegHelpers;
@@ -51,7 +53,7 @@ public class ModuleAvaritia implements IModule {
 		public static void blocks(RegistryEvent.Register<Block> e) {
 			IForgeRegistry<Block> reg = e.getRegistry();
 			
-			direCrate = new BlockDireCraftyCrate();
+			direCrate = new BlockCompatCrate(direCrateEntry, TileDireCraftyCrate::new);
 			reg.register(RegHelpers.createBlock(direCrate, "dire_crafty_crate"));
 			
 			GameRegistry.registerTileEntity(TileDireCraftyCrate.class, BotaniaTweaks.MODID + ":dire_crafty_crate");

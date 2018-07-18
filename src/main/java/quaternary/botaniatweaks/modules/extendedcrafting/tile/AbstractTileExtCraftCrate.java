@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.modules.extendedcrafting;
+package quaternary.botaniatweaks.modules.extendedcrafting.tile;
 
 import com.blakebr0.extendedcrafting.crafting.table.TableRecipeManager;
 import net.minecraft.inventory.InventoryCrafting;
@@ -22,7 +22,6 @@ public abstract class AbstractTileExtCraftCrate extends AbstractTileCompatCrate<
 	@Override
 	@SuppressWarnings("unchecked") //Blake!!!!!!!!! where are your generics!!!!!11
 	protected Iterable<IRecipe> getAllRecipes() {
-		//TODO: does this handle tier-locked recipes properly
 		return TableRecipeManager.getInstance().getRecipes();
 	}
 	
@@ -34,5 +33,33 @@ public abstract class AbstractTileExtCraftCrate extends AbstractTileCompatCrate<
 	@Override
 	protected ItemStack getCraftingResult(IRecipe recipe, InventoryCrafting inv) {
 		return recipe.getCraftingResult(inv);
+	}
+	
+	public static class Basic extends AbstractTileExtCraftCrate {
+		@Override
+		int getSize() {
+			return 3;
+		}
+	}
+	
+	public static class Advanced extends AbstractTileExtCraftCrate {
+		@Override
+		int getSize() {
+			return 5;
+		}
+	}
+	
+	public static class Elite extends AbstractTileExtCraftCrate {
+		@Override
+		int getSize() {
+			return 7;
+		}
+	}
+	
+	public static class Ultimate extends AbstractTileExtCraftCrate {
+		@Override
+		int getSize() {
+			return 9;
+		}
 	}
 }

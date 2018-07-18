@@ -49,7 +49,7 @@ public class BotaniaTweaksConfig {
 	public static boolean ADVANCED_CRAFTY_CRATE_HARDMODE = false;
 	public static int ADVANCED_CRATE_MANA_PER_ITEM = 160;
 	
-	public static boolean MANA_GENERATION_STATISTICS = true;
+	public static boolean MANA_GENERATION_STATISTICS = false;
 	
 	static Configuration config;
 	
@@ -118,7 +118,7 @@ public class BotaniaTweaksConfig {
 		
 		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", true, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
 		
-		MANA_GENERATION_STATISTICS = config.getBoolean("keepManaGenerationStatistics", "etc", true, "Should Botania Tweaks keep statistics on the total amount of mana generated, across all flowers and dimensions?");
+		MANA_GENERATION_STATISTICS = config.getBoolean("keepManaGenerationStatistics", "etc", false, "Should Botania Tweaks keep statistics on the total amount of mana generated, across all flowers and dimensions?");
 		
 		//compat
 		AGRICRAFT_DOOT = config.getBoolean("dootableAgricraft", "compat", true, "Can the Horn of the Wild harvest crops from Agricraft?");

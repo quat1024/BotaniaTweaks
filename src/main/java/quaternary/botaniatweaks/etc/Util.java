@@ -9,7 +9,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
-import quaternary.botaniatweaks.compat.botania.block.BlockCompressedTinyPotato;
+import quaternary.botaniatweaks.modules.botania.block.BlockCompressedTinyPotato;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
 
 import java.lang.reflect.Field;

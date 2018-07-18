@@ -3,7 +3,7 @@ package quaternary.botaniatweaks.proxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.common.MinecraftForge;
-import quaternary.botaniatweaks.compat.botania.item.ItemBlockRainbowBarf;
+import quaternary.botaniatweaks.modules.botania.item.ItemBlockRainbowBarf;
 
 import java.util.function.Supplier;
 

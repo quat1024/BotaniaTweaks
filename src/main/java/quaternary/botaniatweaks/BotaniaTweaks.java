@@ -12,16 +12,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import quaternary.botaniatweaks.compat.botania.BotaniaCompat;
-import quaternary.botaniatweaks.compat.avaritia.AvaritiaCompat;
-import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
-import quaternary.botaniatweaks.compat.extendedcrafting.ExtendedCraftingCompat;
+import quaternary.botaniatweaks.modules.botania.BotaniaCompat;
+import quaternary.botaniatweaks.modules.avaritia.AvaritiaCompat;
+import quaternary.botaniatweaks.modules.crafttweaker.CTHandler;
+import quaternary.botaniatweaks.modules.extendedcrafting.ExtendedCraftingCompat;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.*;
 import quaternary.botaniatweaks.etc.event.LexiconHandlerEvent;
-import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.proxy.ServerProxy;
-import quaternary.botaniatweaks.compat.botania.recipe.AgglomerationRecipes;
+import quaternary.botaniatweaks.modules.botania.recipe.AgglomerationRecipes;
 
 @Mod(modid = BotaniaTweaks.MODID, name = BotaniaTweaks.NAME, version = BotaniaTweaks.VERSION, dependencies = BotaniaTweaks.DEPS, guiFactory = "quaternary.botaniatweaks.config.BotaniaTweaksGuiFactory")
 @Mod.EventBusSubscriber

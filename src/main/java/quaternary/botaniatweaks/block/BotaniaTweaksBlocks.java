@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.compat.shared.OptionalExtensions;
 import quaternary.botaniatweaks.etc.Util;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -35,8 +34,6 @@ public class BotaniaTweaksBlocks {
 		}
 		
 		reg.register(createBlock(new BlockPottedTinyPotato(), "potted_tiny_potato"));
-		
-		OptionalExtensions.callBlocks(reg);
 	}
 	
 	public static void registerOverrides() {

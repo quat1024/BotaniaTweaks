@@ -2,16 +2,17 @@ package quaternary.botaniatweaks.compat.avaritia;
 
 import morph.avaritia.Avaritia;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.block.BotaniaTweaksBlocks;
 import quaternary.botaniatweaks.compat.shared.ModCompatUtil;
-import quaternary.botaniatweaks.compat.shared.OptionalExtensions;
+import quaternary.botaniatweaks.event.LexiconHandlerEvent;
 import quaternary.botaniatweaks.item.BotaniaTweaksItems;
 import quaternary.botaniatweaks.lexi.DoubleCompatLexiconEntry;
 import vazkii.botania.api.BotaniaAPI;
@@ -23,25 +24,32 @@ import vazkii.botania.common.lexicon.page.PageText;
 public class AvaritiaCompat {
 	public static LexiconEntry direCrateEntry = null;
 	
+	public static Block direCrate;
+	
 	public static void preinit() {		
-		Block direCrate = new BlockDireCraftyCrate();
-		
-		OptionalExtensions.BLOCK_CALLBACKS.add(reg -> {
+		BotaniaTweaks.PROXY.registerSidedEventClasses(() -> CommonEvents.class, () -> ClientEvents.class);
+	}
+	
+	public static class CommonEvents {
+		@SubscribeEvent
+		public static void blocks(RegistryEvent.Register<Block> e) {
+			IForgeRegistry<Block> reg = e.getRegistry();
+			
+			direCrate = new BlockDireCraftyCrate();
 			reg.register(BotaniaTweaksBlocks.createBlock(direCrate, "dire_crafty_crate"));
 			
 			GameRegistry.registerTileEntity(TileDireCraftyCrate.class, BotaniaTweaks.MODID + ":dire_crafty_crate");
-		});
+		}
 		
-		OptionalExtensions.ITEM_CALLBACKS.add(reg -> {
+		@SubscribeEvent
+		public static void items(RegistryEvent.Register<Item> e) {
+			IForgeRegistry<Item> reg = e.getRegistry();
+			
 			reg.register(BotaniaTweaksItems.createItemBlock(new ItemBlock(direCrate)));
-		});
+		}
 		
-		OptionalExtensions.MODEL_CALLBACKS.add(() -> {
-			//Oh no it sucks
-			BotaniaTweaksItems.Client.setModel(direCrate.getRegistryName().getResourcePath());
-		});
-		
-		OptionalExtensions.LEXICON_CALLBACKS.add(() -> {
+		@SubscribeEvent
+		public static void lexicon(LexiconHandlerEvent e) {
 			ItemStack direCrateStack = ModCompatUtil.getStackFor(direCrate.getRegistryName());
 			ItemStack extremeTableStack = ModCompatUtil.getStackFor(new ResourceLocation("avaritia", "extreme_crafting_table"));
 			ItemStack craftyCrateStack = ModCompatUtil.getStackFor(new ResourceLocation("botania", "opencrate"), 1);
@@ -53,6 +61,13 @@ public class AvaritiaCompat {
 			direCrateEntry.setIcon(direCrateStack);
 			direCrateEntry.addPage(new PageText("botania_tweaks.lexicon.direCrate.0"));
 			direCrateEntry.addPage(new PageElvenRecipe("botania_tweaks.lexicon.direCrate.subtitle", direCrateRecipe));
-		});
+		}
+	}
+	
+	public static class ClientEvents {
+		@SubscribeEvent
+		public static void models(ModelRegistryEvent e) {
+			BotaniaTweaksItems.Client.setModel(direCrate.getRegistryName().getResourcePath());
+		}
 	}
 }

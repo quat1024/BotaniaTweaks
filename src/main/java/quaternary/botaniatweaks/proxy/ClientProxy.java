@@ -4,11 +4,11 @@ import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import quaternary.botaniatweaks.etc.ClientEvents;
-import quaternary.botaniatweaks.etc.Events;
 import quaternary.botaniatweaks.item.ItemBlockRainbowBarf;
 import quaternary.botaniatweaks.tile.TileCompressedTinyPotato;
 import quaternary.botaniatweaks.tile.render.RenderTileCompressedTinyPotato;
+
+import java.util.function.Supplier;
 
 public class ClientProxy extends ServerProxy {
 	@Override
@@ -27,8 +27,8 @@ public class ClientProxy extends ServerProxy {
 	}
 	
 	@Override
-	public void registerEvents() {
-		MinecraftForge.EVENT_BUS.register(ClientEvents.class);
-		MinecraftForge.EVENT_BUS.register(Events.class);
+	public void registerSidedEventClasses(Supplier<Class> serverClass, Supplier<Class> clientClass) {
+		MinecraftForge.EVENT_BUS.register(serverClass.get());
+		MinecraftForge.EVENT_BUS.register(clientClass.get());
 	}
 }

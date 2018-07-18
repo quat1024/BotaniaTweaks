@@ -11,7 +11,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.compat.shared.OptionalExtensions;
 
 public class BotaniaTweaksItems {
 	public static void registerItems(IForgeRegistry<Item> reg) {
@@ -45,8 +44,6 @@ public class BotaniaTweaksItems {
 	
 	private static void registerOtherItems(IForgeRegistry<Item> reg) {
 		reg.register(createItem(new ItemSpork(), "spork"));
-		
-		OptionalExtensions.callItems(reg);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -59,8 +56,6 @@ public class BotaniaTweaksItems {
 			
 			setModel("spork");
 			setModel("potted_tiny_potato");
-			
-			OptionalExtensions.callModels();
 		}
 		
 		public static void setModel(String name) {

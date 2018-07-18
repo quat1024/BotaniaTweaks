@@ -2,7 +2,6 @@ package quaternary.botaniatweaks.lexi;
 
 import net.minecraft.util.ResourceLocation;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.compat.shared.OptionalExtensions;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -42,8 +41,6 @@ public class LexiconHandler {
 				LexiconData.craftCrate.addPage(new PageTextCompat("botania_tweaks.lexicon.advCrateHard", "Botania Tweaks"));
 			}
 		}
-		
-		OptionalExtensions.callLexicon();
 	}
 	
 	static void setBasicOrElvenKnowledge(boolean flag, LexiconEntry toFix) {

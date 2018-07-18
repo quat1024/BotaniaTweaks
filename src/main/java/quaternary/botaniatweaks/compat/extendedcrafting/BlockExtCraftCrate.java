@@ -1,6 +1,5 @@
 package quaternary.botaniatweaks.compat.extendedcrafting;
 
-import com.blakebr0.extendedcrafting.crafting.table.ITieredRecipe;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
@@ -22,9 +23,9 @@ import quaternary.botaniatweaks.compat.avaritia.AvaritiaCompat;
 import quaternary.botaniatweaks.compat.crafttweaker.CTHandler;
 import quaternary.botaniatweaks.compat.extendedcrafting.ExtendedCraftingCompat;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.etc.BehaviorEnderAirDispenser;
-import quaternary.botaniatweaks.etc.Util;
+import quaternary.botaniatweaks.etc.*;
 import quaternary.botaniatweaks.etc.advancement.AdvancementHandler;
+import quaternary.botaniatweaks.event.LexiconHandlerEvent;
 import quaternary.botaniatweaks.item.BotaniaTweaksItems;
 import quaternary.botaniatweaks.lexi.LexiconHandler;
 import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
@@ -93,12 +94,13 @@ public class BotaniaTweaks {
 		if(Loader.isModLoaded("extendedcrafting")) {
 			ExtendedCraftingCompat.preinit();
 		}
+		
+		PROXY.registerSidedEventClasses(() -> Events.class, () -> ClientEvents.class);
 	}
 	
 	@Mod.EventHandler
 	public static void init(FMLInitializationEvent e) {
 		BotaniaTweaksPacketHandler.init();
-		PROXY.registerEvents();
 		
 		AdvancementHandler.init();
 		
@@ -110,6 +112,8 @@ public class BotaniaTweaks {
 		//Botania adds knowledge types in init but I run *before* botania
 		//Let's do this in postinit then so knowledge types are available
 		LexiconHandler.registerLexicon();
+		
+		MinecraftForge.EVENT_BUS.post(new LexiconHandlerEvent());
 	}
 	
 	@Mod.EventHandler

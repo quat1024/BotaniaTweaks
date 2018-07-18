@@ -6,16 +6,12 @@ import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.compat.shared.ModCompatUtil;
-import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
 

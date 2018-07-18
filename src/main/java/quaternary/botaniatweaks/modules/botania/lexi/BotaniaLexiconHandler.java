@@ -4,7 +4,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.etc.event.LexiconHandlerEvent;
 import quaternary.botaniatweaks.modules.shared.lexi.PageTextCompat;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -13,8 +12,7 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 
 public class BotaniaLexiconHandler {
-	@SubscribeEvent
-	public static void registerLexicon(LexiconHandlerEvent e) {
+	public static void registerLexicon() {
 		setBasicOrElvenKnowledge(BotaniaTweaksConfig.SPORK, LexiconData.corporea);
 		setBasicOrElvenKnowledge(BotaniaTweaksConfig.SPORK, LexiconData.corporeaFunnel);
 		setBasicOrElvenKnowledge(BotaniaTweaksConfig.SPORK, LexiconData.corporeaInterceptor);

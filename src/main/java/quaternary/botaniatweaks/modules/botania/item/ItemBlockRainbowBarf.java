@@ -6,7 +6,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import quaternary.botaniatweaks.etc.RainbowBarfFontRenderer;
+import quaternary.botaniatweaks.modules.shared.etc.RainbowBarfFontRenderer;
 
 import javax.annotation.Nullable;
 

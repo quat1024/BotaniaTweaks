@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.etc;
+package quaternary.botaniatweaks.modules.shared.etc;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.Minecraft;

@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 public class BlockDireCraftyCrate extends AbstractBlockCompatCrate {
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos blockPos, EntityPlayer entityPlayer, ItemStack itemStack) {
-		return AvaritiaCompat.direCrateEntry;
+		return ModuleAvaritia.direCrateEntry;
 	}
 	
 	@Nullable

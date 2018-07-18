@@ -28,7 +28,7 @@ public class CTAgglomeration {
 	
 	@ZenMethod
 	public static void removeDefaultRecipe() {
-		CTHandler.REMOVE_ACTIONS.add(new RemoveAction(AgglomerationRecipes.defaultRecipe));
+		ModuleCrafttweaker.REMOVE_ACTIONS.add(new RemoveAction(AgglomerationRecipes.defaultRecipe));
 	}
 	
 	//The easy way
@@ -46,7 +46,7 @@ public class CTAgglomeration {
 					@Optional IIngredient edgeReplace,
 					@Optional IIngredient cornerReplace
 	) {
-		CTHandler.ADD_ACTIONS.add(new AddAction(buildAgglomerationRecipe(output, inputs, manaCost, color1, color2, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
+		ModuleCrafttweaker.ADD_ACTIONS.add(new AddAction(buildAgglomerationRecipe(output, inputs, manaCost, color1, color2, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
 	}
 	
 	@ZenMethod
@@ -63,7 +63,7 @@ public class CTAgglomeration {
 					@Optional IIngredient edgeReplace,
 					@Optional IIngredient cornerReplace
 	) {
-		CTHandler.REMOVE_ACTIONS.add(new RemoveAction(buildAgglomerationRecipe(output, inputs, manaCost, color1, color2, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
+		ModuleCrafttweaker.REMOVE_ACTIONS.add(new RemoveAction(buildAgglomerationRecipe(output, inputs, manaCost, color1, color2, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
 	}
 	
 	//The way that's kinda in between the two
@@ -94,12 +94,12 @@ public class CTAgglomeration {
 	//The companion object way
 	@ZenMethod
 	public static void addRecipe(CTAgglomerationRecipe recipe) {
-		CTHandler.ADD_ACTIONS.add(new AddAction(recipe.toAgglomerationRecipe()));
+		ModuleCrafttweaker.ADD_ACTIONS.add(new AddAction(recipe.toAgglomerationRecipe()));
 	}
 	
 	@ZenMethod
 	public static void removeRecipe(CTAgglomerationRecipe recipe) {
-		CTHandler.REMOVE_ACTIONS.add(new RemoveAction(recipe.toAgglomerationRecipe()));
+		ModuleCrafttweaker.REMOVE_ACTIONS.add(new RemoveAction(recipe.toAgglomerationRecipe()));
 	}
 	
 	//Companion objects

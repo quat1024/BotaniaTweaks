@@ -23,7 +23,7 @@ public class BlockExtCraftCrate extends AbstractBlockCompatCrate {
 	
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos blockPos, EntityPlayer entityPlayer, ItemStack itemStack) {
-		return ExtendedCraftingCompat.extCrateEntry;
+		return ModuleExtendedCrafting.extCrateEntry;
 	}
 	
 	@Nullable

@@ -17,7 +17,7 @@ public class AgglomerationRecipes {
 	
 	public static AgglomerationRecipe defaultRecipe;
 	
-	public static void init() {
+	public static void onRecipeEvent() {
 		//imitate the regular agglomeration recipe
 		defaultRecipe = new AgglomerationRecipe(
 						ImmutableList.of(manaResource(MANA_DIAMOND), manaResource(MANASTEEL), manaResource(MANA_PEARL)),

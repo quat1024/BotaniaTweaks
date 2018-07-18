@@ -11,10 +11,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
+import quaternary.botaniatweaks.modules.IModule;
 import quaternary.botaniatweaks.modules.shared.helper.ModCompatUtil;
 import quaternary.botaniatweaks.modules.shared.helper.ClientHelpers;
 import quaternary.botaniatweaks.modules.shared.helper.RegHelpers;
-import quaternary.botaniatweaks.etc.event.LexiconHandlerEvent;
 import quaternary.botaniatweaks.modules.shared.lexi.DoubleCompatLexiconEntry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class ExtendedCraftingCompat {
+public class ModuleExtendedCrafting implements IModule {
 	public static LexiconEntry extCrateEntry;
 	
 	public static Block basicExtCrate;
@@ -34,8 +34,35 @@ public class ExtendedCraftingCompat {
 	public static Block eliteExtCrate;
 	public static Block ultExtCrate;
 	
-	public static void preinit() {
+	@Override
+	public void preinit() {
 		BotaniaTweaks.PROXY.registerSidedEventClasses(() -> CommonEvents.class, () -> ClientEvents.class);
+	}
+	
+	@Override
+	public void postinit() {
+		List<RecipeElvenTrade> elvenRecipes = new ArrayList<>();
+		
+		BiConsumer<Block, Block> elvenRecipeFunc = (extCrate, extTable) -> {
+			ItemStack extCrateStack = new ItemStack(Item.getItemFromBlock(extCrate));
+			ItemStack extTableStack = new ItemStack(Item.getItemFromBlock(extTable));
+			ItemStack crateStack = ModCompatUtil.getStackFor(new ResourceLocation("botania", "opencrate"), 1);
+			
+			elvenRecipes.add(new RecipeElvenTrade(new ItemStack[]{extCrateStack}, extTableStack, crateStack));
+		};
+		
+		elvenRecipeFunc.accept(basicExtCrate, ModBlocks.blockBasicTable);
+		elvenRecipeFunc.accept(advExtCrate, ModBlocks.blockAdvancedTable);
+		elvenRecipeFunc.accept(eliteExtCrate, ModBlocks.blockEliteTable);
+		elvenRecipeFunc.accept(ultExtCrate, ModBlocks.blockUltimateTable);
+		
+		extCrateEntry = new DoubleCompatLexiconEntry("botania_tweaks.lexicon.category.extCrates", BotaniaAPI.categoryDevices, BotaniaTweaks.NAME, ExtendedCrafting.NAME);
+		extCrateEntry.setKnowledgeType(BotaniaAPI.elvenKnowledge);
+		extCrateEntry.setIcon(new ItemStack(Item.getItemFromBlock(ultExtCrate)));
+		extCrateEntry.addPage(new PageText("botania_tweaks.lexicon.extCrates.0"));
+		for(int i = 0; i < elvenRecipes.size(); i++) {
+			extCrateEntry.addPage(new PageElvenRecipe("botania_tweaks.lexicon.extCrates.subtitle." + i, elvenRecipes.get(i)));
+		}
 	}
 	
 	public static class CommonEvents {
@@ -67,32 +94,6 @@ public class ExtendedCraftingCompat {
 			reg.register(RegHelpers.createItemBlock(new ItemBlock(advExtCrate)));
 			reg.register(RegHelpers.createItemBlock(new ItemBlock(eliteExtCrate)));
 			reg.register(RegHelpers.createItemBlock(new ItemBlock(ultExtCrate)));
-		}
-		
-		@SubscribeEvent
-		public static void lexicon(LexiconHandlerEvent e) {
-			List<RecipeElvenTrade> elvenRecipes = new ArrayList<>();
-			
-			BiConsumer<Block, Block> elvenRecipeFunc = (extCrate, extTable) -> {
-				ItemStack extCrateStack = new ItemStack(Item.getItemFromBlock(extCrate));
-				ItemStack extTableStack = new ItemStack(Item.getItemFromBlock(extTable));
-				ItemStack crateStack = ModCompatUtil.getStackFor(new ResourceLocation("botania", "opencrate"), 1);
-				
-				elvenRecipes.add(new RecipeElvenTrade(new ItemStack[]{extCrateStack}, extTableStack, crateStack));
-			};
-			
-			elvenRecipeFunc.accept(basicExtCrate, ModBlocks.blockBasicTable);
-			elvenRecipeFunc.accept(advExtCrate, ModBlocks.blockAdvancedTable);
-			elvenRecipeFunc.accept(eliteExtCrate, ModBlocks.blockEliteTable);
-			elvenRecipeFunc.accept(ultExtCrate, ModBlocks.blockUltimateTable);
-			
-			extCrateEntry = new DoubleCompatLexiconEntry("botania_tweaks.lexicon.category.extCrates", BotaniaAPI.categoryDevices, BotaniaTweaks.NAME, ExtendedCrafting.NAME);
-			extCrateEntry.setKnowledgeType(BotaniaAPI.elvenKnowledge);
-			extCrateEntry.setIcon(new ItemStack(Item.getItemFromBlock(ultExtCrate)));
-			extCrateEntry.addPage(new PageText("botania_tweaks.lexicon.extCrates.0"));
-			for(int i = 0; i < elvenRecipes.size(); i++) {
-				extCrateEntry.addPage(new PageElvenRecipe("botania_tweaks.lexicon.extCrates.subtitle." + i, elvenRecipes.get(i)));
-			}
 		}
 	}
 	

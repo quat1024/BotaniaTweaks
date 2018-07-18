@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.etc.lib;
+package quaternary.botaniatweaks.modules.shared.lib;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;

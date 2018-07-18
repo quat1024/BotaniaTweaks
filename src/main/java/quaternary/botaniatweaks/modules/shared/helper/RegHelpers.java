@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.etc.helper;
+package quaternary.botaniatweaks.modules.shared.helper;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

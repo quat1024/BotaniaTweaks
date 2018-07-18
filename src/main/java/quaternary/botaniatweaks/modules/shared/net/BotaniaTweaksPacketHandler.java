@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.net;
+package quaternary.botaniatweaks.modules.shared.net;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

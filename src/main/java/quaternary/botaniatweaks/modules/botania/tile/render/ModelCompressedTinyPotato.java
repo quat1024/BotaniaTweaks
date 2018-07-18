@@ -3,7 +3,7 @@ package quaternary.botaniatweaks.modules.botania.tile.render;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
-import quaternary.botaniatweaks.etc.MathUtil;
+import quaternary.botaniatweaks.modules.shared.helper.MathUtil;
 
 public class ModelCompressedTinyPotato extends ModelBase {
 	final ModelRenderer potato;

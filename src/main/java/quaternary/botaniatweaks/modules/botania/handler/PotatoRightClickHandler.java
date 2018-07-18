@@ -12,7 +12,7 @@ import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.modules.botania.block.BlockCompressedTinyPotato;
 import quaternary.botaniatweaks.modules.botania.block.BlockPottedTinyPotato;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.etc.Util;
+import quaternary.botaniatweaks.modules.shared.helper.MiscHelpers;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
 
 public class PotatoRightClickHandler {
@@ -34,7 +34,7 @@ public class PotatoRightClickHandler {
 		//Edge case: handle "me or my son" message when clicking a vanilla potato with a modded potato
 		//This isn't usually handled since ofc Botania doesn't know about the compressed potatoes
 		if(heldBlock instanceof BlockCompressedTinyPotato && clickedBlock instanceof BlockTinyPotato) {
-			Util.sendMeOrMySonChat(e.getEntityPlayer(), Util.getPotatoCompressionLevel(heldBlock), 0);
+			MiscHelpers.sendMeOrMySonChat(e.getEntityPlayer(), MiscHelpers.getPotatoCompressionLevel(heldBlock), 0);
 		}
 	}
 	

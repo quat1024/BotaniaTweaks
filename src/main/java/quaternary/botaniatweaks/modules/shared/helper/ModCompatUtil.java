@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.modules.shared;
+package quaternary.botaniatweaks.modules.shared.helper;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

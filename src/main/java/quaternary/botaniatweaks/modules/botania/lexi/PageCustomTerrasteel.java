@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
-import quaternary.botaniatweaks.etc.Util;
+import quaternary.botaniatweaks.modules.shared.helper.MiscHelpers;
 import quaternary.botaniatweaks.modules.botania.recipe.AgglomerationRecipe;
 import vazkii.botania.api.internal.IGuiLexiconEntry;
 import vazkii.botania.api.lexicon.LexiconEntry;
@@ -36,7 +36,7 @@ public class PageCustomTerrasteel extends PageRecipe {
 		}
 		
 		for(String oreKey : recipe.recipeOreKeys) {
-			inputStacks.add(Util.getAllSubtypes(OreDictionary.getOres(oreKey)));
+			inputStacks.add(MiscHelpers.getAllSubtypes(OreDictionary.getOres(oreKey)));
 		}
 	}
 	
@@ -49,9 +49,9 @@ public class PageCustomTerrasteel extends PageRecipe {
 		IBlockState multiblockEdge = recipe.multiblockEdge;
 		IBlockState multiblockCorner = recipe.multiblockCorner;
 		
-		ItemStack multiblockCenterStack = Util.stackFromState(multiblockCenter);
-		ItemStack multiblockEdgeStack = Util.stackFromState(multiblockEdge);
-		ItemStack multiblockCornerStack = Util.stackFromState(multiblockCorner);
+		ItemStack multiblockCenterStack = MiscHelpers.stackFromState(multiblockCenter);
+		ItemStack multiblockEdgeStack = MiscHelpers.stackFromState(multiblockEdge);
+		ItemStack multiblockCornerStack = MiscHelpers.stackFromState(multiblockCorner);
 		
 		//Draw multiblock
 		GlStateManager.translate(0F, 0F, -10F);

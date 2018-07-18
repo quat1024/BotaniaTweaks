@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.etc.lexi;
+package quaternary.botaniatweaks.modules.shared.lexi;
 
 import vazkii.botania.api.lexicon.IAddonEntry;
 import vazkii.botania.api.lexicon.LexiconCategory;

@@ -5,7 +5,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.etc.event.LexiconHandlerEvent;
-import quaternary.botaniatweaks.etc.lexi.PageTextCompat;
+import quaternary.botaniatweaks.modules.shared.lexi.PageTextCompat;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
 import vazkii.botania.api.lexicon.LexiconPage;

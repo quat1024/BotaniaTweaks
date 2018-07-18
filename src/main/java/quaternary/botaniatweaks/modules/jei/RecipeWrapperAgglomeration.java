@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import quaternary.botaniatweaks.etc.Util;
+import quaternary.botaniatweaks.modules.shared.helper.MiscHelpers;
 import quaternary.botaniatweaks.modules.botania.recipe.AgglomerationRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -51,9 +51,9 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 		}
 		
 		//The three multiblock pieces
-		multiblockCenterStack = Util.stackFromState(recipe.multiblockCenter);
-		multiblockEdgeStack = Util.stackFromState(recipe.multiblockEdge);
-		multiblockCornerStack = Util.stackFromState(recipe.multiblockCorner);
+		multiblockCenterStack = MiscHelpers.stackFromState(recipe.multiblockCenter);
+		multiblockEdgeStack = MiscHelpers.stackFromState(recipe.multiblockEdge);
+		multiblockCornerStack = MiscHelpers.stackFromState(recipe.multiblockCorner);
 		
 		bob.add(ImmutableList.of(multiblockCenterStack));
 		bob.add(ImmutableList.of(multiblockEdgeStack));
@@ -65,9 +65,9 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 		joe.add(recipe.getRecipeOutputCopy());
 		
 		//The multiblock replacements
-		multiblockReplaceCenterStack = Util.stackFromState(recipe.multiblockCenterReplace);
-		multiblockReplaceEdgeStack = Util.stackFromState(recipe.multiblockEdgeReplace);
-		multiblockReplaceCornerStack = Util.stackFromState(recipe.multiblockCornerReplace);
+		multiblockReplaceCenterStack = MiscHelpers.stackFromState(recipe.multiblockCenterReplace);
+		multiblockReplaceEdgeStack = MiscHelpers.stackFromState(recipe.multiblockEdgeReplace);
+		multiblockReplaceCornerStack = MiscHelpers.stackFromState(recipe.multiblockCornerReplace);
 		
 		if(multiblockReplaceCenterStack != null) {
 			joe.add(multiblockCenterStack);

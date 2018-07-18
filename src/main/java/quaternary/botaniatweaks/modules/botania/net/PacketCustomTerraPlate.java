@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
-import quaternary.botaniatweaks.etc.MathUtil;
+import quaternary.botaniatweaks.modules.shared.helper.MathUtil;
 import vazkii.botania.common.Botania;
 
 public class PacketCustomTerraPlate implements IMessage {

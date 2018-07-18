@@ -21,12 +21,12 @@ import quaternary.botaniatweaks.modules.botania.misc.*;
 import quaternary.botaniatweaks.modules.botania.handler.*;
 import quaternary.botaniatweaks.modules.botania.net.PacketAdvancedCrateFX;
 import quaternary.botaniatweaks.modules.botania.net.PacketCustomTerraPlate;
-import quaternary.botaniatweaks.etc.helper.ClientHelpers;
-import quaternary.botaniatweaks.etc.helper.RegHelpers;
+import quaternary.botaniatweaks.modules.shared.helper.ClientHelpers;
+import quaternary.botaniatweaks.modules.shared.helper.RegHelpers;
 import quaternary.botaniatweaks.modules.botania.lexi.BotaniaLexiconHandler;
 import quaternary.botaniatweaks.modules.botania.tile.*;
 import quaternary.botaniatweaks.modules.botania.tile.render.RenderTileCompressedTinyPotato;
-import quaternary.botaniatweaks.net.*;
+import quaternary.botaniatweaks.modules.shared.net.*;
 
 import java.util.ArrayList;
 import java.util.List;

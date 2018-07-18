@@ -5,7 +5,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.etc.Util;
+import quaternary.botaniatweaks.modules.shared.helper.MiscHelpers;
 import vazkii.botania.common.block.ModBlocks;
 
 import java.lang.reflect.Field;
@@ -28,7 +28,7 @@ public class BotaniaRegistryReplacements {
 		//so we do a little hackery to prevent that printing 1 million override warnings.
 		Loader loader = Loader.instance();
 		ModContainer myContainer = loader.activeModContainer();
-		ModContainer botaniaContainer = Util.getBotaniaModContainer();
+		ModContainer botaniaContainer = MiscHelpers.getBotaniaModContainer();
 		
 		loader.setActiveModContainer(botaniaContainer);
 		ModBlocks.cacophonium.getDefaultState(); //Do whatever, as long as it loads the class it's ok.
@@ -41,7 +41,7 @@ public class BotaniaRegistryReplacements {
 				Block patchedBlock = entry.getValue();
 				
 				Field f = ReflectionHelper.findField(ModBlocks.class, fieldName);
-				Util.makeNonFinal(f);
+				MiscHelpers.makeNonFinal(f);
 				f.set(null, patchedBlock);
 			} catch (Exception e) {
 				throw new RuntimeException("There was a problem patching a Botania ModBlocks field", e);

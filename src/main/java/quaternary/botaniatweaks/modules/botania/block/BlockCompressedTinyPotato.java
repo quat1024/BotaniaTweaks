@@ -17,7 +17,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import quaternary.botaniatweaks.etc.MathUtil;
+import quaternary.botaniatweaks.modules.shared.helper.MathUtil;
 import quaternary.botaniatweaks.modules.botania.tile.TileCompressedTinyPotato;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.api.lexicon.LexiconEntry;

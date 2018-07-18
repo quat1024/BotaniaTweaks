@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.etc.MathUtil;
+import quaternary.botaniatweaks.modules.shared.helper.MathUtil;
 import vazkii.botania.common.block.ModBlocks;
 
 //Much of this class is retyped from BlockFlowerPot.class

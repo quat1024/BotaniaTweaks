@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.etc.lexi;
+package quaternary.botaniatweaks.modules.shared.lexi;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;

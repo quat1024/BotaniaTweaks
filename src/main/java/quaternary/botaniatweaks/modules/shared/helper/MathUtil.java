@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.etc;
+package quaternary.botaniatweaks.modules.shared.helper;
 
 import net.minecraft.util.math.MathHelper;
 

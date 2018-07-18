@@ -17,8 +17,8 @@ import quaternary.botaniatweaks.modules.avaritia.AvaritiaCompat;
 import quaternary.botaniatweaks.modules.crafttweaker.CTHandler;
 import quaternary.botaniatweaks.modules.extendedcrafting.ExtendedCraftingCompat;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.etc.*;
 import quaternary.botaniatweaks.etc.event.LexiconHandlerEvent;
+import quaternary.botaniatweaks.modules.shared.helper.MiscHelpers;
 import quaternary.botaniatweaks.proxy.ServerProxy;
 import quaternary.botaniatweaks.modules.botania.recipe.AgglomerationRecipes;
 
@@ -50,7 +50,7 @@ public class BotaniaTweaks {
 	@Mod.EventHandler
 	public static void preinit(FMLPreInitializationEvent e) {
 		//Warn if the Botania version is wrong because btweaks is so fkin fragile lmao
-		ModContainer botania = Util.getBotaniaModContainer();
+		ModContainer botania = MiscHelpers.getBotaniaModContainer();
 		
 		try {
 			String minorVersionString = botania.getDisplayVersion().split("-")[1];

@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.etc;
+package quaternary.botaniatweaks.modules.shared.helper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -17,7 +17,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Util {
+public class MiscHelpers {
 	private static ModContainer botaniaModContainer = null;
 	
 	public static ModContainer getBotaniaModContainer() {

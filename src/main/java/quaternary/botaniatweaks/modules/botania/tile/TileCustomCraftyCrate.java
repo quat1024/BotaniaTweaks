@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
+import quaternary.botaniatweaks.modules.shared.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.modules.botania.net.PacketAdvancedCrateFX;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.TileCraftCrate;

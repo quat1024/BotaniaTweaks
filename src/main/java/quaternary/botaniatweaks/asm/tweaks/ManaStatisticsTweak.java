@@ -1,10 +1,9 @@
 package quaternary.botaniatweaks.asm.tweaks;
 
 import org.objectweb.asm.tree.*;
-import quaternary.botaniatweaks.etc.lib.GeneratingFlowers;
+import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 
 import java.util.Collection;
-import java.util.ListIterator;
 
 public class ManaStatisticsTweak extends Tweak {
 	@Override

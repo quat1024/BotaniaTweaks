@@ -22,7 +22,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraftforge.items.ItemHandlerHelper;
 import quaternary.botaniatweaks.modules.botania.block.BlockCompressedTinyPotato;
-import quaternary.botaniatweaks.etc.Util;
+import quaternary.botaniatweaks.modules.shared.helper.MiscHelpers;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
@@ -76,9 +76,9 @@ public class TileCompressedTinyPotato extends TileSimpleInventory implements ITi
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
 				if(stackAt.isEmpty()) continue;
 				Block blockAt = Block.getBlockFromItem(stackAt.getItem());
-				int compressionAt = Util.getPotatoCompressionLevel(blockAt);
+				int compressionAt = MiscHelpers.getPotatoCompressionLevel(blockAt);
 				if(compressionAt != -1) {
-					Util.sendMeOrMySonChat(player, compressionAt, this.compressionLevel);
+					MiscHelpers.sendMeOrMySonChat(player, compressionAt, this.compressionLevel);
 				}
 			}
 			

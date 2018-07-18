@@ -2,7 +2,7 @@ package quaternary.botaniatweaks.asm.tweaks;
 
 import com.google.common.collect.ImmutableList;
 import org.objectweb.asm.tree.*;
-import quaternary.botaniatweaks.etc.lib.GeneratingFlowers;
+import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 
 import java.util.Collection;
 

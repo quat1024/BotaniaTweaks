@@ -11,7 +11,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import quaternary.botaniatweaks.net.BotaniaTweaksPacketHandler;
+import quaternary.botaniatweaks.modules.shared.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.modules.botania.net.PacketCustomTerraPlate;
 import quaternary.botaniatweaks.modules.botania.recipe.AgglomerationRecipe;
 import quaternary.botaniatweaks.modules.botania.recipe.AgglomerationRecipes;

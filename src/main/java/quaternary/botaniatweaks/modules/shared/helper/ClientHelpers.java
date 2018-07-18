@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.etc.helper;
+package quaternary.botaniatweaks.modules.shared.helper;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;

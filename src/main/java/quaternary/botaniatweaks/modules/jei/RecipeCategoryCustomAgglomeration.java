@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.modules.shared.ModCompatUtil;
+import quaternary.botaniatweaks.modules.shared.helper.ModCompatUtil;
 
 import java.util.List;
 

@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
-import quaternary.botaniatweaks.etc.lib.GeneratingFlowers;
+import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 
 import java.io.File;
 import java.util.*;

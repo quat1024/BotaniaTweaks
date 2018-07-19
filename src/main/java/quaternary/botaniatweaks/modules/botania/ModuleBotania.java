@@ -22,6 +22,7 @@ import quaternary.botaniatweaks.modules.IModule;
 import quaternary.botaniatweaks.modules.botania.advancement.ManagenStatisticsAdvancementHandler;
 import quaternary.botaniatweaks.modules.botania.block.*;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
+import quaternary.botaniatweaks.modules.botania.item.ItemMemeSpork;
 import quaternary.botaniatweaks.modules.botania.item.ItemSpork;
 import quaternary.botaniatweaks.modules.botania.misc.*;
 import quaternary.botaniatweaks.modules.botania.handler.*;
@@ -132,6 +133,7 @@ public class ModuleBotania implements IModule {
 			reg.register(RegHelpers.createItemBlock(new ItemBlock(pottedTater)));
 			
 			reg.register(RegHelpers.createItem(new ItemSpork(), "spork"));
+			reg.register(RegHelpers.createItem(new ItemMemeSpork(), "meme_spork"));
 		}
 		
 		@SubscribeEvent
@@ -152,6 +154,7 @@ public class ModuleBotania implements IModule {
 			}
 			
 			ClientHelpers.setModel("spork");
+			ClientHelpers.setModel("meme_spork");
 			ClientHelpers.setModel("potted_tiny_potato");
 			
 			ClientRegistry.bindTileEntitySpecialRenderer(TileCompressedTinyPotato.class, new RenderTileCompressedTinyPotato());

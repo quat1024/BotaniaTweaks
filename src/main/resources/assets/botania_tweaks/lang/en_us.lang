@@ -7,6 +7,9 @@ botania_tweaks.jei.agglomeration.category=Terrestrial Agglomeration
 item.botania_tweaks.spork.name=Spork
 botania_tweaks.spork.tooltip=*holds up spork*
 
+item.botania_tweaks.meme_spork.name=Galactic Spork
+botania_tweaks.meme_spork.tooltip=The most useless item ever made. It's not my fault.
+
 tile.botania_tweaks.dire_crafty_crate.name=Dire Crafty Crate
 botania.entry.botania_tweaks.lexicon.category.direCrate=Dire Crafty Crate
 botania.tagline.botania_tweaks.lexicon.category.direCrate=A Crafty Crate for Avaritia Extreme Crafting

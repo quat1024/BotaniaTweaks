@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "botania_tweaks:meme_spork"
+	},
+	"pattern": [
+		"ppp",
+		"psp",
+		"ppp"
+	],
+	"key": {
+		"p": {
+			"item": "botania_tweaks:compressed_tiny_potato_8"
+		},
+		"s": {
+			"item": "botania_tweaks:spork"
+		}
+	}
+}

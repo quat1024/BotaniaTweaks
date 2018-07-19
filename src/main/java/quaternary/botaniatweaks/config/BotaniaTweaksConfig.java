@@ -51,6 +51,8 @@ public class BotaniaTweaksConfig {
 	
 	public static boolean MANA_GENERATION_STATISTICS = false;
 	
+	public static int CREATIVE_POOL_SIZE = 1_000_000;
+	
 	static Configuration config;
 	
 	public static void initConfig() {
@@ -119,6 +121,8 @@ public class BotaniaTweaksConfig {
 		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", true, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
 		
 		MANA_GENERATION_STATISTICS = config.getBoolean("keepManaGenerationStatistics", "etc", false, "Should Botania Tweaks keep statistics on the total amount of mana generated, across all flowers and dimensions?");
+		
+		CREATIVE_POOL_SIZE = (int) (1_000_000 * config.getFloat("guiltyPoolManaMultiplier", "etc", 1, 0, 1.06f, "This number acts as a multiplier for how much mana is in the Guilty Mana Pool. Setting higher than 1 allows for creating \"creative pool only\" mana infusion recipes, by adding recipes using more than an ordinary pool can hold."));
 		
 		//compat
 		AGRICRAFT_DOOT = config.getBoolean("dootableAgricraft", "compat", true, "Can the Horn of the Wild harvest crops from Agricraft?");

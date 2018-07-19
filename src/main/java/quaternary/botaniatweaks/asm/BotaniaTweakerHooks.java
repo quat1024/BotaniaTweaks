@@ -184,4 +184,10 @@ public class BotaniaTweakerHooks {
 			else return "hydroangeas";
 		} else return flowerName;
 	}
+	
+	//Creative pool size tweak
+	
+	public static int getCreativePoolSize() {
+		return BotaniaTweaksConfig.CREATIVE_POOL_SIZE;
+	}
 }

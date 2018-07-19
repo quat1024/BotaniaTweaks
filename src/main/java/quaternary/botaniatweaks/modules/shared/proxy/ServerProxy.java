@@ -1,26 +1,25 @@
-package quaternary.botaniatweaks.proxy;
+package quaternary.botaniatweaks.modules.shared.proxy;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.common.MinecraftForge;
-import quaternary.botaniatweaks.modules.botania.item.ItemBlockRainbowBarf;
 
 import java.util.function.Supplier;
 
-public class ClientProxy extends ServerProxy {
-	@Override
+public class ServerProxy {
 	public boolean shouldAddLexiconPages() {
-		return true;
+		return false;
 	}
 	
-	@Override
+	//I know this is stupid.
+	//But there's a SideOnly bug(...?) where the FontRenderer
+	//information is not fully stripped from ItemBlockRainbowBarf.
+	//So it crashes on servers.
 	public ItemBlock makeRainbowItem(Block b) {
-		return new ItemBlockRainbowBarf(b);
+		return new ItemBlock(b);
 	}
 	
-	@Override
 	public void registerSidedEventClasses(Supplier<Class> serverClass, Supplier<Class> clientClass) {
 		if(serverClass != null) MinecraftForge.EVENT_BUS.register(serverClass.get());
-		if(clientClass != null) MinecraftForge.EVENT_BUS.register(clientClass.get());
 	}
 }

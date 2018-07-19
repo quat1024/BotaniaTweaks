@@ -13,14 +13,13 @@ import quaternary.botaniatweaks.modules.botania.ModuleBotania;
 import quaternary.botaniatweaks.modules.avaritia.ModuleAvaritia;
 import quaternary.botaniatweaks.modules.crafttweaker.ModuleCrafttweaker;
 import quaternary.botaniatweaks.modules.extendedcrafting.ModuleExtendedCrafting;
-import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
-import quaternary.botaniatweaks.proxy.ServerProxy;
+import quaternary.botaniatweaks.modules.shared.proxy.ServerProxy;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod(modid = BotaniaTweaks.MODID, name = BotaniaTweaks.NAME, version = BotaniaTweaks.VERSION, dependencies = BotaniaTweaks.DEPS, guiFactory = "quaternary.botaniatweaks.config.BotaniaTweaksGuiFactory")
+@Mod(modid = BotaniaTweaks.MODID, name = BotaniaTweaks.NAME, version = BotaniaTweaks.VERSION, dependencies = BotaniaTweaks.DEPS, guiFactory = "quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksGuiFactory")
 public class BotaniaTweaks {
 	public static final String MODID = "botania_tweaks";
 	public static final String NAME = "Botania Tweaks";
@@ -31,7 +30,7 @@ public class BotaniaTweaks {
 	
 	public static final Logger LOG = LogManager.getLogger(NAME);
 	
-	@SidedProxy(clientSide = "quaternary.botaniatweaks.proxy.ClientProxy", serverSide = "quaternary.botaniatweaks.proxy.ServerProxy")
+	@SidedProxy(clientSide = "quaternary.botaniatweaks.modules.shared.proxy.ClientProxy", serverSide = "quaternary.botaniatweaks.modules.shared.proxy.ServerProxy")
 	public static ServerProxy PROXY;
 	
 	@GameRegistry.ItemStackHolder(MODID + ":compressed_tiny_potato_8")

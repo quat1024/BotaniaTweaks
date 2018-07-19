@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.config;
+package quaternary.botaniatweaks.modules.shared.config;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;

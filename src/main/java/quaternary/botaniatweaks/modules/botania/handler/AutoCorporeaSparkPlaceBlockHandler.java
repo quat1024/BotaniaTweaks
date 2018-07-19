@@ -13,7 +13,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.IItemHandler;
-import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.corporea.BlockCorporeaBase;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
@@ -26,7 +26,7 @@ public class AutoCorporeaSparkPlaceBlockHandler {
 	@SubscribeEvent
 	public static void handlePlace(BlockEvent.PlaceEvent e) {
 		if(e.getWorld().isRemote) return;
-		if(!BotaniaTweaksConfig.AUTO_CORPOREA_SPARK) return;
+		if(!BotaniaConfig.AUTO_CORPOREA_SPARK) return;
 		if(e.getPlayer().isSneaking()) return;
 		
 		Block placedBlock = e.getPlacedBlock().getBlock();

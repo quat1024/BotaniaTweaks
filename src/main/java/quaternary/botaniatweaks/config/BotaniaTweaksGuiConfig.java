@@ -6,6 +6,8 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
 import quaternary.botaniatweaks.BotaniaTweaks;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
+import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
 
 import java.util.List;
 import java.util.stream.Collectors;

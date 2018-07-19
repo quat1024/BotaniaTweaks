@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
-import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.botania.misc.IBotaniaTweaked;
 import quaternary.botaniatweaks.modules.botania.tile.TileCustomCraftyCrate;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -33,7 +33,7 @@ public class BlockCustomOpenCrate extends BlockOpenCrate implements IBotaniaTwea
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
-		if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE) {
+		if(BotaniaConfig.ADVANCED_CRAFTY_CRATE) {
 			TileEntity tile = world.getTileEntity(pos);
 			
 			if(tile instanceof TileCustomCraftyCrate) {

@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.shared.net.BotaniaTweaksPacketHandler;
 import quaternary.botaniatweaks.modules.botania.net.PacketAdvancedCrateFX;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -35,7 +35,7 @@ public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiv
 	
 	@Override
 	public boolean canRecieveManaFromBursts() {
-		return !isFull() && BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE;
+		return !isFull() && BotaniaConfig.ADVANCED_CRAFTY_CRATE;
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiv
 	}
 	
 	public int getManaPerItem() {
-		return BotaniaTweaksConfig.ADVANCED_CRATE_MANA_PER_ITEM;
+		return BotaniaConfig.ADVANCED_CRATE_MANA_PER_ITEM;
 	}
 	
 	public int getItemCount() {
@@ -116,14 +116,14 @@ public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiv
 			craft.setInventorySlotContents(i, stack.copy());
 		}
 		
-		if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE && !BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE_HARDMODE && recipeItems * getManaPerItem() > mana) {
+		if(BotaniaConfig.ADVANCED_CRAFTY_CRATE && !BotaniaConfig.ADVANCED_CRAFTY_CRATE_HARDMODE && recipeItems * getManaPerItem() > mana) {
 			return false;
 		}
 		
 		for(IRecipe recipe : ForgeRegistries.RECIPES)
 			if(recipe.matches(craft, world)) {
 				//Cont. tweak: test mana
-				if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE && BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE_HARDMODE && recipeItems * getManaPerItem() > mana) {
+				if(BotaniaConfig.ADVANCED_CRAFTY_CRATE && BotaniaConfig.ADVANCED_CRAFTY_CRATE_HARDMODE && recipeItems * getManaPerItem() > mana) {
 					//April fools, you don't have enough mana to craft it, time to dump it on the ground
 					doEjectAll();
 					return false;
@@ -148,7 +148,7 @@ public class TileCustomCraftyCrate extends TileCraftCrate implements IManaReceiv
 	//Override-but-it's-private private method "ejectAll()V"
 	protected void doEjectAll() {
 		//Tweak: use mana
-		if(BotaniaTweaksConfig.ADVANCED_CRAFTY_CRATE) {			
+		if(BotaniaConfig.ADVANCED_CRAFTY_CRATE) {			
 			if(world instanceof WorldServer) {
 				BotaniaTweaksPacketHandler.sendToAllAround(new PacketAdvancedCrateFX(pos), world, pos);
 			}

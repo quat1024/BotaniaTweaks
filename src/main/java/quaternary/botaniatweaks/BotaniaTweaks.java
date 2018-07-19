@@ -2,22 +2,20 @@ package quaternary.botaniatweaks;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.modules.IModule;
+import quaternary.botaniatweaks.modules.agricraft.ModuleAgricraft;
 import quaternary.botaniatweaks.modules.botania.ModuleBotania;
 import quaternary.botaniatweaks.modules.avaritia.ModuleAvaritia;
 import quaternary.botaniatweaks.modules.crafttweaker.ModuleCrafttweaker;
 import quaternary.botaniatweaks.modules.extendedcrafting.ModuleExtendedCrafting;
-import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
+import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.proxy.ServerProxy;
-import quaternary.botaniatweaks.modules.botania.recipe.AgglomerationRecipes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,12 +49,12 @@ public class BotaniaTweaks {
 	@Mod.EventHandler
 	public static void preinit(FMLPreInitializationEvent e) {
 		modules.add(new ModuleBotania());
+		if(Loader.isModLoaded("agricraft")) modules.add(new ModuleAgricraft());
 		if(Loader.isModLoaded("avaritia")) modules.add(new ModuleAvaritia());
-		if(Loader.isModLoaded("extendedcrafting")) modules.add(new ModuleExtendedCrafting());
 		if(Loader.isModLoaded("crafttweaker")) modules.add(new ModuleCrafttweaker());
+		if(Loader.isModLoaded("extendedcrafting")) modules.add(new ModuleExtendedCrafting());
 		
 		BotaniaTweaksConfig.initConfig();
-		
 		modules.forEach(IModule::preinit);
 	}
 	

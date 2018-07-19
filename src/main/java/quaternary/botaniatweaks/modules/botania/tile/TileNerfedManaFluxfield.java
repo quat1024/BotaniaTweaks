@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.energy.IEnergyStorage;
-import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import vazkii.botania.api.mana.IManaReceiver;
 
 import javax.annotation.Nullable;
@@ -82,14 +82,14 @@ public class TileNerfedManaFluxfield extends TileEntity implements IManaReceiver
 	
 	@Override
 	public void update() {
-		int manaThreshold = BotaniaTweaksConfig.MANA_SHOTS_PER_ENERGY_BURST * 160;
+		int manaThreshold = BotaniaConfig.MANA_SHOTS_PER_ENERGY_BURST * 160;
 		
-		energyBufferSize = BotaniaTweaksConfig.FE_PER_ENERGY_BURST * 10;
+		energyBufferSize = BotaniaConfig.FE_PER_ENERGY_BURST * 10;
 		
 		while(manaBuffer >= manaThreshold) {
-			int leftover = handler.sneakyReceiveEnergy(BotaniaTweaksConfig.FE_PER_ENERGY_BURST, true);
+			int leftover = handler.sneakyReceiveEnergy(BotaniaConfig.FE_PER_ENERGY_BURST, true);
 			if(leftover == 0) {
-				handler.sneakyReceiveEnergy(BotaniaTweaksConfig.FE_PER_ENERGY_BURST, false);
+				handler.sneakyReceiveEnergy(BotaniaConfig.FE_PER_ENERGY_BURST, false);
 				manaBuffer -= manaThreshold;
 			} else {
 				break;

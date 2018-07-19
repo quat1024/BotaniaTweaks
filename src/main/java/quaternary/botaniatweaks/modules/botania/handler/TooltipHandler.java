@@ -8,7 +8,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
 import quaternary.botaniatweaks.modules.botania.misc.IBotaniaTweaked;
-import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 public class TooltipHandler {
@@ -26,8 +26,8 @@ public class TooltipHandler {
 				String type = ItemBlockSpecialFlower.getType(stack);
 				addTooltip = BotaniaTweakerHooks.shouldFlowerDecay(type);
 				
-				if(BotaniaTweaksConfig.SUPER_SPECTROLUS && type.equals("spectrolus")) addTooltip = true;
-				if(BotaniaTweaksConfig.SUPER_ENTROPINNYUM && type.equals("entropinnyum")) addTooltip = true;
+				if(BotaniaConfig.SUPER_SPECTROLUS && type.equals("spectrolus")) addTooltip = true;
+				if(BotaniaConfig.SUPER_ENTROPINNYUM && type.equals("entropinnyum")) addTooltip = true;
 			} else {
 				Block block = ((ItemBlock) item).getBlock();
 				if(block instanceof IBotaniaTweaked) {

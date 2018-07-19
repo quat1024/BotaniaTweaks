@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class TNTDuplicatorDetectionWorldTickHander {
 			}
 		}
 		
-		if(score >= BotaniaTweaksConfig.TNT_DUPE_HEURISTIC) tnt.getTags().add("CheatyDupe");
+		if(score >= BotaniaConfig.TNT_DUPE_HEURISTIC) tnt.getTags().add("CheatyDupe");
 	}
 	
 	static Block getBlockOrMovingBlock(World world, BlockPos pos) {

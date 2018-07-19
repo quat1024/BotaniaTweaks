@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.modules.botania.block.BlockCompressedTinyPotato;
 import quaternary.botaniatweaks.modules.botania.block.BlockPottedTinyPotato;
-import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.shared.helper.MiscHelpers;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
 
@@ -27,7 +27,7 @@ public class PotatoRightClickHandler {
 		ItemStack held = e.getEntityPlayer().getHeldItem(e.getHand());
 		Block heldBlock = Block.getBlockFromItem(held.getItem());
 		
-		if(BotaniaTweaksConfig.POTTED_TINY_POTATO && heldBlock instanceof BlockTinyPotato && clickedBlock instanceof BlockFlowerPot) {
+		if(BotaniaConfig.POTTED_TINY_POTATO && heldBlock instanceof BlockTinyPotato && clickedBlock instanceof BlockFlowerPot) {
 			handlePottedPotato(held, e);
 		}
 		

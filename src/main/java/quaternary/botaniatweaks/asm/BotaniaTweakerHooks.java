@@ -12,7 +12,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import quaternary.botaniatweaks.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.botania.misc.CatchallFlowerComponent;
 import quaternary.botaniatweaks.modules.botania.wsd.ManaStatisticsWsd;
 import vazkii.botania.api.recipe.IFlowerComponent;
@@ -29,40 +29,40 @@ public class BotaniaTweakerHooks {
 	/// decay tweak
 	
 	public static int getPassiveDecayTime() {
-		return BotaniaTweaksConfig.PASSIVE_DECAY_TIMER;
+		return BotaniaConfig.PASSIVE_DECAY_TIMER;
 	}
 	
 	public static boolean shouldFlowerDecay(String name) {
-		return BotaniaTweaksConfig.SHOULD_ALSO_BE_PASSIVE_MAP.getOrDefault(name, false);
+		return BotaniaConfig.SHOULD_ALSO_BE_PASSIVE_MAP.getOrDefault(name, false);
 	}
 	
 	/// manastorm tweak
 	
 	public static int getManastormBurstMana() {
-		return MathHelper.floor(120 * BotaniaTweaksConfig.MANASTORM_SCALE_FACTOR);
+		return MathHelper.floor(120 * BotaniaConfig.MANASTORM_SCALE_FACTOR);
 	}
 	
 	public static int getManastormBurstStartingMana() {
-		return MathHelper.floor(340 * BotaniaTweaksConfig.MANASTORM_SCALE_FACTOR);
+		return MathHelper.floor(340 * BotaniaConfig.MANASTORM_SCALE_FACTOR);
 	}
 	
 	//Is this loss
 	public static float getManastormBurstLossjpgPerTick() {
-		return BotaniaTweaksConfig.MANASTORM_SCALE_FACTOR;
+		return BotaniaConfig.MANASTORM_SCALE_FACTOR;
 	}
 	
 	/// entro tweak
 	
 	public static int getEntropinnyumMaxMana() {
 		//6500 is the default (check subtileentropinnyum)
-		return 6500 * (BotaniaTweaksConfig.SUPER_ENTROPINNYUM ? 8 : 1);
+		return 6500 * (BotaniaConfig.SUPER_ENTROPINNYUM ? 8 : 1);
 	}
 	
 	/// spectro tweak
 	
 	public static int getSpectrolusManaPerWool() {
 		//300 is the default (check subtilespectrolus)
-		return 300 * (BotaniaTweaksConfig.SUPER_SPECTROLUS ? 10 : 1);
+		return 300 * (BotaniaConfig.SUPER_SPECTROLUS ? 10 : 1);
 	}
 	
 	/// apothecary tweak
@@ -75,7 +75,7 @@ public class BotaniaTweakerHooks {
 	
 	public static IFlowerComponent getFlowerComponent(IFlowerComponent comp, ItemStack stack) {
 		//If the tweak is disabled, or if Botania has already chosen a good flower component, just don't change anything
-		if(!BotaniaTweaksConfig.EVERYTHING_APOTHECARY || comp != null) return comp;
+		if(!BotaniaConfig.EVERYTHING_APOTHECARY || comp != null) return comp;
 		
 		//If it's a seed, don't allow it in, since yknow it has to complete the craft
 		if(SEED_PATTERN.matcher(stack.getUnlocalizedName()).find()) return null;
@@ -100,14 +100,14 @@ public class BotaniaTweakerHooks {
 		Iterator<EntityTNTPrimed> it = inList.iterator();
 		while(it.hasNext()) {
 			EntityTNTPrimed tnt = it.next();
-			if(!BotaniaTweaksConfig.ALLOW_DUPLICATED_TNT && tnt.getTags().contains("CheatyDupe")) {
+			if(!BotaniaConfig.ALLOW_DUPLICATED_TNT && tnt.getTags().contains("CheatyDupe")) {
 				if(tnt.getFuse() == 1) doTNTSilliness(tnt);
 				
 				it.remove();
 				continue;
 			}
 			
-			if(BotaniaTweaksConfig.FORCE_VANILLA_TNT && !tnt.getClass().equals(EntityTNTPrimed.class)) {
+			if(BotaniaConfig.FORCE_VANILLA_TNT && !tnt.getClass().equals(EntityTNTPrimed.class)) {
 				it.remove();
 			}
 		}
@@ -145,7 +145,7 @@ public class BotaniaTweakerHooks {
 	private static int oldMana = 0;
 	
 	public static void beginManaStatSection(String flowerName, SubTileGenerating flower, int oldMana_) {
-		if(!BotaniaTweaksConfig.MANA_GENERATION_STATISTICS || flower.getWorld().isRemote) return;
+		if(!BotaniaConfig.MANA_GENERATION_STATISTICS || flower.getWorld().isRemote) return;
 		flowerName = fixThermalilyFlowerName(flowerName, flower);
 		
 		lastFlowerName = flowerName;
@@ -153,7 +153,7 @@ public class BotaniaTweakerHooks {
 	}
 	
 	public static void endManaStatSection(String flowerName, SubTileGenerating flower, int newMana) {
-		if(!BotaniaTweaksConfig.MANA_GENERATION_STATISTICS ||flower.getWorld().isRemote) return;
+		if(!BotaniaConfig.MANA_GENERATION_STATISTICS ||flower.getWorld().isRemote) return;
 		flowerName = fixThermalilyFlowerName(flowerName, flower);
 		
 		int manaDifference = newMana - oldMana;

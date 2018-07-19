@@ -9,6 +9,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.ModContainer;
@@ -20,6 +21,7 @@ import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.modules.IModule;
 import quaternary.botaniatweaks.modules.botania.advancement.ManagenStatisticsAdvancementHandler;
 import quaternary.botaniatweaks.modules.botania.block.*;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.botania.item.ItemSpork;
 import quaternary.botaniatweaks.modules.botania.misc.*;
 import quaternary.botaniatweaks.modules.botania.handler.*;
@@ -87,6 +89,11 @@ public class ModuleBotania implements IModule {
 	@Override
 	public void postinit() {
 		BotaniaLexiconHandler.registerLexicon();
+	}
+	
+	@Override
+	public void readConfig(Configuration config) {
+		BotaniaConfig.readConfig(config);
 	}
 	
 	private static List<BlockCompressedTinyPotato> taters = new ArrayList<>(8);

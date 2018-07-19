@@ -1,4 +1,4 @@
-package quaternary.botaniatweaks.config;
+package quaternary.botaniatweaks.modules.botania.config;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -7,14 +7,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
+import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 
 import java.io.File;
 import java.util.*;
 import java.util.function.Function;
 
-@Mod.EventBusSubscriber(modid = BotaniaTweaks.MODID)
-public class BotaniaTweaksConfig {
+public class BotaniaConfig {
 	public static int MANA_SHOTS_PER_ENERGY_BURST = 1;
 	public static int FE_PER_ENERGY_BURST = 30;
 	
@@ -43,24 +43,13 @@ public class BotaniaTweaksConfig {
 	
 	public static boolean SPORK = true;
 	
-	public static boolean AGRICRAFT_DOOT = true;
-	
 	public static boolean ADVANCED_CRAFTY_CRATE = false;
 	public static boolean ADVANCED_CRAFTY_CRATE_HARDMODE = false;
 	public static int ADVANCED_CRATE_MANA_PER_ITEM = 160;
 	
 	public static boolean MANA_GENERATION_STATISTICS = false;
 	
-	static Configuration config;
-	
-	public static void initConfig() {
-		config = new Configuration(new File(Loader.instance().getConfigDir(), "botaniatweaks.cfg"), "1");
-		config.load();
-		
-		readConfig();
-	}
-	
-	public static void readConfig() {
+	public static void readConfig(Configuration config) {
 		//balance
 		MANASTORM_SCALE_FACTOR = config.getFloat("manastormScaleFactor", "balance", 8f, 1f, 15f, "The default mana output of the Manastorm Charge is multiplied by this amount. Setting this to a value higher than around ~1.38889ish allows for the \"Manastorm Reactor\" build to be profitable.");
 		
@@ -68,7 +57,7 @@ public class BotaniaTweaksConfig {
 		
 		SUPER_SPECTROLUS = config.getBoolean("superSpectrolus", "balance", true, "Should the Spectrolus generate 10x the mana it does by default? This makes it much cheaper to run; filling a mana pool only requires a little over five stacks of wool, not over a double chest's worth.");
 		
-		ORECHID_MODE = getEnum(config, "cheapOrechid", "balance", EnumOrechidMode.DEFAULT, "How does the Orechid determine its cost and speed to run?", mode -> {
+		ORECHID_MODE = BotaniaTweaksConfig.getEnum(config, "cheapOrechid", "balance", EnumOrechidMode.DEFAULT, "How does the Orechid determine its cost and speed to run?", mode -> {
 			switch (mode) {
 				case DEFAULT: return "The Orechid will be cheap if Garden of Glass is loaded.";
 				case FORCE_GOG: return "The Orechid will always be cheap to run, even if Garden of Glass is not present.";
@@ -119,36 +108,6 @@ public class BotaniaTweaksConfig {
 		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", true, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
 		
 		MANA_GENERATION_STATISTICS = config.getBoolean("keepManaGenerationStatistics", "etc", false, "Should Botania Tweaks keep statistics on the total amount of mana generated, across all flowers and dimensions?");
-		
-		//compat
-		AGRICRAFT_DOOT = config.getBoolean("dootableAgricraft", "compat", true, "Can the Horn of the Wild harvest crops from Agricraft?");
-		
-		if(config.hasChanged()) config.save();
-	}
-	
-	private static <T extends Enum> T getEnum(Configuration config, String configName, String configCategory, T defaultValue, String configDescription, Function<T, String> describerFunction, Class<T> enumClass) {
-		//FEAR MY TERRIBLE FUNCTIONAL BULLSHIT, HAHAHAAA
-		//just pretend the inside of this method doesn't exist, because it's otherwise a great utility function
-		
-		T[] enumConstants = enumClass.getEnumConstants();
-		
-		String[] enumNames = Arrays.stream(enumConstants).map(T::toString).toArray(String[]::new);
-		
-		String configAndValueDescription = configDescription + "\n" + Arrays.stream(enumConstants).map(t -> "\"" + t.toString() + "\": " + describerFunction.apply(t)).reduce((one, two) -> one + '\n' + two).get();
-		
-		String userProvidedString = config.getString(configName, configCategory, defaultValue.toString(), configAndValueDescription, enumNames);
-		
-		Optional<T> userEnum = Arrays.stream(enumConstants).filter(t -> t.toString().equals(userProvidedString)).findAny();
-		
-		if(userEnum.isPresent()) return userEnum.get();
-		else throw new IllegalArgumentException("\"" + userProvidedString + "\" is not a valid value for config option " + configName + "! See the config file for details");
-	}
-	
-	@SubscribeEvent
-	public static void configChanged(ConfigChangedEvent e) {
-		if(e.getModID().equals(BotaniaTweaks.MODID)) {
-			readConfig();
-		}
 	}
 	
 	public enum EnumOrechidMode {

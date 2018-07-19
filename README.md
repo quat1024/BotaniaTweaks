@@ -36,6 +36,7 @@ Featureset
   * also: automatically place floral powder on the spark
 * sheep can eat the custom Botania grass blocks, as well as the vanilla grass, to regrow wool
 * the Spork - crafting ingredient to get in to corporea much, much earlier
+  * also comes in rainbow shitpost size
 * crafty crate "advanced mode"
   * now uses mana? more mana for recipes with more items. configurable amount, too.
   * also a "hard mode" in case that's not enough: very strict mana input requirements, very challenging to automate
@@ -45,6 +46,8 @@ Featureset
   * yeah it's a 9x9 crafty crate that crafts Extreme Recipes
   * ridiculously challenging to automate
   * what are you going to do about it
+* if Extended Crafting is present: four Extended Crafty Crates will be added
+  * same thing really
 
 The following features also exist, using a little ASM hackery: 
 
@@ -68,6 +71,7 @@ The following features also exist, using a little ASM hackery:
   * dooting a crop with a horn harvests and replants it while keeping the crop sticks, like in 1.7
   * I patch Agricraft for this instead of Botania (smh scope creep)
   * Patch shouldn't crash if the Agricraft developers implement it themselves
+* change the amount of mana stored in the Guilty Mana Pool; added on request
 
 License and Attribution
 =======================

@@ -1,18 +1,12 @@
 package quaternary.botaniatweaks.modules.botania.config;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
 import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 
-import java.io.File;
-import java.util.*;
-import java.util.function.Function;
+import java.util.HashMap;
 
 public class BotaniaConfig {
 	public static int MANA_SHOTS_PER_ENERGY_BURST = 1;
@@ -114,24 +108,6 @@ public class BotaniaConfig {
 		CREATIVE_POOL_SIZE = (int) (1_000_000 * config.getFloat("guiltyPoolManaMultiplier", "etc", 1, 0, 1.06f, "This number acts as a multiplier for how much mana is in the Guilty Mana Pool. Setting higher than 1 allows for creating \"creative pool only\" mana infusion recipes, by adding recipes using more than an ordinary pool can hold."));
 		
 		if(config.hasChanged()) config.save();
-	}
-	
-	private static <T extends Enum> T getEnum(Configuration config, String configName, String configCategory, T defaultValue, String configDescription, Function<T, String> describerFunction, Class<T> enumClass) {
-		//FEAR MY TERRIBLE FUNCTIONAL BULLSHIT, HAHAHAAA
-		//just pretend the inside of this method doesn't exist, because it's otherwise a great utility function
-		
-		T[] enumConstants = enumClass.getEnumConstants();
-		
-		String[] enumNames = Arrays.stream(enumConstants).map(T::toString).toArray(String[]::new);
-		
-		String configAndValueDescription = configDescription + "\n" + Arrays.stream(enumConstants).map(t -> "\"" + t.toString() + "\": " + describerFunction.apply(t)).reduce((one, two) -> one + '\n' + two).get();
-		
-		String userProvidedString = config.getString(configName, configCategory, defaultValue.toString(), configAndValueDescription, enumNames);
-		
-		Optional<T> userEnum = Arrays.stream(enumConstants).filter(t -> t.toString().equals(userProvidedString)).findAny();
-		
-		if(userEnum.isPresent()) return userEnum.get();
-		else throw new IllegalArgumentException("\"" + userProvidedString + "\" is not a valid value for config option " + configName + "! See the config file for details");
 	}
 	
 	public enum EnumOrechidMode {

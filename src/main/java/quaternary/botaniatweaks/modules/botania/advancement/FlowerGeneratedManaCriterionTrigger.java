@@ -8,8 +8,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import quaternary.botaniatweaks.BotaniaTweaks;
-import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 import quaternary.botaniatweaks.modules.botania.wsd.ManaStatisticsWsd;
+import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 
 import java.util.*;
 

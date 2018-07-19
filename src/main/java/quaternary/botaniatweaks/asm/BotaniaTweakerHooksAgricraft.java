@@ -9,7 +9,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import quaternary.botaniatweaks.modules.agricraft.AgricraftConfig;
-import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import vazkii.botania.api.item.IHornHarvestable;
 
 public class BotaniaTweakerHooksAgricraft {

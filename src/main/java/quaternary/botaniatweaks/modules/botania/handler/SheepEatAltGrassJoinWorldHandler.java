@@ -3,8 +3,8 @@ package quaternary.botaniatweaks.modules.botania.handler;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import quaternary.botaniatweaks.modules.botania.misc.EntityAIEatAltGrass;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
+import quaternary.botaniatweaks.modules.botania.misc.EntityAIEatAltGrass;
 
 public class SheepEatAltGrassJoinWorldHandler {
 	@SubscribeEvent

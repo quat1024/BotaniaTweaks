@@ -7,8 +7,8 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
-import quaternary.botaniatweaks.modules.botania.misc.IBotaniaTweaked;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
+import quaternary.botaniatweaks.modules.botania.misc.IBotaniaTweaked;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 public class TooltipHandler {

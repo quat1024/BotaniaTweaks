@@ -7,8 +7,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import quaternary.botaniatweaks.modules.shared.helper.MiscHelpers;
 import quaternary.botaniatweaks.modules.botania.recipe.AgglomerationRecipe;
+import quaternary.botaniatweaks.modules.shared.helper.MiscHelpers;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 

@@ -19,7 +19,8 @@ import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 

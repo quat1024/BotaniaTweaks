@@ -23,8 +23,7 @@ import quaternary.botaniatweaks.modules.botania.advancement.ManagenStatisticsAdv
 import quaternary.botaniatweaks.modules.botania.block.*;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.botania.handler.*;
-import quaternary.botaniatweaks.modules.botania.item.ItemMemeSpork;
-import quaternary.botaniatweaks.modules.botania.item.ItemSpork;
+import quaternary.botaniatweaks.modules.botania.item.*;
 import quaternary.botaniatweaks.modules.botania.lexi.BotaniaLexiconHandler;
 import quaternary.botaniatweaks.modules.botania.misc.BehaviorEnderAirDispenser;
 import quaternary.botaniatweaks.modules.botania.net.PacketAdvancedCrateFX;
@@ -126,7 +125,7 @@ public class ModuleBotania implements IModule {
 			IForgeRegistry<Item> reg = e.getRegistry();
 			
 			for(BlockCompressedTinyPotato tater : taters) {
-				ItemBlock ib = tater.compressionLevel == 8 ? BotaniaTweaks.PROXY.makeRainbowItem(tater) : new ItemBlock(tater);
+				ItemBlock ib = tater.compressionLevel == 8 ? new ItemBlockRainbowBarf(tater) : new ItemBlock(tater);
 				reg.register(RegHelpers.createItemBlock(ib));
 			}
 			

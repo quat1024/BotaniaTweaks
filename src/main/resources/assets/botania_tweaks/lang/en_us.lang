@@ -83,3 +83,9 @@ botania_tweaks.lexicon.sporkspark=im new!!!!!!!
 botania_tweaks.lexicon.masterspork=holds up spork
 
 tile.botania_tweaks.potted_tiny_potato.name=Tiny Pot-tato
+
+botania_tweaks.commands.debug_stats.usage=/botaniatweaks-debug-stats
+botania_tweaks.commands.debug_stats.start=Botania Tweaks Mana Generation Stats!
+botania_tweaks.commands.debug_stats.flower=Total mana for flower %s: %s
+botania_tweaks.commands.debug_stats.total=Total mana across all flowers: %s
+botania_tweaks.commands.debug_stats.disabled=Mana generation statistics are disabled, enable them in the config!

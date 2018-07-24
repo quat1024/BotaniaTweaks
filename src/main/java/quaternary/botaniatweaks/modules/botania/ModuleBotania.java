@@ -13,6 +13,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -21,6 +22,7 @@ import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.modules.IModule;
 import quaternary.botaniatweaks.modules.botania.advancement.ManagenStatisticsAdvancementHandler;
 import quaternary.botaniatweaks.modules.botania.block.*;
+import quaternary.botaniatweaks.modules.botania.command.CommandDebugManaGenerationStats;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.botania.handler.*;
 import quaternary.botaniatweaks.modules.botania.item.*;
@@ -95,6 +97,11 @@ public class ModuleBotania implements IModule {
 	@Override
 	public void readConfig(Configuration config) {
 		BotaniaConfig.readConfig(config);
+	}
+	
+	@Override
+	public void serverStarting(FMLServerStartingEvent e) {
+		e.registerServerCommand(new CommandDebugManaGenerationStats());
 	}
 	
 	private static List<BlockCompressedTinyPotato> taters = new ArrayList<>(8);

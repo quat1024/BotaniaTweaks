@@ -30,6 +30,7 @@ public class BotaniaConfig {
 	public static boolean SHEEP_EAT_ALT_GRASS = true;
 	
 	public static EnumOrechidMode ORECHID_MODE = EnumOrechidMode.DEFAULT;
+	public static boolean NON_GOG_WATER_BOWL = false;
 	
 	public static boolean FORCE_VANILLA_TNT = false;
 	public static boolean ALLOW_DUPLICATED_TNT = false;
@@ -106,6 +107,8 @@ public class BotaniaConfig {
 		MANA_GENERATION_STATISTICS = config.getBoolean("keepManaGenerationStatistics", "etc", false, "Should Botania Tweaks keep statistics on the total amount of mana generated, across all flowers and dimensions?");
 		
 		CREATIVE_POOL_SIZE = (int) (1_000_000 * config.getFloat("guiltyPoolManaMultiplier", "etc", 1, 0, 1.06f, "This number acts as a multiplier for how much mana is in the Guilty Mana Pool. Setting higher than 1 allows for creating \"creative pool only\" mana infusion recipes, by adding recipes using more than an ordinary pool can hold."));
+		
+		NON_GOG_WATER_BOWL = config.getBoolean("nonGogWaterBowl", "etc", false, "Should the water bowl mechanic, where you right click on water with a bowl to create a filled bowl, be available outside of Garden of Glass mode?");
 		
 		if(config.hasChanged()) config.save();
 	}

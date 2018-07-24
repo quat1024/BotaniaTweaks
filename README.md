@@ -48,6 +48,7 @@ Featureset
   * what are you going to do about it
 * if Extended Crafting is present: four Extended Crafty Crates will be added
   * same thing really
+* enable Garden of Glass water bowls on non-Gog maps
 
 The following features also exist, using a little ASM hackery: 
 
@@ -72,6 +73,10 @@ The following features also exist, using a little ASM hackery:
   * I patch Agricraft for this instead of Botania (smh scope creep)
   * Patch shouldn't crash if the Agricraft developers implement it themselves
 * change the amount of mana stored in the Guilty Mana Pool; added on request
+* keep statistics on how much mana all flowers generate
+  * all players on the server can earn advancements when a certain amount of mana is generated
+  * you can also filter it per-flower; "generate a pool of mana using only munchdews"
+  * debug the statistics with `/botaniatweaks-debug-stats` or read from the nbt file
 
 License and Attribution
 =======================
@@ -86,17 +91,7 @@ In short, this means that your modifications of Botania Tweaks must use the same
 
 Please also familiarize yourself with the [license of Botania](https://botaniamod.net/license.php). The Mozilla Public License was (in part) chosen to be in compliance with the Copyleft Clause. Also because I like it.
 
-Portions of this code were adapted from Botania, by Vazkii. A list of copied/modified classes is available below:
-
-* `BlockCompressedTinyPotato` adapted from `BlockTinyPotato`
-* `TileCompressedTinyPotato` adapted from `TileTinyPotato`
-* `RenderTileCompressedTinyPotato` adapted from `RenderTileTinyPotato`
-* `ModelCompressedTinyPotato` adapted from `ModelTinyPotato`
-* `BotaniaTweakerHooks` contains content from `TileAltar`
-* `brighter_grayscale_tiny_potato` and `rainbowtato` adapted from `tiny_potato.png`
-* `terrasteeloverlay.png` adapted from `terrasteeloverlay.png`
-* `PacketCustomTerraPlate` adapted from `PacketBotaniaEffect`
-* `PageCustomTerrasteel` adapted from `PageTerrasteel`
+Portions of this code were adapted from Botania, by Vazkii. I used to maintain a list of classes that I copied from and/or modified but it got really long and outdated. Oh well.
 
 Portions of this code were adapted from Gotta Go Fast, by Thiakil. That mod is distributed under the terms of the MIT license. The license is available in CLASSWRITER_LICENSE.md.
 

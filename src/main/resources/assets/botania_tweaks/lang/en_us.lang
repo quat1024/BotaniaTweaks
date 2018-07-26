@@ -89,3 +89,9 @@ botania_tweaks.commands.debug_stats.start=Botania Tweaks Mana Generation Stats!
 botania_tweaks.commands.debug_stats.flower=Total mana for flower %s: %s
 botania_tweaks.commands.debug_stats.total=Total mana across all flowers: %s
 botania_tweaks.commands.debug_stats.disabled=Mana generation statistics are disabled, enable them in the config!
+
+botania_tweaks.commands.reset_stats.usage=/botaniatweaks-reset-stats [flowerName | all]
+botania_tweaks.commands.reset_stats.unknown_flower="%s" is not a valid generating flower name
+botania_tweaks.commands.reset_stats.success.all_flowers=Successfully cleared all mana statistics data for this world
+botania_tweaks.commands.reset_stats.success.for_flower=Successfully removed all mana statistics data for %s
+botania_tweaks.commands.reset_stats.disabled=Mana generation statistics are disabled, enable them in the config!

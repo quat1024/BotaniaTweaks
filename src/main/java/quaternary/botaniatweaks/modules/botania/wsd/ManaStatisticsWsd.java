@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.util.Constants;
+import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,6 +53,23 @@ public class ManaStatisticsWsd extends WorldSavedData {
 	
 	public long getTotalMana() {
 		return totalManaEver;
+	}
+	
+	public void resetAllMana() {
+		totalManaEver = 0;
+		totalFlowerManaMap.clear();
+		
+		markDirty();
+	}
+	
+	public void resetManaFor(String flowerName) {
+		if(!totalFlowerManaMap.containsKey(flowerName)) return;
+		
+		long manaToRemove = totalFlowerManaMap.get(flowerName);
+		totalManaEver -= manaToRemove;
+		totalFlowerManaMap.put(flowerName, 0L);
+		
+		markDirty();
 	}
 	
 	@Override

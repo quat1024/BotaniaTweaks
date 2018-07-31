@@ -31,7 +31,7 @@ public class CommandResetManaGenerationStats extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if(!BotaniaConfig.MANA_GENERATION_STATISTICS) {
-			throw new CommandException("botania_tweaks.commands.reset_stats.disabled");
+			throw new CommandException("botania_tweaks.commands.shared.stats_disabled");
 		}
 		
 		if(args.length != 1) {
@@ -45,11 +45,11 @@ public class CommandResetManaGenerationStats extends CommandBase {
 			wsd.resetAllMana();
 			send(sender, "success.all_flowers");
 		} else {
-			if(GeneratingFlowers.flowerNames.contains(flowerName)) {
+			if(GeneratingFlowers.flowerExists(flowerName)) {
 				wsd.resetManaFor(flowerName);
 				send(sender, "success.for_flower", flowerName);
 			} else {
-				throw new CommandException("botania_tweaks.commands.reset_stats.unknown_flower", flowerName);
+				throw new CommandException("botania_tweaks.commands.shared.unknown_generating_flower", flowerName);
 			}
 		}
 	}

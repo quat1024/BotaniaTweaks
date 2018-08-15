@@ -2,20 +2,24 @@ package quaternary.botaniatweaks.modules.botania;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 import quaternary.botaniatweaks.BotaniaTweaks;
@@ -36,6 +40,9 @@ import quaternary.botaniatweaks.modules.botania.tile.*;
 import quaternary.botaniatweaks.modules.botania.tile.render.RenderTileCompressedTinyPotato;
 import quaternary.botaniatweaks.modules.shared.helper.*;
 import quaternary.botaniatweaks.modules.shared.net.BotaniaTweaksPacketHandler;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.common.block.ModBlocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +100,27 @@ public class ModuleBotania implements IModule {
 	@Override
 	public void postinit() {
 		BotaniaLexiconHandler.registerLexicon();
+		
+		//Also a good time to apply this little tweak, I guess TODO find a better home for this blcok of code
+		if(BotaniaConfig.CHEAP_FLINT_TO_POWDER) {
+			for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
+				Object inO = recipe.getInput();
+				if(!(inO instanceof ItemStack)) continue;
+				ItemStack in = (ItemStack) inO;
+				ItemStack out = recipe.getOutput();
+				IBlockState cata = recipe.getCatalyst();
+				
+				if(cata == RecipeManaInfusion.alchemyState && in.getItem() == Items.FLINT && out.getItem() == Items.GUNPOWDER && recipe.getManaToConsume() == 4000) {
+					try {
+						EnumHelper.setFailsafeFieldValue(ReflectionHelper.findField(RecipeManaInfusion.class, "mana"), recipe, 200);
+					} catch (Exception eeee) {
+						throw new RuntimeException("Problem applying cheapFlintToPowder tweak: ", eeee);
+					}
+					
+					break;
+				}
+			}
+		}
 	}
 	
 	@Override

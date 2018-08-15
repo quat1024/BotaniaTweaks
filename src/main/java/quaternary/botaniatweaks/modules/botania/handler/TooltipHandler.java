@@ -27,7 +27,6 @@ public class TooltipHandler {
 				addTooltip = BotaniaTweakerHooks.shouldFlowerDecay(type);
 				
 				if(BotaniaConfig.SUPER_SPECTROLUS && type.equals("spectrolus")) addTooltip = true;
-				if(BotaniaConfig.SUPER_ENTROPINNYUM && type.equals("entropinnyum")) addTooltip = true;
 			} else {
 				Block block = ((ItemBlock) item).getBlock();
 				if(block instanceof IBotaniaTweaked) {

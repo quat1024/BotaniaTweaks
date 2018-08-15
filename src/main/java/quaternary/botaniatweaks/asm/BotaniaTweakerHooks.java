@@ -52,13 +52,6 @@ public class BotaniaTweakerHooks {
 		return BotaniaConfig.MANASTORM_SCALE_FACTOR;
 	}
 	
-	/// entro tweak
-	
-	public static int getEntropinnyumMaxMana() {
-		//6500 is the default (check subtileentropinnyum)
-		return 6500 * (BotaniaConfig.SUPER_ENTROPINNYUM ? 8 : 1);
-	}
-	
 	/// spectro tweak
 	
 	public static int getSpectrolusManaPerWool() {

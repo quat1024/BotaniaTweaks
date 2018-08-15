@@ -18,10 +18,12 @@ public class BotaniaTweaksConfig {
 	public static Configuration config;
 	
 	public static void initConfig() {
-		config = new Configuration(new File(Loader.instance().getConfigDir(), "botaniatweaks.cfg"), "1");
+		config = new Configuration(new File(Loader.instance().getConfigDir(), "botaniatweaks.cfg"), String.valueOf(ConfigUpdater.CONFIG_FILE_VERSION));
 		config.load();
 		
 		readConfig();
+		
+		ConfigUpdater.updateConfig(config);
 	}
 	
 	public static void readConfig() {

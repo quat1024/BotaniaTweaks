@@ -20,7 +20,8 @@ public class BotaniaConfig {
 	public static HashMap<String, Boolean> SHOULD_ALSO_BE_PASSIVE_MAP = new HashMap<>();
 	
 	public static float MANASTORM_SCALE_FACTOR = 8;
-	public static boolean SUPER_ENTROPINNYUM = false;
+	
+	public static boolean CHEAP_FLINT_TO_POWDER = false;
 	public static boolean SUPER_SPECTROLUS = false;
 	
 	public static boolean AUTO_CORPOREA_SPARK = false;
@@ -48,7 +49,7 @@ public class BotaniaConfig {
 		//balance
 		MANASTORM_SCALE_FACTOR = config.getFloat("manastormScaleFactor", "balance", 8f, 1f, 15f, "The default mana output of the Manastorm Charge is multiplied by this amount. Setting this to a value higher than around ~1.38889ish allows for the \"Manastorm Reactor\" build to be profitable.");
 		
-		SUPER_ENTROPINNYUM = config.getBoolean("superEntropinnyum", "balance", false, "Should the Entropinnyum generate 8x the mana it does by default? This makes it possible to run an Entropinnyum off of, for example, a cobbleworks; by default, the flint-to-gunpowder recipe is much too expensive to make another TNT.\n\nAlso I think this flower is way underpowered in general, but that's just me.");
+		CHEAP_FLINT_TO_POWDER = config.getBoolean("cheapFlintToPowder", "balance", false, "Should the flint-to-powder alchemy recipe be the same price as the powder-to-flint? This makes it possible to run an Entripinnyum off a cobbleworks.");
 		
 		SUPER_SPECTROLUS = config.getBoolean("superSpectrolus", "balance", false, "Should the Spectrolus generate 10x the mana it does by default? This makes it much cheaper to run; filling a mana pool only requires a little over five stacks of wool, not over a double chest's worth.");
 		

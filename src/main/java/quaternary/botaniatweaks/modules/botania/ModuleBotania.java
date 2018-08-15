@@ -140,9 +140,6 @@ public class ModuleBotania implements IModule {
 			}
 			
 			reg.register(RegHelpers.createItemBlock(new ItemBlock(pottedTater)));
-			
-			reg.register(RegHelpers.createItem(new ItemSpork(), "spork"));
-			reg.register(RegHelpers.createItem(new ItemMemeSpork(), "meme_spork"));
 		}
 		
 		@SubscribeEvent
@@ -150,6 +147,21 @@ public class ModuleBotania implements IModule {
 			//As long as this runs before RegistryEvent.Register with LOWEST priority,
 			//things in here will be available to Crafttweaker.
 			AgglomerationRecipes.onRecipeEvent();
+		}
+		
+		/// RIP SPORKS 2018-2018 "nobody fucking misses these"
+		@SubscribeEvent
+		public static void missingItemMappings(RegistryEvent.MissingMappings<Item> e) {
+			for(RegistryEvent.MissingMappings.Mapping<Item> missing : e.getMappings()) {
+				if(missing.key.getResourcePath().endsWith("spork")) missing.ignore();
+			}
+		}
+		
+		@SubscribeEvent
+		public static void missingRecipeMappings(RegistryEvent.MissingMappings<IRecipe> e) {
+			for(RegistryEvent.MissingMappings.Mapping<IRecipe> missing : e.getMappings()) {
+				if(missing.key.getResourcePath().endsWith("spork")) missing.ignore();
+			}
 		}
 	}
 	
@@ -162,8 +174,6 @@ public class ModuleBotania implements IModule {
 				ClientHelpers.setModel(tater.getRegistryName().getResourcePath());
 			}
 			
-			ClientHelpers.setModel("spork");
-			ClientHelpers.setModel("meme_spork");
 			ClientHelpers.setModel("potted_tiny_potato");
 			
 			ClientRegistry.bindTileEntitySpecialRenderer(TileCompressedTinyPotato.class, new RenderTileCompressedTinyPotato());

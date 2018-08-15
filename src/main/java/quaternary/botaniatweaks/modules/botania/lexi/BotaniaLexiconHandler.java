@@ -11,23 +11,8 @@ import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 
 public class BotaniaLexiconHandler {
-	public static void registerLexicon() {
-		setBasicOrElvenKnowledge(BotaniaConfig.SPORK, LexiconData.corporea);
-		setBasicOrElvenKnowledge(BotaniaConfig.SPORK, LexiconData.corporeaFunnel);
-		setBasicOrElvenKnowledge(BotaniaConfig.SPORK, LexiconData.corporeaInterceptor);
-		setBasicOrElvenKnowledge(BotaniaConfig.SPORK, LexiconData.corporeaRetainer);
-		
+	public static void registerLexicon() {		
 		if(!BotaniaTweaks.PROXY.shouldAddLexiconPages()) return;
-		
-		if(BotaniaConfig.SPORK) {
-			LexiconPage spork = new PageCraftingRecipe("botania_tweaks.lexicon.spork", new ResourceLocation(BotaniaTweaks.MODID, "spork"));
-			LexiconPage regularCraft = new PageCraftingRecipe("botania_tweaks.lexicon.sporkspark", new ResourceLocation(BotaniaTweaks.MODID, "spork/corporeaspark_0_spork"));
-			LexiconPage masterCraft = new PageCraftingRecipe("botania_tweaks.lexicon.masterspork", new ResourceLocation(BotaniaTweaks.MODID, "spork/corporeaspark_1_spork"));
-			
-			LexiconData.corporea.addPage(spork);
-			LexiconData.corporea.addPage(regularCraft);
-			LexiconData.corporea.addPage(masterCraft);
-		}
 		
 		for(int i=1; i <= 8; i++) {
 			PageCraftingRecipe potat = new PageCraftingRecipe("botania_tweaks.lexicon.potato." + i, new ResourceLocation(BotaniaTweaks.MODID, "compressed_tiny_potato_" + i));

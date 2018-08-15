@@ -36,8 +36,6 @@ public class BotaniaConfig {
 	public static boolean ALLOW_DUPLICATED_TNT = false;
 	public static int TNT_DUPE_HEURISTIC = 8;
 	
-	public static boolean SPORK = true;
-	
 	public static boolean ADVANCED_CRAFTY_CRATE = false;
 	public static boolean ADVANCED_CRAFTY_CRATE_HARDMODE = false;
 	public static int ADVANCED_CRATE_MANA_PER_ITEM = 160;
@@ -64,8 +62,6 @@ public class BotaniaConfig {
 		}, EnumOrechidMode.class);
 		
 		BotaniaTweakerHooks.orechidGog = ORECHID_MODE.isGog();
-		
-		SPORK = config.get("balance", "corporeaSpork", true, "Should crafting recipes with the Spork be enabled? These recipes provide more expensive paths to corporea sparks, but are available earlier in the game (they don't require going to the End or elven technology).").setRequiresMcRestart(true).getBoolean();
 		
 		ADVANCED_CRAFTY_CRATE = config.getBoolean("advancedCraftyCrate", "balance.craftyCrate", false, "Should the Crafty Crate require mana to craft items?");
 		

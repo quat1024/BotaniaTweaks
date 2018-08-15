@@ -1,5 +1,0 @@
-{
-	"conditions": {
-		"spork_enabled": "quaternary.botaniatweaks.modules.botania.recipe.SporkConditionFactory"
-	}
-}

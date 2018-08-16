@@ -27,7 +27,7 @@ public class PotatoRightClickHandler {
 		ItemStack held = e.getEntityPlayer().getHeldItem(e.getHand());
 		Block heldBlock = Block.getBlockFromItem(held.getItem());
 		
-		if(BotaniaConfig.POTTED_TINY_POTATO && heldBlock instanceof BlockTinyPotato && clickedBlock instanceof BlockFlowerPot) {
+		if(heldBlock instanceof BlockTinyPotato && clickedBlock instanceof BlockFlowerPot) {
 			handlePottedPotato(held, e);
 		}
 		

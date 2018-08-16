@@ -12,36 +12,34 @@ public class BotaniaConfig {
 	public static int MANA_SHOTS_PER_ENERGY_BURST = 1;
 	public static int FE_PER_ENERGY_BURST = 30;
 	
-	public static boolean CREATE_ENDER_AIR_WITH_DISPENSER = true;
-	
-	public static boolean POTTED_TINY_POTATO = true;
+	public static boolean CREATE_ENDER_AIR_WITH_DISPENSER;
 	
 	public static int PASSIVE_DECAY_TIMER = 72000;
 	public static HashMap<String, Boolean> SHOULD_ALSO_BE_PASSIVE_MAP = new HashMap<>();
 	
-	public static float MANASTORM_SCALE_FACTOR = 8;
+	public static float MANASTORM_SCALE_FACTOR;
 	
-	public static boolean CHEAP_FLINT_TO_POWDER = false;
-	public static boolean SUPER_SPECTROLUS = false;
+	public static boolean CHEAP_FLINT_TO_POWDER;
+	public static boolean SUPER_SPECTROLUS;
 	
-	public static boolean AUTO_CORPOREA_SPARK = false;
+	public static boolean AUTO_CORPOREA_SPARK;
 	
-	public static boolean EVERYTHING_APOTHECARY = false;
+	public static boolean EVERYTHING_APOTHECARY;
 	
-	public static boolean SHEEP_EAT_ALT_GRASS = true;
+	public static boolean SHEEP_EAT_ALT_GRASS;
 	
 	public static EnumOrechidMode ORECHID_MODE = EnumOrechidMode.DEFAULT;
-	public static boolean NON_GOG_WATER_BOWL = false;
+	public static boolean NON_GOG_WATER_BOWL;
 	
-	public static boolean FORCE_VANILLA_TNT = false;
-	public static boolean ALLOW_DUPLICATED_TNT = false;
-	public static int TNT_DUPE_HEURISTIC = 8;
+	public static boolean FORCE_VANILLA_TNT;
+	public static boolean DENY_DUPLICATED_TNT;
+	public static int TNT_DUPE_HEURISTIC;
 	
-	public static boolean ADVANCED_CRAFTY_CRATE = false;
-	public static boolean ADVANCED_CRAFTY_CRATE_HARDMODE = false;
-	public static int ADVANCED_CRATE_MANA_PER_ITEM = 160;
+	public static boolean ADVANCED_CRAFTY_CRATE;
+	public static boolean ADVANCED_CRAFTY_CRATE_HARDMODE;
+	public static int ADVANCED_CRATE_MANA_PER_ITEM;
 	
-	public static boolean MANA_GENERATION_STATISTICS = false;
+	public static boolean MANA_GENERATION_STATISTICS ;
 	
 	public static int CREATIVE_POOL_SIZE = 1_000_000;
 	
@@ -51,7 +49,7 @@ public class BotaniaConfig {
 		
 		CHEAP_FLINT_TO_POWDER = config.getBoolean("cheapFlintToPowder", "balance", false, "Should the flint-to-powder alchemy recipe be the same price as the powder-to-flint? This makes it possible to run an Entripinnyum off a cobbleworks.");
 		
-		SUPER_SPECTROLUS = config.getBoolean("superSpectrolus", "balance", false, "Should the Spectrolus generate 10x the mana it does by default? This makes it much cheaper to run; filling a mana pool only requires a little over five stacks of wool, not over a double chest's worth.");
+		SUPER_SPECTROLUS = config.getBoolean("superSpectrolus", "balance", false, "Should the Spectrolus generate 8x the mana it does by default? This makes it much cheaper to run; filling a mana pool only requires a little over five stacks of wool, not over a double chest's worth.");
 		
 		ORECHID_MODE = BotaniaTweaksConfig.getEnum(config, "cheapOrechid", "balance", EnumOrechidMode.DEFAULT, "How does the Orechid determine its cost and speed to run?", mode -> {
 			switch (mode) {
@@ -71,7 +69,7 @@ public class BotaniaConfig {
 		ADVANCED_CRATE_MANA_PER_ITEM = config.getInt("crateManaPerItem", "balance.craftyCrate", 160, 1, Integer.MAX_VALUE, "How much mana does the crafty crate use per-item in the recipe (empty slots and Crafting Placeholders don't count?) Default value is one burst from a redstone spreader.");
 		
 		//tnt
-		ALLOW_DUPLICATED_TNT = config.getBoolean("allowEntropinnyumDuplicatedTNT", "balance.tnt", false, "Should the Entropinnyum accept TNT that came from a vanilla-style TNT duplicator device?");
+		DENY_DUPLICATED_TNT = config.getBoolean("denyEntropinnyumDuplicatedTNT", "balance.tnt", false, "Should the Entropinnyum block TNT that came from a vanilla-style TNT duplicator device?");
 		
 		TNT_DUPE_HEURISTIC = config.getInt("tntDupeDetectionHeuristic", "balance.tnt", 10, 1, Integer.MAX_VALUE, "The TNT duplicator detection uses a score/heuristic system to detect duplicated TNT. Set this number higher if you get false positives.");
 		
@@ -91,15 +89,13 @@ public class BotaniaConfig {
 		FE_PER_ENERGY_BURST = config.getInt("fePerBurst", "balance.fluxfield", 1600, 1, Integer.MAX_VALUE, "How much FE is contained within a \"packet\"?");
 		
 		//etc
-		CREATE_ENDER_AIR_WITH_DISPENSER = config.getBoolean("enderAirDispenser", "etc", true, "Can dispensers shoot glass bottles to turn them in to Ender Air in the End dimension? This allows for automation of Ender Air, which was not previously possible.");
-		
-		POTTED_TINY_POTATO = config.getBoolean("pottedTinyPotato", "etc", true, "Can players place tiny potatoes in flower pots? Please don't disable this, it's very cute.");
+		CREATE_ENDER_AIR_WITH_DISPENSER = config.getBoolean("enderAirDispenser", "etc", false, "Can dispensers shoot glass bottles to turn them in to Ender Air in the End dimension? This allows for automation of Ender Air, which was not previously possible.");
 		
 		AUTO_CORPOREA_SPARK = config.getBoolean("autoCorporeaSpark", "etc", false, "If true, placing a corporea-related block will automatically decorate it with corporea sparks and floral powder, unless you're sneaking.");
 		
 		EVERYTHING_APOTHECARY = config.getBoolean("unlockApothecary", "etc", false, "If true, any item is allowed to enter the Petal Apothecary, not just petals, runes, and manaresources. Great for modpacks.");
 		
-		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", true, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
+		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", false, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
 		
 		MANA_GENERATION_STATISTICS = config.getBoolean("keepManaGenerationStatistics", "etc", false, "Should Botania Tweaks keep statistics on the total amount of mana generated, across all flowers and dimensions?");
 		

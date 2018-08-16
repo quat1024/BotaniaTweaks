@@ -56,7 +56,7 @@ public class BotaniaTweakerHooks {
 	
 	public static int getSpectrolusManaPerWool() {
 		//300 is the default (check subtilespectrolus)
-		return 300 * (BotaniaConfig.SUPER_SPECTROLUS ? 10 : 1);
+		return 300 * (BotaniaConfig.SUPER_SPECTROLUS ? 8 : 1);
 	}
 	
 	/// apothecary tweak
@@ -86,15 +86,13 @@ public class BotaniaTweakerHooks {
 	
 	public static boolean orechidGog = Botania.gardenOfGlassLoaded;
 	
-	
-	
 	/// entro tnt duplication tweak
 	
 	public static List<EntityTNTPrimed> processTNTList(List<EntityTNTPrimed> inList) {
 		Iterator<EntityTNTPrimed> it = inList.iterator();
 		while(it.hasNext()) {
 			EntityTNTPrimed tnt = it.next();
-			if(!BotaniaConfig.ALLOW_DUPLICATED_TNT && tnt.getTags().contains("CheatyDupe")) {
+			if(BotaniaConfig.DENY_DUPLICATED_TNT && tnt.getTags().contains("CheatyDupe")) {
 				if(tnt.getFuse() == 1) doTNTSilliness(tnt);
 				
 				it.remove();

@@ -182,4 +182,30 @@ public class BotaniaTweakerHooks {
 	public static int getCreativePoolSize() {
 		return BotaniaConfig.CREATIVE_POOL_SIZE;
 	}
+	
+	// NBT aware runic altar/apothecary tweak
+	
+	public static boolean simpleAreStacksEqualHook(ItemStack fromRecipe, ItemStack userInput) {
+		//See RecipePetals#simpleAreStacksEqual
+		boolean matchItemAndData = fromRecipe.getItem() == userInput.getItem() && fromRecipe.getItemDamage() == userInput.getItemDamage();
+		if(!matchItemAndData) return false;
+		
+		if(BotaniaConfig.NBT_AWARE_ALTAR_APOTHECARY) {
+			//Also check the NBT tags. userInput's NBT must be a superset of fromRecipe's NBT tag, if one exists on the recipe
+			
+			//Recipe item doesn't have one? - assume it doesn't matter
+			if(!fromRecipe.hasTagCompound()) return true;
+			NBTTagCompound fromRecipeNBTCopy = fromRecipe.getTagCompound().copy();
+			//Recipe item has one, but the user input doesn't? - no way it can be a superset
+			if(!userInput.hasTagCompound()) return false;
+			NBTTagCompound userInputNBTCopy = userInput.getTagCompound().copy();
+			
+			//Check if userInput's nbt tag is a superset of fromRecipe's
+			NBTTagCompound mergedNBT = userInputNBTCopy.copy();
+			mergedNBT.merge(fromRecipeNBTCopy);
+			return userInputNBTCopy.equals(mergedNBT);
+		} else {
+			return true; //Use the old behavior.
+		}
+	}
 }

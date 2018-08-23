@@ -39,9 +39,11 @@ public class BotaniaConfig {
 	public static boolean ADVANCED_CRAFTY_CRATE_HARDMODE;
 	public static int ADVANCED_CRATE_MANA_PER_ITEM;
 	
-	public static boolean MANA_GENERATION_STATISTICS ;
+	public static boolean MANA_GENERATION_STATISTICS;
 	
 	public static int CREATIVE_POOL_SIZE = 1_000_000;
+	
+	public static boolean NBT_AWARE_ALTAR_APOTHECARY;
 	
 	public static void readConfig(Configuration config) {
 		//balance
@@ -102,6 +104,8 @@ public class BotaniaConfig {
 		CREATIVE_POOL_SIZE = (int) (1_000_000 * config.getFloat("guiltyPoolManaMultiplier", "etc", 1, 0, 1.06f, "This number acts as a multiplier for how much mana is in the Guilty Mana Pool. Setting higher than 1 allows for creating \"creative pool only\" mana infusion recipes, by adding recipes using more than an ordinary pool can hold."));
 		
 		NON_GOG_WATER_BOWL = config.getBoolean("nonGogWaterBowl", "etc", false, "Should the water bowl mechanic, where you right click on water with a bowl to create a filled bowl, be available outside of Garden of Glass mode?");
+		
+		NBT_AWARE_ALTAR_APOTHECARY = config.getBoolean("nbtAwareAltarAndApothecary", "etc", false, "Should the Runic Altar and Petal Apothecary pay more attention to the NBT tags on particular items? By default, they only compare item ID and data values. If \"true\", the NBT tag on the user-input stack must be a superset of the NBT tag supplied in the recipe.");
 		
 		if(config.hasChanged()) config.save();
 	}

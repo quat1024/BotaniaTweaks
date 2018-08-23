@@ -25,6 +25,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		tweaks.add(new AgricraftCropHornHarvestTweak());
 		tweaks.add(new ManaStatisticsTweak());
 		tweaks.add(new CreativeManaPoolSizeTweak());
+		tweaks.add(new NBTAwareRuneAltarAndPetalApothecaryStackMatchingTweak());
 		
 		for(Tweak t : tweaks) {
 			allPatchedClasses.addAll(t.getAffectedClasses());

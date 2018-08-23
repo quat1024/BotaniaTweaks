@@ -18,7 +18,9 @@ public class ConfigUpdater {
 	static void updateConfig(Configuration config) {
 		int version;
 		try {
-			version = Integer.parseInt(config.getLoadedConfigVersion());
+			String s = config.getLoadedConfigVersion();
+			if(s == null) version = 0;
+			else version = Integer.parseInt(s);
 		} catch (NumberFormatException e) {
 			throw new RuntimeException("Problem parsing configuration file version number! \"" + config.getLoadedConfigVersion() + "\" doesn't look like a valid integer");
 		}
@@ -29,7 +31,7 @@ public class ConfigUpdater {
 		
 		boolean dirtyConfig = false;
 		
-		if(version == 1) {
+		if(version <= 1) {
 			updatev1tov2(config);
 			version = 2;
 			dirtyConfig = true;

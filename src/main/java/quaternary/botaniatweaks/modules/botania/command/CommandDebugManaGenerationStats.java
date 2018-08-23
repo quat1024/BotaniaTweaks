@@ -58,7 +58,7 @@ public class CommandDebugManaGenerationStats extends CommandBase {
 			sendPrefixed(sender, "total", wsd.getTotalMana());
 		} else if(GeneratingFlowers.hasFlowerNamed(flowerName)) {
 			GeneratingFlowers.FlowerData data = GeneratingFlowers.flowerDataFromName(flowerName);
-			sendPrefixed(sender, "flower", flowerName, wsd.getTotalFlowerMana(flowerName));
+			sendPrefixed(sender, "flower", data.name, data.modId, wsd.getTotalFlowerMana(data.name));
 			if(!data.isPresent()) {
 				throw new CommandException("botania_tweaks.commands.shared.disabled_flower", flowerName, data.modId);
 			}

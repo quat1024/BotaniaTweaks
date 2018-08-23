@@ -52,11 +52,11 @@ public class AutoCorporeaSparkPlaceBlockHandler {
 				
 				if(!dye.isEmpty()) {
 					spark.setNetwork(EnumDyeColor.byMetadata(dye.getMetadata()));
-					dye.shrink(1);
+					if(!e.getPlayer().isCreative()) dye.shrink(1);
 				}
 				
 				world.spawnEntity(spark);
-				spork.shrink(1);
+				if(!e.getPlayer().isCreative()) spork.shrink(1);
 				
 				world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 0);
 			}

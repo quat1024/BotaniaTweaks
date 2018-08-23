@@ -17,6 +17,8 @@ This mod has (soft) dependencies on a bunch of other mods, some of which I could
 * Run those through a tool like BON2 so you have deobfuscated versions (make sure to use the same mappings version)
 * Build and run as usual
 
+You might also want to grab a copy of ModTweaker - i'm using 4.0.13 right now - to use some of its Botania ZenScript features in your test scripts. Please don't actually *depend* on it, softly or hardly.
+
 Featureset
 ==========
 

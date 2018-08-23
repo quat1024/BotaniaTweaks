@@ -4,6 +4,7 @@ import net.minecraft.command.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.Loader;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.botania.wsd.ManaStatisticsWsd;
@@ -46,19 +47,20 @@ public class CommandDebugManaGenerationStats extends CommandBase {
 		ManaStatisticsWsd wsd = ManaStatisticsWsd.get(server.getEntityWorld());
 		
 		if(flowerName.equals("all")) {
-			for(String flower : GeneratingFlowers.getAllFlowerNames()) {
-				send(sender, "flower", flower, GeneratingFlowers.flowerDataFromName(flowerName).modId, wsd.getTotalFlowerMana(flower));
+			for(GeneratingFlowers.FlowerData data : GeneratingFlowers.getAllFlowerDatas()) {
+				sendPrefixed(sender, "flower", data.name, data.modId, wsd.getTotalFlowerMana(data.name));
+				if(!data.isPresent()) {
+					send(sender, TextFormatting.BLUE + "botania_tweaks.commands.shared.flower_not_present", data.name, data.modId);
+				}
 			}
-			send(sender, "total", wsd.getTotalMana());
+			sendPrefixed(sender, "total", wsd.getTotalMana());
 		} else if(flowerName.equals("total")) {
-			send(sender, "total", wsd.getTotalMana());
+			sendPrefixed(sender, "total", wsd.getTotalMana());
 		} else if(GeneratingFlowers.hasFlowerNamed(flowerName)) {
 			GeneratingFlowers.FlowerData data = GeneratingFlowers.flowerDataFromName(flowerName);
-			if(data.isPresent()) {
-				send(sender, "flower", flowerName, wsd.getTotalFlowerMana(flowerName));
-			} else {
-				String err = "botania_tweaks.commands.shared.disabled_flower." + (Loader.isModLoaded(data.modId) ? "yes_mod" : "no_mod");
-				throw new CommandException(err, flowerName, data.modId);
+			sendPrefixed(sender, "flower", flowerName, wsd.getTotalFlowerMana(flowerName));
+			if(!data.isPresent()) {
+				throw new CommandException("botania_tweaks.commands.shared.disabled_flower", flowerName, data.modId);
 			}
 		} else {
 			throw new CommandException("botania_tweaks.commands.shared.unknown_generating_flower", flowerName);
@@ -76,7 +78,10 @@ public class CommandDebugManaGenerationStats extends CommandBase {
 	}
 	
 	private static void send(ICommandSender sender, String component, Object... args) {
-		TextComponentTranslation txt = new TextComponentTranslation("botania_tweaks.commands.debug_stats." + component, args);
-		sender.sendMessage(txt);
+		sender.sendMessage(new TextComponentTranslation(component, args));
+	}
+	
+	private static void sendPrefixed(ICommandSender sender, String component, Object... args) {
+		send(sender, "botania_tweaks.commands.debug_stats." + component, args);
 	}
 }

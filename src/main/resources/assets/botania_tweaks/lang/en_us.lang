@@ -75,14 +75,13 @@ botania_tweaks.entrodupe.nicetry=Nice try!
 tile.botania_tweaks.potted_tiny_potato.name=Tiny Pot-tato
 
 botania_tweaks.commands.shared.unknown_generating_flower="%s" is not a valid generating flower name
-botania_tweaks.commands.shared.disabled_flower.no_mod="%s" would be a valid flower name, but you don't seem to have the mod it comes from - it comes from mod "%s"
-botania_tweaks.commands.shared.disabled_flower.yes_mod="%s" would be a valid flower name, but Botania Tweaks wasn't able to find its class, despite having "%s" installed! It's not their fault, so please report this as a bug to Botania Tweaks only. Thanks!
+botania_tweaks.commands.shared.flower_not_present=Flower %s not present. Maybe mod %s is not installed?
 botania_tweaks.commands.shared.stats_disabled=Mana generation statistics are disabled, enable them in the config!
 
 botania_tweaks.commands.debug_stats.usage=/botaniatweaks-debug-stats [flowerName | all | total]
-botania_tweaks.commands.debug_stats.flower=Total mana for flower %s: %s
+botania_tweaks.commands.debug_stats.flower=Mana from flower %s (from mod %s): %s
 botania_tweaks.commands.debug_stats.total=Total mana across all flowers: %s
 
 botania_tweaks.commands.reset_stats.usage=/botaniatweaks-reset-stats [flowerName | all]
-botania_tweaks.commands.reset_stats.success.all_flowers=Successfully cleared all mana statistics data for this world
-botania_tweaks.commands.reset_stats.success.for_flower=Successfully removed all mana statistics data for %s
+botania_tweaks.commands.reset_stats.success.all_flowers=Poof! Successfully cleared all mana statistics data for this world
+botania_tweaks.commands.reset_stats.success.for_flower=Poof! Successfully removed mana statistics data for %s

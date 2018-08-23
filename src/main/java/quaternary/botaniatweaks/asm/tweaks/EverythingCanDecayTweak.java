@@ -9,12 +9,12 @@ import java.util.Collection;
 public class EverythingCanDecayTweak extends Tweak {
 	@Override
 	public Collection<String> computeAffectedClasses() {
-		return ImmutableList.copyOf(GeneratingFlowers.activeFlowerClasses);
+		return ImmutableList.copyOf(GeneratingFlowers.getAllFlowerClassesMayOrMayNotExist());
 	}
 	
 	@Override
 	String getLogMessage(String transformedName) {
-		return "Patching the " + getFlowerFromClassName(transformedName) + "'s decayability...";
+		return "Patching the " + GeneratingFlowers.flowerNameFromClass(transformedName) + "'s decayability...";
 	}
 	
 	@Override
@@ -31,14 +31,10 @@ public class EverythingCanDecayTweak extends Tweak {
 		InsnList ins = newPassiveMethod.instructions;
 		
 		//return BotaniaTweakerHooks.shouldFlowerDecay("endoflame")
-		ins.add(new LdcInsnNode(getFlowerFromClassName(transformedName)));
+		ins.add(new LdcInsnNode(GeneratingFlowers.flowerNameFromClass(transformedName)));
 		ins.add(new MethodInsnNode(INVOKESTATIC, getHooksClass(), "shouldFlowerDecay", "(Ljava/lang/String;)Z", false));
 		ins.add(new InsnNode(IRETURN));
 		
 		node.methods.add(newPassiveMethod);
-	}
-	
-	static String getFlowerFromClassName(String className) {
-		return GeneratingFlowers.getFlowerName(className);
 	}
 }

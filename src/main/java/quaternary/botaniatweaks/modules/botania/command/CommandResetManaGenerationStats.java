@@ -45,7 +45,7 @@ public class CommandResetManaGenerationStats extends CommandBase {
 			wsd.resetAllMana();
 			send(sender, "success.all_flowers");
 		} else {
-			if(GeneratingFlowers.flowerExists(flowerName)) {
+			if(GeneratingFlowers.hasFlowerNamed(flowerName)) {
 				wsd.resetManaFor(flowerName);
 				send(sender, "success.for_flower", flowerName);
 			} else {
@@ -57,7 +57,7 @@ public class CommandResetManaGenerationStats extends CommandBase {
 	@Override
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
 		if(args.length == 1) {
-			ArrayList<String> list = new ArrayList<>(GeneratingFlowers.flowerNames);
+			ArrayList<String> list = new ArrayList<>(GeneratingFlowers.getAllFlowerNames());
 			list.add("all");
 			return getListOfStringsMatchingLastWord(args, list);
 		} else return Collections.emptyList();

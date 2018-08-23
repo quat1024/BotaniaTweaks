@@ -14,6 +14,7 @@ import quaternary.botaniatweaks.modules.botania.ModuleBotania;
 import quaternary.botaniatweaks.modules.crafttweaker.ModuleCrafttweaker;
 import quaternary.botaniatweaks.modules.extendedcrafting.ModuleExtendedCrafting;
 import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
+import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 import quaternary.botaniatweaks.modules.shared.proxy.ServerProxy;
 
 import java.util.ArrayList;
@@ -65,6 +66,8 @@ public class BotaniaTweaks {
 	@Mod.EventHandler
 	public static void postinit(FMLPostInitializationEvent e) {
 		modules.forEach(IModule::postinit);
+		
+		GeneratingFlowers.PostInitHandler.postinit(); //Memes
 	}
 	
 	@Mod.EventHandler

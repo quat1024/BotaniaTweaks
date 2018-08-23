@@ -49,7 +49,7 @@ public class FlowerGeneratedManaCriterionTrigger implements ICriterionTrigger<Fl
 		String flowerName = JsonUtils.getString(json, "flower");
 		long neededMana = (int) (JsonUtils.getFloat(json, "pools") * 1_000_000);
 		
-		if(!GeneratingFlowers.flowerExists(flowerName)) {
+		if(!GeneratingFlowers.hasFlowerNamed(flowerName)) {
 			throw new JsonSyntaxException("I don't know of any generating flower with the name '" + flowerName + "' !");
 		} else if (neededMana < 0) {
 			throw new JsonSyntaxException("Advancement with negative mana??????? what????");

@@ -80,9 +80,11 @@ public class BotaniaConfig {
 		//decay
 		PASSIVE_DECAY_TIMER = config.getInt("passiveDecayTimer", "balance.decay", 72000, 1, 72000, "How many ticks until passive flowers decay? Can only be set *lower* than the default value. Muahaha.");
 		
-		for(String flower : GeneratingFlowers.activeFlowerClassesToNames.values()) {
-			boolean should = config.getBoolean(flower + "Decay", "balance.decay.flowers", false, "Does the " + flower + " experience passive decay?");
-			SHOULD_ALSO_BE_PASSIVE_MAP.put(flower, should);
+		for(GeneratingFlowers.FlowerData data : GeneratingFlowers.getAllFlowerDatas()) {
+			String flowerName = data.name;
+			String flowerMod = data.modId;
+			boolean shouldIt = config.getBoolean(flowerName + "Decay", "balance.decay.flowers", false, String.format("Does the %s, from %s, experience passive decay?", flowerName, flowerMod));
+			SHOULD_ALSO_BE_PASSIVE_MAP.put(flowerName, shouldIt);
 		}
 		
 		//fluxfield

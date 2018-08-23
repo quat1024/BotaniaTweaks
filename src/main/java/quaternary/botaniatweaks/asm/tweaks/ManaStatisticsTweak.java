@@ -1,5 +1,6 @@
 package quaternary.botaniatweaks.asm.tweaks;
 
+import com.google.common.collect.ImmutableList;
 import org.objectweb.asm.tree.*;
 import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 
@@ -8,12 +9,12 @@ import java.util.Collection;
 public class ManaStatisticsTweak extends Tweak {
 	@Override
 	protected Collection<String> computeAffectedClasses() {
-		return GeneratingFlowers.flowerClasses;
+		return ImmutableList.copyOf(GeneratingFlowers.getAllFlowerClassesMayOrMayNotExist());
 	}
 	
 	@Override
 	String getLogMessage(String transformedName) {
-		return "Adding managen statistics for the " + GeneratingFlowers.getFlowerName(transformedName) + " flower...";
+		return "Adding managen statistics for the " + GeneratingFlowers.flowerNameFromClass(transformedName) + " flower...";
 	}
 	
 	@Override
@@ -63,7 +64,7 @@ public class ManaStatisticsTweak extends Tweak {
 		
 		InsnList hook = new InsnList();
 		
-		hook.add(new LdcInsnNode(GeneratingFlowers.getFlowerName(transformedName)));
+		hook.add(new LdcInsnNode(GeneratingFlowers.flowerNameFromClass(transformedName)));
 		hook.add(new VarInsnNode(ALOAD, 0));
 		hook.add(new InsnNode(DUP));
 		hook.add(new FieldInsnNode(GETFIELD, bytecodeClassName, "mana", "I"));

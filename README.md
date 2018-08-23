@@ -37,8 +37,6 @@ Featureset
 * auto-place corporea sparks (from your hotbar) when you place funnels, crystal cubes, and such
   * also: automatically place floral powder on the spark
 * sheep can eat the custom Botania grass blocks, as well as the vanilla grass, to regrow wool
-* the Spork - crafting ingredient to get in to corporea much, much earlier
-  * also comes in rainbow shitpost size
 * crafty crate "advanced mode"
   * now uses mana? more mana for recipes with more items. configurable amount, too.
   * also a "hard mode" in case that's not enough: very strict mana input requirements, very challenging to automate
@@ -51,6 +49,7 @@ Featureset
 * if Extended Crafting is present: four Extended Crafty Crates will be added
   * same thing really
 * enable Garden of Glass water bowls on non-Gog maps
+* far cheaper flint to gunpowder recipe for nefarious Entropinnyum purposes
 
 The following features also exist, using a little ASM hackery: 
 
@@ -58,18 +57,17 @@ The following features also exist, using a little ASM hackery:
   * make any generating flower you want passive decay
   * reduce the passive decay timer
 * GIANT buffs to underutilized & cool mana sources
-  * entropinnyum buff - 8x mana output
-    * you can run it off a cobbleworks
   * spectrolus buff - 10x mana output
     * doesn't need 1 whole double chest of wool to fill a pool, lmao
   * big buff to manastorm charge mana output 
     * "wait, those even had mana output?" you ask?
     * mmmhmm, yea, they did
+    * this is left as an exercise to the reader
 * unlocked petal apothecary items (put any items in Petal Apothecary)
   * except seeds and buckets, duh
-* use Garden of Glass's much cheaper prices to run the Orechid, even if GoG is not enabled
+* use Garden of Glass's much cheaper prices to run the Orechid, even if GoG is not enabled (this is so fucking op)
 * make the Entropinnyum ignore TNT from a TNT duplicator device
-* make the Entropinnuim only accept vanilla TNT
+* make the Entropinnyim only accept vanilla TNT
 * readd Horn of the Wild compat with Agricraft crops (which got lost somewhere in an update)
   * dooting a crop with a horn harvests and replants it while keeping the crop sticks, like in 1.7
   * I patch Agricraft for this instead of Botania (smh scope creep)
@@ -79,6 +77,8 @@ The following features also exist, using a little ASM hackery:
   * all players on the server can earn advancements when a certain amount of mana is generated
   * you can also filter it per-flower; "generate a pool of mana using only munchdews"
   * debug the statistics with `/botaniatweaks-debug-stats` or read from the nbt file
+* NBT aware petal apothecary and runic altar recipes, for Nefarious Purposes:tm:
+* btw those managen stats tweaks work on the petro petunia from floralchemy
 
 License and Attribution
 =======================

@@ -8,7 +8,7 @@ import java.util.*;
 
 public class GeneratingFlowers {
 	
-	public static final Set<FlowerData> flowers;
+	private static final Set<FlowerData> flowers;
 	private static final Map<String, FlowerData> classesToData;
 	private static final Map<String, FlowerData> namesToData;
 	

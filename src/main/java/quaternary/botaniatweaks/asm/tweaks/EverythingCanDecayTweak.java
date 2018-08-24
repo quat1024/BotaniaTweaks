@@ -5,11 +5,18 @@ import org.objectweb.asm.tree.*;
 import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class EverythingCanDecayTweak extends Tweak {
 	@Override
 	public Collection<String> computeAffectedClasses() {
-		return ImmutableList.copyOf(GeneratingFlowers.getAllFlowerClassesMayOrMayNotExist());
+		return ImmutableList.copyOf(
+						GeneratingFlowers.getAllFlowerDatas().
+										stream().
+										filter(data -> !data.isPassive).
+										map(data -> data.className).
+										collect(Collectors.toList())
+		);
 	}
 	
 	@Override

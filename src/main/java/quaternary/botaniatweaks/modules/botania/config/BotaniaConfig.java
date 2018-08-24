@@ -81,6 +81,8 @@ public class BotaniaConfig {
 		PASSIVE_DECAY_TIMER = config.getInt("passiveDecayTimer", "balance.decay", 72000, 1, 72000, "How many ticks until passive flowers decay? Can only be set *lower* than the default value. Muahaha.");
 		
 		for(GeneratingFlowers.FlowerData data : GeneratingFlowers.getAllFlowerDatas()) {
+			if(data.isPassive) continue;
+			
 			String flowerName = data.name;
 			String flowerMod = data.modId;
 			boolean shouldIt = config.getBoolean(flowerName + "Decay", "balance.decay.flowers", false, String.format("Does the %s, from %s, experience passive decay?", flowerName, flowerMod));

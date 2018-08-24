@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.BotaniaTweaks;
 
 public class ConfigUpdater {
-	public static final int CONFIG_FILE_VERSION = 2;
+	public static final int CONFIG_FILE_VERSION = 3;
 	
 	private static final Logger LOG = LogManager.getLogger(BotaniaTweaks.NAME + " Config Auto-Updater");
 	
@@ -34,6 +34,12 @@ public class ConfigUpdater {
 		if(version <= 1) {
 			updatev1tov2(config);
 			version = 2;
+			dirtyConfig = true;
+		}
+		
+		if(version <= 2) {
+			updatev2tov3(config);
+			version = 3;
 			dirtyConfig = true;
 		}
 		
@@ -80,6 +86,14 @@ public class ConfigUpdater {
 		if(config.hasKey("etc", "pottedTinyPotato")) {
 			log("Removing the potted tiny potato config option (it's just always on now)");
 			config.getCategory("etc").remove("pottedTinyPotato");
+		}
+	}
+	
+	static void updatev2tov3(Configuration config) {
+		log("Updating version 2 config to version 3");
+		if(config.hasKey("balance.decay.flowers", "hydroangeasDecay")) {
+			log("Removing mistakenly-added hydroangeas decay configuration");
+			config.getCategory("balance.decay.flowers").remove("hydroangeasDecay");
 		}
 	}
 }

@@ -42,6 +42,7 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 
 public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<TileCompressedTinyPotato> {
@@ -192,50 +193,70 @@ public class RenderTileCompressedTinyPotato extends TileEntitySpecialRenderer<Ti
 				side = EnumFacing.fromAngle(sideAngle);
 			}
 			
-			boolean block = stack.getItem() instanceof ItemBlock;
-			
 			//Hastily fix transformations on items because that's a lot of transforms to manually fix gachiBASS
 			float scale = (float) MathUtil.rangeRemap(compressionLevel, 0, 8, 1, 4);
 			GlStateManager.scale(scale, scale, scale);
 			GlStateManager.translate(0, scale * 0.37, 0);
 			
+			boolean block = stack.getItem() instanceof ItemBlock;
+			boolean mySon = stack.getItem() instanceof ItemBlockTinyPotato || (stack.getItem() instanceof ItemBlock && ((ItemBlock)stack.getItem()).getBlock() instanceof BlockCompressedTinyPotato);
+			
 			switch(side) {
 				case UP:
-					if(block)
+					if(mySon)
 						GlStateManager.translate(0F, 0.6F, 0.5F);
+					else if(block)
+						GlStateManager.translate(0F, 0.3F, 0.5F);
 					GlStateManager.translate(0F, -0.5F, -0.4F);
 					break;
 				case DOWN:
-					GlStateManager.translate(0, -2., -0.88);
-					if(block)
+					GlStateManager.translate(0, -2.3, -0.88);
+					if(mySon)
+						GlStateManager.translate(0, .65, 0.6);
+					else if(block)
 						GlStateManager.translate(0, 1, 0.6);
 					break;
 				case NORTH:
 					GlStateManager.translate(0, -1.9, 0.02);
-					if(block)
+					if(mySon)
+						GlStateManager.translate(0, 1, 0.6);
+					else if(block)
 						GlStateManager.translate(0, 1, 0.6);
 					break;
 				case SOUTH:
 					GlStateManager.translate(0, -1.6, -0.89);
-					if(block)
-						GlStateManager.translate(0, 1, 0.6);
+					if(mySon)
+						GlStateManager.translate(0, 1.4, 0.5);
+					else if(block)
+						GlStateManager.translate(0, 1.0, 0.5);
 					break;
 				case EAST:
-					if(block)
+					if(mySon)
+						GlStateManager.translate(-0.4F, 0.65F, 0F);
+					else if(block)
 						GlStateManager.translate(-0.4F, 0.8F, 0F);
 					else GlStateManager.rotate(-90F, 0F, 1F, 0F);
 					GlStateManager.translate(-0.3F, -1.9F, 0.04F);
 					break;
 				case WEST:
-					if(block)
+					if(mySon)
+						GlStateManager.translate(1F, 0.65F, 1F);
+					else if(block)
 						GlStateManager.translate(1F, 0.8F, 1F);
 					else GlStateManager.rotate(-90F, 0F, 1F, 0F);
 					GlStateManager.translate(-0.3F, -1.9F, -0.92F);
 					break;
 			}
 			
-			if(block)
+			if (mySon) {
+				GlStateManager.scale(1.1, 1.1, 1.1);
+				if(stack.getItem() instanceof ItemBlockTinyPotato) GlStateManager.rotate(180, 0, 1, 0); //um ok
+				//IF AT FIRST YOU DON'T SUCCEED, ADD MORE MAGIC NUMBERS
+				//NOW WITH FEWER, BUT WEIRDER, MAGIC NUMBERS
+				GlStateManager.translate(0, 0.46 - (scale / 7.14d), 0);
+			} else if(block) {
 				GlStateManager.scale(0.5, 0.5, 0.5);
+			}
 			
 			renderItem(stack);
 			GlStateManager.popMatrix();

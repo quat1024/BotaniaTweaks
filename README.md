@@ -10,11 +10,12 @@ This mod has (soft) dependencies on a bunch of other mods, some of which I could
 
 * Clone this repo
 * Populate `libs/` with mods from CurseForge:
+  * Botania: Botania r1.10-355.jar
   * Agricraft: agricraft-2.12.2-1.12.0-a4.jar
   * Extended Crafting: extendedcrafting-1.12-1.4.2.jar
   * InfinityLib: infinitylib-1.12.0.jar
   * Cucumber Library: cucumber-1.12-1.1.1.jar
-* Run those through a tool like BON2 so you have deobfuscated versions (make sure to use the same mappings version)
+* Run those through a tool like BON2 so you have deobfuscated versions (make sure to use the same mappings version, which is snapshot 20180407 at this time... should really switch to stable_39)
 * Build and run as usual
 
 You might also want to grab a copy of ModTweaker - i'm using 4.0.13 right now - to use some of its Botania ZenScript features in your test scripts. Please don't actually *depend* on it, softly or hardly.

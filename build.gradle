@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.6.2"
+version = "1.6.3"
 group = "quaternary.botaniatweaks" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "botaniatweaks"
 
@@ -50,7 +50,8 @@ dependencies {
     //Comment out for now because I think avaritia/whatever is pulling in another JEI
     //runtime "mezz.jei:jei_1.12.2:4.9.1.179"
     
-    deobfCompile "vazkii.botania:Botania:r1.10-355.2"
+    //Pulling this from libs/ for now
+    //deobfCompile "vazkii.botania:Botania:r1.10-355.2"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
     
     //I feel dirty already

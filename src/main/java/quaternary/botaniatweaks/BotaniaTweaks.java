@@ -27,7 +27,7 @@ public class BotaniaTweaks {
 	public static final String VERSION = "GRADLE:VERSION";
 	public static final String DEPS = "required-before:botania";
 	
-	public static final int TESTED_BOTANIA_VERSION = 355;
+	public static final int TESTED_BOTANIA_VERSION = 356;
 	
 	public static final Logger LOG = LogManager.getLogger(NAME);
 	

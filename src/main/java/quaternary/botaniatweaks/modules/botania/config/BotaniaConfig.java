@@ -1,6 +1,7 @@
 package quaternary.botaniatweaks.modules.botania.config;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.Loader;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
 import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
@@ -50,7 +51,7 @@ public class BotaniaConfig {
 		//balance
 		MANASTORM_SCALE_FACTOR = config.getFloat("manastormScaleFactor", "balance", 1f, 1f, 15f, "The default mana output of the Manastorm Charge is multiplied by this amount. Setting this to a value higher than around ~1.38889ish allows for the \"Manastorm Reactor\" build to be profitable.");
 		
-		CHEAP_FLINT_TO_POWDER = config.get("balance", "cheapFlintToPowder", "Should the flint-to-powder alchemy recipe be the same price as the powder-to-flint? This makes it possible to run an Entropinnyum off a cobbleworks.").setRequiresMcRestart(true).getBoolean();
+		CHEAP_FLINT_TO_POWDER = config.get("balance", "cheapFlintToPowder", "false", "Should the flint-to-powder alchemy recipe be the same price as the powder-to-flint? This makes it possible to run an Entropinnyum off a cobbleworks.", Property.Type.BOOLEAN).setRequiresMcRestart(true).getBoolean();
 		
 		SUPER_SPECTROLUS = config.getBoolean("superSpectrolus", "balance", false, "Should the Spectrolus generate 8x the mana it does by default? This makes it much cheaper to run; filling a mana pool only requires a little over five stacks of wool, not over a double chest's worth.");
 		

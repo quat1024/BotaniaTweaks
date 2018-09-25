@@ -21,6 +21,7 @@ public class BotaniaConfig {
 	
 	public static boolean CHEAP_FLINT_TO_POWDER;
 	public static boolean SUPER_SPECTROLUS;
+	public static float ROSA_ARCANA_ORB_MULTIPLIER;
 	
 	public static boolean AUTO_CORPOREA_SPARK;
 	
@@ -52,6 +53,8 @@ public class BotaniaConfig {
 		CHEAP_FLINT_TO_POWDER = config.get("balance", "cheapFlintToPowder", "Should the flint-to-powder alchemy recipe be the same price as the powder-to-flint? This makes it possible to run an Entropinnyum off a cobbleworks.").setRequiresMcRestart(true).getBoolean();
 		
 		SUPER_SPECTROLUS = config.getBoolean("superSpectrolus", "balance", false, "Should the Spectrolus generate 8x the mana it does by default? This makes it much cheaper to run; filling a mana pool only requires a little over five stacks of wool, not over a double chest's worth.");
+		
+		ROSA_ARCANA_ORB_MULTIPLIER = config.getFloat("roseArcanaOrbMultiplier", "balance", 1, 1, 8, "A multiplier for the amount of mana that the Rosa Arcana produces when soaking up XP orbs from the world. This doesn't affect the amount of mana obtained from the XP bars of nearby players; only in-world orb entities are affected.");
 		
 		ORECHID_MODE = BotaniaTweaksConfig.getEnum(config, "cheapOrechid", "balance", EnumOrechidMode.DEFAULT, "How does the Orechid determine its cost and speed to run?", mode -> {
 			switch (mode) {

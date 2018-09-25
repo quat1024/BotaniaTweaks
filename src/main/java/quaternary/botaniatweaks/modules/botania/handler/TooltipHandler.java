@@ -27,6 +27,7 @@ public class TooltipHandler {
 				addTooltip = BotaniaTweakerHooks.shouldFlowerDecay(type);
 				
 				if(BotaniaConfig.SUPER_SPECTROLUS && type.equals("spectrolus")) addTooltip = true;
+				if(BotaniaConfig.ROSA_ARCANA_ORB_MULTIPLIER != 1 && type.equals("arcanerose")) addTooltip = true;
 			} else {
 				Block block = ((ItemBlock) item).getBlock();
 				if(block instanceof IBotaniaTweaked) {

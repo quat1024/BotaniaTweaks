@@ -26,6 +26,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		tweaks.add(new ManaStatisticsTweak());
 		tweaks.add(new CreativeManaPoolSizeTweak());
 		tweaks.add(new NBTAwareRuneAltarAndPetalApothecaryStackMatchingTweak());
+		tweaks.add(new RosaArcanaOutputTweak());
 		
 		for(Tweak t : tweaks) {
 			allPatchedClasses.addAll(t.getAffectedClasses());

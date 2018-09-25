@@ -59,6 +59,13 @@ public class BotaniaTweakerHooks {
 		return 300 * (BotaniaConfig.SUPER_SPECTROLUS ? 8 : 1);
 	}
 	
+	/// rosa arcana tweak
+	
+	public static int getRosaArcanaXPOrbMana() {
+		//35 is the default (check subtilearcanerose)
+		return (int) (35 * BotaniaConfig.ROSA_ARCANA_ORB_MULTIPLIER);
+	}
+	
 	/// apothecary tweak
 	
 	//Copy from TileAltar

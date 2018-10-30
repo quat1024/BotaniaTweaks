@@ -11,6 +11,8 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.items.ItemHandlerHelper;
+import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.botania.net.PacketCustomTerraPlate;
 import quaternary.botaniatweaks.modules.botania.recipe.AgglomerationRecipe;
 import quaternary.botaniatweaks.modules.botania.recipe.AgglomerationRecipes;
@@ -21,6 +23,7 @@ import vazkii.botania.api.mana.spark.*;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntitySpark;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,11 +36,44 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 	public void update() {
 		if(world.isRemote) return;
 		
+		world.profiler.startSection("botaniatweaks_agglo_plate");
+		
 		List<EntityItem> itemEntities = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos));
-		if(itemEntities.isEmpty()) return;
+		if(itemEntities.isEmpty()) {
+			world.profiler.endSection();
+			return;
+		}
 		
 		List<ItemStack> itemStacks = itemEntities.stream().map(EntityItem::getItem).collect(Collectors.toList());
+		
+		//Hack: "collect" the item stacks together.
+		//This makes it work better with multiple copies of a stackable item in recipes.
+		//E.g. two separate bricks now is treated the same as 2 stacked bricks.
+		if(BotaniaConfig.PROCESS_CUSTOM_AGGLO_STACKS) {
+			world.profiler.startSection("collectStacks");
+			List<ItemStack> collectedStacks = new ArrayList<>();
+			
+			for(ItemStack stack : itemStacks) {
+				boolean matched = false;
+				for(ItemStack collect : collectedStacks) {
+					if(ItemHandlerHelper.canItemStacksStack(stack, collect)) {
+						collect.grow(stack.getCount());
+						matched = true;
+						break;
+					}
+				}
+				
+				if(!matched) {
+					collectedStacks.add(stack.copy());
+				}
+			}
+			itemStacks = collectedStacks;
+			world.profiler.endSection();
+		}
+		
+		world.profiler.startSection("recipeMatching");
 		Optional<AgglomerationRecipe> optionalRecipe = AgglomerationRecipes.findMatchingRecipe(world, pos, itemStacks);
+		world.profiler.endSection();
 		
 		if(optionalRecipe.isPresent()) {
 			AgglomerationRecipe recipe = optionalRecipe.get();
@@ -103,6 +139,8 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 		
 		//drain mana if there is no matching recipe
 		if(maxMana == 0) recieveMana(0);
+		
+		world.profiler.endSection();
 	}
 	
 	public boolean isCrafting() {

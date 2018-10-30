@@ -13,6 +13,8 @@ public class BotaniaConfig {
 	public static int MANA_SHOTS_PER_ENERGY_BURST = 1;
 	public static int FE_PER_ENERGY_BURST = 30;
 	
+	public static boolean PROCESS_CUSTOM_AGGLO_STACKS = true;
+	
 	public static boolean CREATE_ENDER_AIR_WITH_DISPENSER;
 	
 	public static int PASSIVE_DECAY_TIMER = 72000;
@@ -114,6 +116,8 @@ public class BotaniaConfig {
 		NON_GOG_WATER_BOWL = config.getBoolean("nonGogWaterBowl", "etc", false, "Should the water bowl mechanic, where you right click on water with a bowl to create a filled bowl, be available outside of Garden of Glass mode?");
 		
 		NBT_AWARE_ALTAR_APOTHECARY = config.getBoolean("nbtAwareAltarAndApothecary", "etc", false, "Should the Runic Altar and Petal Apothecary pay more attention to the NBT tags on particular items? By default, they only compare item ID and data values. If \"true\", the NBT tag on the user-input stack must be a superset of the NBT tag supplied in the recipe.");
+		
+		PROCESS_CUSTOM_AGGLO_STACKS = config.getBoolean("doCustomAggglomerationPreprocessing", "etc", true, "If \"true\", the custom terrestrial agglomeration plate will try to \"collect\" the items on top of it, resolving issues relating to \"2x apple\" being treated differently from \"apple, apple\". This operation can be expensive, so here is your option to disable it, if you have a lot of agglomeration recipes that don't use this feature.\nThis is kind of a hack fix; if I get around to writing a more performant agglomeration recipe matcher, I'll remove this option.");
 		
 		if(config.hasChanged()) config.save();
 	}

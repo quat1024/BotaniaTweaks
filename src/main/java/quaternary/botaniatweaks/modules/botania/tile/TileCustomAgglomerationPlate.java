@@ -38,13 +38,16 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 		
 		world.profiler.startSection("botaniatweaks_agglo_plate");
 		
+		world.profiler.startSection("discoverStacks");
 		List<EntityItem> itemEntities = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos));
 		if(itemEntities.isEmpty()) {
+			world.profiler.endSection();
 			world.profiler.endSection();
 			return;
 		}
 		
 		List<ItemStack> itemStacks = itemEntities.stream().map(EntityItem::getItem).collect(Collectors.toList());
+		world.profiler.endSection();
 		
 		//Hack: "collect" the item stacks together.
 		//This makes it work better with multiple copies of a stackable item in recipes.

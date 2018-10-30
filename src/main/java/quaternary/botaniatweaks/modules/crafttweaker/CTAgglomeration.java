@@ -71,10 +71,10 @@ public class CTAgglomeration {
 	public static void addRecipe(
 					IItemStack output,
 					IIngredient[] inputs,
-					@Optional Integer manaCost,
-					@Optional Integer color1,
-					@Optional Integer color2,
-					@Optional CTAgglomerationMultiblock multiblock
+					Integer manaCost,
+					Integer color1,
+					Integer color2,
+					CTAgglomerationMultiblock multiblock
 	) {
 		addRecipe(output, inputs, manaCost, color1, color2, multiblock.center, multiblock.edge, multiblock.corner, multiblock.centerReplace, multiblock.edgeReplace, multiblock.cornerReplace);
 	}
@@ -83,10 +83,10 @@ public class CTAgglomeration {
 	public static void removeRecipe(
 					IItemStack output,
 					IIngredient[] inputs,
-					@Optional Integer manaCost,
-					@Optional Integer color1,
-					@Optional Integer color2,
-					@Optional CTAgglomerationMultiblock multiblock
+					Integer manaCost,
+					Integer color1,
+					Integer color2,
+					CTAgglomerationMultiblock multiblock
 	) {
 		removeRecipe(output, inputs, manaCost, color1, color2, multiblock.center, multiblock.edge, multiblock.corner, multiblock.centerReplace, multiblock.edgeReplace, multiblock.cornerReplace);
 	}

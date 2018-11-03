@@ -38,7 +38,7 @@ public class BotaniaTweaks {
 	
 	public static CreativeTabs TAB = new CreativeTabs(MODID) {
 		@Override
-		public ItemStack getTabIconItem() {
+		public ItemStack createIcon() {
 			return ICON;
 		}
 	};

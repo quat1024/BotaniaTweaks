@@ -79,7 +79,7 @@ public class BotaniaTweakerHooks {
 		if(!BotaniaConfig.EVERYTHING_APOTHECARY || comp != null) return comp;
 		
 		//If it's a seed, don't allow it in, since yknow it has to complete the craft
-		if(SEED_PATTERN.matcher(stack.getUnlocalizedName()).find()) return null;
+		if(SEED_PATTERN.matcher(stack.getTranslationKey()).find()) return null;
 		
 		//Don't allow buckets in since it's annoying when the empty bucket goes in
 		if(stack.getItem() instanceof ItemBucket) return null;

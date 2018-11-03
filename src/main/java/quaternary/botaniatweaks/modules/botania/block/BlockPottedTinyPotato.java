@@ -49,7 +49,7 @@ public class BlockPottedTinyPotato extends Block {
 	}
 	
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
 	
@@ -87,7 +87,7 @@ public class BlockPottedTinyPotato extends Block {
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(POTATO_FACING, EnumFacing.getHorizontal(meta));
+		return getDefaultState().withProperty(POTATO_FACING, EnumFacing.byHorizontalIndex(meta));
 	}
 	
 	@Override

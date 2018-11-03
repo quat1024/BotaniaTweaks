@@ -81,7 +81,7 @@ public class ModuleAvaritia implements IModule {
 		@SubscribeEvent
 		public static void models(ModelRegistryEvent e) {
 			if(AvaritiaConfig.DIRE_CRAFTY_CRATE) {
-				ClientHelpers.setModel(direCrate.getRegistryName().getResourcePath());
+				ClientHelpers.setModel(direCrate.getRegistryName().getPath());
 			}
 		}
 	}

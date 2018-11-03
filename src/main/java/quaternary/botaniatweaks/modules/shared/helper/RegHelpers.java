@@ -9,7 +9,7 @@ import quaternary.botaniatweaks.BotaniaTweaks;
 public class RegHelpers {
 	public static <T extends Block> T createBlock(T block, String name) {
 		block.setRegistryName(new ResourceLocation(BotaniaTweaks.MODID, name));
-		block.setUnlocalizedName(BotaniaTweaks.MODID + "." + name);
+		block.setTranslationKey(BotaniaTweaks.MODID + "." + name);
 		block.setCreativeTab(BotaniaTweaks.TAB);
 		
 		return block;
@@ -23,7 +23,7 @@ public class RegHelpers {
 	
 	public static <T extends Item> T createItem(T item, String name) {
 		item.setRegistryName(new ResourceLocation(BotaniaTweaks.MODID, name));
-		item.setUnlocalizedName(BotaniaTweaks.MODID + "." + name);
+		item.setTranslationKey(BotaniaTweaks.MODID + "." + name);
 		item.setCreativeTab(BotaniaTweaks.TAB);
 		return item;
 	}

@@ -113,10 +113,10 @@ public class ModuleExtendedCrafting implements IModule {
 		@SubscribeEvent
 		public static void models(ModelRegistryEvent e) {
 			if(ExtendedCraftingConfig.EXTENDED_CRAFTY_CRATES) {
-				ClientHelpers.setModel(basicExtCrate.getRegistryName().getResourcePath());
-				ClientHelpers.setModel(advExtCrate.getRegistryName().getResourcePath());
-				ClientHelpers.setModel(eliteExtCrate.getRegistryName().getResourcePath());
-				ClientHelpers.setModel(ultExtCrate.getRegistryName().getResourcePath());
+				ClientHelpers.setModel(basicExtCrate.getRegistryName().getPath());
+				ClientHelpers.setModel(advExtCrate.getRegistryName().getPath());
+				ClientHelpers.setModel(eliteExtCrate.getRegistryName().getPath());
+				ClientHelpers.setModel(ultExtCrate.getRegistryName().getPath());
 			}
 		}
 	}

@@ -63,7 +63,7 @@ public class ModuleAvaritia implements IModule {
 				direCrate = new BlockCompatCrate(direCrateEntry, TileDireCraftyCrate::new);
 				reg.register(RegHelpers.createBlock(direCrate, "dire_crafty_crate"));
 				
-				GameRegistry.registerTileEntity(TileDireCraftyCrate.class, BotaniaTweaks.MODID + ":dire_crafty_crate");
+				GameRegistry.registerTileEntity(TileDireCraftyCrate.class, new ResourceLocation(BotaniaTweaks.MODID, "dire_crafty_crate"));
 			}
 		}
 		

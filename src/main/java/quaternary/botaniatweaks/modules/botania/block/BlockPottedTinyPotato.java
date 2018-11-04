@@ -34,16 +34,19 @@ public class BlockPottedTinyPotato extends Block {
 	}
 	
 	@Override
+	@Deprecated
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return FLOWER_POT_AABB;
 	}
 	
 	@Override
+	@Deprecated
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 	
 	@Override
+	@Deprecated
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
@@ -71,6 +74,7 @@ public class BlockPottedTinyPotato extends Block {
 	}
 	
 	@Override
+	@Deprecated
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 		return getDefaultState().withProperty(POTATO_FACING, placer.getHorizontalFacing().getOpposite());
 	}
@@ -81,11 +85,13 @@ public class BlockPottedTinyPotato extends Block {
 	
 	//and the blockstate boiler plate
 	@Override
+	@Deprecated
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, POTATO_FACING);
 	}
 	
 	@Override
+	@Deprecated
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(POTATO_FACING, EnumFacing.byHorizontalIndex(meta));
 	}
@@ -97,6 +103,7 @@ public class BlockPottedTinyPotato extends Block {
 	
 	//bleh
 	@Override
+	@Deprecated
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
 		return BlockFaceShape.UNDEFINED;
 	}

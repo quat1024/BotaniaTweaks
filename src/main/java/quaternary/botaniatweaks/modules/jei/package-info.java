@@ -1,0 +1,3 @@
+@javax.annotation.ParametersAreNonnullByDefault
+@mcp.MethodsReturnNonnullByDefault
+package quaternary.botaniatweaks.modules.jei;

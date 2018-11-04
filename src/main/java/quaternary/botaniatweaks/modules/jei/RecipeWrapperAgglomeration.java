@@ -2,6 +2,7 @@ package quaternary.botaniatweaks.modules.jei;
 
 import com.google.common.collect.ImmutableList;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -89,8 +90,8 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 	
 	@Override
 	public void getIngredients(IIngredients ing) {
-		ing.setInputLists(ItemStack.class, inputs);
-		ing.setOutputs(ItemStack.class, outputs);
+		ing.setInputLists(VanillaTypes.ITEM, inputs);
+		ing.setOutputs(VanillaTypes.ITEM, outputs);
 	}
 	
 	@Override

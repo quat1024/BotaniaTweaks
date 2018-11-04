@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.*;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +13,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -62,7 +62,7 @@ public class BlockCompressedTinyPotato extends Block implements ILexiconable {
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		String nicePotatoCount = String.format("%,d", potatoCount);
-		tooltip.add(I18n.translateToLocalFormatted("botania_tweaks.compressedpotato.tooltip", nicePotatoCount));
+		tooltip.add(I18n.format("botania_tweaks.compressedpotato.tooltip", nicePotatoCount));
 	}
 	
 	@Override
@@ -116,22 +116,26 @@ public class BlockCompressedTinyPotato extends Block implements ILexiconable {
 	
 	//Render
 	@Override
+	@Deprecated
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 	
 	@Override
+	@Deprecated
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 	
 	@Override
+	@Deprecated
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 	
 	//State
 	@Override
+	@Deprecated
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(FACING, EnumFacing.byHorizontalIndex(meta));
 	}
@@ -147,17 +151,20 @@ public class BlockCompressedTinyPotato extends Block implements ILexiconable {
 	}
 	
 	@Override
+	@Deprecated
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
 		return getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
 	}
 	
 	//Etc
 	@Override
+	@Deprecated
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return aabb;
 	}
 	
 	@Override
+	@Deprecated
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
 		if(compressionLevel != 8) return BlockFaceShape.UNDEFINED;
 		else return face == EnumFacing.UP ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;

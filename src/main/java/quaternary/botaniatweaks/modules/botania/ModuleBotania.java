@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -152,10 +153,10 @@ public class ModuleBotania implements IModule {
 			pottedTater = RegHelpers.createBlock(new BlockPottedTinyPotato(), "potted_tiny_potato");
 			reg.register(pottedTater);
 			
-			GameRegistry.registerTileEntity(TileNerfedManaFluxfield.class, BotaniaTweaks.MODID + ":tweaked_fluxfield");
-			GameRegistry.registerTileEntity(TileCustomAgglomerationPlate.class, BotaniaTweaks.MODID + ":custom_agglomeration_plate");
-			GameRegistry.registerTileEntity(TileCompressedTinyPotato.class, BotaniaTweaks.MODID + ":compressed_tiny_potato");
-			GameRegistry.registerTileEntity(TileCustomCraftyCrate.class, BotaniaTweaks.MODID + ":custom_crafty_crate");
+			GameRegistry.registerTileEntity(TileNerfedManaFluxfield.class,      new ResourceLocation(BotaniaTweaks.MODID, "tweaked_fluxfield"));
+			GameRegistry.registerTileEntity(TileCustomAgglomerationPlate.class, new ResourceLocation(BotaniaTweaks.MODID, "custom_agglomeration_plate"));
+			GameRegistry.registerTileEntity(TileCompressedTinyPotato.class,     new ResourceLocation(BotaniaTweaks.MODID, "compressed_tiny_potato"));
+			GameRegistry.registerTileEntity(TileCustomCraftyCrate.class,        new ResourceLocation(BotaniaTweaks.MODID, "custom_crafty_crate"));
 		}
 		
 		@SubscribeEvent

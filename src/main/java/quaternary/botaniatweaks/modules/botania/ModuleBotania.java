@@ -181,14 +181,14 @@ public class ModuleBotania implements IModule {
 		@SubscribeEvent
 		public static void missingItemMappings(RegistryEvent.MissingMappings<Item> e) {
 			for(RegistryEvent.MissingMappings.Mapping<Item> missing : e.getMappings()) {
-				if(missing.key.getResourcePath().endsWith("spork")) missing.ignore();
+				if(missing.key.getPath().endsWith("spork")) missing.ignore();
 			}
 		}
 		
 		@SubscribeEvent
 		public static void missingRecipeMappings(RegistryEvent.MissingMappings<IRecipe> e) {
 			for(RegistryEvent.MissingMappings.Mapping<IRecipe> missing : e.getMappings()) {
-				if(missing.key.getResourcePath().endsWith("spork")) missing.ignore();
+				if(missing.key.getPath().endsWith("spork")) missing.ignore();
 			}
 		}
 	}
@@ -199,7 +199,7 @@ public class ModuleBotania implements IModule {
 			//This whole method sucks dick. TODO make it not suck dick.
 			
 			for(BlockCompressedTinyPotato tater : taters) {
-				ClientHelpers.setModel(tater.getRegistryName().getResourcePath());
+				ClientHelpers.setModel(tater.getRegistryName().getPath());
 			}
 			
 			ClientHelpers.setModel("potted_tiny_potato");

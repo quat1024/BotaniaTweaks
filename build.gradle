@@ -22,11 +22,11 @@ compileJava {
 
 repositories {
     maven {
-        url "http://maven.blamejared.com"
+        url = "http://maven.blamejared.com"
     }
     
     maven  {
-        url "http://maven.thiakil.com"
+        url = "http://maven.thiakil.com"
     }
     
     maven {
@@ -40,25 +40,31 @@ repositories {
     maven {
         url = "http://chickenbones.net/maven"
     }
+    
+    maven {
+        url = "http://minecraft.curseforge.com/api/maven/"
+    }
 }
 
 dependencies {
     deobfCompile "com.blamejared:MTLib:3.0.4.7"
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.8.5"
     
-    deobfProvided "mezz.jei:jei_1.12.2:4.9.1.187:api"
-    //Comment out for now because I think avaritia/whatever is pulling in another JEI
-    //runtime "mezz.jei:jei_1.12.2:4.9.1.179"
+    deobfProvided "mezz.jei:jei_1.12.2:4.13.1.220:api"
+    runtime "mezz.jei:jei_1.12.2:4.13.1.220"
     
-    //Pulling this from libs/ for now
-    //deobfCompile "vazkii.botania:Botania:r1.10-355.2"
+    deobfCompile "vazkii.botania:Botania:r1.10-357.7" //equivalent to 357
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
     
     //I feel dirty already
     deobfCompile "codechicken:CodeChickenLib:1.12.2-3.2.2.352:universal"
-    deobfCompile "morph.avaritia:Avaritia:1.12.2-3.2.0.25:universal"
+    deobfCompile ("morph.avaritia:Avaritia:1.12.2-3.2.0.25:universal") {
+        transitive = false
+    }
     
-    //more dependencies too, check README
+    //Pull from curseforge
+    deobfCompile "cucumber:Cucumber:1.12.2:1.1.1"
+    deobfCompile "extended-crafting:ExtendedCrafting:1.12.2:1.5.0"
 }
 
 minecraft.coreMod = "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin"
@@ -75,7 +81,7 @@ minecraft {
     version = "1.12.2-14.23.4.2718"
     runDir = "run"
     
-    mappings = "snapshot_20180407"
+    mappings = "stable_39"
     useDepAts = true
     
     replace "GRADLE:VERSION", project.version

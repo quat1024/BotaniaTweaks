@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.modules.IModule;
-import quaternary.botaniatweaks.modules.agricraft.ModuleAgricraft;
 import quaternary.botaniatweaks.modules.avaritia.ModuleAvaritia;
 import quaternary.botaniatweaks.modules.botania.ModuleBotania;
 import quaternary.botaniatweaks.modules.crafttweaker.ModuleCrafttweaker;
@@ -39,7 +38,7 @@ public class BotaniaTweaks {
 	
 	public static CreativeTabs TAB = new CreativeTabs(MODID) {
 		@Override
-		public ItemStack getTabIconItem() {
+		public ItemStack createIcon() {
 			return ICON;
 		}
 	};
@@ -49,7 +48,6 @@ public class BotaniaTweaks {
 	@Mod.EventHandler
 	public static void preinit(FMLPreInitializationEvent e) {
 		modules.add(new ModuleBotania());
-		if(Loader.isModLoaded("agricraft")) modules.add(new ModuleAgricraft());
 		if(Loader.isModLoaded("avaritia")) modules.add(new ModuleAvaritia());
 		if(Loader.isModLoaded("crafttweaker")) modules.add(new ModuleCrafttweaker());
 		if(Loader.isModLoaded("extendedcrafting")) modules.add(new ModuleExtendedCrafting());

@@ -98,6 +98,12 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		GlStateManager.enableAlpha();
 		HUDHandler.renderManaBar(35, 60, 0x0000FF, 0.75f, manaCost, TilePool.MAX_MANA);
+		
+		if(manaCost > 1_000_000) {
+			int roughPoolCount = (250_000 * Math.round(manaCost / 250_000f)) / 1_000_000;
+			Minecraft.getMinecraft().fontRenderer.drawString("x" + roughPoolCount, 140, 58, 0x000000);
+		}
+		
 		GlStateManager.disableAlpha();
 	}
 }

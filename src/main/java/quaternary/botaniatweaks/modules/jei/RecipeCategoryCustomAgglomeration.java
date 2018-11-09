@@ -89,11 +89,9 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 		stacks.set(index, outItem);
 		index++;
 		
-		posY += ITEM_HEIGHT * 4.5;
+		posY += ITEM_HEIGHT * 4.5 - 5;
 		
 		//Set multiblock under plate
-		
-		index = setMultiblock(index, stacks, ImmutableList.of(wrapper.multiblockCenterStack), ImmutableList.of(wrapper.multiblockEdgeStack), ImmutableList.of(wrapper.multiblockCornerStack), WIDTH / 2 - ITEM_WIDTH * 3 - 1, posY, false, false, false);
 		
 		ItemStack centerReplace = wrapper.multiblockReplaceCenterStack;
 		ItemStack edgeReplace = wrapper.multiblockReplaceEdgeStack;
@@ -118,11 +116,17 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 			cornerReplace = ItemStack.EMPTY;
 		}
 		
-		List<ItemStack> drawCenter = ImmutableList.of(isCenterReplaced ? centerReplace : wrapper.multiblockCenterStack);
-		List<ItemStack> drawEdge = ImmutableList.of(isEdgeReplaced ? edgeReplace : wrapper.multiblockEdgeStack);
-		List<ItemStack> drawCorner = ImmutableList.of(isCornerReplaced ? cornerReplace : wrapper.multiblockCornerStack);
-		
-		setMultiblock(index, stacks, drawCenter, drawEdge, drawCorner, WIDTH / 2 + ITEM_WIDTH * 3 - 1, posY, isCenterReplaced, isEdgeReplaced, isCornerReplaced);
+		if(!isCenterReplaced && !isEdgeReplaced && !isCornerReplaced) {
+			setMultiblock(index, stacks, ImmutableList.of(wrapper.multiblockCenterStack), ImmutableList.of(wrapper.multiblockEdgeStack), ImmutableList.of(wrapper.multiblockCornerStack), WIDTH / 2, posY, false, false, false);
+		} else {
+			index = setMultiblock(index, stacks, ImmutableList.of(wrapper.multiblockCenterStack), ImmutableList.of(wrapper.multiblockEdgeStack), ImmutableList.of(wrapper.multiblockCornerStack), WIDTH / 2 - ITEM_WIDTH * 3 - 1, posY, false, false, false);
+			
+			List<ItemStack> drawCenter = ImmutableList.of(isCenterReplaced ? centerReplace : wrapper.multiblockCenterStack);
+			List<ItemStack> drawEdge = ImmutableList.of(isEdgeReplaced ? edgeReplace : wrapper.multiblockEdgeStack);
+			List<ItemStack> drawCorner = ImmutableList.of(isCornerReplaced ? cornerReplace : wrapper.multiblockCornerStack);
+			
+			setMultiblock(index, stacks, drawCenter, drawEdge, drawCorner, WIDTH / 2 + ITEM_WIDTH * 3 - 1, posY, isCenterReplaced, isEdgeReplaced, isCornerReplaced);
+		}
 	}
 	
 	static boolean empty(List<ItemStack> list) {

@@ -97,7 +97,7 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 	@Override
 	public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		GlStateManager.enableAlpha();
-		HUDHandler.renderManaBar(14, 60, 0x0000FF, 0.75f, manaCost, TilePool.MAX_MANA);
+		HUDHandler.renderManaBar(35, 60, 0x0000FF, 0.75f, manaCost, TilePool.MAX_MANA);
 		GlStateManager.disableAlpha();
 	}
 }

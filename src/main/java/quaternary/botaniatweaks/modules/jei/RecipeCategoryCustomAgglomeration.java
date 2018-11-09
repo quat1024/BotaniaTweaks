@@ -19,8 +19,8 @@ import java.util.List;
 public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 	
 	public static final String UID = "botaniatweaks.agglomeration";
-	static final int WIDTH = 128;
-	static final int HEIGHT = 128;
+	static final int WIDTH = 170;
+	static final int HEIGHT = 130;
 	
 	final String localizedName;
 	final IDrawable background;
@@ -93,7 +93,7 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 		
 		//Set multiblock under plate
 		
-		index = setMultiblock(index, stacks, ImmutableList.of(wrapper.multiblockCenterStack), ImmutableList.of(wrapper.multiblockEdgeStack), ImmutableList.of(wrapper.multiblockCornerStack), WIDTH / 2 - ITEM_WIDTH * 3, posY, false, false, false);
+		index = setMultiblock(index, stacks, ImmutableList.of(wrapper.multiblockCenterStack), ImmutableList.of(wrapper.multiblockEdgeStack), ImmutableList.of(wrapper.multiblockCornerStack), WIDTH / 2 - ITEM_WIDTH * 3 - 1, posY, false, false, false);
 		
 		ItemStack centerReplace = wrapper.multiblockReplaceCenterStack;
 		ItemStack edgeReplace = wrapper.multiblockReplaceEdgeStack;
@@ -122,7 +122,7 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 		List<ItemStack> drawEdge = ImmutableList.of(isEdgeReplaced ? edgeReplace : wrapper.multiblockEdgeStack);
 		List<ItemStack> drawCorner = ImmutableList.of(isCornerReplaced ? cornerReplace : wrapper.multiblockCornerStack);
 		
-		setMultiblock(index, stacks, drawCenter, drawEdge, drawCorner, WIDTH / 2 + ITEM_WIDTH * 3, posY, isCenterReplaced, isEdgeReplaced, isCornerReplaced);
+		setMultiblock(index, stacks, drawCenter, drawEdge, drawCorner, WIDTH / 2 + ITEM_WIDTH * 3 - 1, posY, isCenterReplaced, isEdgeReplaced, isCornerReplaced);
 	}
 	
 	static boolean empty(List<ItemStack> list) {

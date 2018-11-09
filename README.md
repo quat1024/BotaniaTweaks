@@ -1,85 +1,19 @@
 Botania Tweaks
 ==============
 
-A little mod containing tweaks to Botania. Mainly focused around adding more configuration options, tiny conveniences, increasing the challenge, or just silly things. All the gameplay-affecting tweaks are configurable.
+A little mod containing tweaks to Botania. Mainly focused around adding more configuration options, tiny conveniences, increasing the challenge, or just silly things. All the tweaks are configurable.
 
 Build Instructions
 ==================
 
-This mod has (soft) dependencies on a bunch of other mods, some of which I couldn't find on Mavens. SO, here you go.
+Previously you had to download and deobfuscate a bunch of crap before compiling, but now you don't have to, because Hubry is awesome, and showed me how to use CurseForge maven.
 
-* Clone this repo
-* Populate `libs/` with mods from CurseForge:
-  * Botania: `Botania r1.10-356.jar`
-  * Agricraft: `agricraft-2.12.2-1.12.0-a4.jar`
-  * Extended Crafting: `extendedcrafting-1.12-1.4.2.jar`
-  * InfinityLib: `infinitylib-1.12.0.jar`
-  * Cucumber Library: `cucumber-1.12-1.1.1.jar`
-* Run those through a tool like BON2 so you have deobfuscated versions (make sure to use the same mappings version, which is snapshot 20180407 at this time... should really switch to stable_39)
-* Build and run as usual
-
-You might also want to grab a copy of ModTweaker - i'm using 4.0.13 right now - to use some of its Botania ZenScript features in your test scripts. Please don't actually *depend* on it, softly or hardly.
+You might also want to grab a copy of ModTweaker - i'm using 4.0.13 right now - to use some of its Botania ZenScript features in your test scripts. Please don't actually *depend* on it.
 
 Featureset
 ==========
 
-* mana fluxfields that you can tweak to match your modpack's FE ecosystem
-* use dispensers on glass bottles in the End to make Ender Air *(tentative mechanic)*
-* crafttweakable agglomeration plate
-  * with a custom multiblock, too!
-  * option to consume or replace the blocks in the multiblock
-  * jei support *(that's only KINDA broken!)*
-  * create your own Lexica Botania pages for your cool recipes, too!
-* POTATIC EXPANSION: 
-  * put tiny potato in flower pot!!!
-  * octuple compressed tiny potato w/ glorius rainbow color
-  * LOVABLE, HUGGABLE, and PETTABLE. Just like the original.
-  * spent way too much time on this
-* auto-place corporea sparks (from your hotbar) when you place funnels, crystal cubes, and such
-  * also: automatically place floral powder on the spark
-* sheep can eat the custom Botania grass blocks, as well as the vanilla grass, to regrow wool
-* crafty crate "advanced mode"
-  * now uses mana? more mana for recipes with more items. configurable amount, too.
-  * also a "hard mode" in case that's not enough: very strict mana input requirements, very challenging to automate
-  * made upon request for a modpack where the crafty crate was actually *too easy*
-  * I am also in disbelief
-* if Avaritia is present: the Dire Crafty Crate will be added
-  * yeah it's a 9x9 crafty crate that crafts Extreme Recipes
-  * ridiculously challenging to automate
-  * what are you going to do about it
-* if Extended Crafting is present: four Extended Crafty Crates will be added
-  * same thing really
-* enable Garden of Glass water bowls on non-Gog maps
-* far cheaper flint to gunpowder recipe for nefarious Entropinnyum purposes
-
-The following features also exist, using a little ASM hackery: 
-
-* passive decay "hard mode"
-  * make any generating flower you want passive decay
-  * reduce the passive decay timer
-* GIANT buffs to underutilized & cool mana sources
-  * spectrolus buff - 10x mana output
-    * doesn't need 1 whole double chest of wool to fill a pool, lmao
-  * big buff to manastorm charge mana output 
-    * "wait, those even had mana output?" you ask?
-    * mmmhmm, yea, they did
-    * this is left as an exercise to the reader
-* unlocked petal apothecary items (put any items in Petal Apothecary)
-  * except seeds and buckets, duh
-* use Garden of Glass's much cheaper prices to run the Orechid, even if GoG is not enabled (this is so fucking op)
-* make the Entropinnyum ignore TNT from a TNT duplicator device
-* make the Entropinnyim only accept vanilla TNT
-* readd Horn of the Wild compat with Agricraft crops (which got lost somewhere in an update)
-  * dooting a crop with a horn harvests and replants it while keeping the crop sticks, like in 1.7
-  * I patch Agricraft for this instead of Botania (smh scope creep)
-  * Patch shouldn't crash if the Agricraft developers implement it themselves
-* change the amount of mana stored in the Guilty Mana Pool; added on request
-* keep statistics on how much mana all flowers generate
-  * all players on the server can earn advancements when a certain amount of mana is generated
-  * you can also filter it per-flower; "generate a pool of mana using only munchdews"
-  * debug the statistics with `/botaniatweaks-debug-stats` or read from the nbt file
-* NBT aware petal apothecary and runic altar recipes, for Nefarious Purposes:tm:
-* btw those managen stats tweaks work on the petro petunia from floralchemy
+I used to have a giant list here but it always got out of sync with the one I keep on [my CurseForge page](https://minecraft.curseforge.com/projects/botania-tweaks) so just go there!
 
 License and Attribution
 =======================

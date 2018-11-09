@@ -106,7 +106,7 @@ public class ConfigUpdater {
 	private static void updatev3tov4(Configuration config) {
 		log("Updating version 3 config to version 4");
 		if(config.hasCategory("compat.agricraft")) {
-			log("Removing Agricraft compat category, since it was removed after Agricraft added horn compat");
+			log("Removing Agricraft compat config category, since Agricraft added horn compat itself :D");
 			config.removeCategory(config.getCategory("compat.agricraft"));
 		}
 	}

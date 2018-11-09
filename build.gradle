@@ -103,7 +103,4 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
-    
-    //awesome AT hot fix
-    rename '(.+at\\.cfg)', 'META-INF/$1'
 }

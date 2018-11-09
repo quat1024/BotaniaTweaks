@@ -50,7 +50,7 @@ public class ModuleExtendedCrafting implements IModule {
 				ItemStack extTableStack = new ItemStack(Item.getItemFromBlock(extTable));
 				ItemStack crateStack = ModCompatUtil.getStackFor(new ResourceLocation("botania", "opencrate"), 1);
 				
-				elvenRecipes.add(new RecipeElvenTrade(new ItemStack[] {extCrateStack}, extTableStack, crateStack));
+				elvenRecipes.add(BotaniaAPI.registerElvenTradeRecipe(extCrateStack, extTableStack, crateStack));
 			};
 			
 			elvenRecipeFunc.accept(basicExtCrate, ModBlocks.blockBasicTable);
@@ -89,10 +89,10 @@ public class ModuleExtendedCrafting implements IModule {
 				reg.register(RegHelpers.createBlock(eliteExtCrate, "elite_extended_crafty_crate"));
 				reg.register(RegHelpers.createBlock(ultExtCrate, "ultimate_extended_crafty_crate"));
 				
-				GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Basic.class, BotaniaTweaks.MODID + ":basic_ext_crafty_crate");
-				GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Advanced.class, BotaniaTweaks.MODID + ":adv_ext_crafty_crate");
-				GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Elite.class, BotaniaTweaks.MODID + ":elite_ext_crafty_crate");
-				GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Ultimate.class, BotaniaTweaks.MODID + ":ult_ext_crafty_crate");
+				GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Basic.class,    new ResourceLocation(BotaniaTweaks.MODID, "basic_ext_crafty_crate"));
+				GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Advanced.class, new ResourceLocation(BotaniaTweaks.MODID, "adv_ext_crafty_crate"));
+				GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Elite.class,    new ResourceLocation(BotaniaTweaks.MODID, "elite_ext_crafty_crate"));
+				GameRegistry.registerTileEntity(AbstractTileExtCraftCrate.Ultimate.class, new ResourceLocation(BotaniaTweaks.MODID, "ult_ext_crafty_crate"));
 			}
 		}
 		

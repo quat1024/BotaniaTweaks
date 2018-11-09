@@ -1,9 +1,9 @@
 package quaternary.botaniatweaks.modules.botania.handler;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.*;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
@@ -37,7 +37,7 @@ public class TooltipHandler {
 		}
 		
 		if(addTooltip) {
-			e.getToolTip().add(TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + I18n.translateToLocal("botania_tweaks.tweaked") + TextFormatting.RESET);
+			e.getToolTip().add(TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + I18n.format("botania_tweaks.tweaked") + TextFormatting.RESET);
 		}
 	}
 }

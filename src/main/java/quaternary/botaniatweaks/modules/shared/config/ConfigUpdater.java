@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.BotaniaTweaks;
 
 public class ConfigUpdater {
-	public static final int CONFIG_FILE_VERSION = 3;
+	public static final int CONFIG_FILE_VERSION = 4;
 	
 	private static final Logger LOG = LogManager.getLogger(BotaniaTweaks.NAME + " Config Auto-Updater");
 	
@@ -42,13 +42,19 @@ public class ConfigUpdater {
 			version = 3;
 			dirtyConfig = true;
 		}
-		
+
+		if(version <= 3) {
+			updatev3tov4(config);
+			version = 4;
+			dirtyConfig = true;
+		}
+
 		if(dirtyConfig) {
 			BotaniaTweaksConfig.readConfig();
 		}
 	}
-	
-	static void updatev1tov2(Configuration config) {
+
+	private static void updatev1tov2(Configuration config) {
 		log("Updating version 1 config to version 2");
 		//dootable agricraft to new location
 		if(config.hasKey("compat", "dootableAgricraft")) {
@@ -88,12 +94,20 @@ public class ConfigUpdater {
 			config.getCategory("etc").remove("pottedTinyPotato");
 		}
 	}
-	
-	static void updatev2tov3(Configuration config) {
+
+	private static void updatev2tov3(Configuration config) {
 		log("Updating version 2 config to version 3");
 		if(config.hasKey("balance.decay.flowers", "hydroangeasDecay")) {
 			log("Removing mistakenly-added hydroangeas decay configuration");
 			config.getCategory("balance.decay.flowers").remove("hydroangeasDecay");
+		}
+	}
+
+	private static void updatev3tov4(Configuration config) {
+		log("Updating version 3 config to version 4");
+		if(config.hasCategory("compat.agricraft")) {
+			log("Removing Agricraft compat category, since it was removed after Agricraft added horn compat");
+			config.removeCategory(config.getCategory("compat.agricraft"));
 		}
 	}
 }

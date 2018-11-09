@@ -13,28 +13,27 @@ import quaternary.botaniatweaks.modules.botania.tile.TileNerfedManaFluxfield;
 import vazkii.botania.api.lexicon.ILexiconable;
 import vazkii.botania.common.block.mana.BlockRFGenerator;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 public class BlockNerfedManaFluxfield extends BlockRFGenerator implements ILexiconable, IBotaniaTweaked {
-	public BlockNerfedManaFluxfield() {
-		
-	}
 	
-	@Nullable
+	@Nonnull
 	@Override
 	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileNerfedManaFluxfield();
 	}
-	
+
 	@Override
+	@Deprecated
 	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
-	
+
 	@CapabilityInject(IEnergyStorage.class)
 	public static final Capability<IEnergyStorage> ENERGY_CAP = null;
 	
 	@Override
+	@Deprecated
 	public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof TileNerfedManaFluxfield) {

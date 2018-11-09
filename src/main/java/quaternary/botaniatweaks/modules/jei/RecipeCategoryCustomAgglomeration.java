@@ -4,12 +4,13 @@ import com.google.common.collect.ImmutableList;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.translation.I18n;
 import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.modules.shared.helper.ModCompatUtil;
 
@@ -25,7 +26,7 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 	final IDrawable background;
 	
 	public RecipeCategoryCustomAgglomeration(IGuiHelper guiHelper) {
-		localizedName = I18n.translateToLocal("botania_tweaks.jei.agglomeration.category");
+		localizedName = I18n.format("botania_tweaks.jei.agglomeration.category");
 		background = guiHelper.createDrawable(new ResourceLocation(BotaniaTweaks.MODID, "textures/ui/terrasteeloverlay.png"), 0, 0, WIDTH, HEIGHT);
 	}
 	
@@ -60,9 +61,9 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 		RecipeWrapperAgglomeration wrapper = (RecipeWrapperAgglomeration) wrap;
 		
 		IGuiItemStackGroup stacks = layout.getItemStacks();
-		List<List<ItemStack>> ins = ings.getInputs(ItemStack.class);
+		List<List<ItemStack>> ins = ings.getInputs(VanillaTypes.ITEM);
 		List<List<ItemStack>> itemInputs = ins.subList(0, ins.size() - 3);
-		List<List<ItemStack>> outs = ings.getOutputs(ItemStack.class);
+		List<List<ItemStack>> outs = ings.getOutputs(VanillaTypes.ITEM);
 		int index = 0;
 		
 		//Set centered row of inputs

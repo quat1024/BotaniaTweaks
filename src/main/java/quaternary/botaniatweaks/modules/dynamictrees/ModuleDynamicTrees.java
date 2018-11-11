@@ -18,7 +18,7 @@ public class ModuleDynamicTrees implements IModule {
 	
 	@Override
 	public void readConfig(Configuration config) {
-		Property proop = config.get("compat.dynamictrees", "altGrassTrees", true, "Should you be able to plant trees from Dynamic Trees on other Botania grasses?");
+		Property proop = config.get("compat.dynamictrees", "customGrassTrees", true, "Should you be able to plant trees from Dynamic Trees on other Botania grasses?");
 		proop.setRequiresMcRestart(true); //:thonk:
 		altGrassTrees = proop.getBoolean();
 	}

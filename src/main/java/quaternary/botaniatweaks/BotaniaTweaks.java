@@ -11,6 +11,7 @@ import quaternary.botaniatweaks.modules.IModule;
 import quaternary.botaniatweaks.modules.avaritia.ModuleAvaritia;
 import quaternary.botaniatweaks.modules.botania.ModuleBotania;
 import quaternary.botaniatweaks.modules.crafttweaker.ModuleCrafttweaker;
+import quaternary.botaniatweaks.modules.dynamictrees.ModuleDynamicTrees;
 import quaternary.botaniatweaks.modules.extendedcrafting.ModuleExtendedCrafting;
 import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
@@ -51,6 +52,7 @@ public class BotaniaTweaks {
 		if(Loader.isModLoaded("avaritia")) modules.add(new ModuleAvaritia());
 		if(Loader.isModLoaded("crafttweaker")) modules.add(new ModuleCrafttweaker());
 		if(Loader.isModLoaded("extendedcrafting")) modules.add(new ModuleExtendedCrafting());
+		if(Loader.isModLoaded("dynamictrees")) modules.add(new ModuleDynamicTrees());
 		
 		BotaniaTweaksConfig.initConfig();
 		modules.forEach(IModule::preinit);

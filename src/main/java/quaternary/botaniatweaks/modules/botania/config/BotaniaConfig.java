@@ -31,6 +31,7 @@ public class BotaniaConfig {
 	public static boolean EVERYTHING_APOTHECARY;
 	
 	public static boolean SHEEP_EAT_ALT_GRASS;
+	public static boolean TILL_ALT_GRASS;
 	
 	public static EnumOrechidMode ORECHID_MODE = EnumOrechidMode.DEFAULT;
 	public static boolean NON_GOG_WATER_BOWL;
@@ -108,6 +109,8 @@ public class BotaniaConfig {
 		EVERYTHING_APOTHECARY = config.getBoolean("unlockApothecary", "etc", false, "If true, any item is allowed to enter the Petal Apothecary, not just petals, runes, and manaresources. Great for modpacks.");
 		
 		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", false, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
+		
+		TILL_ALT_GRASS = config.getBoolean("tillAltGrass", "etc", false, "Can players till the custom Botania grass blocks into farmland?");
 		
 		MANA_GENERATION_STATISTICS = config.getBoolean("keepManaGenerationStatistics", "etc", false, "Should Botania Tweaks keep statistics on the total amount of mana generated, across all flowers and dimensions?");
 		

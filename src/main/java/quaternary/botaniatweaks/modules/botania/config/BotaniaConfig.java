@@ -110,7 +110,7 @@ public class BotaniaConfig {
 		
 		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", false, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
 		
-		TILL_ALT_GRASS = config.getBoolean("tillAltGrass", "etc", false, "Can players till the custom Botania grass blocks into farmland?");
+		TILL_ALT_GRASS = config.getBoolean("tillCustomGrass", "etc", false, "Can players till the custom Botania grass blocks into farmland?");
 		
 		MANA_GENERATION_STATISTICS = config.getBoolean("keepManaGenerationStatistics", "etc", false, "Should Botania Tweaks keep statistics on the total amount of mana generated, across all flowers and dimensions?");
 		

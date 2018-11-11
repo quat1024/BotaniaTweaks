@@ -34,24 +34,17 @@ public class ModuleAvaritia implements IModule {
 	
 	@Override
 	public void postinit() {
-		if(AvaritiaConfig.DIRE_CRAFTY_CRATE) {
-			ItemStack direCrateStack = ModCompatUtil.getStackFor(direCrate.getRegistryName());
-			ItemStack extremeTableStack = ModCompatUtil.getStackFor(new ResourceLocation("avaritia", "extreme_crafting_table"));
-			ItemStack craftyCrateStack = ModCompatUtil.getStackFor(new ResourceLocation("botania", "opencrate"), 1);
-			
-			RecipeElvenTrade direCrateRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack[] {direCrateStack}, extremeTableStack, craftyCrateStack);
-			
-			direCrateEntry = new DoubleCompatLexiconEntry("botania_tweaks.lexicon.category.direCrate", BotaniaAPI.categoryDevices, BotaniaTweaks.NAME, Avaritia.MOD_NAME);
-			direCrateEntry.setKnowledgeType(BotaniaAPI.elvenKnowledge);
-			direCrateEntry.setIcon(direCrateStack);
-			direCrateEntry.addPage(new PageText("botania_tweaks.lexicon.direCrate.0"));
-			direCrateEntry.addPage(new PageElvenRecipe("botania_tweaks.lexicon.direCrate.subtitle", direCrateRecipe));
-		}
-	}
-	
-	@Override
-	public void readConfig(Configuration config) {
-		AvaritiaConfig.readConfig(config);
+		ItemStack direCrateStack = ModCompatUtil.getStackFor(direCrate.getRegistryName());
+		ItemStack extremeTableStack = ModCompatUtil.getStackFor(new ResourceLocation("avaritia", "extreme_crafting_table"));
+		ItemStack craftyCrateStack = ModCompatUtil.getStackFor(new ResourceLocation("botania", "opencrate"), 1);
+		
+		RecipeElvenTrade direCrateRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack[] {direCrateStack}, extremeTableStack, craftyCrateStack);
+		
+		direCrateEntry = new DoubleCompatLexiconEntry("botania_tweaks.lexicon.category.direCrate", BotaniaAPI.categoryDevices, BotaniaTweaks.NAME, Avaritia.MOD_NAME);
+		direCrateEntry.setKnowledgeType(BotaniaAPI.elvenKnowledge);
+		direCrateEntry.setIcon(direCrateStack);
+		direCrateEntry.addPage(new PageText("botania_tweaks.lexicon.direCrate.0"));
+		direCrateEntry.addPage(new PageElvenRecipe("botania_tweaks.lexicon.direCrate.subtitle", direCrateRecipe));
 	}
 	
 	public static class CommonEvents {
@@ -59,30 +52,24 @@ public class ModuleAvaritia implements IModule {
 		public static void blocks(RegistryEvent.Register<Block> e) {
 			IForgeRegistry<Block> reg = e.getRegistry();
 			
-			if(AvaritiaConfig.DIRE_CRAFTY_CRATE) {
-				direCrate = new BlockCompatCrate(direCrateEntry, TileDireCraftyCrate::new);
-				reg.register(RegHelpers.createBlock(direCrate, "dire_crafty_crate"));
-				
-				GameRegistry.registerTileEntity(TileDireCraftyCrate.class, new ResourceLocation(BotaniaTweaks.MODID, "dire_crafty_crate"));
-			}
+			direCrate = new BlockCompatCrate(direCrateEntry, TileDireCraftyCrate::new);
+			reg.register(RegHelpers.createBlock(direCrate, "dire_crafty_crate"));
+			
+			GameRegistry.registerTileEntity(TileDireCraftyCrate.class, new ResourceLocation(BotaniaTweaks.MODID, "dire_crafty_crate"));
 		}
 		
 		@SubscribeEvent
 		public static void items(RegistryEvent.Register<Item> e) {
 			IForgeRegistry<Item> reg = e.getRegistry();
 			
-			if(AvaritiaConfig.DIRE_CRAFTY_CRATE) {
-				reg.register(RegHelpers.createItemBlock(new ItemBlock(direCrate)));
-			}
+			reg.register(RegHelpers.createItemBlock(new ItemBlock(direCrate)));
 		}
 	}
 	
 	public static class ClientEvents {
 		@SubscribeEvent
 		public static void models(ModelRegistryEvent e) {
-			if(AvaritiaConfig.DIRE_CRAFTY_CRATE) {
-				ClientHelpers.setModel(direCrate.getRegistryName().getPath());
-			}
+			ClientHelpers.setModel(direCrate.getRegistryName().getPath());
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package quaternary.botaniatweaks.modules.shared.config;
 
+import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import org.apache.logging.log4j.LogManager;
@@ -84,30 +85,36 @@ public class ConfigUpdater {
 		}
 		
 		//totally removed these keys
-		if(config.hasKey("balance", "corporeaSpork")) {
-			log("Removing the corporea spork config option, since the spork was removed");
-			config.getCategory("balance").remove("corporeaSpork");
-		}
-		
-		if(config.hasKey("etc", "pottedTinyPotato")) {
-			log("Removing the potted tiny potato config option (it's just always on now)");
-			config.getCategory("etc").remove("pottedTinyPotato");
-		}
+		removeKeyIfExists(config, "balance", "corporeaSpork", "Removing the corporea spork config option, since the spork was removed");
+		removeKeyIfExists(config, "etc", "pottedTinyPotato", "Removing the potted tiny potato config option (it's just always on now)");
 	}
 
 	private static void updatev2tov3(Configuration config) {
 		log("Updating version 2 config to version 3");
-		if(config.hasKey("balance.decay.flowers", "hydroangeasDecay")) {
-			log("Removing mistakenly-added hydroangeas decay configuration");
-			config.getCategory("balance.decay.flowers").remove("hydroangeasDecay");
-		}
+		
+		removeKeyIfExists(config, "balance.decay.flowers", "hydroangeasDecay", "Removing mistakenly-added hydroangeas decay configuration");
 	}
 
 	private static void updatev3tov4(Configuration config) {
 		log("Updating version 3 config to version 4");
-		if(config.hasCategory("compat.agricraft")) {
-			log("Removing Agricraft compat config category, since Agricraft added horn compat itself :D");
-			config.removeCategory(config.getCategory("compat.agricraft"));
+		
+		removeCategoryIfExists(config, "compat.agricraft", "Removing Agricraft compat config category, since Agricraft added the Horn of the Wild compat itself :D");
+		removeCategoryIfExists(config, "compat.avaritia", "Removing Avaritia compat category, since I just always register the crafty crate now");
+		removeCategoryIfExists(config, "compat.extendedcrafting", "Removing the Extended Crafting category, since I just always register the crafty crates now");
+	}
+	
+	private static void removeCategoryIfExists(Configuration config, String category, String comment) {
+		if(config.hasCategory(category)) {
+			log(comment);
+			config.removeCategory(config.getCategory(category));
+		}
+	}
+	
+	private static void removeKeyIfExists(Configuration config, String category, String key, String comment) {
+		if(config.hasKey(category, key)) {
+			log(comment);
+			ConfigCategory cat = config.getCategory(category);
+			cat.remove(key);
 		}
 	}
 }

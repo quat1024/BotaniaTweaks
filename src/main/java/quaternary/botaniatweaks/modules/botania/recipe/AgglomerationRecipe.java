@@ -2,15 +2,19 @@ package quaternary.botaniatweaks.modules.botania.recipe;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.init.Items;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.fluids.UniversalBucket;
 
 import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 import java.util.*;
 
 public class AgglomerationRecipe {
@@ -31,6 +35,31 @@ public class AgglomerationRecipe {
 	public final IBlockState multiblockCornerReplace;
 	
 	final int totalInputs;
+
+    public int getBucketCount () {
+        // presume buckets aren't going to be in the ore dictionary
+        int count = 0;
+
+        for (ItemStack stack : recipeStacks) {
+            Item item = stack.getItem();
+            if (item instanceof UniversalBucket || item == Items.WATER_BUCKET || item == Items.MILK_BUCKET|| item == Items.LAVA_BUCKET) count++;
+        }
+
+        return count;
+    }
+
+    public static boolean areItemStacksEqual (@Nonnull ItemStack a, @Nonnull ItemStack b) {
+        if (a.isEmpty() || b.isEmpty() || a.getItem() != b.getItem())
+            return false;
+
+        if (a.getHasSubtypes() && a.getMetadata() != b.getMetadata())
+            return false;
+
+        if (a.hasTagCompound() != b.hasTagCompound())
+            return false;
+
+        return (!a.hasTagCompound() || a.getTagCompound().equals(b.getTagCompound()));
+    }
 	
 	private void verifyInputs(ImmutableList<Object> inputs) {
 		if(inputs.isEmpty()) throw new IllegalArgumentException("Can't make empty agglomeration recipe");
@@ -90,7 +119,7 @@ public class AgglomerationRecipe {
 				if(usedUserInputs[i]) continue; //already matched against a recipe item, don't consume again
 				
 				ItemStack userInputStack = userInputs.get(i);
-				if(ItemHandlerHelper.canItemStacksStack(recipeStack, userInputStack) && recipeStack.getCount() == userInputStack.getCount()) {
+				if(ItemHandlerHelper.canItemStacksStack(recipeStack, userInputStack) && recipeStack.getCount() == userInputStack.getCount() || !recipeStack.isStackable() && areItemStacksEqual(recipeStack, userInputStack)) {
 					usedRecipeStackCount++;
 					usedUserInputs[i] = true;
 				}

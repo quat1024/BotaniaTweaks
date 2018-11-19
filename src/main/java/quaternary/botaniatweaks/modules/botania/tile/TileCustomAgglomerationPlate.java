@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -105,6 +106,7 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 				itemEntities.forEach(Entity::setDead);
 				ItemStack output = recipe.getRecipeOutputCopy();
 				EntityItem outputItem = new EntityItem(world, pos.getX() + .5, pos.getY() + .3, pos.getZ() + .5, output);
+                int bucketCount = recipe.getBucketCount();
 				
 				//Make it not literally jump off the plate
 				outputItem.motionX = 0;
@@ -112,6 +114,15 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 				outputItem.motionZ = 0;
 				
 				world.spawnEntity(outputItem);
+
+                if (bucketCount > 0) {
+                    EntityItem bucketOutput = new EntityItem(world, pos.getX() + .5, pos.getY() + .3, pos.getZ() + .5, new ItemStack(Items.BUCKET, bucketCount, 0));
+                    bucketOutput.motionX = 0;
+                    bucketOutput.motionY = 0;
+                    bucketOutput.motionZ = 0;
+
+                    world.spawnEntity(bucketOutput);
+                }
 				
 				//consume/replace the blocks, if the recipe asked for it
 				if(recipe.multiblockCenterReplace != null) {

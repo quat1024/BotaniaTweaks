@@ -1,22 +1,17 @@
 package quaternary.botaniatweaks.modules.botania.handler;
 
-import com.google.common.collect.ImmutableSet;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.world.WorldTypeSkyblock;
 
 public class NonGOGWaterBowlHandler {
 	@SubscribeEvent
@@ -24,12 +19,8 @@ public class NonGOGWaterBowlHandler {
 		//This method is pretty much a gigantic copypasta from SkyblockWorldEvents.java.
 		//Changes noted.
 		
-		if(WorldTypeSkyblock.isWorldSkyblock(event.getWorld())) {
-			return; //Let Botania handle this
-		}
-		
-		//Tweaks: check config value, not the world type
-		if(BotaniaConfig.NON_GOG_WATER_BOWL) {
+		//Tweaks: check config value, not whether GOG is loaded.
+		if(!Botania.gardenOfGlassLoaded && BotaniaConfig.NON_GOG_WATER_BOWL) {
 			ItemStack equipped = event.getItemStack();
 			//Tweaks: remove the pebbles mechanic block, this isn't about pebbles
 			if(!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {

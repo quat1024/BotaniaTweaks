@@ -102,27 +102,6 @@ public class ModuleBotania implements IModule {
 	@Override
 	public void postinit() {
 		BotaniaLexiconHandler.registerLexicon();
-		
-		//Also a good time to apply this little tweak, I guess TODO find a better home for this blcok of code
-		if(BotaniaConfig.CHEAP_FLINT_TO_POWDER) {
-			for(RecipeManaInfusion recipe : BotaniaAPI.manaInfusionRecipes) {
-				Object inO = recipe.getInput();
-				if(!(inO instanceof ItemStack)) continue;
-				ItemStack in = (ItemStack) inO;
-				ItemStack out = recipe.getOutput();
-				IBlockState cata = recipe.getCatalyst();
-				
-				if(cata == RecipeManaInfusion.alchemyState && in.getItem() == Items.FLINT && out.getItem() == Items.GUNPOWDER && recipe.getManaToConsume() == 4000) {
-					try {
-						EnumHelper.setFailsafeFieldValue(ReflectionHelper.findField(RecipeManaInfusion.class, "mana"), recipe, 200);
-					} catch (Exception eeee) {
-						throw new RuntimeException("Problem applying cheapFlintToPowder tweak: ", eeee);
-					}
-					
-					break;
-				}
-			}
-		}
 	}
 	
 	@Override

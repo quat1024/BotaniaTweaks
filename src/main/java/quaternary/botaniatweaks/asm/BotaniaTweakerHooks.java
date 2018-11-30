@@ -52,41 +52,11 @@ public class BotaniaTweakerHooks {
 		return BotaniaConfig.MANASTORM_SCALE_FACTOR;
 	}
 	
-	/// spectro tweak
-	
-	public static int getSpectrolusManaPerWool() {
-		//300 is the default (check subtilespectrolus)
-		return 300 * (BotaniaConfig.SUPER_SPECTROLUS ? 8 : 1);
-	}
-	
 	/// rosa arcana tweak
 	
 	public static int getRosaArcanaXPOrbMana() {
 		//35 is the default (check subtilearcanerose)
 		return (int) (35 * BotaniaConfig.ROSA_ARCANA_ORB_MULTIPLIER);
-	}
-	
-	/// apothecary tweak
-	
-	//Copy from TileAltar
-	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
-	
-	@CapabilityInject(IFluidHandler.class)
-	public static final Capability<IFluidHandler> FLUID_CAP = null;
-	
-	public static IFlowerComponent getFlowerComponent(IFlowerComponent comp, ItemStack stack) {
-		//If the tweak is disabled, or if Botania has already chosen a good flower component, just don't change anything
-		if(!BotaniaConfig.EVERYTHING_APOTHECARY || comp != null) return comp;
-		
-		//If it's a seed, don't allow it in, since yknow it has to complete the craft
-		if(SEED_PATTERN.matcher(stack.getTranslationKey()).find()) return null;
-		
-		//Don't allow buckets in since it's annoying when the empty bucket goes in
-		if(stack.getItem() instanceof ItemBucket) return null;
-		if(stack.hasCapability(FLUID_CAP, null)) return null;
-		
-		//K cool
-		return new CatchallFlowerComponent();
 	}
 	
 	/// orechid tweak
@@ -188,31 +158,5 @@ public class BotaniaTweakerHooks {
 	
 	public static int getCreativePoolSize() {
 		return BotaniaConfig.CREATIVE_POOL_SIZE;
-	}
-	
-	// NBT aware runic altar/apothecary tweak
-	
-	public static boolean simpleAreStacksEqualHook(ItemStack fromRecipe, ItemStack userInput) {
-		//See RecipePetals#simpleAreStacksEqual
-		boolean matchItemAndData = fromRecipe.getItem() == userInput.getItem() && fromRecipe.getItemDamage() == userInput.getItemDamage();
-		if(!matchItemAndData) return false;
-		
-		if(BotaniaConfig.NBT_AWARE_ALTAR_APOTHECARY) {
-			//Also check the NBT tags. userInput's NBT must be a superset of fromRecipe's NBT tag, if one exists on the recipe
-			
-			//Recipe item doesn't have one? - assume it doesn't matter
-			if(!fromRecipe.hasTagCompound()) return true;
-			NBTTagCompound fromRecipeNBTCopy = fromRecipe.getTagCompound().copy();
-			//Recipe item has one, but the user input doesn't? - no way it can be a superset
-			if(!userInput.hasTagCompound()) return false;
-			NBTTagCompound userInputNBTCopy = userInput.getTagCompound().copy();
-			
-			//Check if userInput's nbt tag is a superset of fromRecipe's
-			NBTTagCompound mergedNBT = userInputNBTCopy.copy();
-			mergedNBT.merge(fromRecipeNBTCopy);
-			return userInputNBTCopy.equals(mergedNBT);
-		} else {
-			return true; //Use the old behavior.
-		}
 	}
 }

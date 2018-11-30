@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.BotaniaTweaks;
 
 public class ConfigUpdater {
-	public static final int CONFIG_FILE_VERSION = 4;
+	public static final int CONFIG_FILE_VERSION = 5;
 	
 	private static final Logger LOG = LogManager.getLogger(BotaniaTweaks.NAME + " Config Auto-Updater");
 	
@@ -47,6 +47,12 @@ public class ConfigUpdater {
 		if(version <= 3) {
 			updatev3tov4(config);
 			version = 4;
+			dirtyConfig = true;
+		}
+		
+		if(version <= 4) {
+			updatev4tov5(config);
+			version = 5;
 			dirtyConfig = true;
 		}
 
@@ -101,6 +107,15 @@ public class ConfigUpdater {
 		removeCategoryIfExists(config, "compat.agricraft", "Removing Agricraft compat config category, since Agricraft added the Horn of the Wild compat itself :D");
 		removeCategoryIfExists(config, "compat.avaritia", "Removing Avaritia compat category, since I just always register the crafty crate now");
 		removeCategoryIfExists(config, "compat.extendedcrafting", "Removing the Extended Crafting category, since I just always register the crafty crates now");
+	}
+	
+	private static void updatev4tov5(Configuration config) {
+		log("Updating version 4 config to version 5");
+		
+		removeKeyIfExists(config, "etc", "nbtAwareAltarAndApothecary", "Removing the NBT Aware Altar and Apothecary option since it was merged in to Botania mainline");
+		removeKeyIfExists(config, "etc", "unlockApothecary", "Removing the Unlock Apothecary option since it was merged in to Botania mainline");
+		removeKeyIfExists(config, "balance", "superSpectrolus", "Removing the Super Spectrolus option since it was merged in to Botania mainline");
+		removeKeyIfExists(config, "balance", "cheapFlintToPowder", "Removing the Cheap Flint to Gunpowder option since it was merged in to Botania mainline");
 	}
 	
 	private static void removeCategoryIfExists(Configuration config, String category, String comment) {

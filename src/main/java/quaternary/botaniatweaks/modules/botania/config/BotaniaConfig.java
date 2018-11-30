@@ -22,13 +22,9 @@ public class BotaniaConfig {
 	
 	public static float MANASTORM_SCALE_FACTOR;
 	
-	public static boolean CHEAP_FLINT_TO_POWDER;
-	public static boolean SUPER_SPECTROLUS;
 	public static float ROSA_ARCANA_ORB_MULTIPLIER;
 	
 	public static boolean AUTO_CORPOREA_SPARK;
-	
-	public static boolean EVERYTHING_APOTHECARY;
 	
 	public static boolean SHEEP_EAT_ALT_GRASS;
 	public static boolean TILL_ALT_GRASS;
@@ -48,15 +44,9 @@ public class BotaniaConfig {
 	
 	public static int CREATIVE_POOL_SIZE = 1_000_000;
 	
-	public static boolean NBT_AWARE_ALTAR_APOTHECARY;
-	
 	public static void readConfig(Configuration config) {
 		//balance
 		MANASTORM_SCALE_FACTOR = config.getFloat("manastormScaleFactor", "balance", 1f, 1f, 15f, "The default mana output of the Manastorm Charge is multiplied by this amount. Setting this to a value higher than around ~1.38889ish allows for the \"Manastorm Reactor\" build to be profitable.");
-		
-		CHEAP_FLINT_TO_POWDER = config.get("balance", "cheapFlintToPowder", "false", "Should the flint-to-powder alchemy recipe be the same price as the powder-to-flint? This makes it possible to run an Entropinnyum off a cobbleworks.", Property.Type.BOOLEAN).setRequiresMcRestart(true).getBoolean();
-		
-		SUPER_SPECTROLUS = config.getBoolean("superSpectrolus", "balance", false, "Should the Spectrolus generate 8x the mana it does by default? This makes it much cheaper to run; filling a mana pool only requires a little over five stacks of wool, not over a double chest's worth.");
 		
 		ROSA_ARCANA_ORB_MULTIPLIER = config.getFloat("roseArcanaOrbMultiplier", "balance", 1, 1, 8, "A multiplier for the amount of mana that the Rosa Arcana produces when soaking up XP orbs from the world. This doesn't affect the amount of mana obtained from the XP bars of nearby players; only in-world orb entities are affected.");
 		
@@ -106,8 +96,6 @@ public class BotaniaConfig {
 		
 		AUTO_CORPOREA_SPARK = config.getBoolean("autoCorporeaSpark", "etc", false, "If true, placing a corporea-related block will automatically decorate it with corporea sparks and floral powder, unless you're sneaking.");
 		
-		EVERYTHING_APOTHECARY = config.getBoolean("unlockApothecary", "etc", false, "If true, any item is allowed to enter the Petal Apothecary, not just petals, runes, and manaresources. Great for modpacks.");
-		
 		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", false, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
 		
 		TILL_ALT_GRASS = config.getBoolean("tillCustomGrass", "etc", false, "Can players till the custom Botania grass blocks into farmland?");
@@ -117,8 +105,6 @@ public class BotaniaConfig {
 		CREATIVE_POOL_SIZE = (int) (1_000_000 * config.getFloat("guiltyPoolManaMultiplier", "etc", 1, 0, 1.06f, "This number acts as a multiplier for how much mana is in the Guilty Mana Pool. Setting higher than 1 allows for creating \"creative pool only\" mana infusion recipes, by adding recipes using more than an ordinary pool can hold."));
 		
 		NON_GOG_WATER_BOWL = config.getBoolean("nonGogWaterBowl", "etc", false, "Should the water bowl mechanic, where you right click on water with a bowl to create a filled bowl, be available outside of Garden of Glass mode?");
-		
-		NBT_AWARE_ALTAR_APOTHECARY = config.getBoolean("nbtAwareAltarAndApothecary", "etc", false, "Should the Runic Altar and Petal Apothecary pay more attention to the NBT tags on particular items? By default, they only compare item ID and data values. If \"true\", the NBT tag on the user-input stack must be a superset of the NBT tag supplied in the recipe.");
 		
 		PROCESS_CUSTOM_AGGLO_STACKS = config.getBoolean("doCustomAggglomerationPreprocessing", "etc", true, "If \"true\", the custom terrestrial agglomeration plate will try to \"collect\" the items on top of it, resolving issues relating to \"2x apple\" being treated differently from \"apple, apple\". This operation can be expensive, so here is your option to disable it, if you have a lot of agglomeration recipes that don't use this feature.\nThis is kind of a hack fix; if I get around to writing a more performant agglomeration recipe matcher, I'll remove this option.");
 		

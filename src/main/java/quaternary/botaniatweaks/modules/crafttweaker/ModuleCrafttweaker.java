@@ -14,7 +14,7 @@ public class ModuleCrafttweaker implements IModule {
 	public static List<IAction> REMOVE_ACTIONS = new ArrayList<>();
 	
 	@Override
-	public void loadComplete() {
+	public void postinit() {
 		try {
 			ADD_ACTIONS.forEach(CraftTweakerAPI::apply);
 			REMOVE_ACTIONS.forEach(CraftTweakerAPI::apply);

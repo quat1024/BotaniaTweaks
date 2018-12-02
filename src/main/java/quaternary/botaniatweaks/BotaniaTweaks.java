@@ -71,11 +71,6 @@ public class BotaniaTweaks {
 	}
 	
 	@Mod.EventHandler
-	public static void loadComplete(FMLLoadCompleteEvent e) {
-		modules.forEach(IModule::loadComplete);
-	}
-	
-	@Mod.EventHandler
 	public static void serverStarting(FMLServerStartingEvent e) {
 		modules.forEach(m -> m.serverStarting(e));
 	}

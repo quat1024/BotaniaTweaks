@@ -8,6 +8,5 @@ public interface IModule {
 	default void readConfig(Configuration config) {}
 	default void init() {}
 	default void postinit(){}
-	default void loadComplete(){}
 	default void serverStarting(FMLServerStartingEvent e){}
 }

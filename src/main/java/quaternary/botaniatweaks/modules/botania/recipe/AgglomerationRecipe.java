@@ -3,6 +3,7 @@ package quaternary.botaniatweaks.modules.botania.recipe;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -90,7 +91,7 @@ public class AgglomerationRecipe {
 				if(usedUserInputs[i]) continue; //already matched against a recipe item, don't consume again
 				
 				ItemStack userInputStack = userInputs.get(i);
-				if(ItemHandlerHelper.canItemStacksStack(recipeStack, userInputStack) && recipeStack.getCount() == userInputStack.getCount()) {
+				if(compareStacks(recipeStack, userInputStack) && recipeStack.getCount() == userInputStack.getCount()) {
 					usedRecipeStackCount++;
 					usedUserInputs[i] = true;
 				}
@@ -108,7 +109,7 @@ public class AgglomerationRecipe {
 					if(usedUserInputs[i]) continue;
 					
 					ItemStack userInputStack = userInputs.get(i);
-					if(ItemHandlerHelper.canItemStacksStack(oreStack, userInputStack) && userInputStack.getCount() == 1) {
+					if(compareStacks(oreStack, userInputStack) && userInputStack.getCount() == 1) {
 						usedOreKeyCount++;
 						usedUserInputs[i] = true;
 					}
@@ -201,5 +202,19 @@ public class AgglomerationRecipe {
 						", multiblockCornerReplace=" + multiblockCornerReplace +
 						", totalInputs=" + totalInputs +
 						'}';
+	}
+	
+	//see RecipePetals#compareStacks
+	private static boolean compareStacks(ItemStack recipe, ItemStack supplied) {
+		if(recipe.isEmpty() || supplied.isEmpty()) return false;
+		if(recipe.getItem() != supplied.getItem()) return false;
+		if(recipe.getItemDamage() != supplied.getItemDamage()) return false;
+		
+		if(!recipe.hasTagCompound()) return true;
+		if(!supplied.hasTagCompound()) return false;
+		
+		NBTTagCompound merged = supplied.getTagCompound().copy();
+		merged.merge(recipe.getTagCompound());
+		return supplied.getTagCompound().equals(merged);
 	}
 }

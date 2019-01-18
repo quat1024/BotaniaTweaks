@@ -36,7 +36,7 @@ public class BlockCompatCrate extends Block implements IWandHUD, IWandable, ILex
 	}
 	
 	private final LexiconEntry entry;
-	private final Supplier<AbstractTileCompatCrate> tileFactory;
+	private final Supplier<AbstractTileCompatCrate<?>> tileFactory;
 	
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
@@ -64,7 +64,7 @@ public class BlockCompatCrate extends Block implements IWandHUD, IWandable, ILex
 	public void renderHUD(Minecraft mc, ScaledResolution res, World world, BlockPos pos) {
 		TileEntity tile = world.getTileEntity(pos);
 		if(tile instanceof AbstractTileCompatCrate) {
-			AbstractTileCompatCrate crate = (AbstractTileCompatCrate) tile;
+			AbstractTileCompatCrate<?> crate = (AbstractTileCompatCrate) tile;
 			
 			final int STACK_SPACING = 18;
 			

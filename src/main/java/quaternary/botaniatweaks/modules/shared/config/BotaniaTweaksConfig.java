@@ -34,7 +34,7 @@ public class BotaniaTweaksConfig {
 		if(config.hasChanged()) config.save();
 	}
 	
-	public static <T extends Enum> T getEnum(Configuration config, String configName, String configCategory, T defaultValue, String configDescription, Function<T, String> describerFunction, Class<T> enumClass) {
+	public static <T extends Enum<T>> T getEnum(Configuration config, String configName, String configCategory, T defaultValue, String configDescription, Function<T, String> describerFunction, Class<T> enumClass) {
 		//FEAR MY TERRIBLE FUNCTIONAL BULLSHIT, HAHAHAAA
 		//just pretend the inside of this method doesn't exist, because it's otherwise a great utility function
 		

@@ -8,8 +8,6 @@ Build Instructions
 
 Previously you had to download and deobfuscate a bunch of crap before compiling, but now you don't have to, because Hubry is awesome, and showed me how to use CurseForge maven.
 
-Oh but you *do* have to download and deobf a Botania jar, since for some reason Curse maven isn't working right now and it hasnt hit anyones build server yet
-
 You might also want to grab a copy of ModTweaker - i'm using 4.0.13 right now - to use some of its Botania ZenScript features in your test scripts. Please don't actually *depend* on it.
 
 Featureset

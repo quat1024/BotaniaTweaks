@@ -11,7 +11,7 @@ public class ClientProxy extends ServerProxy {
 	}
 	
 	@Override
-	public void registerSidedEventClasses(Supplier<Class> serverClass, Supplier<Class> clientClass) {
+	public void registerSidedEventClasses(Supplier<Class<?>> serverClass, Supplier<Class<?>> clientClass) {
 		if(serverClass != null) MinecraftForge.EVENT_BUS.register(serverClass.get());
 		if(clientClass != null) MinecraftForge.EVENT_BUS.register(clientClass.get());
 	}

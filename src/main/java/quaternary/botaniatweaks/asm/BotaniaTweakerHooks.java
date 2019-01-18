@@ -4,24 +4,17 @@ import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
-import quaternary.botaniatweaks.modules.botania.misc.CatchallFlowerComponent;
 import quaternary.botaniatweaks.modules.botania.wsd.ManaStatisticsWsd;
-import vazkii.botania.api.recipe.IFlowerComponent;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.common.Botania;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused") //Everything here called through ASM

@@ -9,7 +9,7 @@ public class ServerProxy {
 		return false;
 	}
 	
-	public void registerSidedEventClasses(Supplier<Class> serverClass, Supplier<Class> clientClass) {
+	public void registerSidedEventClasses(Supplier<Class<?>> serverClass, Supplier<Class<?>> clientClass) {
 		if(serverClass != null) MinecraftForge.EVENT_BUS.register(serverClass.get());
 	}
 }

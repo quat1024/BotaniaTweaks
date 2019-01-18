@@ -6,7 +6,6 @@ import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -16,7 +15,7 @@ import quaternary.botaniatweaks.modules.shared.helper.ModCompatUtil;
 
 import java.util.List;
 
-public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
+public class RecipeCategoryCustomAgglomeration implements IRecipeCategory<RecipeWrapperAgglomeration> {
 	
 	public static final String UID = "botaniatweaks.agglomeration";
 	static final int WIDTH = 170;
@@ -55,11 +54,7 @@ public class RecipeCategoryCustomAgglomeration implements IRecipeCategory {
 	static final int ITEM_BUFFER = 4;
 	
 	@Override
-	public void setRecipe(IRecipeLayout layout, IRecipeWrapper wrap, IIngredients ings) {
-		if(!(wrap instanceof RecipeWrapperAgglomeration)) return;
-		
-		RecipeWrapperAgglomeration wrapper = (RecipeWrapperAgglomeration) wrap;
-		
+	public void setRecipe(IRecipeLayout layout, RecipeWrapperAgglomeration wrapper, IIngredients ings) {
 		IGuiItemStackGroup stacks = layout.getItemStacks();
 		List<List<ItemStack>> ins = ings.getInputs(VanillaTypes.ITEM);
 		List<List<ItemStack>> itemInputs = ins.subList(0, ins.size() - 3);

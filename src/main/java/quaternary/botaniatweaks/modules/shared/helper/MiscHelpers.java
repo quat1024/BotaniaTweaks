@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -45,15 +47,19 @@ public class MiscHelpers {
 		}
 	}
 	
-	//This is DUMB
+	//This is EXTREMELY DUMB
 	public static ItemStack stackFromState(IBlockState state) {
 		if(state == null) return null;
 		
 		try {
-			return state.getBlock().getItem(null, null, state); //Ugh
-		} catch(Exception e) {
-			return ItemStack.EMPTY;
+			return state.getBlock().getPickBlock(state, null, null, null, null); //Ughhhh
+		} catch(Exception e) { // ok
 		}
+		Item item = Item.getItemFromBlock(state.getBlock());
+		if(item == Items.AIR)
+			return null;
+		
+		return new ItemStack(item, 1, state.getBlock().getMetaFromState(state));
 	}
 	
 	public static List<ItemStack> getAllSubtypes(Iterable<ItemStack> stacks) {

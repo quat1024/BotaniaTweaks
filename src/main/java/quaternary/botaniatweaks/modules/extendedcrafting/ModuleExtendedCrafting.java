@@ -36,6 +36,10 @@ public class ModuleExtendedCrafting implements IModule {
 	public static Block eliteExtCrate;
 	public static Block ultExtCrate;
 	
+	public static boolean areCraftersEnabled() {
+		return ModBlocks.blockBasicTable.isEnabled();
+	}
+	
 	@Override
 	public void preinit() {
 		BotaniaTweaks.PROXY.registerSidedEventClasses(() -> CommonEvents.class, () -> ClientEvents.class);
@@ -43,6 +47,9 @@ public class ModuleExtendedCrafting implements IModule {
 	
 	@Override
 	public void postinit() {
+		if(!areCraftersEnabled())
+			return;
+
 		List<RecipeElvenTrade> elvenRecipes = new ArrayList<>();
 		extCrateEntry = new DoubleCompatLexiconEntry("botania_tweaks.lexicon.category.extCrates", BotaniaAPI.categoryDevices, BotaniaTweaks.NAME, ExtendedCrafting.NAME);
 

@@ -115,8 +115,8 @@ public class ModuleBotania implements IModule {
 		e.registerServerCommand(new CommandResetManaGenerationStats());
 	}
 	
-	private static List<BlockCompressedTinyPotato> taters = new ArrayList<>(8);
-	private static BlockPottedTinyPotato pottedTater;
+	public static List<BlockCompressedTinyPotato> taters = new ArrayList<>(8);
+	public static BlockPottedTinyPotato pottedTater;
 	
 	public static class CommonEvents {
 		@SubscribeEvent

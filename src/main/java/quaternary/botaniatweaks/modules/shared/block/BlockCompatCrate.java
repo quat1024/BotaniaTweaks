@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class BlockCompatCrate extends Block implements IWandHUD, IWandable, ILexiconable {
-	public BlockCompatCrate(LexiconEntry entry, Supplier<AbstractTileCompatCrate> tileFactory) {
+	public BlockCompatCrate(Supplier<LexiconEntry> entry, Supplier<AbstractTileCompatCrate<?>> tileFactory) {
 		super(Material.WOOD);
 		setHardness(2);
 		setSoundType(SoundType.WOOD);
@@ -35,7 +35,7 @@ public class BlockCompatCrate extends Block implements IWandHUD, IWandable, ILex
 		this.tileFactory = tileFactory;
 	}
 	
-	private final LexiconEntry entry;
+	private final Supplier<LexiconEntry> entry;
 	private final Supplier<AbstractTileCompatCrate<?>> tileFactory;
 	
 	@Override
@@ -96,6 +96,6 @@ public class BlockCompatCrate extends Block implements IWandHUD, IWandable, ILex
 	
 	@Override
 	public LexiconEntry getEntry(World world, BlockPos pos, EntityPlayer player, ItemStack stack) {
-		return entry;
+		return entry.get();
 	}
 }

@@ -1,12 +1,14 @@
 package quaternary.botaniatweaks.modules.botania.lexi;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import quaternary.botaniatweaks.BotaniaTweaks;
+import quaternary.botaniatweaks.modules.botania.ModuleBotania;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.shared.lexi.PageTextCompat;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
-import vazkii.botania.api.lexicon.LexiconPage;
+import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.common.lexicon.LexiconData;
 import vazkii.botania.common.lexicon.page.PageCraftingRecipe;
 
@@ -17,6 +19,7 @@ public class BotaniaLexiconHandler {
 		for(int i=1; i <= 8; i++) {
 			PageCraftingRecipe potat = new PageCraftingRecipe("botania_tweaks.lexicon.potato." + i, new ResourceLocation(BotaniaTweaks.MODID, "compressed_tiny_potato_" + i));
 			LexiconData.tinyPotato.addPage(potat);
+			LexiconRecipeMappings.map(new ItemStack(ModuleBotania.taters.get(i - 1)), LexiconData.tinyPotato, 0);
 		}
 		
 		if(BotaniaConfig.ADVANCED_CRAFTY_CRATE) {			

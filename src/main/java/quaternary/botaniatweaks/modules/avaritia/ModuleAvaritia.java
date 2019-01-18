@@ -18,6 +18,7 @@ import quaternary.botaniatweaks.modules.shared.helper.*;
 import quaternary.botaniatweaks.modules.shared.lexi.DoubleCompatLexiconEntry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
@@ -45,6 +46,8 @@ public class ModuleAvaritia implements IModule {
 		direCrateEntry.setIcon(direCrateStack);
 		direCrateEntry.addPage(new PageText("botania_tweaks.lexicon.direCrate.0"));
 		direCrateEntry.addPage(new PageElvenRecipe("botania_tweaks.lexicon.direCrate.subtitle", direCrateRecipe));
+
+		LexiconRecipeMappings.map(direCrateStack, direCrateEntry, 0);
 	}
 	
 	public static class CommonEvents {
@@ -52,7 +55,7 @@ public class ModuleAvaritia implements IModule {
 		public static void blocks(RegistryEvent.Register<Block> e) {
 			IForgeRegistry<Block> reg = e.getRegistry();
 			
-			direCrate = new BlockCompatCrate(direCrateEntry, TileDireCraftyCrate::new);
+			direCrate = new BlockCompatCrate(() -> direCrateEntry, TileDireCraftyCrate::new);
 			reg.register(RegHelpers.createBlock(direCrate, "dire_crafty_crate"));
 			
 			GameRegistry.registerTileEntity(TileDireCraftyCrate.class, new ResourceLocation(BotaniaTweaks.MODID, "dire_crafty_crate"));

@@ -18,6 +18,7 @@ import quaternary.botaniatweaks.modules.shared.helper.*;
 import quaternary.botaniatweaks.modules.shared.lexi.DoubleCompatLexiconEntry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.lexicon.LexiconEntry;
+import vazkii.botania.api.lexicon.LexiconRecipeMappings;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.common.lexicon.page.PageElvenRecipe;
 import vazkii.botania.common.lexicon.page.PageText;
@@ -25,6 +26,7 @@ import vazkii.botania.common.lexicon.page.PageText;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 public class ModuleExtendedCrafting implements IModule {
 	public static LexiconEntry extCrateEntry;
@@ -42,13 +44,15 @@ public class ModuleExtendedCrafting implements IModule {
 	@Override
 	public void postinit() {
 		List<RecipeElvenTrade> elvenRecipes = new ArrayList<>();
-		
+		extCrateEntry = new DoubleCompatLexiconEntry("botania_tweaks.lexicon.category.extCrates", BotaniaAPI.categoryDevices, BotaniaTweaks.NAME, ExtendedCrafting.NAME);
+
 		BiConsumer<Block, Block> elvenRecipeFunc = (extCrate, extTable) -> {
 			ItemStack extCrateStack = new ItemStack(Item.getItemFromBlock(extCrate));
 			ItemStack extTableStack = new ItemStack(Item.getItemFromBlock(extTable));
 			ItemStack crateStack = ModCompatUtil.getStackFor(new ResourceLocation("botania", "opencrate"), 1);
 			
 			elvenRecipes.add(BotaniaAPI.registerElvenTradeRecipe(extCrateStack, extTableStack, crateStack));
+			LexiconRecipeMappings.map(extCrateStack, extCrateEntry, 0);
 		};
 		
 		elvenRecipeFunc.accept(basicExtCrate, ModBlocks.blockBasicTable);
@@ -56,7 +60,6 @@ public class ModuleExtendedCrafting implements IModule {
 		elvenRecipeFunc.accept(eliteExtCrate, ModBlocks.blockEliteTable);
 		elvenRecipeFunc.accept(ultExtCrate, ModBlocks.blockUltimateTable);
 		
-		extCrateEntry = new DoubleCompatLexiconEntry("botania_tweaks.lexicon.category.extCrates", BotaniaAPI.categoryDevices, BotaniaTweaks.NAME, ExtendedCrafting.NAME);
 		extCrateEntry.setKnowledgeType(BotaniaAPI.elvenKnowledge);
 		extCrateEntry.setIcon(new ItemStack(Item.getItemFromBlock(ultExtCrate)));
 		extCrateEntry.addPage(new PageText("botania_tweaks.lexicon.extCrates.0"));
@@ -70,10 +73,11 @@ public class ModuleExtendedCrafting implements IModule {
 		public static void blocks(RegistryEvent.Register<Block> e) {
 			IForgeRegistry<Block> reg = e.getRegistry();
 			
-			basicExtCrate = new BlockCompatCrate(extCrateEntry, AbstractTileExtCraftCrate.Basic::new);
-			advExtCrate = new BlockCompatCrate(extCrateEntry, AbstractTileExtCraftCrate.Advanced::new);
-			eliteExtCrate = new BlockCompatCrate(extCrateEntry, AbstractTileExtCraftCrate.Elite::new);
-			ultExtCrate = new BlockCompatCrate(extCrateEntry, AbstractTileExtCraftCrate.Ultimate::new);
+			Supplier<LexiconEntry> entry = () -> extCrateEntry;
+			basicExtCrate = new BlockCompatCrate(entry, AbstractTileExtCraftCrate.Basic::new);
+			advExtCrate = new BlockCompatCrate(entry, AbstractTileExtCraftCrate.Advanced::new);
+			eliteExtCrate = new BlockCompatCrate(entry, AbstractTileExtCraftCrate.Elite::new);
+			ultExtCrate = new BlockCompatCrate(entry, AbstractTileExtCraftCrate.Ultimate::new);
 			
 			reg.register(RegHelpers.createBlock(basicExtCrate, "basic_extended_crafty_crate"));
 			reg.register(RegHelpers.createBlock(advExtCrate, "advanced_extended_crafty_crate"));

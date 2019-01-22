@@ -68,7 +68,7 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 		//The multiblock replacements
 		if(recipe.multiblockCenterReplace != null) {
 			multiblockReplaceCenterStack = MiscHelpers.stackFromState(recipe.multiblockCenterReplace);
-			outputs_.add(multiblockCenterStack);
+			outputs_.add(multiblockReplaceCenterStack);
 		}
 		
 		if(recipe.multiblockEdgeReplace != null) {

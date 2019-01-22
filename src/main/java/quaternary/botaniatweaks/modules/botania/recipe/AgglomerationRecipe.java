@@ -1,15 +1,16 @@
 package quaternary.botaniatweaks.modules.botania.recipe;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.block.BlockDirectional;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
+import vazkii.botania.api.state.BotaniaStateProps;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -73,8 +74,8 @@ public class AgglomerationRecipe {
 	
 	/////
 	
-	public boolean matches(World w, BlockPos platePos, List<ItemStack> inputs) {
-		return multiblockMatches(w, platePos) && itemsMatch(inputs);
+	public boolean matches(World w, BlockPos platePos, List<ItemStack> inputs, IBlockState belowEarly, IBlockState edgeEarly, IBlockState cornerEarly) {
+		return multiblockMatches(w, platePos, belowEarly, edgeEarly, cornerEarly) && itemsMatch(inputs);
 	}
 	
 	public boolean itemsMatch(List<ItemStack> userInputs) {
@@ -120,18 +121,48 @@ public class AgglomerationRecipe {
 		return usedOreKeyCount == recipeOreKeys.size();
 	}
 	
-	public boolean multiblockMatches(World w, BlockPos platePos) {
+	private EnumFacing[] EAST_SOUTH_WEST = new EnumFacing[] {
+		EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST
+	};
+	
+	public boolean multiblockMatches(World w, BlockPos platePos, IBlockState belowEarly, IBlockState edgeEarly, IBlockState cornerEarly) {
+		//early-exit if the multiblock isn't even close to correct
+		if(!areStatesSimilar(belowEarly, multiblockCenter)) return false;
+		if(!areStatesSimilar(edgeEarly, multiblockEdge)) return false;
+		if(!areStatesSimilar(cornerEarly, multiblockCorner)) return false;
+		
+		//check that the multiblock is well-formed (not just one but all 4 match up)
+		//logic closely tied to TileCustomAgglomerationPlate stuff, so watch out
+		//i intentionally do not check north or northeast since tilecustomagglomerationplate already did
 		BlockPos multiblockPos = platePos.down();
-		if(!w.getBlockState(multiblockPos).equals(multiblockCenter)) return false;
-		for(EnumFacing nesw : EnumFacing.HORIZONTALS) {
-			BlockPos horizOffset = multiblockPos.offset(nesw);
-			if(!w.getBlockState(horizOffset).equals(multiblockEdge)) return false;
+		for(EnumFacing esw : EAST_SOUTH_WEST) {
+			BlockPos horizOffset = multiblockPos.offset(esw);
+			if(!areStatesSimilar(w.getBlockState(horizOffset), multiblockEdge)) return false;
 			
-			BlockPos cornerOffset = horizOffset.offset(nesw.rotateY());
-			if(!w.getBlockState(cornerOffset).equals(multiblockCorner)) return false;
+			BlockPos cornerOffset = horizOffset.offset(esw.rotateY());
+			if(!areStatesSimilar(w.getBlockState(cornerOffset), multiblockCorner)) return false;
 		}
 		
 		return true;
+	}
+	
+	private boolean areStatesSimilar(IBlockState a, IBlockState b) {
+		if(a.getBlock() != b.getBlock()) return false;
+		else return equalizeDirectionProperties(a).equals(equalizeDirectionProperties(b));
+	}
+	
+	private IBlockState equalizeDirectionProperties(IBlockState state) {
+		Collection<IProperty<?>> props = state.getPropertyKeys();
+		if(props.contains(BlockDirectional.FACING)) return state.withProperty(BlockDirectional.FACING, EnumFacing.NORTH);
+		if(props.contains(BotaniaStateProps.FACING)) return state.withProperty(BotaniaStateProps.FACING, EnumFacing.NORTH);
+		
+		for(IProperty<?> prop : props) {
+			if(prop.getValueClass() != EnumFacing.class) continue;
+			if(!prop.getAllowedValues().contains(EnumFacing.NORTH)) continue;
+			state = state.withProperty((IProperty<EnumFacing>) prop, EnumFacing.NORTH);
+		}
+		
+		return state;
 	}
 	
 	//// Yeet

@@ -40,6 +40,7 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 		
 		world.profiler.startSection("discoverStacks");
 		List<EntityItem> itemEntities = world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos));
+		
 		if(itemEntities.isEmpty()) {
 			world.profiler.endSection();
 			world.profiler.endSection();
@@ -47,6 +48,7 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 		}
 		
 		List<ItemStack> itemStacks = itemEntities.stream().map(EntityItem::getItem).collect(Collectors.toList());
+		
 		world.profiler.endSection();
 		
 		//Hack: "collect" the item stacks together.
@@ -75,7 +77,14 @@ public class TileCustomAgglomerationPlate extends TileEntity implements ISparkAt
 		}
 		
 		world.profiler.startSection("recipeMatching");
-		Optional<AgglomerationRecipe> optionalRecipe = AgglomerationRecipes.findMatchingRecipe(world, pos, itemStacks);
+		
+		BlockPos belowPos = pos.down();
+		IBlockState below = world.getBlockState(belowPos);
+		IBlockState side = world.getBlockState(belowPos.north());
+		IBlockState corner = world.getBlockState(belowPos.north().east());
+		
+		Optional<AgglomerationRecipe> optionalRecipe = AgglomerationRecipes.findMatchingRecipe(world, pos, itemStacks, below, side, corner);
+		
 		world.profiler.endSection();
 		
 		if(optionalRecipe.isPresent()) {

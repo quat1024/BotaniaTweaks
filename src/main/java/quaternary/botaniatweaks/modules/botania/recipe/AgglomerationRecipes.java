@@ -1,6 +1,7 @@
 package quaternary.botaniatweaks.modules.botania.recipe;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -44,9 +45,9 @@ public class AgglomerationRecipes {
 	
 	//TODO: Each agglomeration recipe matcher calls getBlockState 9 times.
 	//That feels wasteful; can I pass in a list?
-	public static Optional<AgglomerationRecipe> findMatchingRecipe(World w, BlockPos platePos, List<ItemStack> inputs) {
+	public static Optional<AgglomerationRecipe> findMatchingRecipe(World w, BlockPos platePos, List<ItemStack> inputs, IBlockState below, IBlockState side, IBlockState corner) {
 		for(AgglomerationRecipe recipe : recipes) {
-			if(recipe.matches(w, platePos, inputs)) return Optional.of(recipe);
+			if(recipe.matches(w, platePos, inputs, below, side, corner)) return Optional.of(recipe);
 		}
 		return Optional.empty();
 	}

@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.ModContainer;
 import quaternary.botaniatweaks.modules.botania.block.BlockCompressedTinyPotato;
 import vazkii.botania.common.block.decor.BlockTinyPotato;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -48,18 +49,25 @@ public class MiscHelpers {
 	}
 	
 	//This is EXTREMELY DUMB
+	//no u
 	public static ItemStack stackFromState(IBlockState state) {
-		if(state == null) return null;
+		if(state == null) return ItemStack.EMPTY;
+		Block block = state.getBlock();
 		
 		try {
-			return state.getBlock().getPickBlock(state, null, null, null, null); //Ughhhh
-		} catch(Exception e) { // ok
+			//this is a forge added method that takes a world, hit vector, few other things
+			//and we don't have any of those! so let's just null them all and hope for the best
+			//(usually this delegates to a vanilla method that just returns a new itemstack
+			//with item.getitemfromblock and whatever datavalue damageDropped gives)
+			return block.getPickBlock(state, null, null, null, null); //Ughhhh
+		} catch(Exception e) {
+			//oof
 		}
-		Item item = Item.getItemFromBlock(state.getBlock());
-		if(item == Items.AIR)
-			return null;
 		
-		return new ItemStack(item, 1, state.getBlock().getMetaFromState(state));
+		//ok that didn't work, as a last-ditch effort try emulating vanilla block#getitem
+		Item item = Item.getItemFromBlock(block);
+		if(item == Items.AIR)	return ItemStack.EMPTY;
+		else return new ItemStack(item, 1, block.getMetaFromState(state));
 	}
 	
 	public static List<ItemStack> getAllSubtypes(Iterable<ItemStack> stacks) {

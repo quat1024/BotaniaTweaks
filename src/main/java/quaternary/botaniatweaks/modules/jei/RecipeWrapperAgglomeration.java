@@ -39,16 +39,16 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 	
 	public RecipeWrapperAgglomeration(AgglomerationRecipe recipe) {
 		this.recipe = recipe;
-		ImmutableList.Builder<List<ItemStack>> bob = ImmutableList.builder();
+		ImmutableList.Builder<List<ItemStack>> inputs_ = ImmutableList.builder();
 		
 		//Itemstack inputs
 		for(ItemStack stack : recipe.getRecipeStacks()) {
-			bob.add(ImmutableList.of(stack));
+			inputs_.add(ImmutableList.of(stack));
 		}
 		
 		//Ore key inputs
 		for(String key : recipe.getRecipeOreKeys()) {
-			bob.add(ImmutableList.copyOf(OreDictionary.getOres(key)));
+			inputs_.add(ImmutableList.copyOf(OreDictionary.getOres(key)));
 		}
 		
 		//The three multiblock pieces
@@ -56,34 +56,33 @@ public class RecipeWrapperAgglomeration implements IRecipeWrapper {
 		multiblockEdgeStack = MiscHelpers.stackFromState(recipe.multiblockEdge);
 		multiblockCornerStack = MiscHelpers.stackFromState(recipe.multiblockCorner);
 		
-		bob.add(ImmutableList.of(multiblockCenterStack));
-		bob.add(ImmutableList.of(multiblockEdgeStack));
-		bob.add(ImmutableList.of(multiblockCornerStack));
+		inputs_.add(ImmutableList.of(multiblockCenterStack));
+		inputs_.add(ImmutableList.of(multiblockEdgeStack));
+		inputs_.add(ImmutableList.of(multiblockCornerStack));
 		
-		ImmutableList.Builder<ItemStack> joe = ImmutableList.builder();
+		ImmutableList.Builder<ItemStack> outputs_ = ImmutableList.builder();
 		
 		//Recipe output
-		joe.add(recipe.getRecipeOutputCopy());
+		outputs_.add(recipe.getRecipeOutputCopy());
 		
 		//The multiblock replacements
-		multiblockReplaceCenterStack = MiscHelpers.stackFromState(recipe.multiblockCenterReplace);
-		multiblockReplaceEdgeStack = MiscHelpers.stackFromState(recipe.multiblockEdgeReplace);
-		multiblockReplaceCornerStack = MiscHelpers.stackFromState(recipe.multiblockCornerReplace);
-		
-		if(multiblockReplaceCenterStack != null) {
-			joe.add(multiblockCenterStack);
+		if(recipe.multiblockCenterReplace != null) {
+			multiblockReplaceCenterStack = MiscHelpers.stackFromState(recipe.multiblockCenterReplace);
+			outputs_.add(multiblockCenterStack);
 		}
 		
-		if(multiblockReplaceEdgeStack != null) {
-			joe.add(multiblockCenterStack);
+		if(recipe.multiblockEdgeReplace != null) {
+			multiblockReplaceEdgeStack = MiscHelpers.stackFromState(recipe.multiblockEdgeReplace);
+			outputs_.add(multiblockReplaceEdgeStack);
 		}
 		
-		if(multiblockReplaceCornerStack != null) {
-			joe.add(multiblockCenterStack);
+		if(recipe.multiblockCornerReplace != null) {
+			multiblockReplaceCornerStack = MiscHelpers.stackFromState(recipe.multiblockCornerReplace);
+			outputs_.add(multiblockReplaceCornerStack);
 		}
 		
-		inputs = bob.build();
-		outputs = joe.build();
+		inputs = inputs_.build();
+		outputs = outputs_.build();
 		
 		manaCost = recipe.manaCost;
 	}

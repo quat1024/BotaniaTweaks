@@ -23,9 +23,10 @@ public class BotaniaConfig {
 	public static float MANASTORM_SCALE_FACTOR;
 	
 	public static float ROSA_ARCANA_ORB_MULTIPLIER;
-	
+
 	public static boolean AUTO_CORPOREA_SPARK;
-	
+	public static boolean AUTO_CORPOREA_SPARK_TINY_POTATO;
+
 	public static boolean SHEEP_EAT_ALT_GRASS;
 	public static boolean TILL_ALT_GRASS;
 	
@@ -93,9 +94,10 @@ public class BotaniaConfig {
 		
 		//etc
 		CREATE_ENDER_AIR_WITH_DISPENSER = config.getBoolean("enderAirDispenser", "etc", false, "Can dispensers shoot glass bottles to turn them in to Ender Air in the End dimension? This allows for automation of Ender Air, which was not previously possible.");
-		
+
 		AUTO_CORPOREA_SPARK = config.getBoolean("autoCorporeaSpark", "etc", false, "If true, placing a corporea-related block will automatically decorate it with corporea sparks and floral powder, unless you're sneaking.");
-		
+		AUTO_CORPOREA_SPARK_TINY_POTATO = config.getBoolean("autoCorporeaSparkTinyPotato", "etc", false, "If true, the 'autoCorporeaSpark' option will consider tiny potatoes to be a corporea-related block");
+
 		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", false, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
 		
 		TILL_ALT_GRASS = config.getBoolean("tillCustomGrass", "etc", false, "Can players till the custom Botania grass blocks into farmland?");

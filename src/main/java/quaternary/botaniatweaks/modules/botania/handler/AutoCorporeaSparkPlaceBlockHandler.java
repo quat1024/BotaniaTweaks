@@ -16,6 +16,7 @@ import net.minecraftforge.items.IItemHandler;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.corporea.BlockCorporeaBase;
+import vazkii.botania.common.block.decor.BlockTinyPotato;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.item.ItemCorporeaSpark;
 
@@ -31,7 +32,7 @@ public class AutoCorporeaSparkPlaceBlockHandler {
 		
 		Block placedBlock = e.getPlacedBlock().getBlock();
 		
-		if(placedBlock instanceof BlockCorporeaBase) {
+		if(placedBlock instanceof BlockCorporeaBase || (BotaniaConfig.AUTO_CORPOREA_SPARK_TINY_POTATO && placedBlock instanceof BlockTinyPotato)) {
 			ItemStack spork = findSpork(e.getPlayer().inventory);
 			if(spork.isEmpty()) return;
 			

@@ -5,6 +5,7 @@ import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -241,11 +242,41 @@ public class AgglomerationRecipe {
 		if(recipe.getItem() != supplied.getItem()) return false;
 		if(recipe.getItemDamage() != supplied.getItemDamage()) return false;
 		
-		if(!recipe.hasTagCompound()) return true;
-		if(!supplied.hasTagCompound()) return false;
+		return isTagSubset(recipe.getTagCompound(), supplied.getTagCompound());
+	}
+	
+	//TODO: PR this method into Botania, then call it instead.
+	private static boolean isTagSubset(@Nullable NBTTagCompound recipeTag, @Nullable NBTTagCompound suppliedTag) {
+		//check that the user supplied item has, at least, the same nbt tags as the recipe item
+		//it is OK if the supplied item has *more* tags - however all the tags that *are* specified
+		//in the recipe item must match
 		
-		NBTTagCompound merged = supplied.getTagCompound().copy();
-		merged.merge(recipe.getTagCompound());
-		return supplied.getTagCompound().equals(merged);
+		//check easy cases
+		//if there's no specified recipe nbt tag, anything goes
+		if(recipeTag == null || recipeTag.isEmpty()) return true;
+		//if the recipe has nbt but the supplied item doesn't, there's no way it can match
+		if(suppliedTag == null || suppliedTag.isEmpty()) return false;
+		//if the recipe simply has more nbt tags than the supplied item, there's no way it can match
+		if(recipeTag.getKeySet().size() > suppliedTag.getKeySet().size()) return false;
+		
+		//it's not an easy case, so we actually have to check the contents of each tag
+		
+		for(String key : suppliedTag.getKeySet()) {
+			//it's ok if the recipe is missing a key from the supplied item
+			if(!recipeTag.hasKey(key)) continue;
+			
+			NBTBase suppliedEntry = suppliedTag.getTag(key);
+			NBTBase recipeEntry = recipeTag.getTag(key);
+			
+			//if a value is present on both tags but they do not match, fail
+			if(suppliedEntry instanceof NBTTagCompound && recipeEntry instanceof NBTTagCompound) {
+				//recurse into tag compounds (see issue #42)
+				if(!isTagSubset((NBTTagCompound) recipeEntry, (NBTTagCompound) suppliedEntry)) return false;
+			} else {
+				if(!suppliedEntry.equals(recipeEntry)) return false;
+			}
+		}
+		
+		return true;
 	}
 }

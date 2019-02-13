@@ -7,6 +7,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -261,22 +262,38 @@ public class AgglomerationRecipe {
 		
 		//it's not an easy case, so we actually have to check the contents of each tag
 		
-		for(String key : suppliedTag.getKeySet()) {
-			//it's ok if the recipe is missing a key from the supplied item
-			if(!recipeTag.hasKey(key)) continue;
-			
+		for(String key : recipeTag.getKeySet()) {
 			NBTBase suppliedEntry = suppliedTag.getTag(key);
 			NBTBase recipeEntry = recipeTag.getTag(key);
-			
-			//if a value is present on both tags but they do not match, fail
-			if(suppliedEntry instanceof NBTTagCompound && recipeEntry instanceof NBTTagCompound) {
-				//recurse into tag compounds (see issue #42)
-				if(!isTagSubset((NBTTagCompound) recipeEntry, (NBTTagCompound) suppliedEntry)) return false;
-			} else {
-				if(!suppliedEntry.equals(recipeEntry)) return false;
-			}
+
+			if (!isTagBaseSubset(recipeEntry, suppliedEntry)) return false;
 		}
 		
+		return true;
+	}
+
+	private static boolean isTagBaseSubset(@Nullable NBTBase recipeTag, @Nullable NBTBase suppliedTag) {
+
+		//if a value is present on both tags but they do not match, fail
+		if(suppliedTag instanceof NBTTagCompound && recipeTag instanceof NBTTagCompound) {
+			//recurse into tag compounds (see issue #42)
+			if(!isTagSubset((NBTTagCompound) recipeTag, (NBTTagCompound) suppliedTag)) return false;
+		} else if(suppliedTag instanceof NBTTagList && recipeTag instanceof NBTTagList) {
+			//recurse into lists and make sure the recipe list at least matches the first elements of the supplied list
+			//can't match, say, only the third item of a list, but if it is a list of compounds then you can
+			//have it match empty compounds for the first two elements
+			if(((NBTTagList) recipeTag).tagCount() > ((NBTTagList) suppliedTag).tagCount()) {
+				return false;
+			}
+
+			for(int i=0; i < ((NBTTagList) recipeTag).tagCount(); i++) {
+				if(!isTagBaseSubset(((NBTTagList) recipeTag).get(i), ((NBTTagList) suppliedTag).get(i))) {
+					return false;
+				}
+			}
+		} else {
+			if(!suppliedTag.equals(recipeTag)) return false;
+		}
 		return true;
 	}
 }

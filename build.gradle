@@ -49,8 +49,9 @@ dependencies {
     deobfCompile "com.blamejared:MTLib:3.0.4.7"
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.8.5"
     
-    deobfProvided "mezz.jei:jei_1.12.2:4.13.1.220:api"
-    runtime "mezz.jei:jei_1.12.2:4.13.1.220"
+    //for some reason this broke so, let's just not use the api separately
+    //deobfProvided "mezz.jei:jei_1.12.2:4.13.1.220:api"
+    deobfCompile "mezz.jei:jei_1.12.2:4.13.1.220"
 
     deobfCompile "vazkii.botania:Botania:r1.10-359.27"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"

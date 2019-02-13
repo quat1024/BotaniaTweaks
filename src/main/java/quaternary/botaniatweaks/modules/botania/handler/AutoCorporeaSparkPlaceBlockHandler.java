@@ -29,9 +29,7 @@ public class AutoCorporeaSparkPlaceBlockHandler {
 		if(!BotaniaConfig.AUTO_CORPOREA_SPARK) return;
 		if(e.getPlayer().isSneaking()) return;
 		
-		Block placedBlock = e.getPlacedBlock().getBlock();
-		
-		if(placedBlock instanceof BlockCorporeaBase) {
+		if(isCorporetic(e.getPlacedBlock().getBlock())) {
 			ItemStack spork = findSpork(e.getPlayer().inventory);
 			if(spork.isEmpty()) return;
 			
@@ -63,7 +61,7 @@ public class AutoCorporeaSparkPlaceBlockHandler {
 		}
 	}
 	
-	static ItemStack findSpork(InventoryPlayer inv) {
+	private static ItemStack findSpork(InventoryPlayer inv) {
 		for(int i = 0; i < 9; i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			if(stack.getItem() instanceof ItemCorporeaSpark && stack.getItemDamage() == 0) {
@@ -73,7 +71,7 @@ public class AutoCorporeaSparkPlaceBlockHandler {
 		return ItemStack.EMPTY;
 	}
 	
-	static ItemStack findDye(InventoryPlayer inv) {
+	private static ItemStack findDye(InventoryPlayer inv) {
 		for(int i = 0; i < 9; i++) {
 			ItemStack stack = inv.getStackInSlot(i);
 			//Vazgoo why did you make it the same name as vanilla dye
@@ -83,5 +81,9 @@ public class AutoCorporeaSparkPlaceBlockHandler {
 			}
 		}
 		return ItemStack.EMPTY;
+	}
+	
+	private static boolean isCorporetic(Block b) {
+		return BotaniaConfig.CORPORETIC_BLOCKS.contains(b.getRegistryName());
 	}
 }

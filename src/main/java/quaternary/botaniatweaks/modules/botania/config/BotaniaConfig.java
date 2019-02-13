@@ -1,5 +1,6 @@
 package quaternary.botaniatweaks.modules.botania.config;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.Loader;
@@ -8,6 +9,8 @@ import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class BotaniaConfig {
 	public static int MANA_SHOTS_PER_ENERGY_BURST = 1;
@@ -25,6 +28,7 @@ public class BotaniaConfig {
 	public static float ROSA_ARCANA_ORB_MULTIPLIER;
 	
 	public static boolean AUTO_CORPOREA_SPARK;
+	public static List<ResourceLocation> CORPORETIC_BLOCKS;
 	
 	public static boolean SHEEP_EAT_ALT_GRASS;
 	public static boolean TILL_ALT_GRASS;
@@ -95,6 +99,19 @@ public class BotaniaConfig {
 		CREATE_ENDER_AIR_WITH_DISPENSER = config.getBoolean("enderAirDispenser", "etc", false, "Can dispensers shoot glass bottles to turn them in to Ender Air in the End dimension? This allows for automation of Ender Air, which was not previously possible.");
 		
 		AUTO_CORPOREA_SPARK = config.getBoolean("autoCorporeaSpark", "etc", false, "If true, placing a corporea-related block will automatically decorate it with corporea sparks and floral powder, unless you're sneaking.");
+		
+		String[] corporeticBlockStringNames = config.getStringList("corporeticBlocks", "etc", new String[] {
+			"botania:corporeaindex",
+			"botania:corporeafunnel",
+			"botania:corporeainterceptor",
+			"botania:corporeacrystalcube",
+			"incorporeal:corporea_liar"
+		}, "The blocks considered \"corporea-related\" for the \"autoCorporeaSpark\" feature.");
+		
+		CORPORETIC_BLOCKS = new LinkedList<>();
+		for(String name : corporeticBlockStringNames) {
+			CORPORETIC_BLOCKS.add(new ResourceLocation(name));
+		}
 		
 		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", false, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
 		

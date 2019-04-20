@@ -51,30 +51,6 @@ import java.util.List;
 public class ModuleBotania implements IModule {
 	@Override
 	public void preinit() {
-		//Warn if the Botania version is wrong because btweaks is so fkin fragile lmao
-		ModContainer botania = MiscHelpers.getBotaniaModContainer();
-		
-		try {
-			String minorVersionString = botania.getDisplayVersion().split("-")[1];
-			double versionNumber = Double.parseDouble(minorVersionString);
-			int flooredVersion = MathHelper.floor(versionNumber);
-			
-			if(flooredVersion != BotaniaTweaks.TESTED_BOTANIA_VERSION) {
-				BotaniaTweaks.LOG.warn("********************************");
-				BotaniaTweaks.LOG.warn("Detected a Botania version mismatch!");
-				BotaniaTweaks.LOG.warn("Expected version {}, found version {}.", BotaniaTweaks.TESTED_BOTANIA_VERSION, flooredVersion);
-				BotaniaTweaks.LOG.warn("This may cause issues and crashes! Please report any");
-				BotaniaTweaks.LOG.warn("errors and crashes to Botania Tweaks first. Thanks!");
-				BotaniaTweaks.LOG.warn("********************************");
-			}
-			
-		} catch(Exception asdf) {
-			BotaniaTweaks.LOG.warn("********************************");
-			BotaniaTweaks.LOG.warn("Unable to detect or parse Botania's version!!!");
-			BotaniaTweaks.LOG.warn("This is BAD!!! Serious incompatibilities and crashes may happen!!!");
-			BotaniaTweaks.LOG.warn("********************************");
-		}
-		
 		BotaniaTweaks.PROXY.registerSidedEventClasses(() -> CommonEvents.class, () -> ClientEvents.class);
 		
 		MinecraftForge.EVENT_BUS.register(AutoCorporeaSparkPlaceBlockHandler.class);

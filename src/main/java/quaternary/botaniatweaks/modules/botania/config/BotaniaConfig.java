@@ -46,9 +46,13 @@ public class BotaniaConfig {
 	
 	public static int CREATIVE_POOL_SIZE = 1_000_000;
 	
+	public static float KEY_DAMAGE_SCALE;
+	
 	public static void readConfig(Configuration config) {
 		//balance
 		MANASTORM_SCALE_FACTOR = config.getFloat("manastormScaleFactor", "balance", 1f, 1f, 15f, "The default mana output of the Manastorm Charge is multiplied by this amount. Setting this to a value higher than around ~1.38889ish allows for the \"Manastorm Reactor\" build to be profitable.");
+		
+		KEY_DAMAGE_SCALE = config.getFloat("keyDamageScale", "balance", 1f, 0f, 1337f, "Crank up this setting to make the Key of the King's Law super OP, if you want. This number is a multiplier for the Key's usual damage value of 10 hearts per hit. Note that setting it to 0 does not disable all damage since the Key's projectiles create a ton of explosions.");
 		
 		ROSA_ARCANA_ORB_MULTIPLIER = config.getFloat("roseArcanaOrbMultiplier", "balance", 1, 1, 8, "A multiplier for the amount of mana that the Rosa Arcana produces when soaking up XP orbs from the world. This doesn't affect the amount of mana obtained from the XP bars of nearby players; only in-world orb entities are affected.");
 		

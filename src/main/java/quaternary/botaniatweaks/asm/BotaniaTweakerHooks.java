@@ -152,4 +152,10 @@ public class BotaniaTweakerHooks {
 	public static int getCreativePoolSize() {
 		return BotaniaConfig.CREATIVE_POOL_SIZE;
 	}
+	
+	//Key damage tweak
+	
+	public static float getKeyDamage() {
+		return 20f * BotaniaConfig.KEY_DAMAGE_SCALE;
+	}
 }

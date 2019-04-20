@@ -21,6 +21,7 @@ public class BotaniaRegistryReplacements {
 		botaniaRegistryReplacements.put("rfGenerator", new BlockNerfedManaFluxfield());
 		botaniaRegistryReplacements.put("terraPlate", new BlockCustomAgglomerationPlate());
 		botaniaRegistryReplacements.put("openCrate", new BlockCustomOpenCrate());
+		botaniaRegistryReplacements.put("pylon", new BlockCustomManaPylon());
 		
 		//Classload botania's ModBlocks early.
 		//This triggers all the blocks to be constructed because it's done at clinit.

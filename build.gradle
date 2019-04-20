@@ -53,7 +53,7 @@ dependencies {
     //deobfProvided "mezz.jei:jei_1.12.2:4.13.1.220:api"
     deobfCompile "mezz.jei:jei_1.12.2:4.13.1.220"
 
-    deobfCompile "vazkii.botania:Botania:r1.10-359.27"
+    deobfCompile "vazkii.botania:Botania:r1.10-362.72"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
     
     //I feel dirty already
@@ -68,7 +68,8 @@ dependencies {
     deobfCompile "cucumber:Cucumber:1.12.2:1.1.1"
     deobfCompile "extended-crafting:ExtendedCrafting:1.12.2:1.5.0"
     deobfCompile "dynamictrees:DynamicTrees:1.12.2:0.8.2"
-
+    deobfProvided "thaumcraft:thaumcraft:1.12.2:6.1.BETA26"
+    
     runtime "modtweaker:modtweaker:4.0.17"
 }
 

@@ -59,7 +59,6 @@ public class ModuleBotania implements IModule {
 		MinecraftForge.EVENT_BUS.register(ManagenStatisticsAdvancementWorldTickHandler.class);
 		MinecraftForge.EVENT_BUS.register(PotatoRightClickHandler.class);
 		MinecraftForge.EVENT_BUS.register(NonGOGWaterBowlHandler.class);
-		MinecraftForge.EVENT_BUS.register(TillAltGrassHandler.class);
 		BotaniaTweaks.PROXY.registerSidedEventClasses(null, () -> TooltipHandler.class);
 		
 		BotaniaRegistryReplacements.registerOverrides();

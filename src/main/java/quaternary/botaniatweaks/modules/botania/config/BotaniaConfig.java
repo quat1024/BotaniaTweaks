@@ -2,7 +2,6 @@ package quaternary.botaniatweaks.modules.botania.config;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.Loader;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
 import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
@@ -31,7 +30,6 @@ public class BotaniaConfig {
 	public static List<ResourceLocation> CORPORETIC_BLOCKS;
 	
 	public static boolean SHEEP_EAT_ALT_GRASS;
-	public static boolean TILL_ALT_GRASS;
 	
 	public static EnumOrechidMode ORECHID_MODE = EnumOrechidMode.DEFAULT;
 	public static boolean NON_GOG_WATER_BOWL;
@@ -114,8 +112,6 @@ public class BotaniaConfig {
 		}
 		
 		SHEEP_EAT_ALT_GRASS = config.getBoolean("sheepEatCustomGrass", "etc", false, "Can sheep eat the custom Botania grass blocks to regrow their wool?");
-		
-		TILL_ALT_GRASS = config.getBoolean("tillCustomGrass", "etc", false, "Can players till the custom Botania grass blocks into farmland?");
 		
 		MANA_GENERATION_STATISTICS = config.getBoolean("keepManaGenerationStatistics", "etc", false, "Should Botania Tweaks keep statistics on the total amount of mana generated, across all flowers and dimensions?");
 		

@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import quaternary.botaniatweaks.BotaniaTweaks;
 
 public class ConfigUpdater {
-	public static final int CONFIG_FILE_VERSION = 5;
+	public static final int CONFIG_FILE_VERSION = 6;
 	
 	private static final Logger LOG = LogManager.getLogger(BotaniaTweaks.NAME + " Config Auto-Updater");
 	
@@ -53,6 +53,12 @@ public class ConfigUpdater {
 		if(version <= 4) {
 			updatev4tov5(config);
 			version = 5;
+			dirtyConfig = true;
+		}
+		
+		if(version <= 5) {
+			updatev5tov6(config);
+			version = 6;
 			dirtyConfig = true;
 		}
 
@@ -116,6 +122,13 @@ public class ConfigUpdater {
 		removeKeyIfExists(config, "etc", "unlockApothecary", "Removing the Unlock Apothecary option since it was merged in to Botania mainline");
 		removeKeyIfExists(config, "balance", "superSpectrolus", "Removing the Super Spectrolus option since it was merged in to Botania mainline");
 		removeKeyIfExists(config, "balance", "cheapFlintToPowder", "Removing the Cheap Flint to Gunpowder option since it was merged in to Botania mainline");
+	}
+	
+	private static void updatev5tov6(Configuration config) {
+		log("Updating version 5 config to version 6");
+		
+		removeKeyIfExists(config, "etc", "tillAltGrass", "Removing tillAltGrass since it was merged in to Botania mainline");
+		removeKeyIfExists(config, "etc", "tillCustomGrass", "Xd");
 	}
 	
 	private static void removeCategoryIfExists(Configuration config, String category, String comment) {

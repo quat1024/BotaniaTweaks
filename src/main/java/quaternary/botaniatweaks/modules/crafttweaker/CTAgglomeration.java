@@ -3,11 +3,13 @@ package quaternary.botaniatweaks.modules.crafttweaker;
 import com.blamejared.mtlib.helpers.InputHelper;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.mc1120.item.MCItemStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -28,7 +30,7 @@ public class CTAgglomeration {
 	
 	@ZenMethod
 	public static void removeDefaultRecipe() {
-		ModuleCrafttweaker.REMOVE_ACTIONS.add(new RemoveAction(AgglomerationRecipes.defaultRecipe));
+		ModuleCrafttweaker.ACTIONS.add(new RemoveAction(AgglomerationRecipes.defaultRecipe));
 	}
 	
 	//The easy way
@@ -46,7 +48,7 @@ public class CTAgglomeration {
 					@Optional IIngredient edgeReplace,
 					@Optional IIngredient cornerReplace
 	) {
-		ModuleCrafttweaker.ADD_ACTIONS.add(new AddAction(buildAgglomerationRecipe(output, inputs, manaCost, color1, color2, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
+		ModuleCrafttweaker.ACTIONS.add(new AddAction(buildAgglomerationRecipe(output, inputs, manaCost, color1, color2, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
 	}
 	
 	@ZenMethod
@@ -63,7 +65,7 @@ public class CTAgglomeration {
 					@Optional IIngredient edgeReplace,
 					@Optional IIngredient cornerReplace
 	) {
-		ModuleCrafttweaker.REMOVE_ACTIONS.add(new RemoveAction(buildAgglomerationRecipe(output, inputs, manaCost, color1, color2, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
+		ModuleCrafttweaker.ACTIONS.add(new RemoveAction(buildAgglomerationRecipe(output, inputs, manaCost, color1, color2, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
 	}
 	
 	//The way that's kinda in between the two
@@ -94,12 +96,12 @@ public class CTAgglomeration {
 	//The companion object way
 	@ZenMethod
 	public static void addRecipe(CTAgglomerationRecipe recipe) {
-		ModuleCrafttweaker.ADD_ACTIONS.add(new AddAction(recipe.toAgglomerationRecipe()));
+		ModuleCrafttweaker.ACTIONS.add(new AddAction(recipe.toAgglomerationRecipe()));
 	}
 	
 	@ZenMethod
 	public static void removeRecipe(CTAgglomerationRecipe recipe) {
-		ModuleCrafttweaker.REMOVE_ACTIONS.add(new RemoveAction(recipe.toAgglomerationRecipe()));
+		ModuleCrafttweaker.ACTIONS.add(new RemoveAction(recipe.toAgglomerationRecipe()));
 	}
 	
 	//Companion objects
@@ -132,7 +134,7 @@ public class CTAgglomeration {
 		}
 		
 		@ZenMethod
-		public CTAgglomerationRecipe inputs(IIngredient[] inputs) {
+		public CTAgglomerationRecipe inputs(IIngredient... inputs) {
 			this.inputs = inputs;
 			return this;
 		}
@@ -150,7 +152,7 @@ public class CTAgglomeration {
 		}
 		
 		@ZenMethod
-		public CTAgglomerationRecipe colo2(int color2) {
+		public CTAgglomerationRecipe color2(int color2) {
 			this.color2 = color2;
 			return this;
 		}

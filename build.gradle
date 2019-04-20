@@ -47,7 +47,7 @@ repositories {
 
 dependencies {
     deobfCompile "com.blamejared:MTLib:3.0.4.7"
-    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.8.5"
+    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.17.536"
     
     //for some reason this broke so, let's just not use the api separately
     //deobfProvided "mezz.jei:jei_1.12.2:4.13.1.220:api"
@@ -68,6 +68,8 @@ dependencies {
     deobfCompile "cucumber:Cucumber:1.12.2:1.1.1"
     deobfCompile "extended-crafting:ExtendedCrafting:1.12.2:1.5.0"
     deobfCompile "dynamictrees:DynamicTrees:1.12.2:0.8.2"
+
+    runtime "modtweaker:modtweaker:4.0.17"
 }
 
 minecraft.coreMod = "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin"
@@ -81,7 +83,7 @@ jar {
 }
 
 minecraft {
-    version = "1.12.2-14.23.4.2718"
+    version = "1.12.2-14.23.5.2768"
     runDir = "run"
     
     mappings = "stable_39"

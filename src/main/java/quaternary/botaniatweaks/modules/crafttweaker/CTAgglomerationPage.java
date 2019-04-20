@@ -20,7 +20,7 @@ import java.util.List;
 public class CTAgglomerationPage {
 	@ZenMethod
 	public static void add(String unlocalizedName, String entry, int pageNumber, CTAgglomeration.CTAgglomerationRecipe recipe) {
-		ModuleCrafttweaker.ADD_ACTIONS.add(new AddAction(unlocalizedName, entry, pageNumber, recipe.toAgglomerationRecipe()));
+		ModuleCrafttweaker.LATE_ACTIONS.add(new AddAction(unlocalizedName, entry, pageNumber, recipe.toAgglomerationRecipe()));
 	}
 	
 	@ZenMethod
@@ -37,7 +37,7 @@ public class CTAgglomerationPage {
 					@Nullable IIngredient edgeReplace,
 					@Nullable IIngredient cornerReplace
 	) {
-		ModuleCrafttweaker.ADD_ACTIONS.add(new AddAction(unlocalizedName, entry, pageNumber, CTAgglomeration.buildAgglomerationRecipe(output, inputs, manaCostIn, color1In, color2In, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
+		ModuleCrafttweaker.LATE_ACTIONS.add(new AddAction(unlocalizedName, entry, pageNumber, CTAgglomeration.buildAgglomerationRecipe(output, inputs, manaCostIn, color1In, color2In, center, edge, corner, centerReplace, edgeReplace, cornerReplace)));
 	}
 	
 	static class AddAction implements IAction {

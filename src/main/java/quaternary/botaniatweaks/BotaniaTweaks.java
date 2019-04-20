@@ -25,7 +25,7 @@ public class BotaniaTweaks {
 	public static final String MODID = "botania_tweaks";
 	public static final String NAME = "Botania Tweaks";
 	public static final String VERSION = "GRADLE:VERSION";
-	public static final String DEPS = "required-before:botania";
+	public static final String DEPS = "required-before:botania;after:modtweaker";
 	
 	public static final int TESTED_BOTANIA_VERSION = 358;
 	
@@ -68,6 +68,11 @@ public class BotaniaTweaks {
 		modules.forEach(IModule::postinit);
 		
 		GeneratingFlowers.PostInitHandler.postinit(); //Memes
+	}
+	
+	@Mod.EventHandler
+	public static void loadComplete(FMLLoadCompleteEvent e) {
+		modules.forEach(IModule::loadComplete);
 	}
 	
 	@Mod.EventHandler

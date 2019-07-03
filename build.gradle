@@ -46,7 +46,7 @@ repositories {
 }
 
 dependencies {
-    deobfCompile "com.blamejared:MTLib:3.0.4.7"
+    runtime "com.blamejared:MTLib:3.0.4.7"
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.17.536"
     
     //for some reason this broke so, let's just not use the api separately

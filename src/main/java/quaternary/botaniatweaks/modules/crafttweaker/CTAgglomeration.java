@@ -1,15 +1,15 @@
 package quaternary.botaniatweaks.modules.crafttweaker;
 
-import com.blamejared.mtlib.helpers.InputHelper;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.item.IngredientStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
+import crafttweaker.api.oredict.IOreDictEntry;
 import crafttweaker.mc1120.item.MCItemStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -325,17 +325,13 @@ public class CTAgglomeration {
 	private static IBlockState toMinecraftBlockstate(IIngredient ing) {
 		if(ing == null) return null;
 		
-		Object obj = InputHelper.toObject(ing);
-		
-		// >.>
-		if(obj instanceof ItemStack) {
-			ItemStack stack = (ItemStack) obj;
-			return Block.getBlockFromItem(stack.getItem()).getStateFromMeta(stack.getMetadata());
+		if(ing instanceof ILiquidStack) {
+			return CraftTweakerMC.getLiquidStack((ILiquidStack)ing).getFluid().getBlock().getDefaultState();
 		}
 		
-		// <.<
-		if(obj instanceof ILiquidStack) {
-			return InputHelper.toFluid((ILiquidStack) obj).getFluid().getBlock().getDefaultState();
+		ItemStack stack = CraftTweakerMC.getItemStack(ing.getItems().get(0));
+		if(!stack.isEmpty()) {
+			return Block.getBlockFromItem(stack.getItem()).getStateFromMeta(stack.getMetadata()); 
 		}
 		
 		throw new IllegalArgumentException("Invalid multiblock item: " + ing);
@@ -369,8 +365,8 @@ public class CTAgglomeration {
 		Preconditions.checkArgument(providedMultiblockStates == 0 || providedMultiblockStates == 3, "The multiblock must be completely defined or not defined at all!");
 		
 		//actual recipe figuring
-		ImmutableList<Object> ins = ImmutableList.copyOf(InputHelper.toObjects(inputs));
-		ItemStack out = InputHelper.toStack(output);
+		ImmutableList<Object> ins = ImmutableList.copyOf(mtlibToObjects(inputs));
+		ItemStack out = CraftTweakerMC.getItemStack(output);
 		
 		int manaCost = 500_000;
 		if(manaCostIn != null) manaCost = manaCostIn;
@@ -400,5 +396,38 @@ public class CTAgglomeration {
 		IBlockState cornerStateReplace = toMinecraftBlockstate(cornerReplace);
 		
 		return new AgglomerationRecipe(ins, out, manaCost, color1, color2, centerState, edgeState, cornerState, centerStateReplace, edgeStateReplace, cornerStateReplace);
+	}
+	
+	//Literally a cut and paste from mtlib
+	public static Object[] mtlibToObjects(IIngredient[] ingredient) {
+		if(ingredient == null)
+			return null;
+		else {
+			Object[] output = new Object[ingredient.length];
+			for(int i = 0; i < ingredient.length; i++) {
+				if(ingredient[i] != null) {
+					output[i] = mtlibToObject(ingredient[i]);
+				} else
+					output[i] = "";
+			}
+			
+			return output;
+		}
+	}
+	
+	//also a cut and paste
+	public static Object mtlibToObject(IIngredient iStack) {
+		if(iStack == null)
+			return null;
+		else {
+			if(iStack instanceof IOreDictEntry) {
+				return ((IOreDictEntry) iStack).getName(); //edit
+			} else if(iStack instanceof IItemStack) {
+				return CraftTweakerMC.getItemStack((IItemStack) iStack); //edit
+			} else if(iStack instanceof IngredientStack) {
+				return ((IngredientStack) iStack).getItems();
+			} else
+				return null;
+		}
 	}
 }

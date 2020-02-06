@@ -8,9 +8,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.World;
 import quaternary.botaniatweaks.BotaniaTweaks;
+import quaternary.botaniatweaks.asm.monkeypatch.IHardSpectrolus;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.botania.wsd.ManaStatisticsWsd;
 import quaternary.botaniatweaks.modules.jei.BotaniaTweaksJeiPlugin;
@@ -18,9 +21,12 @@ import quaternary.botaniatweaks.modules.jei.ModuleJei;
 import vazkii.botania.api.subtile.SubTileGenerating;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused") //Everything here called through ASM
@@ -34,6 +40,67 @@ public class BotaniaTweakerHooks {
 	
 	public static boolean shouldFlowerDecay(String name) {
 		return BotaniaConfig.SHOULD_ALSO_BE_PASSIVE_MAP.getOrDefault(name, false);
+	}
+	
+	/// hard spectrolus tweak
+	
+	public static void hardSpectrolusInitialize(SubTileSpectrolus tile) {
+		//Always runs even in regular mode
+		//Not a problem because the array is initialized so arr[0] = 0, arr[1] = 1
+		//and the array lookup is a no-op
+		((IHardSpectrolus) tile).btweaks$setWoolOrder(generateDefaultHardSpectrolusArray());
+	}
+	
+	public static void hardSpectrolusWriteToPacketNBT(SubTileSpectrolus tile, NBTTagCompound tag) {
+		if(!BotaniaConfig.ADVANCED_SPECTROLUS) return;
+		
+		tag.setIntArray("btweaks-woolorder", ((IHardSpectrolus) tile).btweaks$getWoolOrder());
+	}
+	
+	public static void hardSpectrolusReadFromPacketNBT(SubTileSpectrolus tile, NBTTagCompound tag) {
+		if(!BotaniaConfig.ADVANCED_SPECTROLUS) return;
+		
+		int[] order = tag.getIntArray("btweaks-woolorder");
+		if(order.length != 16) order = generateDefaultHardSpectrolusArray();
+		
+		((IHardSpectrolus) tile).btweaks$setWoolOrder(order);
+	}
+	
+	public static void hardSpectrolusOnBlockPlacedBy(SubTileSpectrolus tile, World world, ItemStack stack) {
+		if(!BotaniaConfig.ADVANCED_SPECTROLUS) return;
+		
+		((IHardSpectrolus) tile).btweaks$setNextColor(ItemNBTHelper.getInt(stack, "btweaks-nextcolor", 0));
+		
+		int[] order = ItemNBTHelper.getIntArray(stack, "btweaks-woolorder");
+		if(order.length != 16) {
+			order = shuffleArray(generateDefaultHardSpectrolusArray(), world.rand);
+		}
+		((IHardSpectrolus) tile).btweaks$setWoolOrder(order);
+	}
+	
+	public static void hardSpectrolusPopulateDropStackNBTs(SubTileSpectrolus tile, List<ItemStack> drops) {
+		if(!BotaniaConfig.ADVANCED_SPECTROLUS) return;
+		
+		ItemNBTHelper.setInt(drops.get(0), "btweaks-nextcolor", ((IHardSpectrolus) tile).btweaks$getNextColor());
+		ItemNBTHelper.setIntArray(drops.get(0), "btweaks-woolorder", ((IHardSpectrolus) tile).btweaks$getWoolOrder());
+	}
+	
+	private static int[] generateDefaultHardSpectrolusArray() {
+		int[] arr = new int[16];
+		for(int i = 0; i < arr.length; i++) arr[i] = i;
+		return arr;
+	}
+	
+	private static int[] shuffleArray(int[] arr, Random rand) {
+		//fisher-yates shuffle (why is there a primitive to do this on collections, but not arrays...)
+		for(int i = arr.length - 1; i > 0; i--) {
+			int index = rand.nextInt(i + 1);
+			
+			int tmp = arr[index];
+			arr[index] = arr[i];
+			arr[i] = tmp;
+		}
+		return arr;
 	}
 	
 	/// manastorm tweak

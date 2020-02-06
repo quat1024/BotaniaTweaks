@@ -25,6 +25,7 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		tweaks.add(new RosaArcanaOutputTweak());
 		tweaks.add(new KeyDamageTweak());
 		tweaks.add(new JeiPluginTweak());
+		tweaks.add(new AnnoyingSpectrolusTweak());
 		
 		for(Tweak t : tweaks) {
 			allPatchedClasses.addAll(t.getAffectedClasses());

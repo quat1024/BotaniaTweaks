@@ -42,6 +42,8 @@ public class BotaniaConfig {
 	public static boolean ADVANCED_CRAFTY_CRATE_HARDMODE;
 	public static int ADVANCED_CRATE_MANA_PER_ITEM;
 	
+	public static boolean ADVANCED_SPECTROLUS;
+	
 	public static boolean MANA_GENERATION_STATISTICS;
 	
 	public static int CREATIVE_POOL_SIZE = 1_000_000;
@@ -82,6 +84,9 @@ public class BotaniaConfig {
 		ADVANCED_CRAFTY_CRATE_HARDMODE = config.getBoolean("advancedCraftyCrateHardMode", "balance.craftyCrate", false, "If true, the crate will immediately empty itself if it tries to perform a craft and does not have enough mana; if false, the craft will simply wait until it does. Makes it really hard to automate, good luck!");
 		
 		ADVANCED_CRATE_MANA_PER_ITEM = config.getInt("crateManaPerItem", "balance.craftyCrate", 160, 1, Integer.MAX_VALUE, "How much mana does the crafty crate use per-item in the recipe (empty slots and Crafting Placeholders don't count?) Default value is one burst from a redstone spreader.");
+		
+		//spectrolus
+		ADVANCED_SPECTROLUS = config.getBoolean("advancedSpectrolus", "balance", false, "If true, Spectrolus flowers will have a random wool order. It will be different every time you place it, and you'll need to discover it every time (using mana detectors or the like)");
 		
 		//tnt
 		DENY_DUPLICATED_TNT = config.getBoolean("denyEntropinnyumDuplicatedTNT", "balance.tnt", false, "Should the Entropinnyum block TNT that came from a vanilla-style TNT duplicator device?");

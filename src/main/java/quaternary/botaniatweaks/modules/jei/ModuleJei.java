@@ -9,6 +9,6 @@ public class ModuleJei implements IModule {
 	@Override
 	public void readConfig(Configuration config) {
 		//No need to break this out into a separate config class for a single bool...
-		FIX_CORPOREA_REQUEST_KEYBIND = config.get("jei", "fixCorporeaRequestKeybind", true, "If \"true\", you will be able to use the \"Corporea Request\" keybind to click on JEI bookmarks. (This is on by default, unlike basically everything else in the mod, because it doesn't hurt.)").setRequiresMcRestart(true).getBoolean();
+		FIX_CORPOREA_REQUEST_KEYBIND = config.get("compat.jei", "fixCorporeaRequestKeybind", true, "If 'true', you will be able to use the 'Corporea Request' keybind to click on JEI bookmarks. (This is on by default, unlike basically everything else in the mod, because it doesn't hurt.)").getBoolean();
 	}
 }

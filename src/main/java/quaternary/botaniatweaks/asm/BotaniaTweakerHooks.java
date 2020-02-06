@@ -241,7 +241,7 @@ public class BotaniaTweakerHooks {
 					Object thing = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();
 					
 					//Here's the change
-					if(thing == null) {
+					if(ModuleJei.FIX_CORPOREA_REQUEST_KEYBIND && thing == null) {
 						thing = jeiRuntime.getBookmarkOverlay().getIngredientUnderMouse();
 					}
 					

@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.botania.misc.IBotaniaTweaked;
+import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 public class TooltipHandler {
@@ -24,7 +25,12 @@ public class TooltipHandler {
 		} else if(item instanceof ItemBlock) {
 			if(item instanceof ItemBlockSpecialFlower) {
 				String type = ItemBlockSpecialFlower.getType(stack);
-				addTooltip = BotaniaTweakerHooks.shouldFlowerDecay(type);
+				
+				if(GeneratingFlowers.flowerDataFromName(type).isPassive) {
+					addTooltip = BotaniaConfig.DECAY_TIMES.get(type) != 72000;
+				} else {
+					addTooltip = BotaniaTweakerHooks.shouldFlowerDecay(type);
+				}
 				
 				if(BotaniaConfig.ROSA_ARCANA_ORB_MULTIPLIER != 1 && type.equals("arcanerose")) addTooltip = true;
 			} else {

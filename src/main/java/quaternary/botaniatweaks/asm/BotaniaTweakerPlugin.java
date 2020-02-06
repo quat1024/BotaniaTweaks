@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
 import java.util.Map;
 
 @IFMLLoadingPlugin.Name("Botania Tweaks Core")
-@IFMLLoadingPlugin.TransformerExclusions({"quaternary.botaniatweaks.asm"})
+@IFMLLoadingPlugin.TransformerExclusions({"quaternary.botaniatweaks.asm", "quaternary.botaniatweaks.modules.shared.lib"}) // ;)
 @IFMLLoadingPlugin.MCVersion("1.12.2")
 @IFMLLoadingPlugin.SortingIndex(1337)
 public class BotaniaTweakerPlugin implements IFMLLoadingPlugin {

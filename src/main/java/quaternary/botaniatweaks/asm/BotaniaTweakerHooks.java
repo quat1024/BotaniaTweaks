@@ -8,11 +8,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.asm.monkeypatch.IHardSpectrolus;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.botania.wsd.ManaStatisticsWsd;
@@ -23,6 +21,7 @@ import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 
 import java.util.Iterator;
 import java.util.List;
@@ -34,12 +33,21 @@ public class BotaniaTweakerHooks {
 	
 	/// decay tweak
 	
+	public static String currentFlowerName;
+	
+	public static void beforeFlowerSuper(String flowerName, SubTileGenerating tile, int mana) {
+		currentFlowerName = flowerName;
+	}
+	
+	//The hook for this exists in subtilegenerating, which is why I need to play
+	//games with the flower name in order to find out who is calling this method.
 	public static int getPassiveDecayTime() {
-		return BotaniaConfig.PASSIVE_DECAY_TIMER;
+		if(currentFlowerName == null) return 72000;
+		else return BotaniaConfig.DECAY_TIMES.getOrDefault(currentFlowerName, 72000);
 	}
 	
 	public static boolean shouldFlowerDecay(String name) {
-		return BotaniaConfig.SHOULD_ALSO_BE_PASSIVE_MAP.getOrDefault(name, false);
+		return BotaniaConfig.DECAY_TIMES.getOrDefault(name, 0) != 0;
 	}
 	
 	/// hard spectrolus tweak
@@ -176,19 +184,16 @@ public class BotaniaTweakerHooks {
 	
 	//Mana statistics
 	
-	private static String lastFlowerName = null;
 	private static int oldMana = 0;
 	
-	public static void beginManaStatSection(String flowerName, SubTileGenerating flower, int oldMana_) {
+	public static void afterFlowerSuper(String flowerName, SubTileGenerating flower, int oldMana_) {
 		if(!BotaniaConfig.MANA_GENERATION_STATISTICS || flower.getWorld().isRemote) return;
-		flowerName = fixThermalilyFlowerName(flowerName, flower);
 		
-		lastFlowerName = flowerName;
 		oldMana = oldMana_;
 	}
 	
-	public static void endManaStatSection(String flowerName, SubTileGenerating flower, int newMana) {
-		if(!BotaniaConfig.MANA_GENERATION_STATISTICS ||flower.getWorld().isRemote) return;
+	public static void beforeFlowerReturn(String flowerName, SubTileGenerating flower, int newMana) {
+		if(!BotaniaConfig.MANA_GENERATION_STATISTICS || flower.getWorld().isRemote) return;
 		flowerName = fixThermalilyFlowerName(flowerName, flower);
 		
 		int manaDifference = newMana - oldMana;
@@ -203,7 +208,6 @@ public class BotaniaTweakerHooks {
 			wsd.trackMana(flowerName, manaDifference);
 		}
 		
-		lastFlowerName = null;
 		oldMana = 0;
 	}
 	
@@ -230,6 +234,26 @@ public class BotaniaTweakerHooks {
 	
 	public static float getKeyDamage() {
 		return 20f * BotaniaConfig.KEY_DAMAGE_SCALE;
+	}
+	
+	//flower durability bars
+	
+	public static boolean durabilityShowDurabilityBar(ItemStack stack) {
+		String type = ItemBlockSpecialFlower.getType(stack);
+		if(BotaniaConfig.FLOWER_DURABILITY && shouldFlowerDecay(type)) {
+			return ItemNBTHelper.getInt(stack, "passiveDecayTicks", 0) != 0;
+		} else return false;
+	}
+	
+	public static double durabilityGetDurabilityForDisplay(ItemStack stack) {
+		if(!BotaniaConfig.FLOWER_DURABILITY) return 1;
+		
+		String type = ItemBlockSpecialFlower.getType(stack);
+		int max = BotaniaConfig.DECAY_TIMES.get(type);
+		if(max == 0) return 1;
+		int progress = ItemNBTHelper.getInt(stack, "passiveDecayTicks", 0);
+		
+		return (double) progress / max;
 	}
 	
 	public static class Jei {

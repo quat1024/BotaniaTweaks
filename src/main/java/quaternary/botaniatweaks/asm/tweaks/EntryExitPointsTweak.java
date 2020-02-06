@@ -6,7 +6,7 @@ import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 
 import java.util.Collection;
 
-public class ManaStatisticsTweak extends Tweak {
+public class EntryExitPointsTweak extends Tweak {
 	@Override
 	protected Collection<String> computeAffectedClasses() {
 		return ImmutableList.copyOf(GeneratingFlowers.getAllFlowerClassesMayOrMayNotExist());
@@ -14,7 +14,7 @@ public class ManaStatisticsTweak extends Tweak {
 	
 	@Override
 	String getLogMessage(String transformedName) {
-		return "Adding managen statistics for the " + GeneratingFlowers.flowerNameFromClass(transformedName) + " flower...";
+		return "Instrumenting entry/exit points for the " + GeneratingFlowers.flowerNameFromClass(transformedName) + " flower...";
 	}
 	
 	@Override
@@ -24,6 +24,8 @@ public class ManaStatisticsTweak extends Tweak {
 			//The name is always "onUpdate" and not some SRG nonsense
 			//since it's really not part of Minecraft, despite sharing the same name.
 			if(method.name.equals("onUpdate")) {
+				
+				method.instructions.insertBefore(method.instructions.getFirst(), genInsnListHook(transformedName, "beforeFlowerSuper"));
 				
 				boolean addedAfterSuperHook = false;
 				
@@ -37,7 +39,7 @@ public class ManaStatisticsTweak extends Tweak {
 										methodInstruction.name.equals("onUpdate") && 
 										methodInstruction.owner.equals("vazkii/botania/api/subtile/SubTileGenerating")) {
 							
-							InsnList hook = genInsnListHook(transformedName, "beginManaStatSection");
+							InsnList hook = genInsnListHook(transformedName, "afterFlowerSuper");
 							
 							method.instructions.insert(methodInstruction, hook);
 							addedAfterSuperHook = true;
@@ -46,7 +48,7 @@ public class ManaStatisticsTweak extends Tweak {
 					
 					//Add a call to endManaStatSection before every return point
 					if(instruction.getOpcode() == RETURN) {
-						InsnList hook = genInsnListHook(transformedName, "endManaStatSection");
+						InsnList hook = genInsnListHook(transformedName, "beforeFlowerReturn");
 						
 						insIndex += hook.size(); //Skip over this RETURN ins
 						

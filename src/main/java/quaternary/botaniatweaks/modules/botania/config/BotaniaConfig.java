@@ -1,13 +1,15 @@
 package quaternary.botaniatweaks.modules.botania.config;
 
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import quaternary.botaniatweaks.asm.BotaniaTweakerHooks;
 import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
+import quaternary.botaniatweaks.modules.shared.lib.NiceTryMap;
+import sun.reflect.Reflection;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,8 +21,12 @@ public class BotaniaConfig {
 	
 	public static boolean CREATE_ENDER_AIR_WITH_DISPENSER;
 	
-	public static int PASSIVE_DECAY_TIMER = 72000;
-	public static HashMap<String, Boolean> SHOULD_ALSO_BE_PASSIVE_MAP = new HashMap<>();
+	public static final NiceTryMap DECAY_TIMES = new NiceTryMap();
+	public static boolean FLOWER_DURABILITY = false;
+	static {
+		//Hello Bord, hope you're well :)
+		Reflection.registerFieldsToFilter(BotaniaConfig.class, "DECAY_TIMES");
+	}
 	
 	public static float MANASTORM_SCALE_FACTOR;
 	
@@ -96,16 +102,23 @@ public class BotaniaConfig {
 		FORCE_VANILLA_TNT = config.getBoolean("forceVanillaTNT", "balance.tnt", false, "Should the Entropinnyum only accept vanilla TNT entities?");
 		
 		//decay
-		PASSIVE_DECAY_TIMER = config.getInt("passiveDecayTimer", "balance.decay", 72000, 1, 72000, "How many ticks until passive flowers decay? Can only be set *lower* than the default value. Muahaha.");
-		
 		for(GeneratingFlowers.FlowerData data : GeneratingFlowers.getAllFlowerDatas()) {
-			if(data.isPassive) continue;
-			
 			String flowerName = data.name;
-			String flowerMod = data.modId;
-			boolean shouldIt = config.getBoolean(flowerName + "Decay", "balance.decay.flowers", false, String.format("Does the %s, from %s, experience passive decay?", flowerName, flowerMod));
-			SHOULD_ALSO_BE_PASSIVE_MAP.put(flowerName, shouldIt);
+			
+			int time;
+			if(data.isPassive) {
+				String comment = String.format("How long does it take for the %s to decay? Can only be set lower than the default value.", flowerName);
+				time = config.getInt(flowerName + "Decay", "balance.decay.passive", 72000, 1, 72000, comment);
+				time = MathHelper.clamp(time, 1, 72000); //Nice try!
+			} else {
+				String comment = String.format("How long does it take for the %s to decay? Use 0 to disable decay for this flower.", flowerName);
+				time = config.getInt(flowerName + "Decay", "balance.decay", 0, 0, Integer.MAX_VALUE, comment);
+			}
+			
+			DECAY_TIMES.put(flowerName, time);
 		}
+		
+		FLOWER_DURABILITY = config.getBoolean("flowerDurabilityBars", "balance.decay", false, "Decayable flowers in your inventory show a durability bar.");
 		
 		//fluxfield
 		MANA_SHOTS_PER_ENERGY_BURST = config.getInt("shotsPerBurst", "balance.fluxfield", 1, 1, Integer.MAX_VALUE, "How many pulses from a mana spreader are needed to fire off a \"packet\" of FE?");

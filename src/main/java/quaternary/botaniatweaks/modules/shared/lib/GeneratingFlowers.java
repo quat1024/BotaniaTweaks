@@ -1,12 +1,12 @@
 package quaternary.botaniatweaks.modules.shared.lib;
 
 import net.minecraftforge.fml.common.Loader;
-import org.apache.logging.log4j.LogManager;
 import quaternary.botaniatweaks.BotaniaTweaks;
+import sun.reflect.Reflection;
 
 import java.util.*;
 
-public class GeneratingFlowers {
+public final class GeneratingFlowers {
 	
 	private static final Set<FlowerData> flowers;
 	private static final Map<String, FlowerData> classesToData;
@@ -72,10 +72,10 @@ public class GeneratingFlowers {
 	}
 	
 	public static boolean hasFlowerNamed(String name) {
-		return namesToData.keySet().contains(name);
+		return namesToData.containsKey(name);
 	}
 	
-	public static class FlowerData {
+	public static final class FlowerData {
 		public FlowerData(String modId, String name, String className, boolean isPassive) {
 			this.modId = modId;
 			this.name = name;
@@ -95,6 +95,10 @@ public class GeneratingFlowers {
 		
 		public void markPresent() {
 			isPresent = true;
+		}
+		
+		static {
+			Reflection.registerFieldsToFilter(GeneratingFlowers.FlowerData.class, "isPassive");
 		}
 	}
 	

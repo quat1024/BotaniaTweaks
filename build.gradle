@@ -20,47 +20,50 @@ compileJava {
 }
 
 repositories {
+    //Botania, CraftTweaker
     maven {
-        url = "http://maven.blamejared.com"
+        url = "https://maven.blamejared.com"
     }
-    
+
+    //Baubles
     maven  {
         url = "http://maven.thiakil.com"
     }
-    
+
+    //JEI
     maven {
         url = "http://dvs1.progwml6.com/files/maven"
     }
-    
+
+    //CCL, Avaritia
     maven {
         url = "http://maven.covers1624.net"
     }
-    
-    maven {
-        url = "http://chickenbones.net/maven"
-    }
-    
+
+    //More chicken stuff (probably don't need this)
+    //maven {
+    //    url = "http://chickenbones.net/maven"
+    //}
+
+    //Curse's excuse of an API
     maven {
         url = "http://minecraft.curseforge.com/api/maven/"
     }
 }
 
 dependencies {
-    runtime "com.blamejared:MTLib:3.0.4.7"
-    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.17.536"
-    
-    //for some reason this broke so, let's just not use the api separately
-    //deobfProvided "mezz.jei:jei_1.12.2:4.13.1.220:api"
-    deobfCompile "mezz.jei:jei_1.12.2:4.13.1.220"
+    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.554"
 
-    deobfCompile "vazkii.botania:Botania:r1.10-362.72"
+    deobfCompile "mezz.jei:jei_1.12.2:4.15.0.293"
+
+    deobfCompile "vazkii.botania:Botania:r1.10-363.148"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
     
     //I feel dirty already
-    deobfCompile ("codechicken:CodeChickenLib:1.12.2-3.2.2.352:universal") {
+    deobfCompile ("codechicken:CodeChickenLib:1.12.2-3.2.3.358:universal") {
         transitive = false
     }
-    deobfCompile ("morph.avaritia:Avaritia:1.12.2-3.2.0.25:universal") {
+    deobfCompile ("morph.avaritia:Avaritia:1.12.2-3.3.0.35:universal") {
         transitive = false
     }
     
@@ -69,7 +72,8 @@ dependencies {
     deobfCompile "extended-crafting:ExtendedCrafting:1.12.2:1.5.0"
     deobfCompile "dynamictrees:DynamicTrees:1.12.2:0.8.2"
     deobfProvided "thaumcraft:thaumcraft:1.12.2:6.1.BETA26"
-    
+
+    runtime "com.blamejared:MTLib:3.0.4.7"
     runtime "modtweaker:modtweaker:4.0.17"
 }
 
@@ -84,7 +88,7 @@ jar {
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2768"
+    version = "1.12.2-14.23.5.2816"
     runDir = "run"
     
     mappings = "stable_39"

@@ -31,7 +31,7 @@ public abstract class Tweak implements Opcodes {
 	}
 	
 	static String getHooksClass(String plugin) {
-		return BotaniaTweakerTransformer.HOOKS + plugin;
+		return BotaniaTweakerTransformer.HOOKS + '$' + plugin;
 	}
 	
 	static void log(String message) {

@@ -16,6 +16,8 @@ import quaternary.botaniatweaks.modules.shared.helper.ModCompatUtil;
 
 @JEIPlugin
 public class BotaniaTweaksJeiPlugin implements IModPlugin {
+	public static IJeiRuntime jeiRuntime;
+	
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		registry.addRecipeCategories(new RecipeCategoryCustomAgglomeration(registry.getJeiHelpers().getGuiHelper()));
@@ -48,5 +50,10 @@ public class BotaniaTweaksJeiPlugin implements IModPlugin {
 		if(Loader.isModLoaded("avaritia")) {
 			registry.addRecipeCatalyst(ModCompatUtil.getStackFor(new ResourceLocation(BotaniaTweaks.MODID, "dire_crafty_crate")), "Avatitia.Extreme");
 		}
+	}
+	
+	@Override
+	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+		BotaniaTweaksJeiPlugin.jeiRuntime = jeiRuntime;
 	}
 }

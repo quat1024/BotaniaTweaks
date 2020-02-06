@@ -1,5 +1,7 @@
 package quaternary.botaniatweaks.asm;
 
+import mezz.jei.api.IJeiRuntime;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,9 +10,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
+import quaternary.botaniatweaks.BotaniaTweaks;
 import quaternary.botaniatweaks.modules.botania.config.BotaniaConfig;
 import quaternary.botaniatweaks.modules.botania.wsd.ManaStatisticsWsd;
+import quaternary.botaniatweaks.modules.jei.BotaniaTweaksJeiPlugin;
+import quaternary.botaniatweaks.modules.jei.ModuleJei;
 import vazkii.botania.api.subtile.SubTileGenerating;
+import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.common.Botania;
 
 import java.util.Iterator;
@@ -157,5 +163,29 @@ public class BotaniaTweakerHooks {
 	
 	public static float getKeyDamage() {
 		return 20f * BotaniaConfig.KEY_DAMAGE_SCALE;
+	}
+	
+	public static class Jei {
+		public static void patchCorporeaKeybind(IJeiRuntime runtime) {
+			if(ModuleJei.FIX_CORPOREA_REQUEST_KEYBIND) {
+				CorporeaInputHandler.jeiPanelSupplier = () -> {
+					IJeiRuntime jeiRuntime = BotaniaTweaksJeiPlugin.jeiRuntime;
+					
+					Object thing = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();
+					
+					//Here's the change
+					if(thing == null) {
+						thing = jeiRuntime.getBookmarkOverlay().getIngredientUnderMouse();
+					}
+					
+					if(thing == null && Minecraft.getMinecraft().currentScreen == jeiRuntime.getRecipesGui()) {
+						thing = jeiRuntime.getRecipesGui().getIngredientUnderMouse();
+					}
+					
+					if(thing instanceof ItemStack) return (ItemStack) thing;
+					else return null;
+				};
+			}
+		}
 	}
 }

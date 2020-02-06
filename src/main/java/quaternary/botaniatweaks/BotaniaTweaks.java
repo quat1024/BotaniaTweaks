@@ -13,6 +13,7 @@ import quaternary.botaniatweaks.modules.botania.ModuleBotania;
 import quaternary.botaniatweaks.modules.crafttweaker.ModuleCrafttweaker;
 import quaternary.botaniatweaks.modules.dynamictrees.ModuleDynamicTrees;
 import quaternary.botaniatweaks.modules.extendedcrafting.ModuleExtendedCrafting;
+import quaternary.botaniatweaks.modules.jei.ModuleJei;
 import quaternary.botaniatweaks.modules.shared.config.BotaniaTweaksConfig;
 import quaternary.botaniatweaks.modules.shared.lib.GeneratingFlowers;
 import quaternary.botaniatweaks.modules.shared.proxy.ServerProxy;
@@ -25,9 +26,7 @@ public class BotaniaTweaks {
 	public static final String MODID = "botania_tweaks";
 	public static final String NAME = "Botania Tweaks";
 	public static final String VERSION = "GRADLE:VERSION";
-	public static final String DEPS = "required-before:botania;after:modtweaker";
-	
-	public static final int TESTED_BOTANIA_VERSION = 358;
+	public static final String DEPS = "required-before:botania;after:modtweaker;after:jei@[4.15.0,);";
 	
 	public static final Logger LOG = LogManager.getLogger(NAME);
 	
@@ -53,6 +52,7 @@ public class BotaniaTweaks {
 		if(Loader.isModLoaded("crafttweaker")) modules.add(new ModuleCrafttweaker());
 		if(Loader.isModLoaded("extendedcrafting")) modules.add(new ModuleExtendedCrafting());
 		if(Loader.isModLoaded("dynamictrees")) modules.add(new ModuleDynamicTrees());
+		if(Loader.isModLoaded("jei")) modules.add(new ModuleJei());
 		
 		BotaniaTweaksConfig.initConfig();
 		modules.forEach(IModule::preinit);

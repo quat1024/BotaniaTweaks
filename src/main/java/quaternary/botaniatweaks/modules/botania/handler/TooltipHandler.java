@@ -26,7 +26,10 @@ public class TooltipHandler {
 			if(item instanceof ItemBlockSpecialFlower) {
 				String type = ItemBlockSpecialFlower.getType(stack);
 				
-				if(GeneratingFlowers.flowerDataFromName(type).isPassive) {
+				GeneratingFlowers.FlowerData data = GeneratingFlowers.flowerDataFromName(type);
+				if(data == null) return;
+				
+				if(data.isPassive) {
 					addTooltip = BotaniaConfig.DECAY_TIMES.get(type) != 72000;
 				} else {
 					addTooltip = BotaniaTweakerHooks.shouldFlowerDecay(type);
@@ -42,7 +45,7 @@ public class TooltipHandler {
 		}
 		
 		if(addTooltip) {
-			e.getToolTip().add(TextFormatting.DARK_GRAY + "" + TextFormatting.ITALIC + I18n.format("botania_tweaks.tweaked") + TextFormatting.RESET);
+			e.getToolTip().add(TextFormatting.DARK_GREEN + "" + TextFormatting.ITALIC + I18n.format("botania_tweaks.tweaked") + TextFormatting.RESET);
 		}
 	}
 }

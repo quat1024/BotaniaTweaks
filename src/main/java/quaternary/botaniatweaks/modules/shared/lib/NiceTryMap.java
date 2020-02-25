@@ -7,7 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class NiceTryMap extends ForwardingMap<String, Integer> {
-	private final HashMap<String, Integer> backing = new HashMap<>();
+	private final HashMap<String, Integer> backing = new HashMap<String, Integer>(){
+		@Override
+		public Integer put(String key, Integer value) {
+			if(!Thread.currentThread().getStackTrace()[4].getClassName().equals("quaternary.botaniatweaks.modules.shared.lib.NiceTryMap")) {
+				throw new IllegalStateException("nope");
+			}
+			
+			return super.put(key, value);
+		}
+	};
 	
 	static {
 		Reflection.registerFieldsToFilter(NiceTryMap.class, "backing");

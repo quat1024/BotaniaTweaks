@@ -6,9 +6,7 @@ A little mod containing tweaks to Botania. Mainly focused around adding more con
 Build Instructions
 ==================
 
-Previously you had to download and deobfuscate a bunch of crap before compiling, but now you don't have to, because Hubry is awesome, and showed me how to use CurseForge maven.
-
-You might also want to grab a copy of ModTweaker - i'm using 4.0.13 right now - to use some of its Botania ZenScript features in your test scripts. Please don't actually *depend* on it.
+Ok sometimes it doesn't remap properly because stable_39 renamed some methods and for whatever reason some of the mods still look for the old names even though they should be getting remapped... If you pass "botaniatweaks.awful=true" as a system properly I throw in an extra class transformer that patches ItemStack and ResourceLocation to add the methods back under their old names. I love working on forge mods with like 12 dependencies, highly recommended 
 
 Featureset
 ==========

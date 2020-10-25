@@ -1,116 +1,87 @@
 buildscript {
-    repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
-    }
-    dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-    }
+	repositories {
+		jcenter()
+		maven { url = "http://files.minecraftforge.net/maven" }
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+	}
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 version = "1.9.0"
-group = "quaternary.botaniatweaks" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "quaternary.botaniatweaks"
 archivesBaseName = "botaniatweaks"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
+	sourceCompatibility = targetCompatibility = '1.8'
 }
 
 repositories {
-    //Botania, CraftTweaker
-    maven {
-        url = "https://maven.blamejared.com"
-    }
-
-    //Baubles
-    maven  {
-        url = "http://maven.thiakil.com"
-    }
-
-    //JEI
-    maven {
-        url = "http://dvs1.progwml6.com/files/maven"
-    }
-
-    //CCL, Avaritia
-    maven {
-        url = "http://maven.covers1624.net"
-    }
-
-    //More chicken stuff (probably don't need this)
-    //maven {
-    //    url = "http://chickenbones.net/maven"
-    //}
-
-    //Curse's excuse of an API
-    maven {
-        url = "http://minecraft.curseforge.com/api/maven/"
-    }
+	maven {
+		url = "https://www.cursemaven.com/"
+	}
+	
+	maven {
+  	url = "https://maven.blamejared.com"
+  }
 }
 
 dependencies {
-    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.554"
 
-    deobfCompile "mezz.jei:jei_1.12.2:4.15.0.293"
-
-    deobfCompile "vazkii.botania:Botania:r1.10-363.148"
-    deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
-    
-    //I feel dirty already
-    deobfCompile ("codechicken:CodeChickenLib:1.12.2-3.2.3.358:universal") {
-        transitive = false
-    }
-    deobfCompile ("morph.avaritia:Avaritia:1.12.2-3.3.0.35:universal") {
-        transitive = false
-    }
-    
-    //Pull from curseforge
-    deobfCompile "cucumber:Cucumber:1.12.2:1.1.1"
-    deobfCompile "extended-crafting:ExtendedCrafting:1.12.2:1.5.0"
-    deobfCompile "dynamictrees:DynamicTrees:1.12.2:0.8.2"
-    deobfProvided "thaumcraft:thaumcraft:1.12.2:6.1.BETA26"
-
-    runtime "com.blamejared:MTLib:3.0.4.7"
-    runtime "modtweaker:modtweaker:4.0.17"
+	deobfCompile "curse.maven:botania:2846950"
+	deobfCompile "curse.maven:baubles:2518667"
+	
+	deobfCompile "curse.maven:jei:3043174"
+	deobfCompile "curse.maven:codechickenlib:2779848"
+	deobfCompile "curse.maven:avaritia-1.1x:2660801"
+	deobfCompile "curse.maven:cucumber-library:2645867"
+	deobfCompile "curse.maven:extended-crafting:2777071"
+	deobfCompile "curse.maven:dynamic-trees:3090223"
+	deobfCompile "curse.maven:thaumcraft:2629023"
+	
+	//It doesn't work if you pull it from cursemaven due to ridiculous AT errors lmao
+	deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.594"
+	//runtime "curse.maven:modtweaker:2881277"
+	//runtime "curse.maven:mtlib:2684561"
 }
 
 minecraft.coreMod = "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin"
 
 jar {
-    manifest {
-        attributes "FMLCorePlugin": "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin", "FMLCorePluginContainsFMLMod": true
-        
-        attributes "FMLAT": "botania_tweaks_at.cfg"
-    }
+	manifest {
+		attributes "FMLCorePlugin": "quaternary.botaniatweaks.asm.BotaniaTweakerPlugin", "FMLCorePluginContainsFMLMod": true
+		
+		attributes "FMLAT": "botania_tweaks_at.cfg"
+	}
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2816"
-    runDir = "run"
-    
-    mappings = "stable_39"
-    useDepAts = true
-    
-    replace "GRADLE:VERSION", project.version
+	version = "1.12.2-14.23.5.2816"
+	runDir = "run"
+	
+	mappings = "stable_39"
+	useDepAts = true
+	
+	replace "GRADLE:VERSION", project.version
 }
 
 processResources {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+	// this will ensure that this task is redone when the versions change.
+	inputs.property "version", project.version
+	inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        
-        expand 'gradleversion':project.version
-    }
-        
-    // copy everything else except the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
+	// replace stuff in mcmod.info, nothing else
+	from(sourceSets.main.resources.srcDirs) {
+		include 'mcmod.info'
+		
+		expand 'gradleversion':project.version
+	}
+		
+	// copy everything else except the mcmod.info
+	from(sourceSets.main.resources.srcDirs) {
+		exclude 'mcmod.info'
+	}
 }

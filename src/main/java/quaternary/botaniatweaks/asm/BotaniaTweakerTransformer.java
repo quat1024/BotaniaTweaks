@@ -28,6 +28,10 @@ public class BotaniaTweakerTransformer implements IClassTransformer, Opcodes {
 		tweaks.add(new AnnoyingSpectrolusTweak());
 		tweaks.add(new FlowerDurabilityTweak());
 		
+		if(Boolean.parseBoolean(System.getProperty("botaniatweaks.awful", "false"))) {
+			tweaks.add(new AaaaaaaaaaaaTweak());
+		}
+		
 		for(Tweak t : tweaks) {
 			allPatchedClasses.addAll(t.getAffectedClasses());
 		}

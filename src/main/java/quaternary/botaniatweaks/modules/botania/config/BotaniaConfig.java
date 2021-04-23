@@ -156,7 +156,7 @@ public class BotaniaConfig {
 		
 		PROCESS_CUSTOM_AGGLO_STACKS = config.getBoolean("doCustomAggglomerationPreprocessing", "etc", true, "If \"true\", the custom terrestrial agglomeration plate will try to \"collect\" the items on top of it, resolving issues relating to \"2x apple\" being treated differently from \"apple, apple\". This operation can be expensive, so here is your option to disable it, if you have a lot of agglomeration recipes that don't use this feature.\nThis is kind of a hack fix; if I get around to writing a more performant agglomeration recipe matcher, I'll remove this option.");
 		
-		FIX_AVATAR = config.getBoolean("fixAvatar", "fixes", true, "The Livingwood Avatar accidentally destroys some mana and doesn't remember its mana contents. If \"true\", Hubry's fix will be backported. This is enabled by default unlike a lot of other things in the mod. Note that this requires a game restart to change the \"doesn't remember its mana contents\" portion of the bug.");
+		FIX_AVATAR = config.getBoolean("fixAvatar", "fixes", true, "The Livingwood Avatar accidentally destroys some mana and doesn't remember its elapsed time. If \"true\", Hubry's fix will be backported. This is enabled by default unlike a lot of other things in the mod.");
 		
 		FIX_IMBUER = config.getBoolean("fixImbuer", "fixes", true, "The Life Imbuer accidentally destroys some mana. If \"true\", Hubry's fix will be backported. This is enabled by default unlike a lot of other things in the mod.");
 		

@@ -70,28 +70,6 @@ public class AvatarFixTweak extends Tweak {
 					}
 				}
 			}
-			
-			//starting state
-			//pool: 37000
-			//spreader: 1000
-			//avatar: 0
-			//total: 38000
-			
-			//remove redstone block and allow the spreader to fill the avatar.
-			//obstruct the avatar so it can't place a block.
-			//expected total: 38000
-			//
-			//pool: 30600
-			//spreader: 1000
-			//avatar: 6400
-			//total: 38000 Pass!
-			
-			//remove obstruction from the avatar and allow it to place one block
-			//this costs 75 mana, so expected total: 37925
-			//pool: 30440
-			//spreader: 1000
-			//avatar: 6400
-			//total: 37840 Fail! mana is getting lost.
 		}
 	}
 }

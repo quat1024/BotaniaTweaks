@@ -60,6 +60,9 @@ public class BotaniaConfig {
 	public static int NATURA_PYLON_ENCHANT_POWER;
 	public static int GAIA_PYLON_ENCHANT_POWER;
 	
+	public static boolean FIX_AVATAR;
+	public static boolean FIX_IMBUER;
+	
 	public static void readConfig(Configuration config) {
 		//balance
 		MANASTORM_SCALE_FACTOR = config.getFloat("manastormScaleFactor", "balance", 1f, 1f, 15f, "The default mana output of the Manastorm Charge is multiplied by this amount. Setting this to a value higher than around ~1.38889ish allows for the \"Manastorm Reactor\" build to be profitable.");
@@ -152,6 +155,10 @@ public class BotaniaConfig {
 		NON_GOG_WATER_BOWL = config.getBoolean("nonGogWaterBowl", "etc", false, "Should the water bowl mechanic, where you right click on water with a bowl to create a filled bowl, be available outside of Garden of Glass mode?");
 		
 		PROCESS_CUSTOM_AGGLO_STACKS = config.getBoolean("doCustomAggglomerationPreprocessing", "etc", true, "If \"true\", the custom terrestrial agglomeration plate will try to \"collect\" the items on top of it, resolving issues relating to \"2x apple\" being treated differently from \"apple, apple\". This operation can be expensive, so here is your option to disable it, if you have a lot of agglomeration recipes that don't use this feature.\nThis is kind of a hack fix; if I get around to writing a more performant agglomeration recipe matcher, I'll remove this option.");
+		
+		FIX_AVATAR = config.getBoolean("fixAvatar", "fixes", true, "The Livingwood Avatar accidentally destroys some mana and doesn't remember its mana contents. If \"true\", Hubry's fix will be backported. This is enabled by default unlike a lot of other things in the mod. Note that this requires a game restart to change the \"doesn't remember its mana contents\" portion of the bug.");
+		
+		FIX_IMBUER = config.getBoolean("fixImbuer", "fixes", true, "The Life Imbuer accidentally destroys some mana. If \"true\", Hubry's fix will be backported. This is enabled by default unlike a lot of other things in the mod.");
 		
 		if(config.hasChanged()) config.save();
 	}

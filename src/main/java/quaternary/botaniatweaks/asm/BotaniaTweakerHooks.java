@@ -256,6 +256,20 @@ public class BotaniaTweakerHooks {
 		return (double) progress / max;
 	}
 	
+	//avatar/imbuer fix
+	
+	public static String getAvatarManaField() {
+		return BotaniaConfig.FIX_AVATAR ? "mana" : "ticksElapsed";
+	}
+	
+	public static int getAvatarMax() {
+		return 6400 * (BotaniaConfig.FIX_AVATAR ? 3 : 1);
+	}
+	
+	public static int getSpawnerClawMax() {
+		return 160 * (BotaniaConfig.FIX_AVATAR ? 3 : 1);
+	}
+	
 	public static class Jei {
 		public static void patchCorporeaKeybind(IJeiRuntime runtime) {
 			if(ModuleJei.FIX_CORPOREA_REQUEST_KEYBIND) {

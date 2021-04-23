@@ -267,7 +267,7 @@ public class BotaniaTweakerHooks {
 	}
 	
 	public static int getSpawnerClawMax() {
-		return 160 * (BotaniaConfig.FIX_AVATAR ? 6 : 1);
+		return 160 * (BotaniaConfig.FIX_IMBUER ? 6 : 1);
 	}
 	
 	public static class Jei {
